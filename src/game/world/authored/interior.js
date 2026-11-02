@@ -74,3 +74,12 @@ export function validateInterior(id, interactables, entry, exteriorDoorIds) {
 export function interiorData({ tiles, placements, clips, interactables }) {
   return { tiles, placements, clips, interactables }
 }
+
+// The import receipt names both sides, so a house still waiting for its room is visible without
+// diffing directories. Sorted, so the line does not reorder itself between runs.
+export function interiorCoverage(ids, doorIds) {
+  const adopted = new Set(ids)
+  const list = xs => (xs.length ? [...xs].sort().join(', ') : 'none')
+  const without = doorIds.filter(d => !adopted.has(d))
+  return `interiors: ${ids.length} of ${doorIds.length} houses — with: ${list(ids)} — without: ${list(without)}`
+}

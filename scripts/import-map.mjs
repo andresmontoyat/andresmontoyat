@@ -11,7 +11,7 @@ import fs from 'node:fs/promises'
 import { existsSync } from 'node:fs'
 import sharp from 'sharp'
 import { convertMap, slugFor, doorCoverage } from '../src/game/world/authored/convert.js'
-import { interiorIdOf, validateInterior, interiorData } from '../src/game/world/authored/interior.js'
+import { interiorIdOf, validateInterior, interiorData, interiorCoverage } from '../src/game/world/authored/interior.js'
 
 const ROOT = process.cwd()
 const IN_MAP = path.join(ROOT, 'src', 'game', 'world', 'authored', 'career.map.json')
@@ -114,7 +114,7 @@ async function importInteriors(experience, exteriorOut) {
   await removeStale(OUT_INTERIOR_DATA, ['.atlas.json', '.json'], ids)
   await removeStale(IN_INTERIORS, ['.manifest.json'], ids)
   await removeStale(OUT_INTERIOR_PNG, ['.png'], ids)
-  console.log(`interiors: ${ids.length} of ${exteriorDoorIds.length} houses (${ids.join(', ')})`)
+  console.log(interiorCoverage(ids, exteriorDoorIds))
 }
 
 async function main() {

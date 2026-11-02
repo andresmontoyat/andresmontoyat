@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { convertMap } from './convert.js'
-import { interiorIdOf, validateInterior, interiorData } from './interior.js'
+import { interiorIdOf, validateInterior, interiorData, interiorCoverage } from './interior.js'
 
 const ID = 'tul-2022'
 const lines = n => Array.from({ length: n }, (_, i) => `bullet ${i + 1}`)
@@ -115,5 +115,16 @@ describe('interiorData', () => {
 
   it('should keep everything but the manifest', () => {
     expect(Object.keys(interiorData(convert())).sort()).toEqual(['clips', 'interactables', 'placements', 'tiles'])
+  })
+})
+
+describe('interiorCoverage', () => {
+  it('should say which houses have an interior and which do not', () => {
+    expect(interiorCoverage([ID], ['zeta-2020', ID, 'acme-2019']))
+      .toBe('interiors: 1 of 3 houses — with: tul-2022 — without: acme-2019, zeta-2020')
+  })
+
+  it('should say none when no house has one', () => {
+    expect(interiorCoverage([], ['acme-2019'])).toBe('interiors: 0 of 1 houses — with: none — without: acme-2019')
   })
 })
