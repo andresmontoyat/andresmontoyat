@@ -11,6 +11,7 @@ import { shake2D } from '../engine/camera2d.js'
 import { phaseOf, nightTint } from './lighting.js'
 import { WATER_LAYER } from '../world/water.js'
 import { DIALOG_FONT, DIALOG_TEXT_X, colsFor } from './dialog.js'
+import { fadeAlpha } from './fade.js'
 
 const TILE = 32
 const AVATAR_W = CONFIG.avatar.width
@@ -462,6 +463,25 @@ export function drawDialog(ctx, state) {
   drawPageIndicator(ctx, dialog.page(lang), w, h)
 }
 
+// The door's fade (fade.js) over everything but the intro title. Dark and still waiting for the
+// room, it says so: a held black screen with nothing on it reads as a hang.
+export function drawFade(ctx, state) {
+  const alpha = fadeAlpha(state.fade)
+  if (alpha <= 0) return
+  const { w, h } = viewportOf(ctx)
+  ctx.save()
+  ctx.globalAlpha = alpha
+  ctx.fillStyle = '#05070d'
+  ctx.fillRect(0, 0, w, h)
+  if (state.fade.phase === 'hold') {
+    ctx.textAlign = 'center'
+    ctx.fillStyle = '#dfeaff'
+    ctx.font = '16px monospace'
+    ctx.fillText('…', w / 2, h / 2)
+  }
+  ctx.restore()
+}
+
 function drawPageIndicator(ctx, { index, count }, w, h) {
   if (count < 2) return
   ctx.save()
@@ -612,5 +632,6 @@ export function render2d(ctx, state, cam) {
     if (outdoors) drawHud(ctx, state)
   }
   drawDialog(ctx, state)
+  drawFade(ctx, state)
   if (introRunning) drawIntroTitle(ctx, state)
 }

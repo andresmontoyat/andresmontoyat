@@ -10,6 +10,7 @@ import { stepMovement } from './engine/topdown.js'
 import { followCamera2D } from './engine/camera2d.js'
 import { nearestSite, doorPoint } from './entities/site.js'
 import { createDialog, siteSource, bulletSource } from './render/dialog.js'
+import { startFade, stepFade, fadeIn } from './render/fade.js'
 import { createKonami } from './input/konami.js'
 import { createTopdownInput } from './input/topdownInput.js'
 import { render2d, activeSites, regionsWithFarm } from './render/scene2d.js'
@@ -115,6 +116,25 @@ export function leaveInterior(state) {
   requestCamSnap(state)
 }
 
+// A door switches worlds under black: the press starts the fade and queues the switch, which
+// waits for the screen to be dark (and for the room to have loaded) before it runs.
+function crossDoor(state) {
+  state.entering = true
+  state.fade = startFade()
+}
+
+function switchWhenDark(state, run) { state.pending = run }
+
+function advanceFade(state, dtChars) {
+  state.fade = stepFade(state.fade, dtChars)
+  if (!state.fade || state.fade.phase !== 'hold' || !state.pending) return
+  const run = state.pending
+  state.pending = null
+  run()
+  state.entering = false
+  state.fade = fadeIn()
+}
+
 function interactablesOf(world) {
   const reads = (world.reads || []).map(entry => ({ kind: 'read', entry }))
   const host = world.host ? [{ kind: 'host', entry: world.host }] : []
@@ -131,7 +151,8 @@ export function nearestInteractable(player, world, r = INTERACT_RANGE) {
 }
 
 export function update(state, input, dtChars) {
-  const frozen = state.dialog.isOpen() || !!state.entering
+  advanceFade(state, dtChars)
+  const frozen = state.dialog.isOpen() || !!state.entering || !!state.fade
   const solids = buildingSolids(activeSites(state), state.world.farmBuilding, state.world.farmWindmill)
     .concat(decorSolids(state.decor || []), pondSolids(state.world), state.world.placementSolids)
   const r = stepMovement(state.player, { ...input, frozen }, solids, { w: state.world.worldW, h: state.world.worldH })
@@ -202,6 +223,8 @@ export function createWorldRpg({
     walkFrames: 0,
     scene: null,
     entering: false,
+    fade: null,
+    pending: null,
     camSnap: false,
   }
   const konami = createKonami()
@@ -219,18 +242,25 @@ export function createWorldRpg({
     s.seen = true
   }
 
-  // Returns the load so a caller (a test) can await the switch; every other path stays synchronous.
+  // Returns the load so a caller (a test) can await it; the switch itself runs from update() once
+  // the screen is dark. The room is built here, so a broken one falls back like a failed fetch.
   function enter(site) {
-    state.entering = true
+    crossDoor(state)
     return new Promise(resolve => { resolve(load(site.id)) })
-      .then(({ data, atlas }) => loadSheet(withInteriorAtlas(ATLAS, atlas))
-        .then(sprites => enterInterior(state, site, buildInteriorWorld(data), sprites)))
+      .then(({ data, atlas }) => loadSheet(withInteriorAtlas(ATLAS, atlas)).then(sprites => {
+        const built = buildInteriorWorld(data)
+        switchWhenDark(state, () => enterInterior(state, site, built, sprites))
+      }))
       .catch(err => {
         // A house whose interior fails to arrive still has its card: the player never hits a wall.
         console.warn(`interior ${site.id} failed to load, showing its card`, err)
-        state.dialog.open(site)
+        switchWhenDark(state, () => state.dialog.open(site))
       })
-      .finally(() => { state.entering = false })
+  }
+
+  function leave() {
+    crossDoor(state)
+    switchWhenDark(state, () => leaveInterior(state))
   }
 
   function interactOutside() {
@@ -246,7 +276,7 @@ export function createWorldRpg({
   function interactInside() {
     const hit = nearestInteractable(state.player, state.world)
     if (!hit) return
-    if (hit.kind === 'exit') { leaveInterior(state); return }
+    if (hit.kind === 'exit') { leave(); return }
     const { site, id } = state.scene
     state.dialog.open(hit.kind === 'host' ? siteSource(site) : bulletSource(entryOf(id), Number(hit.entry.id)))
     sfx(state.audio, 'confirm')
@@ -254,7 +284,7 @@ export function createWorldRpg({
 
   function interact() {
     if (state.dialog.isOpen()) { state.dialog.advance(); return undefined }
-    if (state.entering) return undefined
+    if (state.entering || state.fade) return undefined
     if (state.scene) { interactInside(); return undefined }
     return interactOutside()
   }

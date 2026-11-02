@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { CONFIG } from '../config.js'
 import {
   nearestPathDist, nearestRoadDist, visibleTileRange, eraLabel, drawAuthoredTiles, drawTransformed,
-  buildingDrawable, proceduralRoads, proceduralPonds, eraWash, drawDialog,
+  buildingDrawable, proceduralRoads, proceduralPonds, eraWash, drawDialog, drawFade,
 } from './scene2d.js'
 import { createDialog, bulletSource, paginate, DIALOG_FONT } from './dialog.js'
 
@@ -345,5 +345,19 @@ describe('drawDialog on a phone', () => {
     const lines = texts.filter(t => t.x === 40).map(t => t.text)
     expect(lines).toEqual(paginate(LONG, { cols: 38 })[0].split('\n'))
     expect(lines.every(l => 40 + l.length * 6.6 <= 336 - 40)).toBe(true)
+  })
+})
+
+describe('drawFade', () => {
+  it('shows a loading cue only while it holds dark for the room', () => {
+    const shown = fade => {
+      const { ctx, texts } = textCtx(640)
+      drawFade(ctx, { fade })
+      return texts.map(t => t.text)
+    }
+    expect(shown({ phase: 'hold', t: 1 })).toEqual(['…'])
+    expect(shown({ phase: 'out', t: 0.5 })).toEqual([])
+    expect(shown({ phase: 'in', t: 0.5 })).toEqual([])
+    expect(shown(null)).toEqual([])
   })
 })

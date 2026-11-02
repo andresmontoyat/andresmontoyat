@@ -178,21 +178,32 @@ function interiorGame({ data = interiorData(), load } = {}) {
   return { g, calls, site: g.state.world.sites.find(s => s.id === 'tul-2022') }
 }
 function standAt(state, { x, y }) { state.player.x = x; state.player.y = y }
+// Frames until the door's fade has played out; how many it took.
+function settle(state) {
+  let n = 0
+  while (state.fade && n < 200) { update(state, {}, 1.6); n += 1 }
+  return n
+}
 async function enterTul(t) {
   standAt(t.g.state, doorPoint(t.site))
   await t.g.interact()
+  settle(t.g.state)
 }
 
 describe('worldRpg interiors', () => {
   it('enters Tul through its door: the scene switches, the player stands at the spawn, the house is seen', async () => {
     const t = interiorGame()
-    await enterTul(t)
+    standAt(t.g.state, doorPoint(t.site))
+    const loading = t.g.interact()
+    // The burst greets the press; by the time the fade has played out it has faded too.
+    expect(t.g.state.particles.alive().length).toBeGreaterThan(0)
+    await loading
+    settle(t.g.state)
     expect(t.g.state.scene.id).toBe('tul-2022')
     expect(t.g.state.world.interior).toBe(true)
     expect(t.g.state.sprites).toBe(FAKE_SPRITES)
     expect([t.g.state.player.x, t.g.state.player.y, t.g.state.player.dir]).toEqual([SPAWN.x, SPAWN.y, 'up'])
     expect(t.site.seen).toBe(true)
-    expect(t.g.state.particles.alive().length).toBeGreaterThan(0)
     expect(t.g.state.entering).toBe(false)
   })
   it('a door without an interior opens the card, as today', () => {
@@ -230,12 +241,13 @@ describe('worldRpg interiors', () => {
     const clock = t.g.state.clock
     standAt(t.g.state, EXIT)
     t.g.interact()
+    const frames = settle(t.g.state)
     expect(t.g.state.scene).toBe(null)
     expect(t.g.state.world.sites.length).toBe(sites)
     expect(t.g.state.world.interior).toBeUndefined()
     const door = doorPoint(t.site)
     expect([t.g.state.player.x, t.g.state.player.y, t.g.state.player.dir]).toEqual([door.x, door.y, 'down'])
-    expect(t.g.state.clock).toBe(clock)
+    expect(t.g.state.clock).toBeCloseTo(clock + frames * 1.6)
     expect(t.site.seen).toBe(true)
   })
   it('presses during the load start one load and one switch, and the player is frozen meanwhile', async () => {
@@ -250,6 +262,7 @@ describe('worldRpg interiors', () => {
     update(t.g.state, { R: 1 }, 1.6)
     expect(t.g.state.player.x).toBe(x0)
     await first
+    settle(t.g.state)
     expect(t.g.state.scene.id).toBe('tul-2022')
     expect(t.g.state.scene.outside.world.interior).toBeUndefined()
   })
@@ -300,6 +313,49 @@ describe('worldRpg interiors', () => {
     t.g.reveal()
     await enterTul(t)
     expect(() => update(t.g.state, { R: 1 }, 1.6)).not.toThrow()
+  })
+  it('the door fades to dark, switches under black, and fades back in', async () => {
+    const t = interiorGame()
+    standAt(t.g.state, doorPoint(t.site))
+    await t.g.interact()
+    expect(t.g.state.fade.phase).toBe('out')
+    expect(t.g.state.scene).toBe(null)
+    for (let i = 0; i < 14; i += 1) update(t.g.state, { R: 1 }, 1.6)
+    expect(t.g.state.scene).toBe(null)
+    update(t.g.state, {}, 1.6)
+    expect(t.g.state.scene.id).toBe('tul-2022')
+    expect(t.g.state.fade).toEqual({ phase: 'in', t: 1 })
+    expect(t.g.state.entering).toBe(false)
+    expect([t.g.state.player.x, t.g.state.player.y]).toEqual([SPAWN.x, SPAWN.y])
+    for (let i = 0; i < 15; i += 1) update(t.g.state, {}, 1.6)
+    expect(t.g.state.fade).toBe(null)
+    update(t.g.state, { R: 1 }, 1.6)
+    expect(t.g.state.player.x).toBeGreaterThan(SPAWN.x)
+  })
+  it('stays dark, the player held, for as long as the room takes to load', () => {
+    const t = interiorGame({ load: () => new Promise(() => {}) })
+    standAt(t.g.state, doorPoint(t.site))
+    t.g.interact()
+    const x0 = t.g.state.player.x
+    for (let i = 0; i < 60; i += 1) update(t.g.state, { R: 1 }, 1.6)
+    expect(t.g.state.fade).toEqual({ phase: 'hold', t: 1 })
+    expect(t.g.state.entering).toBe(true)
+    expect(t.g.state.player.x).toBe(x0)
+    expect(t.g.interact()).toBeUndefined()
+  })
+  it('the exit fades too: out, back outside under black, then in', async () => {
+    const t = interiorGame()
+    await enterTul(t)
+    standAt(t.g.state, EXIT)
+    t.g.interact()
+    expect(t.g.state.fade.phase).toBe('out')
+    expect(t.g.state.scene.id).toBe('tul-2022')
+    t.g.interact()
+    for (let i = 0; i < 15; i += 1) update(t.g.state, {}, 1.6)
+    expect(t.g.state.scene).toBe(null)
+    expect(t.g.state.fade.phase).toBe('in')
+    settle(t.g.state)
+    expect(t.g.state.fade).toBe(null)
   })
   it('entering closes an open dialog and asks the camera to snap', () => {
     const t = interiorGame()
