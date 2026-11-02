@@ -11,6 +11,7 @@ import fs from 'node:fs/promises'
 import { existsSync } from 'node:fs'
 import sharp from 'sharp'
 import { convertMap, slugFor, doorCoverage } from '../src/game/world/authored/convert.js'
+import { interiorIdOf, validateInterior, interiorData } from '../src/game/world/authored/interior.js'
 
 const ROOT = process.cwd()
 const IN_MAP = path.join(ROOT, 'src', 'game', 'world', 'authored', 'career.map.json')
@@ -20,6 +21,9 @@ const OUT_TILES = path.join(ROOT, 'src', 'game', 'world', 'authored', 'career.ti
 const OUT_PLACEMENTS = path.join(ROOT, 'src', 'data', 'placements.json')
 const OUT_CLIPS = path.join(ROOT, 'src', 'data', 'clips.json')
 const OUT_INTERACTABLES = path.join(ROOT, 'src', 'data', 'interactables.json')
+const IN_INTERIORS = path.join(ROOT, 'src', 'game', 'world', 'authored', 'interiors')
+const OUT_INTERIOR_DATA = path.join(ROOT, 'src', 'data', 'interiors')
+const OUT_INTERIOR_PNG = path.join(ROOT, 'public', 'game', 'interiors')
 const PACK = path.join(ROOT, 'public', 'game', 'cute-fantasy')
 
 const PACK_ROOT = 'Cute_Fantasy/'
@@ -73,6 +77,46 @@ export const AUTHORED_IMAGE_SIZE = ${j(imageSize)}
 `
 }
 
+const json = v => `${JSON.stringify(v, null, 2)}\n`
+
+async function interiorFiles() {
+  const files = await fs.readdir(IN_INTERIORS).catch(() => [])
+  return files.filter(f => interiorIdOf(f)).sort()
+}
+
+async function importInterior(file, { entryById, exteriorDoorIds }) {
+  const id = interiorIdOf(file)
+  const map = JSON.parse(await fs.readFile(path.join(IN_INTERIORS, file), 'utf8'))
+  const dims = await dimsCache(map)
+  const out = convertMap(map, { dimsOf: p => dims[p] || { w: 0, h: 0 }, exists: p => existsSync(diskPath(p)), interior: true })
+  validateInterior(id, out.interactables, entryById[id], exteriorDoorIds)
+  await fs.mkdir(OUT_INTERIOR_DATA, { recursive: true })
+  await fs.writeFile(path.join(OUT_INTERIOR_DATA, `${id}.json`), json(interiorData(out)))
+  await fs.writeFile(path.join(IN_INTERIORS, `${id}.manifest.json`), json(out.manifest))
+  return id
+}
+
+// A removed interior must close its house: the generated files are what say it is open. The
+// hand-drawn *.map.json is the source and is never touched.
+async function removeStale(dir, suffixes, ids) {
+  const files = await fs.readdir(dir).catch(() => [])
+  for (const f of files) {
+    const suffix = suffixes.find(s => f.endsWith(s))
+    if (suffix && !ids.includes(f.slice(0, -suffix.length))) await fs.rm(path.join(dir, f))
+  }
+}
+
+async function importInteriors(experience, exteriorOut) {
+  const exteriorDoorIds = exteriorOut.interactables.filter(e => e.kind === 'door').map(e => e.id)
+  const entryById = Object.fromEntries((experience.entries || []).filter(e => e.id).map(e => [e.id, e]))
+  const ids = []
+  for (const file of await interiorFiles()) ids.push(await importInterior(file, { entryById, exteriorDoorIds }))
+  await removeStale(OUT_INTERIOR_DATA, ['.atlas.json', '.json'], ids)
+  await removeStale(IN_INTERIORS, ['.manifest.json'], ids)
+  await removeStale(OUT_INTERIOR_PNG, ['.png'], ids)
+  console.log(`interiors: ${ids.length} of ${exteriorDoorIds.length} houses (${ids.join(', ')})`)
+}
+
 async function main() {
   const map = JSON.parse(await fs.readFile(IN_MAP, 'utf8'))
   const dims = await dimsCache(map)
@@ -100,6 +144,7 @@ async function main() {
   // validateMap has already refused a missing or dead door; this line is the receipt.
   const cov = doorCoverage(out.interactables, experienceIds)
   console.log(`authored houses: ${cov.authored.length} of ${experienceIds.length} experiences`)
+  await importInteriors(experience, out)
 }
 
 main().catch(e => { console.error(e.message); process.exit(1) })

@@ -101,3 +101,25 @@ Two further edits, both recorded rather than silently applied:
   with a tree selected on a tiles layer. It was invisible while frames were sliced wrongly;
   once they were fixed it wallpapered the world with oaks. The editor now warns about exactly
   this in its status line (`click = rellenar región · los tiles no se seleccionan ni rotan`).
+
+## Adopting an interior
+
+A house opens onto its own map (docs/adr/0004). A file in `interiors/` means the interior is
+adopted; the house it belongs to then lets the player walk in instead of showing the card.
+
+- **File name = experience id.** Save the editor export as
+  `src/game/world/authored/interiors/<id>.map.json`, where `<id>` is the `id` of the entry in
+  `src/data/experience.json` (and of the `door:<id>` on the exterior map). The entry must be visible.
+- **Four tags**, all placed on objects:
+  - `spawn` — exactly one; where the player lands on entering.
+  - `npc:host` — exactly one; tells the card, as the house does today.
+  - `read:<n>` — one per bullet, `n` counted from 1, covering exactly `1..bullets.length`.
+    The English and Spanish bullet counts must match.
+  - `exit` — exactly one; the action that leaves, back to the door.
+  `door:` is refused inside an interior, and `read`/`exit` are refused on the exterior.
+- **Drafts stay in the editor project.** Only an interior ready to adopt goes in `interiors/`:
+  any invalid file there fails the whole `map:import`.
+- **Two commands**, both needing the paid pack locally:
+  `npm run map:import` then `npm run assets:pack`. They write `src/data/interiors/<id>.json`,
+  `<id>.atlas.json`, `interiors/<id>.manifest.json` and `public/game/interiors/<id>.png`; commit all
+  of them. Removing the map file and re-running both closes the house and deletes its files.
