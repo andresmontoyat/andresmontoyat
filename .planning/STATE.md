@@ -124,7 +124,7 @@ progress:
 | fast | Map fix: spruce removed from the east pond's open water (found by the editor's new object-in-water lint) | 2026-11-01 | 3319ed6 | — |
 | fast | Per-sprite collision: editor exports `hitboxes`, import turns each into a world solid (flip/scale/rot), game blocks on them; 12 prop frames boxed, 327/360 placements solid; trunk stop checked in a playtest; 563 tests | 2026-11-01 | 7c41491, 68f1cbc | — |
 | fast | Phase 2 design approved: interiors spec + ADR 0004 (one .map.json per interior, tags spawn/npc:host/read:<n>/exit, lazy per-interior atlas) | 2026-11-02 | e8a3569 | — |
-| fast | Phase 2 interiors pipeline + scene switch; acceptance with a throwaway Tul interior (keyboard + touch + Lighthouse): enter, host + 4 reads (es, L→en), exit to the door; no interior fetched on first load; Lighthouse mobile perf 0.97, a11y 0.93 (pre-existing `aria-pressed` on the game page's EN/ES links) | 2026-11-02 | 31410aa, acf7564, d8b8271, a27ae41, 98930ed, 5517bc3 | — |
+| fast | Phase 2 interiors pipeline + scene switch; acceptance with a throwaway Tul interior (keyboard + touch + Lighthouse): enter, host + 4 reads (es, L→en), exit to the door; no interior fetched on first load; Lighthouse mobile 0.98/1/1/1 after fixing aria-pressed on the game page language links | 2026-11-02 | 31410aa, acf7564, d8b8271, a27ae41, 98930ed, 5517bc3, 36ac36d | — |
 
 ## Project Reference
 
