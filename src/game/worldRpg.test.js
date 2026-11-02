@@ -276,6 +276,16 @@ describe('worldRpg interiors', () => {
     expect(t.g.state.player.x).toBeGreaterThan(SPAWN.x)
     expect(t.g.state.player.x).toBeLessThan(CRATE.x)
   })
+  it('inside, painted water stops the player at its shore', async () => {
+    const data = interiorData({ solids: [] })
+    const pool = [11, 12, 13].flatMap(y => [[12, y, 0], [13, y, 0]])
+    data.tiles.layers.push({ name: 'water', cells: pool })
+    const t = interiorGame({ data })
+    await enterTul(t)
+    for (let i = 0; i < 40; i += 1) update(t.g.state, { R: 1 }, 1.6)
+    expect(t.g.state.player.x).toBeGreaterThan(SPAWN.x)
+    expect(t.g.state.player.x).toBeLessThan(12 * 32)
+  })
   it('inside, the exterior houses do not block', async () => {
     const probe = interiorGame()
     const { site } = probe

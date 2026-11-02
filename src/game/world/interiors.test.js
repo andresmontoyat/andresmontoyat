@@ -63,6 +63,15 @@ describe('buildInteriorWorld', () => {
     expect(w.interior).toBe(true)
     expect(w.sites).toEqual([])
   })
+  it('has no water to block when the room paints none', () => {
+    expect(w.waterSolids).toEqual([])
+  })
+  it('blocks painted water like the exterior does, shore pulled in by the inset', () => {
+    const pool = [[2, 2, 0], [3, 2, 0], [2, 3, 0], [3, 3, 0]]
+    const wet = buildInteriorWorld({ ...DATA, tiles: { ...DATA.tiles, layers: [...DATA.tiles.layers, { name: 'water', cells: pool }] } })
+    // 32px tiles, CONFIG.pond.shoreInset 10: each 2-cell row merges into one box.
+    expect(wet.waterSolids).toEqual([{ x: 74, y: 74, w: 44, h: 22 }, { x: 74, y: 96, w: 44, h: 22 }])
+  })
   it('collects solids from placements', () => {
     expect(w.placementSolids).toEqual([{ x: 1, y: 2, w: 3, h: 4 }])
     expect(placementSolids(DATA.placements)).toEqual(w.placementSolids)
