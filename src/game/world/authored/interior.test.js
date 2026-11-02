@@ -57,6 +57,18 @@ describe('validateInterior', () => {
     expect(validate(items)).toThrow(new RegExp(`^interior tul-2022: .*${tag}.*2`))
   })
 
+  // The import gives an object its first flag as kind, so a solid exit is kind 'solid': the rule
+  // must count what the runtime looks for, the flag.
+  it.each([['spawn'], ['exit']])('should accept a %s that is also solid', flag => {
+    const items = room().map(i => (i[flag] ? { ...i, kind: 'solid', solid: true } : i))
+    expect(validate(items)).not.toThrow()
+  })
+
+  it.each([['spawn'], ['exit']])('should count a solid %s next to a plain one as two', flag => {
+    const extra = { uid: 'again', kind: 'solid', x: 0, y: 0, solid: true, [flag]: true }
+    expect(validate([...room(), extra])).toThrow(new RegExp(`^interior tul-2022: .*${flag}.*2`))
+  })
+
   it('should name the bullet nobody reads', () => {
     expect(validate(room([1, 2, 4]))).toThrow(/read:3/)
   })

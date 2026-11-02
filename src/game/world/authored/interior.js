@@ -22,9 +22,14 @@ function checkExperience(id, entry, exteriorDoorIds) {
   if (!exteriorDoorIds.includes(id)) fail(id, `no house on the exterior map has a door:${id} — an interior needs a door to enter by`)
 }
 
-function checkExactlyOne(id, tags, tag) {
-  const count = tags.filter(t => t === tag).length
+function checkExactlyOne(id, count, tag) {
   if (count !== 1) fail(id, `expected exactly 1 ${tag}, found ${count}`)
+}
+
+// spawn and exit are flags, and the import makes a flag the kind only when it comes first (a solid
+// exit is kind 'solid'): count the flag, which is also what the runtime finds them by.
+function checkFlags(id, interactables) {
+  for (const flag of ['spawn', 'exit']) checkExactlyOne(id, interactables.filter(e => e[flag]).length, flag)
 }
 
 function checkHosts(id, tags) {
@@ -59,7 +64,8 @@ export function validateInterior(id, interactables, entry, exteriorDoorIds) {
   checkExperience(id, entry, exteriorDoorIds)
   checkLanguages(id, entry)
   const tags = interactables.map(tagOf)
-  for (const tag of ['spawn', HOST, 'exit']) checkExactlyOne(id, tags, tag)
+  checkFlags(id, interactables)
+  checkExactlyOne(id, tags.filter(t => t === HOST).length, HOST)
   checkHosts(id, tags)
   checkReads(id, tags, entry.bullets.en.length)
 }
