@@ -119,11 +119,11 @@ export function anchorsFrom(layers, scale = 1, world = null) {
 //
 // Every check below is this adapter's own rather than a trust of the exporter: the editor's export
 // dialog offers "Exportar igual", so a lint-dirty file can reach here.
-const IDENTITY_KINDS = ['door', 'npc', 'animal', 'object', 'poi']
+const IDENTITY_KINDS = ['door', 'npc', 'animal', 'object', 'poi', 'read']
 
 // A flag says how the world behaves around an object, not what the object IS, so it rides along with
 // whatever kind the object already has.
-const FLAG_TAGS = ['solid', 'spawn']
+const FLAG_TAGS = ['solid', 'spawn', 'exit']
 
 // Kinds where the id names ONE object. Two npcs may share a dialog id — two villagers with the same
 // lines is a legitimate world — so this is per kind rather than blanket.
@@ -423,7 +423,31 @@ function validateWater(map) {
   if (thin) throw new Error(`layer "${WATER_LAYER}": the body at ${thin.cells[0]} holds no 2x2 square — widen it or erase it`)
 }
 
-export function validateMap(map, { dimsOf, exists, experienceIds = null }) {
+// docs/adr/0004: a house's inside is its own map. `door` leads in, so it belongs to the exterior;
+// `read` and `exit` only mean something once the player is inside. The tag parser is the same one
+// interactablesFrom uses, so a malformed tag is reported once and in one voice.
+const EXTERIOR_ONLY = ['door']
+const INTERIOR_ONLY = ['read', 'exit']
+
+function validateTagPlacement(map, interior) {
+  const refused = interior ? EXTERIOR_ONLY : INTERIOR_ONLY
+  const home = interior ? 'exterior' : 'interior'
+  const mapKind = interior ? 'an interior' : 'the exterior'
+  for (const layer of map.layers) {
+    for (const o of layer.objects || []) {
+      const where = `layer "${layer.name}", object at ${o.x},${o.y}`
+      for (const tag of (o.tags || []).filter(t => typeof t === 'string' && t)) {
+        const { kind, flag } = readTag(tag, where)
+        const name = kind || flag
+        if (refused.includes(name)) {
+          throw new Error(`${where}: "${tag}" belongs to the ${home} map, and this is ${mapKind}`)
+        }
+      }
+    }
+  }
+}
+
+export function validateMap(map, { dimsOf, exists, experienceIds = null, interior = false }) {
   // Until now this function never read the version at all, so a v1 map was accepted and silently
   // carried no object identity — exactly the failure the number exists to prevent. (The `version: 1`
   // further down belongs to the generated tiles artifact, not to the map being read.)
@@ -440,8 +464,10 @@ export function validateMap(map, { dimsOf, exists, experienceIds = null }) {
   map.layers.forEach(classifyLayer)
   validateWater(map)
   anchorsFrom(map.layers, 1, map.world)
+  validateTagPlacement(map, interior)
   const interactables = interactablesFrom(map.layers, 1)
-  if (experienceIds) {
+  // An interior holds no doors, so there is no CV to cover.
+  if (experienceIds && !interior) {
     const { dead, missing } = doorCoverage(interactables, experienceIds)
     if (dead.length) {
       throw new Error(`door tag(s) naming no visible experience: ${dead.join(', ')} — fix the tag in the editor, or the entry's id in experience.json`)
@@ -500,8 +526,8 @@ function validateHitboxes(map) {
   }
 }
 
-export function convertMap(map, { dimsOf, exists = () => true, experienceIds = null }) {
-  validateMap(map, { dimsOf, exists, experienceIds })
+export function convertMap(map, { dimsOf, exists = () => true, experienceIds = null, interior = false }) {
+  validateMap(map, { dimsOf, exists, experienceIds, interior })
   const scale = worldScaleOf(map)
   return {
     manifest: framesFrom(map, dimsOf),
