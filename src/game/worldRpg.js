@@ -1,5 +1,6 @@
 import { buildOverworld } from './world/overworld.js'
 import { buildAuthoredIndex, worldSizeOf } from './world/authored/index.js'
+import { placementSolids } from './world/interiors.js'
 import { waterCellsOf } from './world/water.js'
 import { biomeForYear } from './world/biomes.js'
 import { buildDecor } from './world/decor.js'
@@ -61,12 +62,6 @@ function decorSolids(decor) {
 function pondSolids(world) {
   if (world.waterSolids) return world.waterSolids
   return (world.ponds || []).map(p => ({ cx: p.x, cy: p.y, r: p.r * CONFIG.pond.collisionFactor }))
-}
-
-// Placed objects whose frame has a hitbox in the map (a trunk, a lamp post): the import already
-// turned each into a world-pixel box, so they block exactly like a house does.
-function placementSolids(placements) {
-  return (placements || []).filter(p => p.solid).map(p => p.solid)
 }
 
 // Throttled footstep SFX while walking — a beep every FOOTSTEP_EVERY frames of movement,
