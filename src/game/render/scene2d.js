@@ -456,6 +456,15 @@ function drawDialog(ctx, state) {
   ctx.fillRect(20, h - 150, w - 40, 120)
   ctx.fillStyle = '#dfeaff'
   dialog.visibleText(lang).split('\n').forEach((ln, i) => ctx.fillText(ln, 40, h - 120 + i * 22))
+  drawPageIndicator(ctx, dialog.page(lang), w, h)
+}
+
+function drawPageIndicator(ctx, { index, count }, w, h) {
+  if (count < 2) return
+  ctx.save()
+  ctx.textAlign = 'right'
+  ctx.fillText(`${index + 1}/${count}`, w - 36, h - 40)
+  ctx.restore()
 }
 
 function drawParticles(ctx, state, cam) {

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { dialogLines, createDialog } from './dialog.js'
+import { dialogLines, createDialog, paginate, siteSource, bulletSource } from './dialog.js'
 
 const site = { co: 'TCS', title: { en: 'Tech Lead', es: 'Líder' }, date: { en: '2013', es: '2013' }, metric: { value: '45+', label: { en: 'devs', es: 'devs' } }, tech: ['Java', 'OSB'] }
 const noMetric = { ...site, metric: null }
@@ -51,5 +51,71 @@ describe('createDialog', () => {
     d.open(esLong)
     d.advance()
     expect(d.visibleText('es')).toBe(dialogLines(esLong, 'es').join('\n'))
+  })
+})
+
+const WORDS = Array.from({ length: 40 }, (_, i) => `word${i}`).join(' ')
+const source = (en, es) => ({ pages: lang => (lang === 'en' ? en : es) })
+
+describe('paginate', () => {
+  it('wraps at 46 cols and groups 4 rows per page, keeping every word', () => {
+    const pages = paginate(WORDS)
+    const lines = pages.flatMap(p => p.split('\n'))
+    expect(pages.length).toBeGreaterThanOrEqual(2)
+    expect(pages.every(p => p.split('\n').length <= 4)).toBe(true)
+    expect(lines.every(l => l.length <= 46)).toBe(true)
+    expect(lines.join(' ')).toBe(WORDS)
+  })
+  it('hard-splits a word longer than the column width', () => {
+    const lines = paginate('x'.repeat(100)).flatMap(p => p.split('\n'))
+    expect(lines.map(l => l.length)).toEqual([46, 46, 8])
+  })
+  it('honours custom cols and rows', () => {
+    expect(paginate('aa bb cc dd', { cols: 5, rows: 1 })).toEqual(['aa bb', 'cc dd'])
+  })
+})
+
+describe('text sources', () => {
+  it('siteSource is one page with the card text', () => {
+    expect(siteSource(site).pages('en')).toEqual([dialogLines(site, 'en').join('\n')])
+  })
+  it('bulletSource paginates the 1-based bullet in that language', () => {
+    const entry = { bullets: { en: ['one', 'two'], es: ['uno', 'dos'] } }
+    expect(bulletSource(entry, 2).pages('es')).toEqual(['dos'])
+  })
+})
+
+describe('paged dialog', () => {
+  it('needs two advances per page and reports the page index', () => {
+    const d = createDialog()
+    d.open(source(['a', 'b', 'c'], ['a', 'b', 'c']))
+    const seen = []
+    for (let i = 0; i < 6; i++) {
+      seen.push(d.page('en').index)
+      d.advance()
+    }
+    expect(seen).toEqual([0, 0, 1, 1, 2, 2])
+    expect(d.isOpen()).toBe(false)
+  })
+  it('restarts typing on each new page', () => {
+    const d = createDialog()
+    d.open(source(['abc', 'def'], ['abc', 'def']))
+    d.advance()
+    d.advance()
+    expect(d.state).toBe('typing')
+    expect(d.visibleText('en')).toBe('')
+  })
+  it('clamps to the last page of a shorter language and returns on switch back', () => {
+    const d = createDialog()
+    d.open(source(['a', 'b', 'c'], ['x', 'y']))
+    d.advance(); d.advance(); d.advance(); d.advance(); d.advance()
+    expect(d.visibleText('es')).toBe('y')
+    expect(d.page('es')).toEqual({ index: 1, count: 2 })
+    expect(d.page('en')).toEqual({ index: 2, count: 3 })
+  })
+  it('wraps a bare site through siteSource', () => {
+    const d = createDialog()
+    d.open(site)
+    expect(d.page('en')).toEqual({ index: 0, count: 1 })
   })
 })
