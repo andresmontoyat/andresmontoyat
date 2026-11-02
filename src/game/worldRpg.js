@@ -1,13 +1,15 @@
 import { buildOverworld } from './world/overworld.js'
 import { buildAuthoredIndex, worldSizeOf } from './world/authored/index.js'
-import { placementSolids } from './world/interiors.js'
+import {
+  placementSolids, adoptedInteriorIds, loadInterior, withInteriorAtlas, buildInteriorWorld,
+} from './world/interiors.js'
 import { waterCellsOf } from './world/water.js'
 import { biomeForYear } from './world/biomes.js'
 import { buildDecor } from './world/decor.js'
 import { stepMovement } from './engine/topdown.js'
 import { followCamera2D } from './engine/camera2d.js'
-import { nearestSite } from './entities/site.js'
-import { createDialog } from './render/dialog.js'
+import { nearestSite, doorPoint } from './entities/site.js'
+import { createDialog, siteSource, bulletSource } from './render/dialog.js'
 import { createKonami } from './input/konami.js'
 import { createTopdownInput } from './input/topdownInput.js'
 import { render2d, activeSites, regionsWithFarm } from './render/scene2d.js'
@@ -81,15 +83,62 @@ function updateRegionMusic(state) {
   state.music.setRegion(bi)
 }
 
+const INTERACT_RANGE = 40
+
+function placePlayer(player, { x, y }, dir) {
+  Object.assign(player, { x, y, dir, moving: false, step: 0 })
+}
+
+// Switching worlds, the camera's lerp would sweep across the map from the old view to the new one.
+// draw() reads this and jumps the camera once.
+function requestCamSnap(state) { state.camSnap = true }
+
+// The exterior is stashed whole, not rebuilt, so whatever the player discovered out there (seen
+// houses, the Konami reveal, the day clock) is still there on the way out.
+export function enterInterior(state, site, built, sprites) {
+  const { world, authored, decor, critters, npcs, player } = state
+  const outside = {
+    world, authored, decor, critters, npcs, sprites: state.sprites, player: { x: player.x, y: player.y, dir: player.dir },
+  }
+  state.scene = { id: site.id, site, outside }
+  Object.assign(state, { world: built, authored: built.authored, decor: [], critters: [], npcs: [], sprites })
+  placePlayer(state.player, built.spawn, 'up')
+  state.dialog = createDialog()
+  requestCamSnap(state)
+}
+
+export function leaveInterior(state) {
+  const { site, outside: { player, ...outside } } = state.scene
+  Object.assign(state, outside)
+  placePlayer(state.player, doorPoint(site), 'down')
+  state.scene = null
+  requestCamSnap(state)
+}
+
+function interactablesOf(world) {
+  const reads = (world.reads || []).map(entry => ({ kind: 'read', entry }))
+  const host = world.host ? [{ kind: 'host', entry: world.host }] : []
+  const exit = world.exit ? [{ kind: 'exit', entry: world.exit }] : []
+  return host.concat(reads, exit)
+}
+
+// Measured to the entry's base point, the (x, y) the editor tagged.
+export function nearestInteractable(player, world, r = INTERACT_RANGE) {
+  const dist = ({ entry }) => Math.hypot(player.x - entry.x, player.y - entry.y)
+  const inReach = interactablesOf(world).filter(hit => dist(hit) < r)
+  if (!inReach.length) return null
+  return inReach.reduce((best, hit) => (dist(hit) < dist(best) ? hit : best))
+}
+
 export function update(state, input, dtChars) {
-  const frozen = state.dialog.isOpen()
+  const frozen = state.dialog.isOpen() || !!state.entering
   const solids = buildingSolids(activeSites(state), state.world.farmBuilding, state.world.farmWindmill)
     .concat(decorSolids(state.decor || []), pondSolids(state.world), state.world.placementSolids)
   const r = stepMovement(state.player, { ...input, frozen }, solids, { w: state.world.worldW, h: state.world.worldH })
   state.player.x = r.x; state.player.y = r.y; state.player.dir = r.dir; state.player.moving = r.moving
   state.player.step = r.moving ? state.player.step + STEP_RATE : 0
   updateFootsteps(state, r.moving)
-  updateRegionMusic(state)
+  if (!state.world.interior) updateRegionMusic(state)
   state.dialog.tick(dtChars)
   state.clock += dtChars
   state.particles.update(1)
@@ -101,6 +150,7 @@ export function update(state, input, dtChars) {
 export function createWorldRpg({
   canvas, experience, sideProjects = [], lang = 'es', onLangChange, placements = [], clips = {},
   authoredTiles = null, interactables = [],
+  interiorIds = adoptedInteriorIds(), loadInterior: load = loadInterior, loadSheet = loadSprites,
 }) {
   const authored = buildAuthoredIndex(authoredTiles)
   // interactables.json: what the authored map says the world CONTAINS, as opposed to what it looks
@@ -150,6 +200,9 @@ export function createWorldRpg({
     music: createMusic(null), // no-op (muted) until the first user gesture arms real playback
     lastBiome: null,
     walkFrames: 0,
+    scene: null,
+    entering: false,
+    camSnap: false,
   }
   const konami = createKonami()
   const input = createTopdownInput()
@@ -159,14 +212,51 @@ export function createWorldRpg({
   state.input = input
 
   function reveal() { state.revealed = true; state.shake = 8; sfx(state.audio, 'fanfare') }
-  function interact() {
-    if (state.dialog.isOpen()) { state.dialog.advance(); return }
-    const s = nearestSite(state.player, activeSites(state))
-    if (!s) return
+  const entryOf = id => experience.entries.find(e => e.id === id)
+
+  function markSeen(s) {
     if (!s.seen) { burst(state.particles, s.cx, s.cy, 14); sfx(state.audio, 'discover') }
     s.seen = true
-    state.dialog.open(s)
+  }
+
+  // Returns the load so a caller (a test) can await the switch; every other path stays synchronous.
+  function enter(site) {
+    state.entering = true
+    return new Promise(resolve => { resolve(load(site.id)) })
+      .then(({ data, atlas }) => loadSheet(withInteriorAtlas(ATLAS, atlas))
+        .then(sprites => enterInterior(state, site, buildInteriorWorld(data), sprites)))
+      .catch(err => {
+        // A house whose interior fails to arrive still has its card: the player never hits a wall.
+        console.warn(`interior ${site.id} failed to load, showing its card`, err)
+        state.dialog.open(site)
+      })
+      .finally(() => { state.entering = false })
+  }
+
+  function interactOutside() {
+    const s = nearestSite(state.player, activeSites(state))
+    if (!s) return undefined
+    markSeen(s)
     sfx(state.audio, 'confirm')
+    if (interiorIds.has(s.id)) return enter(s)
+    state.dialog.open(s)
+    return undefined
+  }
+
+  function interactInside() {
+    const hit = nearestInteractable(state.player, state.world)
+    if (!hit) return
+    if (hit.kind === 'exit') { leaveInterior(state); return }
+    const { site, id } = state.scene
+    state.dialog.open(hit.kind === 'host' ? siteSource(site) : bulletSource(entryOf(id), Number(hit.entry.id)))
+    sfx(state.audio, 'confirm')
+  }
+
+  function interact() {
+    if (state.dialog.isOpen()) { state.dialog.advance(); return undefined }
+    if (state.entering) return undefined
+    if (state.scene) { interactInside(); return undefined }
+    return interactOutside()
   }
 
   function toggleMute() {
@@ -209,7 +299,11 @@ export function createWorldRpg({
     const onPointer = () => armAudio()
     canvas.addEventListener('pointerdown', onPointer)
     detachPointer = () => canvas.removeEventListener('pointerdown', onPointer)
-    loadSprites(ATLAS).then(sprites => { state.sprites = sprites })
+    // Entered before the main sheet arrived: it belongs to the stashed exterior, not the interior.
+    loadSprites(ATLAS).then(sprites => {
+      if (state.scene) state.scene.outside.sprites = sprites
+      else state.sprites = sprites
+    })
     const ctx = canvas.getContext('2d')
     const step = ts => {
       if (!state.intro.done()) {
@@ -227,7 +321,9 @@ export function createWorldRpg({
       // buffer, or it would think the viewport is dpr× larger than what's actually on screen.
       const vw = canvas.logicalWidth || canvas.width
       const vh = canvas.logicalHeight || canvas.height
-      followCamera2D(state.cam, state.player.x, state.player.y, vw, vh, world.worldW, world.worldH)
+      const k = state.camSnap ? 1 : undefined
+      state.camSnap = false
+      followCamera2D(state.cam, state.player.x, state.player.y, vw, vh, state.world.worldW, state.world.worldH, k)
       render2d(ctx, state, state.cam)
     }
     loop = createLoop(step, draw)

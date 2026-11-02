@@ -61,7 +61,7 @@ function washTile(ctx, wash, sx, sy) {
 }
 
 export function activeSites(state) {
-  return state.revealed ? state.world.sites.concat(state.world.hiddenSites) : state.world.sites
+  return state.revealed ? state.world.sites.concat(state.world.hiddenSites || []) : state.world.sites
 }
 
 // Logical (CSS-px) viewport size — WorldRpg.jsx sizes the canvas DRAWING BUFFER to
@@ -597,13 +597,16 @@ export function render2d(ctx, state, cam) {
     drawPlaceholderScene(ctx, state, drawCam)
   } else {
     const t = state.clock || 0
-    drawGround(ctx, state, drawCam, sprites)
+    // An interior is lit indoors and fully painted by its map: no generated ground, no weather,
+    // no night. The HUD's era and site count describe the exterior, so it waits outside too.
+    const outdoors = !state.world.interior
+    if (outdoors) drawGround(ctx, state, drawCam, sprites)
     drawAuthoredTiles(ctx, state, drawCam, sprites)
     depthSortedDrawables(state, drawCam, t).forEach(item => item.draw(ctx, sprites))
-    drawAmbient(ctx, state, drawCam, t)
+    if (outdoors) drawAmbient(ctx, state, drawCam, t)
     drawParticles(ctx, state, drawCam)
-    drawNightOverlay(ctx, state)
-    drawHud(ctx, state)
+    if (outdoors) drawNightOverlay(ctx, state)
+    if (outdoors) drawHud(ctx, state)
   }
   drawDialog(ctx, state)
   if (introRunning) drawIntroTitle(ctx, state)
