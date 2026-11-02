@@ -39,6 +39,12 @@ describe('validateInterior', () => {
     expect(validate(room(), entry(4, { visible: false }))).toThrow(/^interior tul-2022: .*hidden/)
   })
 
+  // Same rule as the exterior import: only visible: false hides an entry.
+  it('should accept an entry that does not say whether it is visible', () => {
+    const { visible, ...unsaid } = entry(4)
+    expect(validate(room(), unsaid)).not.toThrow()
+  })
+
   it('should refuse an id with no door on the exterior', () => {
     expect(validate(room(), entry(4), [])).toThrow(/^interior tul-2022: .*door/)
   })

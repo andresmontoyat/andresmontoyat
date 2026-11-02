@@ -18,7 +18,7 @@ const fail = (id, why) => {
 
 function checkExperience(id, entry, exteriorDoorIds) {
   if (!entry) fail(id, 'no experience entry has that id — name the map after the job it belongs to')
-  if (!entry.visible) fail(id, 'its experience entry is hidden, so no house can lead here')
+  if (entry.visible === false) fail(id, 'its experience entry is hidden, so no house can lead here')
   if (!exteriorDoorIds.includes(id)) fail(id, `no house on the exterior map has a door:${id} — an interior needs a door to enter by`)
 }
 
