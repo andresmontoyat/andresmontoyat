@@ -1,3 +1,7 @@
+// The dialog's own font: the renderer sets it before drawing (it would otherwise inherit whatever
+// was drawn last) and measures with it to know how many columns fit.
+export const DIALOG_FONT = '11px monospace'
+
 export function dialogLines(site, lang) {
   const L = [`${site.title[lang]}  ·  ${site.co}`, site.date[lang]]
   if (site.metric) L.push(`★ ${site.metric.value ? `${site.metric.value}  ` : ''}${site.metric.label[lang]}`)

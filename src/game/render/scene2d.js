@@ -10,6 +10,7 @@ import { npcDrawables } from '../entities/npcs.js'
 import { shake2D } from '../engine/camera2d.js'
 import { phaseOf, nightTint } from './lighting.js'
 import { WATER_LAYER } from '../world/water.js'
+import { DIALOG_FONT } from './dialog.js'
 
 const TILE = 32
 const AVATAR_W = CONFIG.avatar.width
@@ -448,10 +449,11 @@ function drawPlaceholderScene(ctx, state, cam) {
   ctx.fillRect(player.x - player.w / 2 - cam.x, player.y - player.h / 2 - cam.y, player.w, player.h)
 }
 
-function drawDialog(ctx, state) {
+export function drawDialog(ctx, state) {
   const { dialog, lang } = state
   if (!dialog.isOpen()) return
   const { w, h } = viewportOf(ctx)
+  ctx.font = DIALOG_FONT
   ctx.fillStyle = '#0d1730f2'
   ctx.fillRect(20, h - 150, w - 40, 120)
   ctx.fillStyle = '#dfeaff'

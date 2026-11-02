@@ -2,8 +2,9 @@ import { describe, it, expect } from 'vitest'
 import { CONFIG } from '../config.js'
 import {
   nearestPathDist, nearestRoadDist, visibleTileRange, eraLabel, drawAuthoredTiles, drawTransformed,
-  buildingDrawable, proceduralRoads, proceduralPonds, eraWash,
+  buildingDrawable, proceduralRoads, proceduralPonds, eraWash, drawDialog,
 } from './scene2d.js'
+import { createDialog, bulletSource, DIALOG_FONT } from './dialog.js'
 
 const path = [{ x: 0, y: 0 }, { x: 100, y: 0 }]
 
@@ -301,5 +302,36 @@ describe('buildingDrawable', () => {
   it('reports the same ground contact either way', () => {
     expect(buildingDrawable(site({ building: null }), { x: 0, y: 0 }).baseY)
       .toBe(buildingDrawable(site(), { x: 0, y: 0 }).baseY)
+  })
+})
+
+// A canvas stand-in: monospace glyphs measure 6.6px at 11px, anything else 5px, and every
+// fillText records the font it was drawn with.
+function textCtx(logicalWidth) {
+  const texts = []
+  const ctx = {
+    canvas: { width: logicalWidth * 2, height: 800, logicalWidth, logicalHeight: 400 },
+    font: '10px sans-serif',
+    fillRect: () => {},
+    save: () => {},
+    restore: () => {},
+    measureText: str => ({ width: str.length * (ctx.font === '11px monospace' ? 6.6 : 5) }),
+    fillText: (text, x) => { texts.push({ text, x, font: ctx.font }) },
+  }
+  return { ctx, texts }
+}
+const openDialog = text => {
+  const dialog = createDialog()
+  dialog.open(bulletSource({ bullets: { en: [text], es: [text] } }, 1))
+  dialog.advance()
+  return { dialog, lang: 'en' }
+}
+
+describe('drawDialog', () => {
+  it('draws with its own font, whatever was set before', () => {
+    const { ctx, texts } = textCtx(640)
+    drawDialog(ctx, openDialog('hello there'))
+    expect(texts.length).toBeGreaterThan(0)
+    expect(texts.every(t => t.font === DIALOG_FONT)).toBe(true)
   })
 })
