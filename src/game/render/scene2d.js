@@ -10,7 +10,7 @@ import { npcDrawables } from '../entities/npcs.js'
 import { shake2D } from '../engine/camera2d.js'
 import { phaseOf, nightTint } from './lighting.js'
 import { WATER_LAYER } from '../world/water.js'
-import { DIALOG_FONT } from './dialog.js'
+import { DIALOG_FONT, DIALOG_TEXT_X, colsFor } from './dialog.js'
 
 const TILE = 32
 const AVATAR_W = CONFIG.avatar.width
@@ -454,10 +454,11 @@ export function drawDialog(ctx, state) {
   if (!dialog.isOpen()) return
   const { w, h } = viewportOf(ctx)
   ctx.font = DIALOG_FONT
+  dialog.fit(colsFor(w, ctx.measureText('M').width))
   ctx.fillStyle = '#0d1730f2'
   ctx.fillRect(20, h - 150, w - 40, 120)
   ctx.fillStyle = '#dfeaff'
-  dialog.visibleText(lang).split('\n').forEach((ln, i) => ctx.fillText(ln, 40, h - 120 + i * 22))
+  dialog.visibleText(lang).split('\n').forEach((ln, i) => ctx.fillText(ln, DIALOG_TEXT_X, h - 120 + i * 22))
   drawPageIndicator(ctx, dialog.page(lang), w, h)
 }
 

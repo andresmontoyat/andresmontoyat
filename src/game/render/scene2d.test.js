@@ -4,7 +4,7 @@ import {
   nearestPathDist, nearestRoadDist, visibleTileRange, eraLabel, drawAuthoredTiles, drawTransformed,
   buildingDrawable, proceduralRoads, proceduralPonds, eraWash, drawDialog,
 } from './scene2d.js'
-import { createDialog, bulletSource, DIALOG_FONT } from './dialog.js'
+import { createDialog, bulletSource, paginate, DIALOG_FONT } from './dialog.js'
 
 const path = [{ x: 0, y: 0 }, { x: 100, y: 0 }]
 
@@ -333,5 +333,17 @@ describe('drawDialog', () => {
     drawDialog(ctx, openDialog('hello there'))
     expect(texts.length).toBeGreaterThan(0)
     expect(texts.every(t => t.font === DIALOG_FONT)).toBe(true)
+  })
+})
+
+describe('drawDialog on a phone', () => {
+  const LONG = 'Moved the warehouse ops (app and back office) onto one event stream so every bodega reports in seconds, not hours, across the whole fleet'
+  it('wraps a bullet to the width the box has, measured in the dialog font', () => {
+    const { ctx, texts } = textCtx(336)
+    const state = openDialog(LONG)
+    drawDialog(ctx, state)
+    const lines = texts.filter(t => t.x === 40).map(t => t.text)
+    expect(lines).toEqual(paginate(LONG, { cols: 38 })[0].split('\n'))
+    expect(lines.every(l => 40 + l.length * 6.6 <= 336 - 40)).toBe(true)
   })
 })

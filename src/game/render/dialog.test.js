@@ -1,5 +1,7 @@
 import { describe, it, expect } from 'vitest'
-import { dialogLines, createDialog, paginate, siteSource, bulletSource } from './dialog.js'
+import {
+  dialogLines, createDialog, paginate, siteSource, bulletSource, colsFor,
+} from './dialog.js'
 
 const site = { co: 'TCS', title: { en: 'Tech Lead', es: 'Líder' }, date: { en: '2013', es: '2013' }, metric: { value: '45+', label: { en: 'devs', es: 'devs' } }, tech: ['Java', 'OSB'] }
 const noMetric = { ...site, metric: null }
@@ -117,5 +119,44 @@ describe('paged dialog', () => {
     const d = createDialog()
     d.open(site)
     expect(d.page('en')).toEqual({ index: 0, count: 1 })
+  })
+})
+
+describe('colsFor', () => {
+  it('fits the columns of the text area: the viewport less 40px of margin a side', () => {
+    expect(colsFor(336, 6.6)).toBe(38)
+    expect(colsFor(640, 6.6)).toBe(84)
+  })
+  it('keeps the default width until a glyph has been measured', () => {
+    expect(colsFor(336, 0)).toBe(46)
+  })
+})
+
+describe('dialog fitted to a width', () => {
+  const entry = { bullets: { en: [WORDS], es: [WORDS] } }
+  it('paginates a bullet at the columns it is given', () => {
+    expect(bulletSource(entry, 1).pages('en', 10)).toEqual(paginate(WORDS, { cols: 10 }))
+  })
+  it('re-paginates when the width changes, and advance follows the new page count', () => {
+    const d = createDialog()
+    d.open(bulletSource(entry, 1))
+    d.fit(80)
+    const wide = d.page('en').count
+    d.fit(20)
+    const narrow = d.page('en').count
+    expect(narrow).toBeGreaterThan(wide)
+    d.advance()
+    expect(d.visibleText('en')).toBe(paginate(WORDS, { cols: 20 })[0])
+    for (let i = 0; i < 2 * narrow; i++) d.advance()
+    expect(d.isOpen()).toBe(false)
+  })
+  it('keeps the page in range when a resize leaves fewer pages', () => {
+    const d = createDialog()
+    d.open(bulletSource(entry, 1))
+    d.fit(20)
+    for (let i = 0; i < 6; i++) d.advance()
+    d.fit(200)
+    expect(d.page('en')).toEqual({ index: 0, count: 1 })
+    expect(d.isOpen()).toBe(true)
   })
 })
