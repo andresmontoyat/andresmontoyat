@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import "tailwindcss" source("../src");
 
 /* Tailwind 4 is CSS-first: tokens live here, not in a JS config.
    Colors/shadows whose NAME equals a runtime var below are declared with their dark
