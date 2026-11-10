@@ -27,7 +27,7 @@ const rest = data.projects.filter((p) => !p.featured)
     <h2 class="font-pixel text-lg sm:text-xl md:text-2xl font-extrabold tracking-normal text-text mb-4 leading-tight">
       {pick(data.h2, locale)}
     </h2>
-    <p class="text-muted max-w-[640px] mb-12 font-pixel text-[11px] leading-[2]">{pick(data.intro, locale)}</p>
+    <p class="text-muted max-w-[640px] mb-12 font-pixel text-[11px] leading-loose">{pick(data.intro, locale)}</p>
     {featured.map((project) => {
       const title = pick(project.title, locale)
       const desc = pick(project.desc, locale)
@@ -37,7 +37,7 @@ const rest = data.projects.filter((p) => !p.featured)
             data-featured="true"
             class="group relative w-full overflow-hidden rounded-2xl border border-accent/50 bg-surface shadow-[0_0_45px_-14px_var(--accent)] transition-all duration-300 hover:border-accent hover:-translate-y-1"
           >
-            <span aria-hidden="true" class="absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-accent to-secondary" />
+            <span aria-hidden="true" class="absolute left-0 top-0 h-full w-1 bg-linear-to-b from-accent to-secondary" />
             <div class="grid md:grid-cols-[280px_1fr]">
               <div class="relative flex aspect-video items-center justify-center overflow-hidden bg-bg md:aspect-auto">
                 <div class="absolute inset-0 bg-grad-accent opacity-[0.16] transition-opacity duration-300 group-hover:opacity-25" />

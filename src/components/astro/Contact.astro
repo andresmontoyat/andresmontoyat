@@ -30,7 +30,7 @@ const reachOut = locale === 'es' ? 'Escríbeme' : 'Reach out'
     <h2 class="font-pixel text-lg sm:text-xl md:text-2xl font-extrabold tracking-normal text-text mb-4 leading-tight">
       {pick(data.h2, locale)}
     </h2>
-    <p class="text-muted max-w-[640px] mb-12 font-pixel text-[11px] leading-[2]">{pick(data.intro, locale)}</p>
+    <p class="text-muted max-w-[640px] mb-12 font-pixel text-[11px] leading-loose">{pick(data.intro, locale)}</p>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <a
         href={hero.href}

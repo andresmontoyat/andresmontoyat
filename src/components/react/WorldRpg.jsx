@@ -111,7 +111,7 @@ function TouchControls({ copy, upRef, downRef, leftRef, rightRef, actionRef }) {
         <PadButton innerRef={rightRef} label={copy.right} glyph="▶" className="absolute bottom-0 right-0" />
         <PadButton innerRef={downRef} label={copy.down} glyph="▼" className="absolute bottom-0 left-1/2 -translate-x-1/2" />
       </div>
-      <PadButton innerRef={actionRef} label={copy.action} glyph="A" className="!w-14 !h-14" />
+      <PadButton innerRef={actionRef} label={copy.action} glyph="A" className="w-14! h-14!" />
     </div>
   )
 }
@@ -267,7 +267,7 @@ export default function WorldRpg({ locale }) {
         // canvas (polish-pass screenshot review). Trimmed the vh share and the cap so the full
         // device (bezel + title + canvas + legend) fits within one viewport on common desktop
         // heights, with min-h as a floor so very short viewports don't collapse the canvas.
-        className="block w-full h-[56vh] max-h-[520px] min-h-[320px] outline-none [image-rendering:pixelated]"
+        className="block w-full h-[56vh] max-h-[520px] min-h-[320px] outline-hidden [image-rendering:pixelated]"
       />
       <TouchControls copy={copy} upRef={upRef} downRef={downRef} leftRef={leftRef} rightRef={rightRef} actionRef={actionRef} />
       <button

@@ -69,7 +69,7 @@ function DPad({ copy, leftRef, rightRef, jumpRef }) {
 function RolePanel({ company, lang, copy, onClose }) {
   const bullets = pick(company.bullets, lang)
   return (
-    <div className="absolute inset-0 z-10 flex items-center justify-center bg-bg/85 backdrop-blur-sm p-4">
+    <div className="absolute inset-0 z-10 flex items-center justify-center bg-bg/85 backdrop-blur-xs p-4">
       <div role="dialog" aria-modal="true" className="w-full max-w-md rounded-xl border border-accent/40 bg-surface p-6">
         <div className="flex items-start justify-between gap-4 mb-3">
           <div>
@@ -187,7 +187,7 @@ export default function CareerGame({ locale }) {
         ref={canvasRef}
         data-testid="career-canvas"
         tabIndex={0}
-        className="block w-full h-[70vh] max-h-[640px] outline-none"
+        className="block w-full h-[70vh] max-h-[640px] outline-hidden"
       />
       <DPad copy={copy} leftRef={leftRef} rightRef={rightRef} jumpRef={jumpRef} />
       <button

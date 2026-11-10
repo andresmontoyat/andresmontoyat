@@ -1,6 +1,265 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+/* Tailwind 4 is CSS-first: tokens live here, not in a JS config.
+   Colors/shadows whose NAME equals a runtime var below are declared with their dark
+   literal only so the utility exists and emits var(--x); the live, theme-aware value is
+   supplied by the :root / [data-theme="light"] blocks in @layer base (cascade-later than
+   Tailwind's theme layer). Never write `--x: var(--x)` here — that is a cycle. */
+@theme {
+  /* Surface scale (ink) — dark defaults; opacity modifiers (bg-ink-950/95) work natively via color-mix */
+  --color-ink-950: #07091A;
+  --color-ink-900: #0B1020;
+  --color-ink-800: #0F1530;
+  --color-ink-700: #131A3A;
+  --color-ink-600: #151C3D;
+  --color-ink-500: #1F2A55;
+  --color-ink-400: #2A3870;
+
+  --color-brand:        #00E5A8;
+  --color-brand-light:  #33EBBC;
+  --color-brand-dark:   #00B886;
+  --color-brand-muted:  rgba(0, 229, 168, 0.12);
+
+  --color-accent:        #00C2FF;
+  --color-accent-light:  #33CEFF;
+  --color-accent-dark:   #009BCC;
+  --color-accent-muted:  rgba(0, 194, 255, 0.12);
+
+  --color-constellation-edge: rgba(160, 160, 192, 0.25);
+  --color-card-bg:            #0F1530;
+  --color-card-border:        #151C3D;
+
+  --font-sans: Inter, 'SF Pro Display', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, monospace;
+  --font-display: Inter, 'SF Pro Display', system-ui, sans-serif;
+
+  --animate-fade-in:      fadeIn 0.5s ease-out;
+  --animate-slide-up:     slideUp 0.6s ease-out;
+  /* pulse2 runs infinite — MUST be applied with motion-safe: prefix (motion-safe:animate-pulse2) */
+  --animate-pulse2:       pulse2 2s ease-in-out infinite;
+  /* Constellation reveal animations (Phase 15) — use motion-safe: prefix */
+  --animate-node-reveal:   nodeReveal 400ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  --animate-edge-reveal:   edgeReveal 300ms ease-out both;
+  --animate-hint-fade-out: hintFadeOut 600ms ease-in forwards;
+  /* Phase 16 — filter chip + floating card animations; ALWAYS motion-safe: prefix */
+  --animate-card-fade-in:  cardFadeIn 200ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-card-slide-up: cardSlideUp 250ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-card-swap-out: cardSwapOut 75ms ease-in both;
+  --animate-card-swap-in:  cardSwapIn 75ms ease-out both;
+  --animate-chip-flash:    chipFlash 100ms ease-out both;
+  /* Phase 19 (v3.9 POLISH-02) — SVG node ambient twinkle; motion-safe: prefix (a11y locked) */
+  --animate-svg-twinkle:   svgTwinkle 4s ease-in-out infinite;
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes pulse2 {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.4;
+    }
+  }
+  @keyframes nodeReveal {
+    0% {
+      opacity: 0;
+      transform: scale(0.3);
+    }
+    70% {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  @keyframes edgeReveal {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  @keyframes hintFadeOut {
+    0% {
+      opacity: 1;
+    }
+    80% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+  @keyframes cardFadeIn {
+    0% {
+      opacity: 0;
+      transform: scale(0.96);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  @keyframes cardSlideUp {
+    0% {
+      opacity: 0;
+      transform: translateY(100%);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0%);
+    }
+  }
+  @keyframes cardSwapOut {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+  @keyframes cardSwapIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  @keyframes chipFlash {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+      transform: scale(0.94);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  @keyframes svgTwinkle {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.7;
+    }
+  }
+}
+
+/* Aliases to runtime vars whose names differ from the utility key. `inline` makes the
+   utility reference var(--x) directly, so the theme flip (data-theme) reaches them.
+   Camel-case segments are intentional: they keep the existing class names (bg-chip-activeBg).
+   NOTE: text-text-primary/secondary/muted/inverse are deliberately NOT defined — they never
+   generated CSS under Tailwind 3 (duplicate `text` key in the old config), so those elements
+   inherit color; defining them would silently recolor them. */
+@theme inline {
+  --color-bg:        var(--bg);
+  --color-bg-2:      var(--bg-2);
+  --color-bg-3:      var(--bg-3);
+  --color-surface:   var(--surface);
+  --color-border:    var(--border);
+  --color-text:      var(--text);
+  --color-muted:     var(--muted);
+  --color-accent-2:  var(--accent-2);
+
+  --color-constellation-edgeHeavy: var(--color-constellation-edge-heavy);
+  --color-constellation-halo:      var(--color-constellation-halo);
+
+  --color-hintPill-bg:   var(--color-hint-pill-bg);
+  --color-hintPill-text: var(--color-hint-pill-text);
+
+  --color-chip-activeBg:      var(--color-chip-active-bg);
+  --color-chip-activeText:    var(--color-chip-active-text);
+  --color-chip-outlineBorder: var(--color-chip-outline-border);
+  --color-chip-outlineText:   var(--color-chip-outline-text);
+
+  --color-slider-track:       var(--color-slider-track);
+  --color-slider-range:       var(--color-slider-range);
+  --color-slider-thumb:       var(--color-slider-thumb);
+  --color-slider-thumbBorder: var(--color-slider-thumb-border);
+
+  --color-card-overlay: var(--color-card-overlay-bg);
+
+  --color-cvCta-bg:      var(--color-cv-cta-bg);
+  --color-cvCta-text:    var(--color-cv-cta-text);
+  --color-cvCta-hoverBg: var(--color-cv-cta-hover-bg);
+}
+
+/* Dark is the default; light is the data-theme attribute, never prefers-color-scheme. */
+@custom-variant dark (&:where(html:not([data-theme="light"]), html:not([data-theme="light"]) *));
+
+/* Gradients resolve via CSS vars (theme-aware) — Phase 7 review WR-01 / WR-02. */
+@utility bg-hero-gradient  { background-image: var(--bg-hero-gradient); }
+@utility bg-brand-gradient { background-image: var(--bg-brand-gradient); }
+@utility bg-card-gradient  { background-image: var(--bg-card-gradient); }
+@utility bg-grad-accent    { background-image: linear-gradient(135deg, #00E5A8 0%, #00C2FF 100%); }
+
+/* Shadows resolve via CSS vars (theme-aware) — Phase 7 review WR-03. They are @utility, not
+   @theme --shadow-*, because a literal in @theme gets inlined into the utility and would
+   freeze the dark value; var(--shadow-x) here keeps the data-theme flip. */
+@utility shadow-brand {
+  --tw-shadow: var(--shadow-brand);
+  box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+}
+@utility shadow-brand-lg {
+  --tw-shadow: var(--shadow-brand-lg);
+  box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+}
+@utility shadow-card {
+  --tw-shadow: var(--shadow-card);
+  box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+}
+
+/* Tailwind 4 compat: v3 defaults for border color, button cursor. */
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  /* Phase 24 (D-05/D-06): native <details> marker removal — cross-browser,
+     both rules required together (::-webkit-details-marker is a separate,
+     non-standard pseudo-element from the list-style mechanism). */
+  summary {
+    list-style: none;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+}
 
 @font-face {
   font-family: 'Press Start 2P';
@@ -237,80 +496,69 @@
   }
 }
 
-@layer utilities {
-  /* Retro pixel display font (Press Start 2P) — accent + titles only */
-  .font-pixel {
-    font-family: 'Press Start 2P', ui-monospace, 'SF Mono', 'Menlo', monospace;
-  }
+/* Retro pixel display font (Press Start 2P) — accent + titles only */
+@utility font-pixel {
+  font-family: 'Press Start 2P', ui-monospace, 'SF Mono', 'Menlo', monospace;
+}
 
-  /* Phase 24 (D-01): Hero H1 char-reveal — CSS steps() + ch-unit typewriter.
-     --reveal-chars is set per-instance via inline style (build-time char count).
-     Animation itself lives outside @layer utilities, gated by prefers-reduced-motion
-     (see below), so it composes with Tailwind's cascade correctly. */
-  .hero-reveal {
-    width: 0;
-    vertical-align: bottom;
-  }
+/* Phase 24 (D-01): Hero H1 char-reveal — CSS steps() + ch-unit typewriter.
+   --reveal-chars is set per-instance via inline style (build-time char count).
+   The animation itself lives outside the utility, gated by prefers-reduced-motion
+   (see below), so it composes with Tailwind's cascade correctly. */
+@utility hero-reveal {
+  width: 0;
+  vertical-align: bottom;
+}
 
-  /* Phase 24 (D-05/D-06): native <details> marker removal — cross-browser,
-     both rules required together (::-webkit-details-marker is a separate,
-     non-standard pseudo-element from the list-style mechanism). */
-  summary {
-    list-style: none;
-  }
-  summary::-webkit-details-marker {
-    display: none;
-  }
+/* Subtle dot-grid overlay — replaces old neon grid lines */
+@utility bg-grid-subtle {
+  background-image:
+    radial-gradient(circle, rgba(59, 130, 246, 0.06) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
 
-  /* Subtle dot-grid overlay — replaces old neon grid lines */
-  .bg-grid-subtle {
-    background-image:
-      radial-gradient(circle, rgba(59, 130, 246, 0.06) 1px, transparent 1px);
-    background-size: 32px 32px;
-  }
+/* Phase 4 D-07: Skip-to-content — visible only on keyboard focus
+   Standard a11y pattern. Hidden off-screen until focused. */
+@utility skip-link {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  z-index: 1000;
+  padding: 0.75rem 1rem;
+  background-color: var(--color-brand);
+  color: var(--color-text-inverse, #fff);
+  font-family: ui-monospace, 'SF Mono', 'Menlo', monospace;
+  font-size: 0.75rem;
+  font-weight: 800;
+  border-radius: 0 0 0.5rem 0;
+  transition: top 150ms ease-out;
+  text-decoration: none;
 
-  /* Phase 4 D-07: Skip-to-content — visible only on keyboard focus
-     Standard a11y pattern. Hidden off-screen until focused. */
-  .skip-link {
-    position: absolute;
-    top: -100px;
-    left: 0;
-    z-index: 1000;
-    padding: 0.75rem 1rem;
-    background-color: var(--color-brand);
-    color: var(--color-text-inverse, #fff);
-    font-family: ui-monospace, 'SF Mono', 'Menlo', monospace;
-    font-size: 0.75rem;
-    font-weight: 800;
-    border-radius: 0 0 0.5rem 0;
-    transition: top 150ms ease-out;
-    text-decoration: none;
-  }
-
-  .skip-link:focus {
+  &:focus {
     top: 0;
     outline: 2px solid var(--color-brand-light);
     outline-offset: 2px;
   }
+}
 
-  /* Phase 3: scroll-triggered entrance — used by useInView hook */
-  .animate-on-scroll {
-    opacity: 0;
-    transform: translateY(16px);
-    transition: opacity 700ms ease-out, transform 700ms ease-out;
-  }
+/* Phase 3: scroll-triggered entrance — used by useInView hook */
+@utility animate-on-scroll {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 700ms ease-out, transform 700ms ease-out;
 
-  .animate-on-scroll.is-visible {
+  &.is-visible {
     opacity: 1;
     transform: translateY(0);
   }
+}
 
-  /* Phase 16: mobile filter toolbar horizontal scroll without visible scrollbar */
-  .scrollbar-hide {
-    scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
-  }
-  .scrollbar-hide::-webkit-scrollbar {
+/* Phase 16: mobile filter toolbar horizontal scroll without visible scrollbar */
+@utility scrollbar-hide {
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+
+  &::-webkit-scrollbar {
     display: none;
   }
 }
