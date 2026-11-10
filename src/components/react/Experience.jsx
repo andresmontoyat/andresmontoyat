@@ -131,7 +131,7 @@ function FeaturedCard({ entry, lang, isOpen, onToggle, expandLabel, collapseLabe
           </span>
         </div>
         <HeroMetric metric={entry.metric} lang={lang} />
-        <h3 className="text-lg sm:text-xl font-extrabold text-text mb-1 leading-tight">
+        <h3 className="text-lg sm:text-xl font-extrabold text-text mb-1 leading-tight sm:leading-7">
           {pick(entry.title, lang)}
         </h3>
         <div className="text-sm text-muted mb-4">{pick(entry.location, lang)}</div>
@@ -160,7 +160,7 @@ function CompactRow({ entry, lang, isOpen, onToggle, dimmed }) {
           className="flex w-full items-center gap-3 text-left"
         >
           <span className="font-mono text-xs text-accent shrink-0">{pick(entry.date, lang)}</span>
-          <span className="text-sm sm:text-base font-bold text-text leading-tight">{pick(entry.title, lang)}</span>
+          <span className="text-sm sm:text-base font-bold text-text leading-tight sm:leading-6">{pick(entry.title, lang)}</span>
           <span className="hidden sm:inline font-mono text-xs text-muted">· {entry.company}</span>
           <span className="ml-auto shrink-0 text-accent">
             <ChevronIcon open={isOpen} />
@@ -271,7 +271,7 @@ export default function Experience({ locale }) {
         <div className="font-pixel text-[10px] uppercase tracking-[1px] text-accent flex items-center gap-3 mb-4">
           <span className="block w-10 h-0.5 bg-accent" /> {pick(data.label, lang)}
         </div>
-        <h2 className="font-pixel text-lg sm:text-xl md:text-2xl font-extrabold tracking-normal text-text mb-4 leading-tight">
+        <h2 className="font-pixel text-lg sm:text-xl md:text-2xl font-extrabold tracking-normal text-text mb-4 leading-tight sm:leading-7 md:leading-8">
           {pick(data.h2, lang)}
         </h2>
         <p className="text-muted max-w-[640px] mb-8 font-pixel text-[11px] leading-loose">{pick(data.intro, lang)}</p>
