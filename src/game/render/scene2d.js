@@ -10,6 +10,8 @@ import { npcDrawables } from '../entities/npcs.js'
 import { shake2D } from '../engine/camera2d.js'
 import { phaseOf, nightTint } from './lighting.js'
 import { WATER_LAYER } from '../world/water.js'
+import { DIALOG_FONT, DIALOG_TEXT_X, colsFor } from './dialog.js'
+import { fadeAlpha } from './fade.js'
 
 const TILE = 32
 const AVATAR_W = CONFIG.avatar.width
@@ -61,7 +63,7 @@ function washTile(ctx, wash, sx, sy) {
 }
 
 export function activeSites(state) {
-  return state.revealed ? state.world.sites.concat(state.world.hiddenSites) : state.world.sites
+  return state.revealed ? state.world.sites.concat(state.world.hiddenSites || []) : state.world.sites
 }
 
 // Logical (CSS-px) viewport size — WorldRpg.jsx sizes the canvas DRAWING BUFFER to
@@ -448,14 +450,44 @@ function drawPlaceholderScene(ctx, state, cam) {
   ctx.fillRect(player.x - player.w / 2 - cam.x, player.y - player.h / 2 - cam.y, player.w, player.h)
 }
 
-function drawDialog(ctx, state) {
+export function drawDialog(ctx, state) {
   const { dialog, lang } = state
   if (!dialog.isOpen()) return
   const { w, h } = viewportOf(ctx)
+  ctx.font = DIALOG_FONT
+  dialog.fit(colsFor(w, ctx.measureText('M').width))
   ctx.fillStyle = '#0d1730f2'
   ctx.fillRect(20, h - 150, w - 40, 120)
   ctx.fillStyle = '#dfeaff'
-  dialog.visibleText(lang).split('\n').forEach((ln, i) => ctx.fillText(ln, 40, h - 120 + i * 22))
+  dialog.visibleText(lang).split('\n').forEach((ln, i) => ctx.fillText(ln, DIALOG_TEXT_X, h - 120 + i * 22))
+  drawPageIndicator(ctx, dialog.page(lang), w, h)
+}
+
+// The door's fade (fade.js) over everything but the intro title. Dark and still waiting for the
+// room, it says so: a held black screen with nothing on it reads as a hang.
+export function drawFade(ctx, state) {
+  const alpha = fadeAlpha(state.fade)
+  if (alpha <= 0) return
+  const { w, h } = viewportOf(ctx)
+  ctx.save()
+  ctx.globalAlpha = alpha
+  ctx.fillStyle = '#05070d'
+  ctx.fillRect(0, 0, w, h)
+  if (state.fade.phase === 'hold') {
+    ctx.textAlign = 'center'
+    ctx.fillStyle = '#dfeaff'
+    ctx.font = '16px monospace'
+    ctx.fillText('…', w / 2, h / 2)
+  }
+  ctx.restore()
+}
+
+function drawPageIndicator(ctx, { index, count }, w, h) {
+  if (count < 2) return
+  ctx.save()
+  ctx.textAlign = 'right'
+  ctx.fillText(`${index + 1}/${count}`, w - 36, h - 40)
+  ctx.restore()
 }
 
 function drawParticles(ctx, state, cam) {
@@ -588,14 +620,18 @@ export function render2d(ctx, state, cam) {
     drawPlaceholderScene(ctx, state, drawCam)
   } else {
     const t = state.clock || 0
-    drawGround(ctx, state, drawCam, sprites)
+    // An interior is lit indoors and fully painted by its map: no generated ground, no weather,
+    // no night. The HUD's era and site count describe the exterior, so it waits outside too.
+    const outdoors = !state.world.interior
+    if (outdoors) drawGround(ctx, state, drawCam, sprites)
     drawAuthoredTiles(ctx, state, drawCam, sprites)
     depthSortedDrawables(state, drawCam, t).forEach(item => item.draw(ctx, sprites))
-    drawAmbient(ctx, state, drawCam, t)
+    if (outdoors) drawAmbient(ctx, state, drawCam, t)
     drawParticles(ctx, state, drawCam)
-    drawNightOverlay(ctx, state)
-    drawHud(ctx, state)
+    if (outdoors) drawNightOverlay(ctx, state)
+    if (outdoors) drawHud(ctx, state)
   }
   drawDialog(ctx, state)
+  drawFade(ctx, state)
   if (introRunning) drawIntroTitle(ctx, state)
 }

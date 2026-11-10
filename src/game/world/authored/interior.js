@@ -1,0 +1,85 @@
+// The rules an interior map must meet (docs/adr/0004). An interior is a room the player walks into
+// from a house's door: one host who tells the card, one spawn where the player lands, one exit, and
+// one `read:<n>` object per bullet of the job — so every line of the job is something to walk up to,
+// exactly once. The map holds references only; the prose stays in experience.json.
+
+const SUFFIX = '.map.json'
+const HOST = 'npc:host'
+
+export function interiorIdOf(fileName) {
+  return fileName.endsWith(SUFFIX) ? fileName.slice(0, -SUFFIX.length) : null
+}
+
+const tagOf = e => (e.id === undefined ? e.kind : `${e.kind}:${e.id}`)
+
+const fail = (id, why) => {
+  throw new Error(`interior ${id}: ${why}`)
+}
+
+function checkExperience(id, entry, exteriorDoorIds) {
+  if (!entry) fail(id, 'no experience entry has that id — name the map after the job it belongs to')
+  if (entry.visible === false) fail(id, 'its experience entry is hidden, so no house can lead here')
+  if (!exteriorDoorIds.includes(id)) fail(id, `no house on the exterior map has a door:${id} — an interior needs a door to enter by`)
+}
+
+function checkExactlyOne(id, count, tag) {
+  if (count !== 1) fail(id, `expected exactly 1 ${tag}, found ${count}`)
+}
+
+// spawn and exit are flags, and the import makes a flag the kind only when it comes first (a solid
+// exit is kind 'solid'): count the flag, which is also what the runtime finds them by.
+function checkFlags(id, interactables) {
+  for (const flag of ['spawn', 'exit']) checkExactlyOne(id, interactables.filter(e => e[flag]).length, flag)
+}
+
+function checkHosts(id, tags) {
+  const stranger = tags.find(t => t.startsWith('npc:') && t !== HOST)
+  if (stranger) fail(id, `${stranger} — the only npc an interior has is npc:host`)
+}
+
+function bulletOf(tag) {
+  const n = tag.slice('read:'.length)
+  return /^\d+$/.test(n) ? Number(n) : NaN
+}
+
+function checkReads(id, tags, bullets) {
+  const seen = new Set()
+  for (const tag of tags.filter(t => t.startsWith('read:'))) {
+    const n = bulletOf(tag)
+    if (!(n >= 1 && n <= bullets)) fail(id, `${tag} — bullets run from read:1 to read:${bullets}`)
+    if (seen.has(n)) fail(id, `${tag} is placed twice — each bullet is read from one object`)
+    seen.add(n)
+  }
+  for (let n = 1; n <= bullets; n++) {
+    if (!seen.has(n)) fail(id, `read:${n} is missing — every bullet needs an object to read it from`)
+  }
+}
+
+function checkLanguages(id, entry) {
+  const { en, es } = entry.bullets
+  if (en.length !== es.length) fail(id, `en ${en.length} bullets but es ${es.length} — both languages must say the same number of things`)
+}
+
+export function validateInterior(id, interactables, entry, exteriorDoorIds) {
+  checkExperience(id, entry, exteriorDoorIds)
+  checkLanguages(id, entry)
+  const tags = interactables.map(tagOf)
+  checkFlags(id, interactables)
+  checkExactlyOne(id, tags.filter(t => t === HOST).length, HOST)
+  checkHosts(id, tags)
+  checkReads(id, tags, entry.bullets.en.length)
+}
+
+// The manifest belongs to the shared atlas, not to the room: the runtime file is the rest.
+export function interiorData({ tiles, placements, clips, interactables }) {
+  return { tiles, placements, clips, interactables }
+}
+
+// The import receipt names both sides, so a house still waiting for its room is visible without
+// diffing directories. Sorted, so the line does not reorder itself between runs.
+export function interiorCoverage(ids, doorIds) {
+  const adopted = new Set(ids)
+  const list = xs => (xs.length ? [...xs].sort().join(', ') : 'none')
+  const without = doorIds.filter(d => !adopted.has(d))
+  return `interiors: ${ids.length} of ${doorIds.length} houses — with: ${list(ids)} — without: ${list(without)}`
+}

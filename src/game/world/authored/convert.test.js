@@ -709,6 +709,17 @@ describe('interactablesFrom', () => {
     expect(out[0]).toMatchObject({ kind: 'spawn', spawn: true })
   })
 
+  it('should read a read:<n> tag as kind read with id n', () => {
+    const out = interactablesFrom([layer([obj({ tags: ['read:3'] })])])
+    expect(out[0]).toMatchObject({ kind: 'read', id: '3' })
+  })
+
+  it('should read exit as a flag', () => {
+    const out = interactablesFrom([layer([obj({ tags: ['exit'] })])])
+    expect(out[0]).toMatchObject({ kind: 'exit', exit: true })
+    expect('id' in out[0]).toBe(false)
+  })
+
   it('passes props through untouched', () => {
     const out = interactablesFrom([layer([obj({ tags: ['npc:katy'], props: { facing: 'south' } })])])
     expect(out[0].props).toEqual({ facing: 'south' })
@@ -1007,5 +1018,31 @@ describe('convertMap hitboxes', () => {
   it('refuses a box that reaches outside its frame', () => {
     expect(() => convertMap(map({ [`${OAK}#0,0`]: { x: 40, y: 50, w: 12, h: 8 } }), deps))
       .toThrow(/hitbox .*Oak.png#0,0.* outside the 48x64 frame/)
+  })
+})
+
+// docs/adr/0004: a map is either the exterior or an interior, and each kind of tag belongs to one.
+describe('where read, exit and door may be used', () => {
+  const map = tags => ({
+    version: 2, tileSize: 16, world: { w: 64, h: 64 }, clips: [],
+    slices: { 'Cute_Fantasy/Buildings/House.png': { type: 'single', w: 32, h: 32 } },
+    layers: [{
+      name: 'Casas',
+      type: 'objects',
+      objects: [{ frame: 'Cute_Fantasy/Buildings/House.png#0,0', x: 16, y: 32, uid: 'U3', tags }],
+    }],
+  })
+  const deps = extra => ({ dimsOf: () => ({ w: 64, h: 64 }), exists: () => true, ...extra })
+
+  it.each([['read:1'], ['exit']])('should refuse %s on the exterior map', tag => {
+    expect(() => convertMap(map([tag]), deps())).toThrow(/read.*interior|exit.*interior/)
+  })
+
+  it('should refuse a door inside an interior', () => {
+    expect(() => convertMap(map(['door:tul-2022']), deps({ interior: true }))).toThrow(/door.*interior/)
+  })
+
+  it('should skip door coverage for an interior', () => {
+    expect(() => convertMap(map(['read:1']), deps({ interior: true, experienceIds: ['tul-2022'] }))).not.toThrow()
   })
 })
