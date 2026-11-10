@@ -1,5 +1,6 @@
 import { defineConfig } from 'astro/config'
 import react from '@astrojs/react'
+import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
   output: 'static', // default, but explicit — no adapter installed
@@ -10,6 +11,7 @@ export default defineConfig({
   // it saved cost less than the main-thread parse it added. Measured, reverted.
   integrations: [react()],
   vite: {
+    plugins: [tailwindcss()],
     // Eagerly pre-bundle React + its JSX runtimes so `astro dev`'s first page
     // load never races Vite's on-demand optimizeDeps — that race served island
     // modules referencing an un-bundled `react/jsx-dev-runtime`, surfacing as

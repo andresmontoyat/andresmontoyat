@@ -113,14 +113,14 @@ function FeaturedCard({ entry, lang, isOpen, onToggle, expandLabel, collapseLabe
     <div className={`relative pb-9 group ${dimClass(dimmed)}`} data-variant="featured" data-dim={String(!!dimmed)}>
       <span
         aria-hidden="true"
-        className={`absolute -left-[32px] top-[8px] w-3 h-3 rounded-full ${active ? 'bg-accent' : 'bg-accent/80 group-hover:bg-accent'} shadow-[0_0_0_3px_var(--bg),0_0_12px_2px_var(--accent)] transition-colors duration-200`}
+        className={`absolute left-[-32px] top-[8px] w-3 h-3 rounded-full ${active ? 'bg-accent' : 'bg-accent/80 group-hover:bg-accent'} shadow-[0_0_0_3px_var(--bg),0_0_12px_2px_var(--accent)] transition-colors duration-200`}
       />
       <span
         aria-hidden="true"
-        className="absolute -left-[36px] top-[4px] w-5 h-5 rounded-full bg-accent/25 motion-safe:animate-ping"
+        className="absolute left-[-36px] top-[4px] w-5 h-5 rounded-full bg-accent/25 motion-safe:animate-ping"
       />
       <div className="relative overflow-hidden rounded-xl border border-accent/40 bg-surface p-7 shadow-[0_8px_30px_-12px_var(--accent)] hover:border-accent hover:-translate-y-0.5 transition-all duration-200">
-        <span aria-hidden="true" className="absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-accent to-secondary" />
+        <span aria-hidden="true" className="absolute left-0 top-0 h-full w-1 bg-linear-to-b from-accent to-secondary" />
         <div className="flex justify-between items-center gap-4 flex-wrap mb-3">
           <div className="flex items-center gap-3">
             <span className="font-mono text-sm text-accent">{pick(entry.date, lang)}</span>
@@ -131,7 +131,7 @@ function FeaturedCard({ entry, lang, isOpen, onToggle, expandLabel, collapseLabe
           </span>
         </div>
         <HeroMetric metric={entry.metric} lang={lang} />
-        <h3 className="text-lg sm:text-xl font-extrabold text-text mb-1 leading-tight">
+        <h3 className="text-lg sm:text-xl font-extrabold text-text mb-1 leading-tight sm:leading-7">
           {pick(entry.title, lang)}
         </h3>
         <div className="text-sm text-muted mb-4">{pick(entry.location, lang)}</div>
@@ -150,7 +150,7 @@ function CompactRow({ entry, lang, isOpen, onToggle, dimmed }) {
     <div className={`relative pb-5 group ${dimClass(dimmed)}`} data-variant="compact" data-dim={String(!!dimmed)}>
       <span
         aria-hidden="true"
-        className={`absolute -left-[27px] top-[9px] w-2 h-2 rounded-full ${active ? 'bg-accent' : 'bg-accent/60 group-hover:bg-accent group-hover:scale-125'} shadow-[0_0_0_3px_var(--bg)] transition-all duration-200`}
+        className={`absolute left-[-27px] top-[9px] w-2 h-2 rounded-full ${active ? 'bg-accent' : 'bg-accent/60 group-hover:bg-accent group-hover:scale-125'} shadow-[0_0_0_3px_var(--bg)] transition-all duration-200`}
       />
       <div className="rounded-lg border-b border-border/60 pb-4 px-2 -mx-2 hover:border-accent/40 hover:bg-surface/40 motion-safe:hover:-translate-y-0.5 transition-all duration-200">
         <button
@@ -160,7 +160,7 @@ function CompactRow({ entry, lang, isOpen, onToggle, dimmed }) {
           className="flex w-full items-center gap-3 text-left"
         >
           <span className="font-mono text-xs text-accent shrink-0">{pick(entry.date, lang)}</span>
-          <span className="text-sm sm:text-base font-bold text-text leading-tight">{pick(entry.title, lang)}</span>
+          <span className="text-sm sm:text-base font-bold text-text leading-tight sm:leading-6">{pick(entry.title, lang)}</span>
           <span className="hidden sm:inline font-mono text-xs text-muted">· {entry.company}</span>
           <span className="ml-auto shrink-0 text-accent">
             <ChevronIcon open={isOpen} />
@@ -229,7 +229,7 @@ function FilterBar({ lang, activeTech, onToggleChip, onClear, matchCount }) {
           </button>
         )}
       </div>
-      <div role="status" aria-live="polite" className="mt-2 font-mono text-[11px] text-muted min-h-[1rem]">
+      <div role="status" aria-live="polite" className="mt-2 font-mono text-[11px] text-muted min-h-4">
         {hasActive ? countLabel : ''}
       </div>
     </div>
@@ -271,10 +271,10 @@ export default function Experience({ locale }) {
         <div className="font-pixel text-[10px] uppercase tracking-[1px] text-accent flex items-center gap-3 mb-4">
           <span className="block w-10 h-0.5 bg-accent" /> {pick(data.label, lang)}
         </div>
-        <h2 className="font-pixel text-lg sm:text-xl md:text-2xl font-extrabold tracking-normal text-text mb-4 leading-tight">
+        <h2 className="font-pixel text-lg sm:text-xl md:text-2xl font-extrabold tracking-normal text-text mb-4 leading-tight sm:leading-7 md:leading-8">
           {pick(data.h2, lang)}
         </h2>
-        <p className="text-muted max-w-[640px] mb-8 font-pixel text-[11px] leading-[2]">{pick(data.intro, lang)}</p>
+        <p className="text-muted max-w-[640px] mb-8 font-pixel text-[11px] leading-loose">{pick(data.intro, lang)}</p>
         {features.game && (
           <div className="mb-10">
             <CareerGame locale={locale} />
@@ -290,7 +290,7 @@ export default function Experience({ locale }) {
         <div className="relative pl-8 mt-6">
           <span
             aria-hidden="true"
-            className="absolute left-[7px] top-2 bottom-2 w-0.5 bg-gradient-to-b from-accent/50 via-accent/30 to-transparent"
+            className="absolute left-[7px] top-2 bottom-2 w-0.5 bg-linear-to-b from-accent/50 via-accent/30 to-transparent"
           />
           {visibleEntries.map((entry) => {
             const Card = entry.featured ? FeaturedCard : CompactRow

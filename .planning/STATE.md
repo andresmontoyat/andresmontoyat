@@ -125,6 +125,7 @@ progress:
 | fast | Per-sprite collision: editor exports `hitboxes`, import turns each into a world solid (flip/scale/rot), game blocks on them; 12 prop frames boxed, 327/360 placements solid; trunk stop checked in a playtest; 563 tests | 2026-11-01 | 7c41491, 68f1cbc | — |
 | fast | Phase 2 design approved: interiors spec + ADR 0004 (one .map.json per interior, tags spawn/npc:host/read:<n>/exit, lazy per-interior atlas) | 2026-11-02 | e8a3569 | — |
 | fast | Phase 2 interiors pipeline + scene switch; acceptance with a throwaway Tul interior (keyboard + touch + Lighthouse): enter, host + 4 reads (es, L→en), exit to the door; no interior fetched on first load; Lighthouse mobile 0.98/1/1/1 after fixing aria-pressed on the game page language links; final-review fixes: spawn/exit counted by flag, visible:false rule aligned, import names houses with and without an interior, painted water blocks indoors, dialog font set and reads wrapped to the box width (touch re-run at 390px: whole lines), door fades through black with a loading cue | 2026-11-02 | 31410aa, acf7564, d8b8271, a27ae41, 98930ed, 5517bc3, 36ac36d, 05ff97d, a5f2f5f, a59f203, 192b0d3, 9f0cba3, 987c06c, ac2f8f4 | — |
+| 261110-p8u | Tailwind 3.4 → 4.3 (`@tailwindcss/vite`, config in `src/index.css`, source scoped to src) + drop unused @vercel/analytics (PR #48 closed; supersedes Dependabot #64). Accepted visible change: opacity-modifier utilities on var colours now emit CSS (all skill bars, timeline spine, accent card borders). Lighthouse mobile 0.97/1/1/1; browser floor Safari 16.4 / Chrome 111 / Firefox 128. Follow-up: `text-text-primary/secondary/muted` still emit nothing (kept for parity) | 2026-11-10 | 1065166, bf5c51c, 529c7e1, 572cc5e | [261110-p8u-migrate-tailwind-3-to-4-and-drop-unused-](./quick/261110-p8u-migrate-tailwind-3-to-4-and-drop-unused-/) |
 
 ## Project Reference
 
@@ -139,7 +140,7 @@ See: .planning/PROJECT.md (refreshed 2026-07-19 — v5 Astro Migration milestone
 Phase: 21 of 27 (Foundation — Astro scaffold, i18n routing & layout shell)
 Plan: TBD — not yet planned
 Status: Roadmap created, ready to plan
-Last activity: 2026-10-28 - Roadmap phase 1: generator retired (fast)
+Last activity: 2026-11-10 - Completed quick task 261110-p8u: Tailwind 4 migration
 
 Progress: [░░░░░░░░░░] 0%
 

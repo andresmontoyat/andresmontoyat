@@ -24,10 +24,10 @@ const rest = data.projects.filter((p) => !p.featured)
     <div class="font-pixel text-[10px] uppercase tracking-[1px] text-accent flex items-center gap-3 mb-4">
       <span class="block w-10 h-0.5 bg-accent" /> {pick(data.label, locale)}
     </div>
-    <h2 class="font-pixel text-lg sm:text-xl md:text-2xl font-extrabold tracking-normal text-text mb-4 leading-tight">
+    <h2 class="font-pixel text-lg sm:text-xl md:text-2xl font-extrabold tracking-normal text-text mb-4 leading-tight sm:leading-7 md:leading-8">
       {pick(data.h2, locale)}
     </h2>
-    <p class="text-muted max-w-[640px] mb-12 font-pixel text-[11px] leading-[2]">{pick(data.intro, locale)}</p>
+    <p class="text-muted max-w-[640px] mb-12 font-pixel text-[11px] leading-loose">{pick(data.intro, locale)}</p>
     {featured.map((project) => {
       const title = pick(project.title, locale)
       const desc = pick(project.desc, locale)
@@ -37,7 +37,7 @@ const rest = data.projects.filter((p) => !p.featured)
             data-featured="true"
             class="group relative w-full overflow-hidden rounded-2xl border border-accent/50 bg-surface shadow-[0_0_45px_-14px_var(--accent)] transition-all duration-300 hover:border-accent hover:-translate-y-1"
           >
-            <span aria-hidden="true" class="absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-accent to-secondary" />
+            <span aria-hidden="true" class="absolute left-0 top-0 h-full w-1 bg-linear-to-b from-accent to-secondary" />
             <div class="grid md:grid-cols-[280px_1fr]">
               <div class="relative flex aspect-video items-center justify-center overflow-hidden bg-bg md:aspect-auto">
                 <div class="absolute inset-0 bg-grad-accent opacity-[0.16] transition-opacity duration-300 group-hover:opacity-25" />
@@ -47,7 +47,7 @@ const rest = data.projects.filter((p) => !p.featured)
                 <span class="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[2px] text-accent mb-3">
                   <span aria-hidden="true">★</span> {featuredLabel}
                 </span>
-                <h3 class="text-xl sm:text-2xl font-extrabold text-text leading-tight">{title}</h3>
+                <h3 class="text-xl sm:text-2xl font-extrabold text-text leading-tight sm:leading-8">{title}</h3>
                 <p class="text-base text-muted mt-2 leading-relaxed">{desc}</p>
                 <div class="flex flex-wrap gap-2 mt-4">
                   {project.tech.map((tag) => (

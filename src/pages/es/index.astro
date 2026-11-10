@@ -43,7 +43,7 @@ const t = translations[locale].entry
     aria-modal="true"
     aria-labelledby="entry-splash-title"
     style="display:none"
-    class="fixed inset-0 z-[200] flex items-center justify-center p-6 bg-ink-950/90 backdrop-blur-md motion-safe:animate-fade-in"
+    class="fixed inset-0 z-200 flex items-center justify-center p-6 bg-ink-950/90 backdrop-blur-md motion-safe:animate-fade-in"
   >
     <div class="w-full max-w-md rounded-2xl border border-ink-500 bg-surface p-8 text-center shadow-brand-lg">
       <!-- avatar-preview.png is a self-contained 64x64 render of the dressed hero (base + Iron
@@ -61,7 +61,7 @@ const t = translations[locale].entry
       <div class="font-pixel text-[10px] uppercase tracking-[1px] text-accent flex items-center justify-center gap-3 mb-4">
         <span class="block w-8 h-0.5 bg-accent" /> {t.eyebrow} <span class="block w-8 h-0.5 bg-accent" />
       </div>
-      <h2 id="entry-splash-title" class="font-pixel text-lg sm:text-xl font-extrabold text-text mb-3 leading-tight">
+      <h2 id="entry-splash-title" class="font-pixel text-lg sm:text-xl font-extrabold text-text mb-3 leading-tight sm:leading-7">
         {t.title}
       </h2>
       <p class="text-muted text-sm mb-8">{t.hook}</p>
@@ -69,14 +69,14 @@ const t = translations[locale].entry
         <a
           id="entry-splash-play"
           href={hrefGame}
-          class="font-pixel inline-flex items-center justify-center gap-2 rounded-xl bg-brand px-6 py-3 text-[11px] text-ink-950 font-bold tracking-wide shadow-brand hover:bg-brand-light focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-light transition-colors"
+          class="font-pixel inline-flex items-center justify-center gap-2 rounded-xl bg-brand px-6 py-3 text-[11px] text-ink-950 font-bold tracking-wide shadow-brand hover:bg-brand-light focus:outline-hidden focus-visible:ring-2 focus-visible:ring-brand-light transition-colors"
         >
           ▶ {t.play}
         </a>
         <button
           type="button"
           id="entry-splash-view"
-          class="inline-flex items-center justify-center gap-2 rounded-xl border border-ink-500 px-6 py-3 text-sm text-text hover:border-brand/60 hover:text-brand focus:outline-none focus-visible:ring-2 focus-visible:ring-brand transition-colors"
+          class="inline-flex items-center justify-center gap-2 rounded-xl border border-ink-500 px-6 py-3 text-sm text-text hover:border-brand/60 hover:text-brand focus:outline-hidden focus-visible:ring-2 focus-visible:ring-brand transition-colors"
         >
           {t.view} →
         </button>

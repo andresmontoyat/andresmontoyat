@@ -25,10 +25,10 @@ const max = maxYears()
     <div class="font-pixel text-[10px] uppercase tracking-[1px] text-accent flex items-center gap-3 mb-4">
       <span class="block w-10 h-0.5 bg-accent" /> {pick(data.label, locale)}
     </div>
-    <h2 class="font-pixel text-lg sm:text-xl md:text-2xl font-extrabold tracking-normal text-text mb-4 leading-tight">
+    <h2 class="font-pixel text-lg sm:text-xl md:text-2xl font-extrabold tracking-normal text-text mb-4 leading-tight sm:leading-7 md:leading-8">
       {pick(data.h2, locale)}
     </h2>
-    <p class="text-muted max-w-[640px] mb-12 font-pixel text-[11px] leading-[2]">{pick(data.intro, locale)}</p>
+    <p class="text-muted max-w-[640px] mb-12 font-pixel text-[11px] leading-loose">{pick(data.intro, locale)}</p>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
       {data.categories.map((category) => (
         <div class="group/card bg-surface/40 border border-border rounded-[16px] p-6 transition-colors duration-200 hover:border-accent/40">
@@ -41,7 +41,7 @@ const max = maxYears()
               return (
                 <div
                   data-core={chip.core ? 'true' : 'false'}
-                  class="group -mx-2 rounded-lg px-2 py-1.5 transition-colors duration-200 hover:bg-accent/[0.06]"
+                  class="group -mx-2 rounded-lg px-2 py-1.5 transition-colors duration-200 hover:bg-accent/6"
                 >
                   <div class="flex items-baseline justify-between mb-1.5 gap-3">
                     <span class={`text-sm transition-colors duration-200 ${chip.core ? 'font-bold text-accent' : 'text-text/80 group-hover:text-text'}`}>{chip.label}</span>
@@ -49,7 +49,7 @@ const max = maxYears()
                   </div>
                   <div class="h-2 rounded-full bg-white/[0.07] overflow-hidden">
                     <div
-                      class={`h-full rounded-full transition-all duration-300 ${chip.core ? 'bg-gradient-to-r from-accent to-secondary shadow-[0_0_8px_rgba(0,229,168,0.55)]' : 'bg-accent/55 group-hover:bg-accent group-hover:shadow-[0_0_8px_rgba(0,229,168,0.45)]'}`}
+                      class={`h-full rounded-full transition-all duration-300 ${chip.core ? 'bg-linear-to-r from-accent to-secondary shadow-[0_0_8px_rgba(0,229,168,0.55)]' : 'bg-accent/55 group-hover:bg-accent group-hover:shadow-[0_0_8px_rgba(0,229,168,0.45)]'}`}
                       style={`width: ${fill}%`}
                     />
                   </div>
