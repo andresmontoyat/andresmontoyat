@@ -2390,9 +2390,9 @@
     "Buildings/Houses_Interiors/Interior_Walls.png": {
       "type": "sheet",
       "fw": 16,
-      "fh": 48,
+      "fh": 16,
       "cols": 14,
-      "rows": 2,
+      "rows": 6,
       "animated": false
     },
     "Buildings/Houses_Interiors/Stone_Wall_Fillers.png": {
@@ -3220,228 +3220,263 @@
       ]
     },
     {
-      "name": "muros",
-      "type": "objects",
-      "objects": [
+      "name": "walls",
+      "type": "tiles",
+      "cells": [
         {
-          "frame": "Buildings/Houses_Interiors/Interior_Walls.png#4,1",
-          "x": 24,
-          "y": 48,
-          "uid": "U5"
+          "x": 1,
+          "y": 0,
+          "frame": "Buildings/Houses_Interiors/Interior_Walls.png#4,3"
         },
         {
-          "frame": "Buildings/Houses_Interiors/Interior_Walls.png#4,1",
-          "x": 40,
-          "y": 48,
-          "uid": "U7"
+          "x": 2,
+          "y": 0,
+          "frame": "Buildings/Houses_Interiors/Interior_Walls.png#4,3"
         },
         {
-          "frame": "Buildings/Houses_Interiors/Interior_Walls.png#4,1",
-          "x": 56,
-          "y": 48,
-          "uid": "U9"
+          "x": 3,
+          "y": 0,
+          "frame": "Buildings/Houses_Interiors/Interior_Walls.png#4,3"
         },
         {
-          "frame": "Buildings/Houses_Interiors/Interior_Walls.png#4,1",
-          "x": 72,
-          "y": 48,
-          "uid": "U11"
+          "x": 4,
+          "y": 0,
+          "frame": "Buildings/Houses_Interiors/Interior_Walls.png#4,3"
         },
         {
-          "frame": "Buildings/Houses_Interiors/Interior_Walls.png#4,1",
-          "x": 88,
-          "y": 48,
-          "uid": "U13"
+          "x": 5,
+          "y": 0,
+          "frame": "Buildings/Houses_Interiors/Interior_Walls.png#4,3"
         },
         {
-          "frame": "Buildings/Houses_Interiors/Interior_Walls.png#4,1",
-          "x": 104,
-          "y": 48,
-          "uid": "U15"
+          "x": 6,
+          "y": 0,
+          "frame": "Buildings/Houses_Interiors/Interior_Walls.png#4,3"
         },
         {
-          "frame": "Buildings/Houses_Interiors/Interior_Walls.png#4,1",
-          "x": 120,
-          "y": 48,
-          "uid": "U17"
+          "x": 7,
+          "y": 0,
+          "frame": "Buildings/Houses_Interiors/Interior_Walls.png#4,3"
         },
         {
-          "frame": "Buildings/Houses_Interiors/Interior_Walls.png#4,1",
-          "x": 136,
-          "y": 48,
-          "uid": "U19"
-        },
-        {
-          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#0,0",
           "x": 8,
-          "y": 16,
-          "uid": "U21"
+          "y": 0,
+          "frame": "Buildings/Houses_Interiors/Interior_Walls.png#4,3"
         },
         {
-          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#1,0",
-          "x": 152,
-          "y": 16,
-          "uid": "U23"
+          "x": 1,
+          "y": 1,
+          "frame": "Buildings/Houses_Interiors/Interior_Walls.png#4,4"
         },
         {
-          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#0,1",
+          "x": 2,
+          "y": 1,
+          "frame": "Buildings/Houses_Interiors/Interior_Walls.png#4,4"
+        },
+        {
+          "x": 3,
+          "y": 1,
+          "frame": "Buildings/Houses_Interiors/Interior_Walls.png#4,4"
+        },
+        {
+          "x": 4,
+          "y": 1,
+          "frame": "Buildings/Houses_Interiors/Interior_Walls.png#4,4"
+        },
+        {
+          "x": 5,
+          "y": 1,
+          "frame": "Buildings/Houses_Interiors/Interior_Walls.png#4,4"
+        },
+        {
+          "x": 6,
+          "y": 1,
+          "frame": "Buildings/Houses_Interiors/Interior_Walls.png#4,4"
+        },
+        {
+          "x": 7,
+          "y": 1,
+          "frame": "Buildings/Houses_Interiors/Interior_Walls.png#4,4"
+        },
+        {
           "x": 8,
-          "y": 32,
-          "uid": "U25"
+          "y": 1,
+          "frame": "Buildings/Houses_Interiors/Interior_Walls.png#4,4"
         },
         {
-          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#1,1",
-          "x": 152,
-          "y": 32,
-          "uid": "U27"
+          "x": 1,
+          "y": 2,
+          "frame": "Buildings/Houses_Interiors/Interior_Walls.png#4,5"
         },
         {
-          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#0,0",
+          "x": 2,
+          "y": 2,
+          "frame": "Buildings/Houses_Interiors/Interior_Walls.png#4,5"
+        },
+        {
+          "x": 3,
+          "y": 2,
+          "frame": "Buildings/Houses_Interiors/Interior_Walls.png#4,5"
+        },
+        {
+          "x": 4,
+          "y": 2,
+          "frame": "Buildings/Houses_Interiors/Interior_Walls.png#4,5"
+        },
+        {
+          "x": 5,
+          "y": 2,
+          "frame": "Buildings/Houses_Interiors/Interior_Walls.png#4,5"
+        },
+        {
+          "x": 6,
+          "y": 2,
+          "frame": "Buildings/Houses_Interiors/Interior_Walls.png#4,5"
+        },
+        {
+          "x": 7,
+          "y": 2,
+          "frame": "Buildings/Houses_Interiors/Interior_Walls.png#4,5"
+        },
+        {
           "x": 8,
-          "y": 48,
-          "uid": "U29"
+          "y": 2,
+          "frame": "Buildings/Houses_Interiors/Interior_Walls.png#4,5"
         },
         {
-          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#1,0",
-          "x": 152,
-          "y": 48,
-          "uid": "U31"
+          "x": 0,
+          "y": 0,
+          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#0,0"
         },
         {
-          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#0,1",
+          "x": 0,
+          "y": 2,
+          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#0,0"
+        },
+        {
+          "x": 0,
+          "y": 4,
+          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#0,0"
+        },
+        {
+          "x": 0,
+          "y": 6,
+          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#0,0"
+        },
+        {
+          "x": 0,
+          "y": 8,
+          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#0,0"
+        },
+        {
+          "x": 9,
+          "y": 0,
+          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#1,0"
+        },
+        {
+          "x": 9,
+          "y": 2,
+          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#1,0"
+        },
+        {
+          "x": 9,
+          "y": 4,
+          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#1,0"
+        },
+        {
+          "x": 9,
+          "y": 6,
+          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#1,0"
+        },
+        {
+          "x": 9,
+          "y": 8,
+          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#1,0"
+        },
+        {
+          "x": 0,
+          "y": 1,
+          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#0,1"
+        },
+        {
+          "x": 0,
+          "y": 3,
+          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#0,1"
+        },
+        {
+          "x": 0,
+          "y": 5,
+          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#0,1"
+        },
+        {
+          "x": 0,
+          "y": 7,
+          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#0,1"
+        },
+        {
+          "x": 0,
+          "y": 9,
+          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#0,1"
+        },
+        {
+          "x": 2,
+          "y": 9,
+          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#0,1"
+        },
+        {
+          "x": 6,
+          "y": 9,
+          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#0,1"
+        },
+        {
           "x": 8,
-          "y": 64,
-          "uid": "U33"
+          "y": 9,
+          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#0,1"
         },
         {
-          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#1,1",
-          "x": 152,
-          "y": 64,
-          "uid": "U35"
+          "x": 9,
+          "y": 1,
+          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#1,1"
         },
         {
-          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#0,0",
-          "x": 8,
-          "y": 80,
-          "uid": "U37"
+          "x": 9,
+          "y": 3,
+          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#1,1"
         },
         {
-          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#1,0",
-          "x": 152,
-          "y": 80,
-          "uid": "U39"
+          "x": 9,
+          "y": 5,
+          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#1,1"
         },
         {
-          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#0,1",
-          "x": 8,
-          "y": 96,
-          "uid": "U41"
+          "x": 9,
+          "y": 7,
+          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#1,1"
         },
         {
-          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#1,1",
-          "x": 152,
-          "y": 96,
-          "uid": "U43"
+          "x": 9,
+          "y": 9,
+          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#1,1"
         },
         {
-          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#0,0",
-          "x": 8,
-          "y": 112,
-          "uid": "U45"
+          "x": 1,
+          "y": 9,
+          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#1,1"
         },
         {
-          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#1,0",
-          "x": 152,
-          "y": 112,
-          "uid": "U47"
+          "x": 3,
+          "y": 9,
+          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#1,1"
         },
         {
-          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#0,1",
-          "x": 8,
-          "y": 128,
-          "uid": "U49"
+          "x": 5,
+          "y": 9,
+          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#1,1"
         },
         {
-          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#1,1",
-          "x": 152,
-          "y": 128,
-          "uid": "U51"
-        },
-        {
-          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#0,0",
-          "x": 8,
-          "y": 144,
-          "uid": "U53"
-        },
-        {
-          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#1,0",
-          "x": 152,
-          "y": 144,
-          "uid": "U55"
-        },
-        {
-          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#0,1",
-          "x": 8,
-          "y": 160,
-          "uid": "U57"
-        },
-        {
-          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#1,1",
-          "x": 152,
-          "y": 160,
-          "uid": "U59"
-        },
-        {
-          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#1,1",
-          "x": 24,
-          "y": 160,
-          "uid": "U61"
-        },
-        {
-          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#0,1",
-          "x": 40,
-          "y": 160,
-          "uid": "U63"
-        },
-        {
-          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#1,1",
-          "x": 56,
-          "y": 160,
-          "uid": "U65"
-        },
-        {
-          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#1,1",
-          "x": 88,
-          "y": 160,
-          "uid": "U67"
-        },
-        {
-          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#0,1",
-          "x": 104,
-          "y": 160,
-          "uid": "U69"
-        },
-        {
-          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#1,1",
-          "x": 120,
-          "y": 160,
-          "uid": "U71"
-        },
-        {
-          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#0,1",
-          "x": 136,
-          "y": 160,
-          "uid": "U73"
-        },
-        {
-          "frame": "Buildings/House_Decor/Doors.png#63",
-          "x": 72,
-          "y": 160,
-          "uid": "U75",
-          "name": "Puerta de salida",
-          "tags": [
-            "exit"
-          ]
+          "x": 7,
+          "y": 9,
+          "frame": "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#1,1"
         }
       ]
     },
@@ -3522,7 +3557,6 @@
           "x": 108,
           "y": 138,
           "uid": "U93",
-          "scale": 0.3,
           "name": "Anfitrión",
           "tags": [
             "npc:host"
@@ -3543,10 +3577,20 @@
           "name": "Planta"
         },
         {
-          "frame": "Buildings/House_Decor/Indoor_Decor.png#0,4",
+          "frame": "Buildings/House_Decor/Doors.png#63",
+          "x": 72,
+          "y": 160,
+          "uid": "U112",
+          "name": "Puerta de salida",
+          "tags": [
+            "exit"
+          ]
+        },
+        {
           "x": 72,
           "y": 128,
-          "uid": "U99",
+          "uid": "U114",
+          "marker": true,
           "name": "Entrada (spawn)",
           "tags": [
             "spawn"
@@ -3561,12 +3605,6 @@
       "y": 20,
       "w": 14,
       "h": 10
-    },
-    "Buildings/House_Decor/Doors.png#63": {
-      "x": 0,
-      "y": 15,
-      "w": 16,
-      "h": 8
     },
     "Buildings/House_Decor/Furniture_Other.png#1": {
       "x": 0,
@@ -3609,36 +3647,6 @@
       "y": 22,
       "w": 4,
       "h": 5
-    },
-    "Buildings/Houses_Interiors/Interior_Walls.png#4,1": {
-      "x": 0,
-      "y": 0,
-      "w": 16,
-      "h": 48
-    },
-    "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#0,0": {
-      "x": 0,
-      "y": 0,
-      "w": 16,
-      "h": 16
-    },
-    "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#0,1": {
-      "x": 0,
-      "y": 0,
-      "w": 16,
-      "h": 16
-    },
-    "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#1,0": {
-      "x": 0,
-      "y": 0,
-      "w": 16,
-      "h": 16
-    },
-    "Buildings/Houses_Interiors/Stone_Wall_Fillers.png#1,1": {
-      "x": 0,
-      "y": 0,
-      "w": 16,
-      "h": 16
     },
     "NPCs (Premade)/Bartender_Bruno.png#0": {
       "x": 2,

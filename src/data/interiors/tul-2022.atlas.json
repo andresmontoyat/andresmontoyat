@@ -3,212 +3,219 @@
     "interior": "/game/interiors/tul-2022.png"
   },
   "frames": {
-    "am_Buildings_Houses_Interiors_Interior_Walls_4_1": {
-      "img": "interior",
-      "x": 0,
-      "y": 0,
-      "w": 16,
-      "h": 48
-    },
     "am_Buildings_House_Decor_Clocks_0": {
       "img": "interior",
-      "x": 16,
+      "x": 0,
       "y": 0,
       "w": 14,
       "h": 30
     },
     "am_Buildings_House_Decor_House_Plants_43": {
       "img": "interior",
-      "x": 30,
+      "x": 14,
       "y": 0,
       "w": 16,
       "h": 30
     },
     "am_Buildings_House_Decor_House_Plants_41": {
       "img": "interior",
-      "x": 46,
+      "x": 30,
       "y": 0,
       "w": 13,
       "h": 29
     },
     "am_Buildings_House_Decor_House_Plants_45": {
       "img": "interior",
-      "x": 59,
+      "x": 43,
       "y": 0,
       "w": 13,
       "h": 29
     },
     "am_Buildings_House_Decor_Standing_Lamps_22": {
       "img": "interior",
-      "x": 72,
+      "x": 56,
       "y": 0,
       "w": 11,
       "h": 27
     },
     "am_Buildings_House_Decor_Doors_63": {
       "img": "interior",
-      "x": 83,
+      "x": 67,
       "y": 0,
       "w": 16,
       "h": 23
     },
     "am_Buildings_House_Decor_Furniture_Other_1": {
       "img": "interior",
-      "x": 99,
+      "x": 83,
       "y": 0,
       "w": 32,
       "h": 18
     },
     "am_NPCs_Premade_Bartender_Bruno_0": {
       "img": "interior",
-      "x": 131,
+      "x": 115,
       "y": 0,
       "w": 13,
       "h": 18
     },
     "am_Buildings_House_Decor_Carpets_12_37": {
       "img": "interior",
-      "x": 144,
+      "x": 128,
       "y": 0,
       "w": 16,
       "h": 16
     },
     "am_Buildings_House_Decor_Carpets_3_35": {
       "img": "interior",
-      "x": 160,
+      "x": 144,
       "y": 0,
       "w": 16,
       "h": 16
     },
     "am_Buildings_House_Decor_Carpets_3_36": {
       "img": "interior",
-      "x": 176,
+      "x": 160,
       "y": 0,
       "w": 16,
       "h": 16
     },
     "am_Buildings_House_Decor_Carpets_3_37": {
       "img": "interior",
-      "x": 192,
+      "x": 176,
       "y": 0,
       "w": 16,
       "h": 16
     },
     "am_Buildings_House_Decor_Carpets_4_35": {
       "img": "interior",
-      "x": 208,
+      "x": 192,
       "y": 0,
       "w": 16,
       "h": 16
     },
     "am_Buildings_House_Decor_Carpets_4_36": {
       "img": "interior",
-      "x": 224,
+      "x": 208,
       "y": 0,
       "w": 16,
       "h": 16
     },
     "am_Buildings_House_Decor_Carpets_4_37": {
       "img": "interior",
-      "x": 240,
+      "x": 224,
       "y": 0,
       "w": 16,
       "h": 16
     },
     "am_Buildings_House_Decor_Carpets_5_35": {
       "img": "interior",
-      "x": 256,
+      "x": 240,
       "y": 0,
       "w": 16,
       "h": 16
     },
     "am_Buildings_House_Decor_Carpets_5_36": {
       "img": "interior",
-      "x": 272,
+      "x": 256,
       "y": 0,
       "w": 16,
       "h": 16
     },
     "am_Buildings_House_Decor_Carpets_5_37": {
       "img": "interior",
-      "x": 288,
-      "y": 0,
-      "w": 16,
-      "h": 16
-    },
-    "am_Buildings_House_Decor_Indoor_Decor_0_4": {
-      "img": "interior",
-      "x": 304,
+      "x": 272,
       "y": 0,
       "w": 16,
       "h": 16
     },
     "am_Buildings_House_Decor_Indoor_Decor_4_0": {
       "img": "interior",
-      "x": 320,
+      "x": 288,
       "y": 0,
       "w": 16,
       "h": 16
     },
     "am_Buildings_House_Decor_Metal_Chest_Anim_0_0": {
       "img": "interior",
+      "x": 304,
+      "y": 0,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_Houses_Interiors_Interior_Walls_4_3": {
+      "img": "interior",
+      "x": 320,
+      "y": 0,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_Houses_Interiors_Interior_Walls_4_4": {
+      "img": "interior",
       "x": 336,
       "y": 0,
       "w": 16,
       "h": 16
     },
-    "am_Buildings_Houses_Interiors_Stone_Wall_Fillers_0_0": {
+    "am_Buildings_Houses_Interiors_Interior_Walls_4_5": {
       "img": "interior",
       "x": 352,
       "y": 0,
       "w": 16,
       "h": 16
     },
-    "am_Buildings_Houses_Interiors_Stone_Wall_Fillers_0_1": {
+    "am_Buildings_Houses_Interiors_Stone_Wall_Fillers_0_0": {
       "img": "interior",
       "x": 368,
       "y": 0,
       "w": 16,
       "h": 16
     },
-    "am_Buildings_Houses_Interiors_Stone_Wall_Fillers_1_0": {
+    "am_Buildings_Houses_Interiors_Stone_Wall_Fillers_0_1": {
       "img": "interior",
       "x": 384,
       "y": 0,
       "w": 16,
       "h": 16
     },
-    "am_Buildings_Houses_Interiors_Stone_Wall_Fillers_1_1": {
+    "am_Buildings_Houses_Interiors_Stone_Wall_Fillers_1_0": {
       "img": "interior",
       "x": 400,
       "y": 0,
       "w": 16,
       "h": 16
     },
-    "am_Buildings_Houses_Interiors_Wood_Floor_Tiles_0_4": {
+    "am_Buildings_Houses_Interiors_Stone_Wall_Fillers_1_1": {
       "img": "interior",
       "x": 416,
       "y": 0,
       "w": 16,
       "h": 16
     },
-    "am_Buildings_Houses_Interiors_Wood_Floor_Tiles_0_5": {
+    "am_Buildings_Houses_Interiors_Wood_Floor_Tiles_0_4": {
       "img": "interior",
       "x": 432,
       "y": 0,
       "w": 16,
       "h": 16
     },
-    "am_Buildings_Houses_Interiors_Wood_Floor_Tiles_1_4": {
+    "am_Buildings_Houses_Interiors_Wood_Floor_Tiles_0_5": {
       "img": "interior",
       "x": 448,
       "y": 0,
       "w": 16,
       "h": 16
     },
-    "am_Buildings_Houses_Interiors_Wood_Floor_Tiles_1_5": {
+    "am_Buildings_Houses_Interiors_Wood_Floor_Tiles_1_4": {
       "img": "interior",
       "x": 464,
+      "y": 0,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_Houses_Interiors_Wood_Floor_Tiles_1_5": {
+      "img": "interior",
+      "x": 480,
       "y": 0,
       "w": 16,
       "h": 16

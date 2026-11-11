@@ -126,13 +126,6 @@
       "w": 13,
       "h": 29
     },
-    "am_Buildings_House_Decor_Indoor_Decor_0_4": {
-      "img": "am_Buildings_House_Decor_Indoor_Decor",
-      "x": 0,
-      "y": 64,
-      "w": 16,
-      "h": 16
-    },
     "am_Buildings_House_Decor_Indoor_Decor_4_0": {
       "img": "am_Buildings_House_Decor_Indoor_Decor",
       "x": 64,
@@ -154,12 +147,26 @@
       "w": 11,
       "h": 27
     },
-    "am_Buildings_Houses_Interiors_Interior_Walls_4_1": {
+    "am_Buildings_Houses_Interiors_Interior_Walls_4_3": {
       "img": "am_Buildings_Houses_Interiors_Interior_Walls",
       "x": 64,
       "y": 48,
       "w": 16,
-      "h": 48
+      "h": 16
+    },
+    "am_Buildings_Houses_Interiors_Interior_Walls_4_4": {
+      "img": "am_Buildings_Houses_Interiors_Interior_Walls",
+      "x": 64,
+      "y": 64,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_Houses_Interiors_Interior_Walls_4_5": {
+      "img": "am_Buildings_Houses_Interiors_Interior_Walls",
+      "x": 64,
+      "y": 80,
+      "w": 16,
+      "h": 16
     },
     "am_Buildings_Houses_Interiors_Stone_Wall_Fillers_0_0": {
       "img": "am_Buildings_Houses_Interiors_Stone_Wall_Fillers",
