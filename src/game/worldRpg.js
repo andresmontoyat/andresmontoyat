@@ -4,6 +4,8 @@ import {
   placementSolids, adoptedInteriorIds, loadInterior, withInteriorAtlas, buildInteriorWorld,
 } from './world/interiors.js'
 import { waterCellsOf } from './world/water.js'
+import { wallCellsOf, wallSolids } from './world/walls.js'
+import { WORLD_TILE } from './world/authored/convert.js'
 import { biomeForYear } from './world/biomes.js'
 import { buildDecor } from './world/decor.js'
 import { stepMovement } from './engine/topdown.js'
@@ -154,7 +156,7 @@ export function update(state, input, dtChars) {
   advanceFade(state, dtChars)
   const frozen = state.dialog.isOpen() || !!state.entering || !!state.fade
   const solids = buildingSolids(activeSites(state), state.world.farmBuilding, state.world.farmWindmill)
-    .concat(decorSolids(state.decor || []), pondSolids(state.world), state.world.placementSolids)
+    .concat(decorSolids(state.decor || []), pondSolids(state.world), state.world.placementSolids, state.world.wallSolids || [])
   const r = stepMovement(state.player, { ...input, frozen }, solids, { w: state.world.worldW, h: state.world.worldH })
   state.player.x = r.x; state.player.y = r.y; state.player.dir = r.dir; state.player.moving = r.moving
   state.player.step = r.moving ? state.player.step + STEP_RATE : 0
@@ -190,6 +192,8 @@ export function createWorldRpg({
   // transforms, drawn as non-solid decor, bottom-anchored at (x,y).
   world.placements = placements
   world.placementSolids = placementSolids(placements)
+  // A tiles layer named 'walls' blocks every cell it paints, here as in any interior (docs/adr/0005).
+  world.wallSolids = wallSolids(wallCellsOf(authored), WORLD_TILE)
   // The clip table those placements play (src/data/clips.json), keyed by the clip id a placement
   // carries. Frame names, already baked into the atlas by the same import.
   world.clips = clips

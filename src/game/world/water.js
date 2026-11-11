@@ -1,12 +1,11 @@
+import { keyOf, parse, rowMajor, cellSolids } from './cells.js'
+
 // Water the map paints (docs/adr/0003). A tiles layer named `water` makes the map own the ponds:
 // the game stops inventing them and derives everything water does — collision, pond life, waves —
 // from the painted cells. Cells are "x,y" keys in world tiles; positions come out in world px.
 export const WATER_LAYER = 'water'
 
 const STEPS = [[1, 0], [-1, 0], [0, 1], [0, -1]]
-const keyOf = (x, y) => `${x},${y}`
-const parse = k => k.split(',').map(Number)
-const rowMajor = keys => [...keys].map(parse).sort((a, b) => a[1] - b[1] || a[0] - b[0])
 
 // waterCellsOf: the painted cells of the water layer in the runtime index, or null when the map
 // paints none — which is what keeps the procedural ponds for a map without water.
@@ -58,21 +57,7 @@ function toBody(keys, tile) {
 // draw. Neighbouring cells of a row that end up the same height merge into one box, so a pond costs
 // a few AABBs rather than one per tile.
 export function waterSolids(bodies, tile, inset) {
-  const wet = new Set(bodies.flatMap(b => b.cells))
-  return rowMajor(wet).map(([x, y]) => cellBox(wet, x, y, { tile, inset })).reduce(mergeRun, [])
-}
-
-function cellBox(wet, x, y, { tile, inset }) {
-  const shore = (dx, dy) => (wet.has(keyOf(x + dx, y + dy)) ? 0 : inset)
-  const x0 = x * tile + shore(-1, 0)
-  const y0 = y * tile + shore(0, -1)
-  return { x: x0, y: y0, w: (x + 1) * tile - shore(1, 0) - x0, h: (y + 1) * tile - shore(0, 1) - y0 }
-}
-
-function mergeRun(boxes, b) {
-  const last = boxes[boxes.length - 1]
-  if (!last || last.y !== b.y || last.h !== b.h || last.x + last.w !== b.x) return [...boxes, b]
-  return [...boxes.slice(0, -1), { ...last, w: b.x + b.w - last.x }]
+  return cellSolids(bodies.flatMap(b => b.cells), tile, inset)
 }
 
 // undersizedBodies: the bodies holding no 2x2 square. The 9-cell water set has no frame for a strip

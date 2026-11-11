@@ -72,6 +72,15 @@ describe('buildInteriorWorld', () => {
     // 32px tiles, CONFIG.pond.shoreInset 10: each 2-cell row merges into one box.
     expect(wet.waterSolids).toEqual([{ x: 74, y: 74, w: 44, h: 22 }, { x: 74, y: 96, w: 44, h: 22 }])
   })
+  it('has no walls to block when the room paints none', () => {
+    expect(w.wallSolids).toEqual([])
+  })
+  // docs/adr/0005: whole cells, each row of touching cells one box.
+  it('blocks painted walls, whole cells, a row at a time', () => {
+    const row = [[0, 0, 0], [1, 0, 0], [2, 0, 0], [5, 0, 0]]
+    const walled = buildInteriorWorld({ ...DATA, tiles: { ...DATA.tiles, layers: [...DATA.tiles.layers, { name: 'walls', cells: row }] } })
+    expect(walled.wallSolids).toEqual([{ x: 0, y: 0, w: 96, h: 32 }, { x: 160, y: 0, w: 32, h: 32 }])
+  })
   it('collects solids from placements', () => {
     expect(w.placementSolids).toEqual([{ x: 1, y: 2, w: 3, h: 4 }])
     expect(placementSolids(DATA.placements)).toEqual(w.placementSolids)

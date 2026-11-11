@@ -1046,3 +1046,38 @@ describe('where read, exit and door may be used', () => {
     expect(() => convertMap(map(['read:1']), deps({ interior: true, experienceIds: ['tul-2022'] }))).not.toThrow()
   })
 })
+
+// docs/adr/0005: the walls layer is a contract too. It blocks whole cells, so it has to be cells, and
+// nothing may make the player appear inside one.
+describe('validateMap walls layer', () => {
+  const F = 'Cute_Fantasy/Tiles/Walls/W.png'
+  const S = 'Cute_Fantasy/Buildings/House.png'
+  const deps = { dimsOf: () => ({ w: 64, h: 64 }), exists: () => true, interior: true }
+  const wall = (x, y) => ({ x, y, frame: `${F}#0,0` })
+  const spawnAt = (x, y) => ({ frame: `${S}#0,0`, x, y, uid: 'U1', tags: ['spawn'] })
+  const map = (walls, objects = []) => ({
+    version: 2, tileSize: 16, world: { w: 64, h: 64 }, clips: [],
+    slices: { [F]: { type: 'sheet', fw: 16, fh: 16 }, [S]: { type: 'single', w: 16, h: 16 } },
+    layers: [walls, { name: 'Cosas', type: 'objects', objects }],
+  })
+  const ROW = { name: 'walls', type: 'tiles', cells: [wall(0, 0), wall(1, 0), wall(2, 0), wall(3, 0)] }
+
+  it('accepts a painted walls layer with the spawn on the floor', () => {
+    expect(() => validateMap(map(ROW, [spawnAt(24, 40)]), deps)).not.toThrow()
+  })
+
+  it('refuses a walls layer made of objects', () => {
+    expect(() => validateMap(map({ name: 'walls', type: 'objects', objects: [] }), deps))
+      .toThrow(/"walls" must be a tiles layer/)
+  })
+
+  it('refuses a spawn standing in a wall cell', () => {
+    expect(() => validateMap(map(ROW, [spawnAt(24, 10)]), deps)).toThrow(/spawn .*24,10.* wall cell 1,0/)
+  })
+
+  // Feet on the line between a wall and the floor below belong to the wall: read one pixel up.
+  it('reads the spawn\'s cell one pixel above its base point', () => {
+    expect(() => validateMap(map(ROW, [spawnAt(24, 16)]), deps)).toThrow(/wall cell 1,0/)
+    expect(() => validateMap(map(ROW, [spawnAt(24, 17)]), deps)).not.toThrow()
+  })
+})

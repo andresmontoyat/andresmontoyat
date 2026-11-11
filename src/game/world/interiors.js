@@ -1,5 +1,6 @@
 import { buildAuthoredIndex, worldSizeOf } from './authored/index.js'
 import { waterCellsOf, waterBodies, waterSolids } from './water.js'
+import { wallCellsOf, wallSolids } from './walls.js'
 import { WORLD_TILE } from './authored/convert.js'
 import { CONFIG } from '../config.js'
 
@@ -64,6 +65,7 @@ export function buildInteriorWorld(data) {
     placements,
     placementSolids: placementSolids(placements),
     waterSolids: interiorWaterSolids(authored),
+    wallSolids: wallSolids(wallCellsOf(authored), WORLD_TILE),
     clips,
     interactables,
     sites: [],

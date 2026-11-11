@@ -1,4 +1,5 @@
 import { WATER_LAYER, waterBodies, undersizedBodies } from '../water.js'
+import { WALLS_LAYER } from '../walls.js'
 
 // Converts the world-editor's engine-neutral map export into the four artifacts the game
 // consumes: atlas manifest entries, a palette-encoded tile JSON, placements, and the clip table
@@ -423,6 +424,24 @@ function validateWater(map) {
   if (thin) throw new Error(`layer "${WATER_LAYER}": the body at ${thin.cells[0]} holds no 2x2 square — widen it or erase it`)
 }
 
+// docs/adr/0005: the layer named `walls` blocks every cell it paints, so it has to be cells, and the
+// spawn may not stand in one — the player would appear inside a wall with no way to move. Feet are the
+// bottom-centre base point, read one pixel up as the editor does, so feet on the line between a wall
+// and the floor below belong to the wall.
+function validateWalls(map) {
+  const layer = map.layers.find(l => l.name === WALLS_LAYER)
+  if (!layer) return
+  if (layer.type !== 'tiles') throw new Error(`layer "${WALLS_LAYER}" must be a tiles layer: paint the walls as cells`)
+  const walled = new Set((layer.cells || []).map(c => `${c.x},${c.y}`))
+  for (const l of map.layers) {
+    for (const o of l.objects || []) {
+      if (!(o.tags || []).includes('spawn')) continue
+      const cell = `${Math.floor(o.x / map.tileSize)},${Math.floor((o.y - 1) / map.tileSize)}`
+      if (walled.has(cell)) throw new Error(`layer "${l.name}": the spawn at ${o.x},${o.y} stands in wall cell ${cell} — move it onto the floor`)
+    }
+  }
+}
+
 // docs/adr/0004: a house's inside is its own map. `door` leads in, so it belongs to the exterior;
 // `read` and `exit` only mean something once the player is inside. The tag parser is the same one
 // interactablesFrom uses, so a malformed tag is reported once and in one voice.
@@ -463,6 +482,7 @@ export function validateMap(map, { dimsOf, exists, experienceIds = null, interio
   }
   map.layers.forEach(classifyLayer)
   validateWater(map)
+  validateWalls(map)
   anchorsFrom(map.layers, 1, map.world)
   validateTagPlacement(map, interior)
   const interactables = interactablesFrom(map.layers, 1)

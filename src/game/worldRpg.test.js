@@ -145,6 +145,21 @@ describe('worldRpg placement collision', () => {
   })
 })
 
+// docs/adr/0005: the walls layer is honoured on the exterior too, by the same code.
+describe('worldRpg wall collision outside', () => {
+  it('stops the player at a wall the exterior map paints', () => {
+    const probe = createWorldRpg({ canvas: null, experience, ...MAP, sideProjects: [], lang: 'es' })
+    const { x, y } = probe.state.player
+    const col = Math.floor((x + 40) / 32)
+    const rows = [-2, -1, 0, 1, 2].map(d => Math.floor(y / 32) + d)
+    const tiles = { ...authoredTiles, layers: [...authoredTiles.layers, { name: 'walls', cells: rows.map(r => [col, r, 0]) }] }
+    const g = createWorldRpg({ canvas: null, experience, ...MAP, authoredTiles: tiles, sideProjects: [], lang: 'es' })
+    for (let i = 0; i < 30; i++) { update(probe.state, { R: 1 }, 1.6); update(g.state, { R: 1 }, 1.6) }
+    expect(probe.state.player.x).toBeGreaterThan(col * 32)
+    expect(g.state.player.x + g.state.player.w / 2).toBeLessThanOrEqual(col * 32)
+  })
+})
+
 // docs/adr/0004: a house with an adopted interior is walked into, read, and walked out of.
 const TUL = experience.entries.find(e => e.id === 'tul-2022')
 const SPAWN = { x: 320, y: 400 }
@@ -298,6 +313,15 @@ describe('worldRpg interiors', () => {
     for (let i = 0; i < 40; i += 1) update(t.g.state, { R: 1 }, 1.6)
     expect(t.g.state.player.x).toBeGreaterThan(SPAWN.x)
     expect(t.g.state.player.x).toBeLessThan(12 * 32)
+  })
+  it('inside, a painted wall stops the player at the cell edge', async () => {
+    const data = interiorData({ solids: [] })
+    data.tiles.layers.push({ name: 'walls', cells: [11, 12, 13].map(y => [12, y, 0]) })
+    const t = interiorGame({ data })
+    await enterTul(t)
+    for (let i = 0; i < 40; i += 1) update(t.g.state, { R: 1 }, 1.6)
+    expect(t.g.state.player.x).toBeGreaterThan(SPAWN.x)
+    expect(t.g.state.player.x + t.g.state.player.w / 2).toBeLessThanOrEqual(12 * 32)
   })
   it('inside, the exterior houses do not block', async () => {
     const probe = interiorGame()
