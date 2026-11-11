@@ -4,8 +4,7 @@ const STORAGE_KEY = 'cam-theme'
 const VALID_THEMES = ['dark', 'light']
 const DEFAULT_THEME = 'dark'
 
-function readInitialTheme() {
-  if (typeof document === 'undefined') return DEFAULT_THEME
+function readDocumentTheme() {
   const current = document.documentElement.dataset.theme
   if (current && VALID_THEMES.includes(current)) return current
   return DEFAULT_THEME
@@ -29,10 +28,16 @@ function MoonIcon() {
 }
 
 export default function ThemeToggle({ t }) {
-  const [theme, setTheme] = useState(readInitialTheme)
+  // null until mounted: the first client render must match the server's dark
+  // markup, and the persist effect must not overwrite the stored theme.
+  const [theme, setTheme] = useState(null)
 
   useEffect(() => {
-    if (typeof document === 'undefined') return
+    setTheme(readDocumentTheme())
+  }, [])
+
+  useEffect(() => {
+    if (theme === null) return
     document.documentElement.dataset.theme = theme
     try {
       window.localStorage.setItem(STORAGE_KEY, theme)
@@ -42,10 +47,10 @@ export default function ThemeToggle({ t }) {
   }, [theme])
 
   const toggleTheme = () => {
-    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'))
+    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'))
   }
 
-  const isDark = theme === 'dark'
+  const isDark = theme !== 'light'
   const label = isDark ? t.nav.themeLight : t.nav.themeDark
 
   return (
