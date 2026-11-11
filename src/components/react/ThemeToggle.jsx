@@ -59,7 +59,7 @@ export default function ThemeToggle({ t }) {
       onClick={toggleTheme}
       aria-label={label}
       title={label}
-      className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] rounded-full text-text-secondary hover:text-brand focus:outline-hidden focus-visible:ring-2 focus-visible:ring-brand motion-safe:transition-colors duration-200"
+      className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] rounded-full text-muted hover:text-brand focus:outline-hidden focus-visible:ring-2 focus-visible:ring-brand motion-safe:transition-colors duration-200"
     >
       {isDark ? <SunIcon /> : <MoonIcon />}
     </button>

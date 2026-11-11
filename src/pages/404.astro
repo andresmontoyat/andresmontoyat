@@ -48,7 +48,7 @@ const t = copy[locale]
   <body class="bg-ink-900">
     <main class="min-h-screen flex items-center justify-center px-6 py-8 md:py-12">
       <div class="max-w-lg mx-auto text-center">
-        <p class="font-mono uppercase tracking-wide text-xs font-extrabold text-text-secondary mb-2">
+        <p class="font-mono uppercase tracking-wide text-xs font-extrabold text-muted mb-2">
           {t.eyebrow}
         </p>
         <p
@@ -57,11 +57,11 @@ const t = copy[locale]
         >
           404
         </p>
-        <h1 class="text-2xl font-extrabold text-text-primary mb-4">{t.heading}</h1>
-        <p class="text-base text-text-secondary mb-6">{t.body}</p>
+        <h1 class="text-2xl font-extrabold text-text mb-4">{t.heading}</h1>
+        <p class="text-base text-muted mb-6">{t.body}</p>
         <a
           href={homeHref}
-          class="inline-flex items-center justify-center min-h-[44px] px-6 py-3 rounded-full border border-ink-400 text-text-secondary transition-colors duration-200 hover:text-brand hover:border-brand focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-ink-900"
+          class="inline-flex items-center justify-center min-h-[44px] px-6 py-3 rounded-full border border-ink-400 text-muted transition-colors duration-200 hover:text-brand hover:border-brand focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-ink-900"
         >
           {t.cta}
         </a>
