@@ -74,10 +74,13 @@ export function activeSites(state) {
 // range — off by a factor of dpr. WorldRpg.jsx annotates canvas.logicalWidth/logicalHeight with
 // the CSS size before that transform; this falls back to the raw buffer when unset (unit tests,
 // or a canvas that was never dpr-sized) so existing callers stay unaffected.
+// safeBottom: how many px at the bottom of the canvas the touch controls cover (WorldRpg.jsx stamps
+// it; 0 on desktop, where they are hidden).
 export function viewportOf(ctx) {
   return {
     w: ctx.canvas.logicalWidth || ctx.canvas.width,
     h: ctx.canvas.logicalHeight || ctx.canvas.height,
+    safeBottom: ctx.canvas.safeBottom || 0,
   }
 }
 
@@ -459,17 +462,36 @@ function drawPlaceholderScene(ctx, state, cam) {
   ctx.fillRect(player.x - player.w / 2 - cam.x, player.y - player.h / 2 - cam.y, player.w, player.h)
 }
 
-export function drawDialog(ctx, state) {
+const DIALOG_H = 120
+const DIALOG_MARGIN = 20
+// Desktop keeps the box 30px off the bottom edge; on a phone it ends this far above the controls.
+const DESKTOP_BOTTOM = 30
+const CONTROLS_GAP = 8
+
+// dialogRect: where the dialog box goes. On a phone the D-pad and A cover the bottom `safeBottom` px
+// of the canvas, so the box ends above them. It sits in the half of the free area the player is not
+// in, so it never covers who is talking either: at the bottom while the player is in the upper half,
+// flipped to the top once they are in the lower one.
+export function dialogRect(w, h, safeBottom, playerScreenY) {
+  const box = { x: DIALOG_MARGIN, w: w - 2 * DIALOG_MARGIN, h: DIALOG_H }
+  const free = h - safeBottom
+  if (playerScreenY >= free / 2) return { ...box, y: DIALOG_MARGIN }
+  const bottom = safeBottom ? free - CONTROLS_GAP : h - DESKTOP_BOTTOM
+  return { ...box, y: bottom - DIALOG_H }
+}
+
+export function drawDialog(ctx, state, cam = { x: 0, y: 0 }) {
   const { dialog, lang } = state
   if (!dialog.isOpen()) return
-  const { w, h } = viewportOf(ctx)
+  const { w, h, safeBottom } = viewportOf(ctx)
+  const box = dialogRect(w, h, safeBottom, state.player ? state.player.y - cam.y : 0)
   ctx.font = DIALOG_FONT
   dialog.fit(colsFor(w, ctx.measureText('M').width))
   ctx.fillStyle = '#0d1730f2'
-  ctx.fillRect(20, h - 150, w - 40, 120)
+  ctx.fillRect(box.x, box.y, box.w, box.h)
   ctx.fillStyle = '#dfeaff'
-  dialog.visibleText(lang).split('\n').forEach((ln, i) => ctx.fillText(ln, DIALOG_TEXT_X, h - 120 + i * 22))
-  drawPageIndicator(ctx, dialog.page(lang), w, h)
+  dialog.visibleText(lang).split('\n').forEach((ln, i) => ctx.fillText(ln, DIALOG_TEXT_X, box.y + 30 + i * 22))
+  drawPageIndicator(ctx, dialog.page(lang), box)
 }
 
 // The door's fade (fade.js) over everything but the intro title. Dark and still waiting for the
@@ -491,11 +513,11 @@ export function drawFade(ctx, state) {
   ctx.restore()
 }
 
-function drawPageIndicator(ctx, { index, count }, w, h) {
+function drawPageIndicator(ctx, { index, count }, box) {
   if (count < 2) return
   ctx.save()
   ctx.textAlign = 'right'
-  ctx.fillText(`${index + 1}/${count}`, w - 36, h - 40)
+  ctx.fillText(`${index + 1}/${count}`, box.x + box.w - 16, box.y + box.h - 10)
   ctx.restore()
 }
 
@@ -640,7 +662,7 @@ export function render2d(ctx, state, cam) {
     if (outdoors) drawNightOverlay(ctx, state)
     if (outdoors) drawHud(ctx, state)
   }
-  drawDialog(ctx, state)
+  drawDialog(ctx, state, sceneCam)
   drawFade(ctx, state)
   if (introRunning) drawIntroTitle(ctx, state)
 }

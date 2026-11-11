@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { CONFIG } from '../config.js'
 import {
   nearestPathDist, nearestRoadDist, visibleTileRange, eraLabel, drawAuthoredTiles, drawTransformed,
-  buildingDrawable, proceduralRoads, proceduralPonds, eraWash, drawDialog, drawFade, avatarSize, drawAvatar,
+  buildingDrawable, proceduralRoads, proceduralPonds, eraWash, drawDialog, drawFade, avatarSize, drawAvatar, dialogRect, viewportOf,
 } from './scene2d.js'
 import { createDialog, bulletSource, paginate, DIALOG_FONT } from './dialog.js'
 
@@ -307,16 +307,16 @@ describe('buildingDrawable', () => {
 
 // A canvas stand-in: monospace glyphs measure 6.6px at 11px, anything else 5px, and every
 // fillText records the font it was drawn with.
-function textCtx(logicalWidth) {
+function textCtx(logicalWidth, { logicalHeight = 400, safeBottom } = {}) {
   const texts = []
   const ctx = {
-    canvas: { width: logicalWidth * 2, height: 800, logicalWidth, logicalHeight: 400 },
+    canvas: { width: logicalWidth * 2, height: 800, logicalWidth, logicalHeight, safeBottom },
     font: '10px sans-serif',
     fillRect: () => {},
     save: () => {},
     restore: () => {},
     measureText: str => ({ width: str.length * (ctx.font === '11px monospace' ? 6.6 : 5) }),
-    fillText: (text, x) => { texts.push({ text, x, font: ctx.font }) },
+    fillText: (text, x, y) => { texts.push({ text, x, y, font: ctx.font }) },
   }
   return { ctx, texts }
 }
@@ -345,6 +345,55 @@ describe('drawDialog on a phone', () => {
     const lines = texts.filter(t => t.x === 40).map(t => t.text)
     expect(lines).toEqual(paginate(LONG, { cols: 38 })[0].split('\n'))
     expect(lines.every(l => 40 + l.length * 6.6 <= 336 - 40)).toBe(true)
+  })
+})
+
+// On a phone the D-pad and A sit over the bottom of the canvas (WorldRpg.jsx stamps how much of it
+// they cover as canvas.safeBottom). The dialog never goes under them, and never over the player.
+describe('dialogRect', () => {
+  const W = 336
+  const H = 472
+  const SAFE = 128
+  it.each([0, 100, 171, 172, 250, 400, 471])('never reaches under the touch controls (player at %i)', y => {
+    const r = dialogRect(W, H, SAFE, y)
+    expect(r.y).toBeGreaterThanOrEqual(0)
+    expect(r.y + r.h).toBeLessThanOrEqual(H - SAFE)
+  })
+  it('sits at the bottom of the free area while the player is in its upper half', () => {
+    expect(dialogRect(W, H, SAFE, 100)).toEqual({ x: 20, y: H - SAFE - 8 - 120, w: W - 40, h: 120 })
+  })
+  it('flips to the top when the player is in the lower half', () => {
+    expect(dialogRect(W, H, SAFE, 300)).toEqual({ x: 20, y: 20, w: W - 40, h: 120 })
+  })
+  it('keeps the desktop box where it was when no controls cover the canvas', () => {
+    expect(dialogRect(640, 400, 0, 100)).toEqual({ x: 20, y: 400 - 150, w: 600, h: 120 })
+  })
+})
+
+describe('viewportOf', () => {
+  it('carries the strip the touch controls cover, none when the canvas says nothing', () => {
+    expect(viewportOf({ canvas: { width: 10, height: 10, safeBottom: 128 } }).safeBottom).toBe(128)
+    expect(viewportOf({ canvas: { width: 10, height: 10 } }).safeBottom).toBe(0)
+  })
+})
+
+describe('drawDialog clears the touch controls', () => {
+  const LONG = Array.from({ length: 12 }, (_, i) => `line ${i} of a bullet long enough to need a second page of the box`).join(' ')
+  const draw = playerY => {
+    const { ctx, texts } = textCtx(336, { logicalHeight: 472, safeBottom: 128 })
+    drawDialog(ctx, { ...openDialog(LONG), player: { x: 0, y: playerY } }, { x: 0, y: 0 })
+    return texts
+  }
+  it.each([[100], [300]])('draws every line and the page indicator inside the box (player at %i)', y => {
+    const box = dialogRect(336, 472, 128, y)
+    const texts = draw(y)
+    expect(texts.some(t => /^\d+\/\d+$/.test(t.text))).toBe(true)
+    expect(texts.every(t => t.y > box.y && t.y < box.y + box.h)).toBe(true)
+  })
+  it('measures the player against the camera', () => {
+    const { ctx, texts } = textCtx(336, { logicalHeight: 472, safeBottom: 128 })
+    drawDialog(ctx, { ...openDialog('hi'), player: { x: 0, y: 1300 } }, { x: 0, y: 1000 })
+    expect(texts[0].y).toBeLessThan(200)
   })
 })
 
