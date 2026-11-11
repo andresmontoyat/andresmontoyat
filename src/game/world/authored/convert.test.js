@@ -1081,3 +1081,47 @@ describe('validateMap walls layer', () => {
     expect(() => validateMap(map(ROW, [spawnAt(24, 17)]), deps)).not.toThrow()
   })
 })
+
+// docs/adr/0006: a marker is a point the map tags but never draws — an object with no frame.
+describe('marker objects', () => {
+  const S = 'Cute_Fantasy/Buildings/House.png'
+  const deps = extra => ({ dimsOf: () => ({ w: 64, h: 64 }), exists: () => true, interior: true, ...extra })
+  const marker = (tags, over = {}) => ({ x: 24, y: 40, uid: 'M1', marker: true, tags, ...over })
+  const map = objects => ({
+    version: 2, tileSize: 16, world: { w: 64, h: 64 }, clips: [],
+    slices: { [S]: { type: 'single', w: 16, h: 16 } },
+    layers: [{ name: 'Cosas', type: 'objects', objects: [{ frame: `${S}#0,0`, x: 8, y: 16, uid: 'U1' }, ...objects] }],
+  })
+
+  it('should make a spawn marker an interactable and no placement', () => {
+    const out = convertMap(map([marker(['spawn'], { name: 'entrada' })]), deps())
+    expect(out.interactables).toEqual([{ uid: 'M1', kind: 'spawn', spawn: true, name: 'entrada', x: 48, y: 80 }])
+    expect(out.placements).toEqual([{ frame: 'am_Buildings_House_0_0', x: 16, y: 32, uid: 'U1', scale: 2 }])
+  })
+
+  it('should leave markers out of the atlas manifest', () => {
+    const out = convertMap(map([marker(['exit']), marker(['read:1'], { uid: 'M2' })]), deps())
+    expect(Object.keys(out.manifest.frames)).toEqual(['am_Buildings_House_0_0'])
+  })
+
+  it.each([['spawn'], ['exit'], ['read:2']])('should accept %s on a marker', tag => {
+    expect(() => validateMap(map([marker([tag])]), deps())).not.toThrow()
+  })
+
+  it('should refuse a frameless object that is not a marker', () => {
+    expect(() => validateMap(map([{ x: 24, y: 40, uid: 'M1' }]), deps())).toThrow(/24,40.* no frame.* re-export/)
+  })
+
+  it.each([['npc:host'], ['door:tul-2022'], ['animal:cow'], ['object:x'], ['poi:x']])('should refuse %s on a marker', tag => {
+    expect(() => validateMap(map([marker([tag])]), deps())).toThrow(/marker .*24,40.* cannot carry/)
+  })
+
+  it('should refuse a marker that plays a clip', () => {
+    expect(() => validateMap(map([marker(['spawn'], { clip: 'flame' })]), deps())).toThrow(/marker .*24,40.* nothing to animate/)
+  })
+
+  it('should keep a map without markers byte-identical', () => {
+    expect(JSON.stringify(convertMap(map([]), deps()))).toBe(JSON.stringify(convertMap(map([]), deps())))
+    expect(placementsFrom(map([]).layers, 2)).toHaveLength(1)
+  })
+})

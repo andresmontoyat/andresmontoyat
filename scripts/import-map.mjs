@@ -32,7 +32,8 @@ const diskPath = p => path.join(PACK, p.startsWith(PACK_ROOT) ? p.slice(PACK_ROO
 async function dimsCache(map) {
   const paths = new Set()
   for (const l of map.layers) {
-    if (l.type === 'objects') for (const o of l.objects || []) paths.add(o.frame.slice(0, o.frame.lastIndexOf('#')))
+    // A sprite-less marker (docs/adr/0006) has no frame and nothing to measure.
+    if (l.type === 'objects') for (const o of l.objects || []) { if (o.frame) paths.add(o.frame.slice(0, o.frame.lastIndexOf('#'))) }
     else for (const c of l.cells || []) paths.add(c.frame.slice(0, c.frame.lastIndexOf('#')))
   }
   // Clip frames too: a sheet reached ONLY through a clip's later frames would measure 0x0 here
