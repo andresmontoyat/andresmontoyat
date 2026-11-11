@@ -1,0 +1,1280 @@
+{
+  "tiles": {
+    "version": 1,
+    "tileSize": 16,
+    "cols": 10,
+    "rows": 10,
+    "frames": [
+      "am_Buildings_House_Decor_Carpets_12_37",
+      "am_Buildings_House_Decor_Carpets_3_35",
+      "am_Buildings_House_Decor_Carpets_3_36",
+      "am_Buildings_House_Decor_Carpets_3_37",
+      "am_Buildings_House_Decor_Carpets_4_35",
+      "am_Buildings_House_Decor_Carpets_4_36",
+      "am_Buildings_House_Decor_Carpets_4_37",
+      "am_Buildings_House_Decor_Carpets_5_35",
+      "am_Buildings_House_Decor_Carpets_5_36",
+      "am_Buildings_House_Decor_Carpets_5_37",
+      "am_Buildings_Houses_Interiors_Wood_Floor_Tiles_0_4",
+      "am_Buildings_Houses_Interiors_Wood_Floor_Tiles_0_5",
+      "am_Buildings_Houses_Interiors_Wood_Floor_Tiles_1_4",
+      "am_Buildings_Houses_Interiors_Wood_Floor_Tiles_1_5"
+    ],
+    "layers": [
+      {
+        "name": "suelo",
+        "cells": [
+          [
+            0,
+            0,
+            10
+          ],
+          [
+            2,
+            0,
+            10
+          ],
+          [
+            4,
+            0,
+            10
+          ],
+          [
+            6,
+            0,
+            10
+          ],
+          [
+            8,
+            0,
+            10
+          ],
+          [
+            0,
+            2,
+            10
+          ],
+          [
+            2,
+            2,
+            10
+          ],
+          [
+            4,
+            2,
+            10
+          ],
+          [
+            6,
+            2,
+            10
+          ],
+          [
+            8,
+            2,
+            10
+          ],
+          [
+            0,
+            4,
+            10
+          ],
+          [
+            2,
+            4,
+            10
+          ],
+          [
+            4,
+            4,
+            10
+          ],
+          [
+            6,
+            4,
+            10
+          ],
+          [
+            8,
+            4,
+            10
+          ],
+          [
+            0,
+            6,
+            10
+          ],
+          [
+            2,
+            6,
+            10
+          ],
+          [
+            4,
+            6,
+            10
+          ],
+          [
+            6,
+            6,
+            10
+          ],
+          [
+            8,
+            6,
+            10
+          ],
+          [
+            0,
+            8,
+            10
+          ],
+          [
+            2,
+            8,
+            10
+          ],
+          [
+            4,
+            8,
+            10
+          ],
+          [
+            6,
+            8,
+            10
+          ],
+          [
+            8,
+            8,
+            10
+          ],
+          [
+            1,
+            0,
+            12
+          ],
+          [
+            3,
+            0,
+            12
+          ],
+          [
+            5,
+            0,
+            12
+          ],
+          [
+            7,
+            0,
+            12
+          ],
+          [
+            9,
+            0,
+            12
+          ],
+          [
+            1,
+            2,
+            12
+          ],
+          [
+            3,
+            2,
+            12
+          ],
+          [
+            5,
+            2,
+            12
+          ],
+          [
+            7,
+            2,
+            12
+          ],
+          [
+            9,
+            2,
+            12
+          ],
+          [
+            1,
+            4,
+            12
+          ],
+          [
+            3,
+            4,
+            12
+          ],
+          [
+            5,
+            4,
+            12
+          ],
+          [
+            7,
+            4,
+            12
+          ],
+          [
+            9,
+            4,
+            12
+          ],
+          [
+            1,
+            6,
+            12
+          ],
+          [
+            3,
+            6,
+            12
+          ],
+          [
+            5,
+            6,
+            12
+          ],
+          [
+            7,
+            6,
+            12
+          ],
+          [
+            9,
+            6,
+            12
+          ],
+          [
+            1,
+            8,
+            12
+          ],
+          [
+            3,
+            8,
+            12
+          ],
+          [
+            5,
+            8,
+            12
+          ],
+          [
+            7,
+            8,
+            12
+          ],
+          [
+            9,
+            8,
+            12
+          ],
+          [
+            0,
+            1,
+            11
+          ],
+          [
+            2,
+            1,
+            11
+          ],
+          [
+            4,
+            1,
+            11
+          ],
+          [
+            6,
+            1,
+            11
+          ],
+          [
+            8,
+            1,
+            11
+          ],
+          [
+            0,
+            3,
+            11
+          ],
+          [
+            2,
+            3,
+            11
+          ],
+          [
+            4,
+            3,
+            11
+          ],
+          [
+            6,
+            3,
+            11
+          ],
+          [
+            8,
+            3,
+            11
+          ],
+          [
+            0,
+            5,
+            11
+          ],
+          [
+            2,
+            5,
+            11
+          ],
+          [
+            4,
+            5,
+            11
+          ],
+          [
+            6,
+            5,
+            11
+          ],
+          [
+            8,
+            5,
+            11
+          ],
+          [
+            0,
+            7,
+            11
+          ],
+          [
+            2,
+            7,
+            11
+          ],
+          [
+            4,
+            7,
+            11
+          ],
+          [
+            6,
+            7,
+            11
+          ],
+          [
+            8,
+            7,
+            11
+          ],
+          [
+            0,
+            9,
+            11
+          ],
+          [
+            2,
+            9,
+            11
+          ],
+          [
+            4,
+            9,
+            11
+          ],
+          [
+            6,
+            9,
+            11
+          ],
+          [
+            8,
+            9,
+            11
+          ],
+          [
+            1,
+            1,
+            13
+          ],
+          [
+            3,
+            1,
+            13
+          ],
+          [
+            5,
+            1,
+            13
+          ],
+          [
+            7,
+            1,
+            13
+          ],
+          [
+            9,
+            1,
+            13
+          ],
+          [
+            1,
+            3,
+            13
+          ],
+          [
+            3,
+            3,
+            13
+          ],
+          [
+            5,
+            3,
+            13
+          ],
+          [
+            7,
+            3,
+            13
+          ],
+          [
+            9,
+            3,
+            13
+          ],
+          [
+            1,
+            5,
+            13
+          ],
+          [
+            3,
+            5,
+            13
+          ],
+          [
+            5,
+            5,
+            13
+          ],
+          [
+            7,
+            5,
+            13
+          ],
+          [
+            9,
+            5,
+            13
+          ],
+          [
+            1,
+            7,
+            13
+          ],
+          [
+            3,
+            7,
+            13
+          ],
+          [
+            5,
+            7,
+            13
+          ],
+          [
+            7,
+            7,
+            13
+          ],
+          [
+            9,
+            7,
+            13
+          ],
+          [
+            1,
+            9,
+            13
+          ],
+          [
+            3,
+            9,
+            13
+          ],
+          [
+            5,
+            9,
+            13
+          ],
+          [
+            7,
+            9,
+            13
+          ],
+          [
+            9,
+            9,
+            13
+          ]
+        ]
+      },
+      {
+        "name": "alfombra",
+        "cells": [
+          [
+            3,
+            5,
+            1
+          ],
+          [
+            4,
+            5,
+            4
+          ],
+          [
+            5,
+            5,
+            7
+          ],
+          [
+            3,
+            6,
+            2
+          ],
+          [
+            4,
+            6,
+            5
+          ],
+          [
+            5,
+            6,
+            8
+          ],
+          [
+            3,
+            7,
+            3
+          ],
+          [
+            4,
+            7,
+            6
+          ],
+          [
+            5,
+            7,
+            9
+          ],
+          [
+            4,
+            8,
+            0
+          ]
+        ]
+      }
+    ],
+    "anchors": {}
+  },
+  "placements": [
+    {
+      "frame": "am_Buildings_Houses_Interiors_Interior_Walls_4_1",
+      "x": 48,
+      "y": 96,
+      "uid": "U5",
+      "scale": 2,
+      "solid": {
+        "x": 32,
+        "y": 0,
+        "w": 32,
+        "h": 96
+      }
+    },
+    {
+      "frame": "am_Buildings_Houses_Interiors_Interior_Walls_4_1",
+      "x": 80,
+      "y": 96,
+      "uid": "U7",
+      "scale": 2,
+      "solid": {
+        "x": 64,
+        "y": 0,
+        "w": 32,
+        "h": 96
+      }
+    },
+    {
+      "frame": "am_Buildings_Houses_Interiors_Interior_Walls_4_1",
+      "x": 112,
+      "y": 96,
+      "uid": "U9",
+      "scale": 2,
+      "solid": {
+        "x": 96,
+        "y": 0,
+        "w": 32,
+        "h": 96
+      }
+    },
+    {
+      "frame": "am_Buildings_Houses_Interiors_Interior_Walls_4_1",
+      "x": 144,
+      "y": 96,
+      "uid": "U11",
+      "scale": 2,
+      "solid": {
+        "x": 128,
+        "y": 0,
+        "w": 32,
+        "h": 96
+      }
+    },
+    {
+      "frame": "am_Buildings_Houses_Interiors_Interior_Walls_4_1",
+      "x": 176,
+      "y": 96,
+      "uid": "U13",
+      "scale": 2,
+      "solid": {
+        "x": 160,
+        "y": 0,
+        "w": 32,
+        "h": 96
+      }
+    },
+    {
+      "frame": "am_Buildings_Houses_Interiors_Interior_Walls_4_1",
+      "x": 208,
+      "y": 96,
+      "uid": "U15",
+      "scale": 2,
+      "solid": {
+        "x": 192,
+        "y": 0,
+        "w": 32,
+        "h": 96
+      }
+    },
+    {
+      "frame": "am_Buildings_Houses_Interiors_Interior_Walls_4_1",
+      "x": 240,
+      "y": 96,
+      "uid": "U17",
+      "scale": 2,
+      "solid": {
+        "x": 224,
+        "y": 0,
+        "w": 32,
+        "h": 96
+      }
+    },
+    {
+      "frame": "am_Buildings_Houses_Interiors_Interior_Walls_4_1",
+      "x": 272,
+      "y": 96,
+      "uid": "U19",
+      "scale": 2,
+      "solid": {
+        "x": 256,
+        "y": 0,
+        "w": 32,
+        "h": 96
+      }
+    },
+    {
+      "frame": "am_Buildings_Houses_Interiors_Stone_Wall_Fillers_0_0",
+      "x": 16,
+      "y": 32,
+      "uid": "U21",
+      "scale": 2,
+      "solid": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      }
+    },
+    {
+      "frame": "am_Buildings_Houses_Interiors_Stone_Wall_Fillers_1_0",
+      "x": 304,
+      "y": 32,
+      "uid": "U23",
+      "scale": 2,
+      "solid": {
+        "x": 288,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      }
+    },
+    {
+      "frame": "am_Buildings_Houses_Interiors_Stone_Wall_Fillers_0_1",
+      "x": 16,
+      "y": 64,
+      "uid": "U25",
+      "scale": 2,
+      "solid": {
+        "x": 0,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      }
+    },
+    {
+      "frame": "am_Buildings_Houses_Interiors_Stone_Wall_Fillers_1_1",
+      "x": 304,
+      "y": 64,
+      "uid": "U27",
+      "scale": 2,
+      "solid": {
+        "x": 288,
+        "y": 32,
+        "w": 32,
+        "h": 32
+      }
+    },
+    {
+      "frame": "am_Buildings_Houses_Interiors_Stone_Wall_Fillers_0_0",
+      "x": 16,
+      "y": 96,
+      "uid": "U29",
+      "scale": 2,
+      "solid": {
+        "x": 0,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      }
+    },
+    {
+      "frame": "am_Buildings_Houses_Interiors_Stone_Wall_Fillers_1_0",
+      "x": 304,
+      "y": 96,
+      "uid": "U31",
+      "scale": 2,
+      "solid": {
+        "x": 288,
+        "y": 64,
+        "w": 32,
+        "h": 32
+      }
+    },
+    {
+      "frame": "am_Buildings_Houses_Interiors_Stone_Wall_Fillers_0_1",
+      "x": 16,
+      "y": 128,
+      "uid": "U33",
+      "scale": 2,
+      "solid": {
+        "x": 0,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      }
+    },
+    {
+      "frame": "am_Buildings_Houses_Interiors_Stone_Wall_Fillers_1_1",
+      "x": 304,
+      "y": 128,
+      "uid": "U35",
+      "scale": 2,
+      "solid": {
+        "x": 288,
+        "y": 96,
+        "w": 32,
+        "h": 32
+      }
+    },
+    {
+      "frame": "am_Buildings_Houses_Interiors_Stone_Wall_Fillers_0_0",
+      "x": 16,
+      "y": 160,
+      "uid": "U37",
+      "scale": 2,
+      "solid": {
+        "x": 0,
+        "y": 128,
+        "w": 32,
+        "h": 32
+      }
+    },
+    {
+      "frame": "am_Buildings_Houses_Interiors_Stone_Wall_Fillers_1_0",
+      "x": 304,
+      "y": 160,
+      "uid": "U39",
+      "scale": 2,
+      "solid": {
+        "x": 288,
+        "y": 128,
+        "w": 32,
+        "h": 32
+      }
+    },
+    {
+      "frame": "am_Buildings_Houses_Interiors_Stone_Wall_Fillers_0_1",
+      "x": 16,
+      "y": 192,
+      "uid": "U41",
+      "scale": 2,
+      "solid": {
+        "x": 0,
+        "y": 160,
+        "w": 32,
+        "h": 32
+      }
+    },
+    {
+      "frame": "am_Buildings_Houses_Interiors_Stone_Wall_Fillers_1_1",
+      "x": 304,
+      "y": 192,
+      "uid": "U43",
+      "scale": 2,
+      "solid": {
+        "x": 288,
+        "y": 160,
+        "w": 32,
+        "h": 32
+      }
+    },
+    {
+      "frame": "am_Buildings_Houses_Interiors_Stone_Wall_Fillers_0_0",
+      "x": 16,
+      "y": 224,
+      "uid": "U45",
+      "scale": 2,
+      "solid": {
+        "x": 0,
+        "y": 192,
+        "w": 32,
+        "h": 32
+      }
+    },
+    {
+      "frame": "am_Buildings_Houses_Interiors_Stone_Wall_Fillers_1_0",
+      "x": 304,
+      "y": 224,
+      "uid": "U47",
+      "scale": 2,
+      "solid": {
+        "x": 288,
+        "y": 192,
+        "w": 32,
+        "h": 32
+      }
+    },
+    {
+      "frame": "am_Buildings_Houses_Interiors_Stone_Wall_Fillers_0_1",
+      "x": 16,
+      "y": 256,
+      "uid": "U49",
+      "scale": 2,
+      "solid": {
+        "x": 0,
+        "y": 224,
+        "w": 32,
+        "h": 32
+      }
+    },
+    {
+      "frame": "am_Buildings_Houses_Interiors_Stone_Wall_Fillers_1_1",
+      "x": 304,
+      "y": 256,
+      "uid": "U51",
+      "scale": 2,
+      "solid": {
+        "x": 288,
+        "y": 224,
+        "w": 32,
+        "h": 32
+      }
+    },
+    {
+      "frame": "am_Buildings_Houses_Interiors_Stone_Wall_Fillers_0_0",
+      "x": 16,
+      "y": 288,
+      "uid": "U53",
+      "scale": 2,
+      "solid": {
+        "x": 0,
+        "y": 256,
+        "w": 32,
+        "h": 32
+      }
+    },
+    {
+      "frame": "am_Buildings_Houses_Interiors_Stone_Wall_Fillers_1_0",
+      "x": 304,
+      "y": 288,
+      "uid": "U55",
+      "scale": 2,
+      "solid": {
+        "x": 288,
+        "y": 256,
+        "w": 32,
+        "h": 32
+      }
+    },
+    {
+      "frame": "am_Buildings_Houses_Interiors_Stone_Wall_Fillers_0_1",
+      "x": 16,
+      "y": 320,
+      "uid": "U57",
+      "scale": 2,
+      "solid": {
+        "x": 0,
+        "y": 288,
+        "w": 32,
+        "h": 32
+      }
+    },
+    {
+      "frame": "am_Buildings_Houses_Interiors_Stone_Wall_Fillers_1_1",
+      "x": 304,
+      "y": 320,
+      "uid": "U59",
+      "scale": 2,
+      "solid": {
+        "x": 288,
+        "y": 288,
+        "w": 32,
+        "h": 32
+      }
+    },
+    {
+      "frame": "am_Buildings_Houses_Interiors_Stone_Wall_Fillers_1_1",
+      "x": 48,
+      "y": 320,
+      "uid": "U61",
+      "scale": 2,
+      "solid": {
+        "x": 32,
+        "y": 288,
+        "w": 32,
+        "h": 32
+      }
+    },
+    {
+      "frame": "am_Buildings_Houses_Interiors_Stone_Wall_Fillers_0_1",
+      "x": 80,
+      "y": 320,
+      "uid": "U63",
+      "scale": 2,
+      "solid": {
+        "x": 64,
+        "y": 288,
+        "w": 32,
+        "h": 32
+      }
+    },
+    {
+      "frame": "am_Buildings_Houses_Interiors_Stone_Wall_Fillers_1_1",
+      "x": 112,
+      "y": 320,
+      "uid": "U65",
+      "scale": 2,
+      "solid": {
+        "x": 96,
+        "y": 288,
+        "w": 32,
+        "h": 32
+      }
+    },
+    {
+      "frame": "am_Buildings_Houses_Interiors_Stone_Wall_Fillers_1_1",
+      "x": 176,
+      "y": 320,
+      "uid": "U67",
+      "scale": 2,
+      "solid": {
+        "x": 160,
+        "y": 288,
+        "w": 32,
+        "h": 32
+      }
+    },
+    {
+      "frame": "am_Buildings_Houses_Interiors_Stone_Wall_Fillers_0_1",
+      "x": 208,
+      "y": 320,
+      "uid": "U69",
+      "scale": 2,
+      "solid": {
+        "x": 192,
+        "y": 288,
+        "w": 32,
+        "h": 32
+      }
+    },
+    {
+      "frame": "am_Buildings_Houses_Interiors_Stone_Wall_Fillers_1_1",
+      "x": 240,
+      "y": 320,
+      "uid": "U71",
+      "scale": 2,
+      "solid": {
+        "x": 224,
+        "y": 288,
+        "w": 32,
+        "h": 32
+      }
+    },
+    {
+      "frame": "am_Buildings_Houses_Interiors_Stone_Wall_Fillers_0_1",
+      "x": 272,
+      "y": 320,
+      "uid": "U73",
+      "scale": 2,
+      "solid": {
+        "x": 256,
+        "y": 288,
+        "w": 32,
+        "h": 32
+      }
+    },
+    {
+      "frame": "am_Buildings_House_Decor_Doors_63",
+      "x": 144,
+      "y": 320,
+      "uid": "U75",
+      "scale": 2,
+      "solid": {
+        "x": 128,
+        "y": 304,
+        "w": 32,
+        "h": 16
+      }
+    },
+    {
+      "frame": "am_Buildings_House_Decor_Standing_Lamps_22",
+      "x": 48,
+      "y": 120,
+      "uid": "U77",
+      "scale": 2,
+      "solid": {
+        "x": 43,
+        "y": 110,
+        "w": 8,
+        "h": 10
+      }
+    },
+    {
+      "frame": "am_Buildings_House_Decor_Indoor_Decor_4_0",
+      "x": 84,
+      "y": 124,
+      "uid": "U79",
+      "scale": 2,
+      "solid": {
+        "x": 70,
+        "y": 104,
+        "w": 28,
+        "h": 20
+      }
+    },
+    {
+      "frame": "am_Buildings_House_Decor_Indoor_Decor_4_0",
+      "x": 116,
+      "y": 124,
+      "uid": "U81",
+      "scale": 2,
+      "solid": {
+        "x": 102,
+        "y": 104,
+        "w": 28,
+        "h": 20
+      }
+    },
+    {
+      "frame": "am_Buildings_House_Decor_Clocks_0",
+      "x": 184,
+      "y": 124,
+      "uid": "U83",
+      "scale": 2,
+      "solid": {
+        "x": 170,
+        "y": 104,
+        "w": 28,
+        "h": 20
+      }
+    },
+    {
+      "frame": "am_Buildings_House_Decor_House_Plants_43",
+      "x": 224,
+      "y": 124,
+      "uid": "U85",
+      "scale": 2,
+      "solid": {
+        "x": 218,
+        "y": 112,
+        "w": 12,
+        "h": 12
+      }
+    },
+    {
+      "frame": "am_Buildings_House_Decor_Standing_Lamps_22",
+      "x": 272,
+      "y": 120,
+      "uid": "U87",
+      "scale": 2,
+      "solid": {
+        "x": 267,
+        "y": 110,
+        "w": 8,
+        "h": 10
+      }
+    },
+    {
+      "frame": "am_Buildings_House_Decor_Furniture_Other_1",
+      "x": 68,
+      "y": 208,
+      "uid": "U89",
+      "scale": 2,
+      "solid": {
+        "x": 36,
+        "y": 180,
+        "w": 64,
+        "h": 28
+      }
+    },
+    {
+      "frame": "am_Buildings_House_Decor_Metal_Chest_Anim_0_0",
+      "x": 268,
+      "y": 208,
+      "uid": "U91",
+      "scale": 2,
+      "solid": {
+        "x": 252,
+        "y": 184,
+        "w": 32,
+        "h": 24
+      }
+    },
+    {
+      "frame": "am_NPCs_Premade_Bartender_Bruno_0",
+      "x": 216,
+      "y": 276,
+      "uid": "U93",
+      "scale": 0.6,
+      "solid": {
+        "x": 213,
+        "y": 272,
+        "w": 6,
+        "h": 4
+      }
+    },
+    {
+      "frame": "am_Buildings_House_Decor_House_Plants_41",
+      "x": 100,
+      "y": 284,
+      "uid": "U95",
+      "scale": 2,
+      "solid": {
+        "x": 93,
+        "y": 272,
+        "w": 12,
+        "h": 12
+      }
+    },
+    {
+      "frame": "am_Buildings_House_Decor_House_Plants_45",
+      "x": 272,
+      "y": 284,
+      "uid": "U97",
+      "scale": 2,
+      "solid": {
+        "x": 265,
+        "y": 272,
+        "w": 12,
+        "h": 12
+      }
+    },
+    {
+      "frame": "am_Buildings_House_Decor_Indoor_Decor_0_4",
+      "x": 144,
+      "y": 256,
+      "uid": "U99",
+      "scale": 2
+    }
+  ],
+  "clips": {},
+  "interactables": [
+    {
+      "uid": "U75",
+      "kind": "exit",
+      "x": 144,
+      "y": 320,
+      "name": "Puerta de salida",
+      "w": 32,
+      "h": 46,
+      "exit": true
+    },
+    {
+      "uid": "U79",
+      "kind": "read",
+      "x": 84,
+      "y": 124,
+      "id": "1",
+      "name": "Cajas del almacén (inventario)",
+      "w": 32,
+      "h": 32
+    },
+    {
+      "uid": "U83",
+      "kind": "read",
+      "x": 184,
+      "y": 124,
+      "id": "2",
+      "name": "Reloj (eventos Kafka)",
+      "w": 28,
+      "h": 60
+    },
+    {
+      "uid": "U89",
+      "kind": "read",
+      "x": 68,
+      "y": 208,
+      "id": "4",
+      "name": "Escritorio (revisiones de código)",
+      "w": 64,
+      "h": 36
+    },
+    {
+      "uid": "U91",
+      "kind": "read",
+      "x": 268,
+      "y": 208,
+      "id": "3",
+      "name": "Cofre de metal (seguridad)",
+      "w": 32,
+      "h": 32
+    },
+    {
+      "uid": "U93",
+      "kind": "npc",
+      "x": 216,
+      "y": 276,
+      "id": "host",
+      "name": "Anfitrión",
+      "w": 7.8,
+      "h": 10.799999999999999
+    },
+    {
+      "uid": "U99",
+      "kind": "spawn",
+      "x": 144,
+      "y": 256,
+      "name": "Entrada (spawn)",
+      "w": 32,
+      "h": 32,
+      "spawn": true
+    }
+  ]
+}
