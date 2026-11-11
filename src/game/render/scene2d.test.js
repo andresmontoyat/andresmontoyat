@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { CONFIG } from '../config.js'
+import { PLAYER_BOX } from '../engine/topdown.js'
 import {
   nearestPathDist, nearestRoadDist, visibleTileRange, eraLabel, drawAuthoredTiles, drawTransformed,
   buildingDrawable, proceduralRoads, proceduralPonds, eraWash, drawDialog, drawFade, avatarSize, drawAvatar, dialogRect, viewportOf,
@@ -430,10 +431,13 @@ describe('drawAvatar', () => {
     drawAvatar({}, { player, world, clock: 0 }, { x: 0, y: 0 }, { draw: paint, drawFlipped: paint })
     return calls
   }
-  it('centres the world-scale avatar on the player inside an interior', () => {
+  // The source cell's feet end on its row 41 of 64 (82 of 128 drawn). Centred, they fell 6px below the
+  // collision box, so the player looked to stand in front of whatever stopped them.
+  it('stands the world-scale avatar on its collision box inside an interior', () => {
     const calls = drawn({ interior: true })
+    const boxBottom = 200 + PLAYER_BOX.w / 2
     expect(calls.length).toBeGreaterThan(0)
-    expect(calls.every(c => c.x === 300 - 64 && c.y === 200 - 64 && c.w === 128 && c.h === 128)).toBe(true)
+    expect(calls.every(c => c.x === 300 - 64 && c.y + 82 === boxBottom && c.w === 128 && c.h === 128)).toBe(true)
   })
   it('keeps the outdoor size outside', () => {
     const [c] = drawn({})

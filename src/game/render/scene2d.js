@@ -8,6 +8,7 @@ import { CONFIG } from '../config.js'
 import { critterDrawables } from '../entities/critters.js'
 import { npcDrawables } from '../entities/npcs.js'
 import { shake2D } from '../engine/camera2d.js'
+import { PLAYER_BOX } from '../engine/topdown.js'
 import { phaseOf, nightTint } from './lighting.js'
 import { WATER_LAYER } from '../world/water.js'
 import { DIALOG_FONT, DIALOG_TEXT_X, colsFor } from './dialog.js'
@@ -285,6 +286,17 @@ export function avatarSize(state) {
   return { w: AVATAR_W, h: AVATAR_H }
 }
 
+// Where the avatar's feet end in its 64px source cell: row 41, the bottom of the base body's sole.
+const AVATAR_SOLE = 41 / 64
+
+// Inside, the drawn feet sit on the bottom of the collision box, so the player stands against what
+// stops them. Centred, the 128px avatar's feet fell 6px below it. Outdoors keeps the tuned centring.
+function avatarTop(state, h) {
+  const { player } = state
+  if (state.world && state.world.interior) return player.y + PLAYER_BOX.w / 2 - h * AVATAR_SOLE
+  return player.y - h / 2
+}
+
 // Carlos is drawn as a stack of modular sprites (bare base + jeans/boots/shirt/hair — see
 // AVATAR_LAYERS), each layer sharing the base's frame rects so they land pixel-aligned. Walking
 // cycles the 6-frame stride by floor(step); standing runs the 2-frame idle off the clock. There's
@@ -296,7 +308,7 @@ export function drawAvatar(ctx, state, cam, sprites) {
   const phase = moving ? Math.floor(player.step) : animIndex(state.clock || 0, IDLE_TICKS, 2)
   const { w, h } = avatarSize(state)
   const dx = player.x - w / 2 - cam.x
-  const dy = player.y - h / 2 - cam.y
+  const dy = avatarTop(state, h) - cam.y
   const paint = player.dir === 'left' ? sprites.drawFlipped : sprites.draw
   AVATAR_LAYERS.forEach(layer => paint(ctx, avatarFrame(layer, dir, moving, phase), dx, dy, w, h))
 }
