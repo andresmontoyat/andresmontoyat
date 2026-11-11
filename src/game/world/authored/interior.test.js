@@ -1,6 +1,8 @@
 import { describe, it, expect } from 'vitest'
 import { convertMap } from './convert.js'
-import { interiorIdOf, validateInterior, interiorData, interiorCoverage } from './interior.js'
+import {
+  interiorIdOf, validateInterior, interiorData, interiorCoverage, interiorSolids,
+} from './interior.js'
 
 const ID = 'tul-2022'
 const lines = n => Array.from({ length: n }, (_, i) => `bullet ${i + 1}`)
@@ -93,6 +95,42 @@ describe('validateInterior', () => {
 
   it('should refuse EN and ES with different bullet counts', () => {
     expect(validate(room(), entry(4, { es: 3 }))).toThrow(/en 4.*es 3/)
+  })
+})
+
+// The cheap half of the rooms test (interiors.rooms.test.js), run at import: a spawn inside a solid
+// would drop the player where they cannot move.
+describe('validateInterior spawn', () => {
+  const at = (x, y) => [tagged('spawn', null, { spawn: true, x, y }), ...room().slice(1)]
+  const desk = { x: 100, y: 100, w: 64, h: 36 }
+
+  it('should accept a spawn on open floor', () => {
+    expect(() => validateInterior(ID, at(40, 40), entry(4), [ID], [desk])).not.toThrow()
+  })
+
+  it('should refuse a spawn whose player box overlaps a solid', () => {
+    expect(() => validateInterior(ID, at(90, 110), entry(4), [ID], [desk]))
+      .toThrow(/^interior tul-2022: the spawn at 90,110 .*solid/)
+  })
+})
+
+describe('interiorSolids', () => {
+  const tiles = layers => ({ cols: 10, rows: 10, frames: ['f0'], layers })
+  it('should gather placement hitboxes, painted water and painted walls', () => {
+    const data = {
+      tiles: tiles([
+        { name: 'walls', cells: [[0, 0, 0], [1, 0, 0]] },
+        { name: 'water', cells: [[4, 4, 0], [5, 4, 0], [4, 5, 0], [5, 5, 0]] },
+      ]),
+      placements: [{ frame: 'desk', x: 0, y: 0, solid: { x: 1, y: 2, w: 3, h: 4 } }, { frame: 'rug', x: 0, y: 0 }],
+    }
+    const solids = interiorSolids(data)
+    expect(solids).toContainEqual({ x: 1, y: 2, w: 3, h: 4 })
+    expect(solids).toContainEqual({ x: 0, y: 0, w: 64, h: 32 })
+    expect(solids).toHaveLength(1 + 1 + 2)
+  })
+  it('should be empty for a room with nothing that blocks', () => {
+    expect(interiorSolids({ tiles: tiles([{ name: 'floor', cells: [[0, 0, 0]] }]), placements: [] })).toEqual([])
   })
 })
 

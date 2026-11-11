@@ -8,7 +8,7 @@ import { wallCellsOf, wallSolids } from './world/walls.js'
 import { WORLD_TILE } from './world/authored/convert.js'
 import { biomeForYear } from './world/biomes.js'
 import { buildDecor } from './world/decor.js'
-import { stepMovement } from './engine/topdown.js'
+import { stepMovement, PLAYER_BOX } from './engine/topdown.js'
 import { followCamera2D } from './engine/camera2d.js'
 import { nearestSite, doorPoint } from './entities/site.js'
 import { createDialog, siteSource, bulletSource } from './render/dialog.js'
@@ -86,7 +86,11 @@ function updateRegionMusic(state) {
   state.music.setRegion(bi)
 }
 
-const INTERACT_RANGE = 40
+// How close the player's base point has to be to a host, read or exit's for the action to reach it.
+export const INTERACT_RANGE = 40
+// Re-exported beside INTERACT_RANGE: the rooms test (world/interiors.rooms.test.js) walks a room with
+// the same box and reach the game plays with.
+export { PLAYER_BOX }
 
 function placePlayer(player, { x, y }, dir) {
   Object.assign(player, { x, y, dir, moving: false, step: 0 })
@@ -205,7 +209,7 @@ export function createWorldRpg({
     world,
     decor: buildDecor(world, 1, { scatter }),
     authored,
-    player: { x: world.farm.x, y: world.farm.y + 70, w: 24, h: 28, dir: 'down', moving: false, step: 0 },
+    player: { x: world.farm.x, y: world.farm.y + 70, ...PLAYER_BOX, dir: 'down', moving: false, step: 0 },
     cam: { x: 0, y: 0 },
     dialog: createDialog(),
     revealed: false,

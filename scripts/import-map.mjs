@@ -11,7 +11,9 @@ import fs from 'node:fs/promises'
 import { existsSync } from 'node:fs'
 import sharp from 'sharp'
 import { convertMap, slugFor, doorCoverage } from '../src/game/world/authored/convert.js'
-import { interiorIdOf, validateInterior, interiorData, interiorCoverage } from '../src/game/world/authored/interior.js'
+import {
+  interiorIdOf, validateInterior, interiorData, interiorCoverage, interiorSolids,
+} from '../src/game/world/authored/interior.js'
 
 const ROOT = process.cwd()
 const IN_MAP = path.join(ROOT, 'src', 'game', 'world', 'authored', 'career.map.json')
@@ -90,7 +92,7 @@ async function importInterior(file, { entryById, exteriorDoorIds }) {
   const map = JSON.parse(await fs.readFile(path.join(IN_INTERIORS, file), 'utf8'))
   const dims = await dimsCache(map)
   const out = convertMap(map, { dimsOf: p => dims[p] || { w: 0, h: 0 }, exists: p => existsSync(diskPath(p)), interior: true })
-  validateInterior(id, out.interactables, entryById[id], exteriorDoorIds)
+  validateInterior(id, out.interactables, entryById[id], exteriorDoorIds, interiorSolids(out))
   await fs.mkdir(OUT_INTERIOR_DATA, { recursive: true })
   await fs.writeFile(path.join(OUT_INTERIOR_DATA, `${id}.json`), json(interiorData(out)))
   await fs.writeFile(path.join(IN_INTERIORS, `${id}.manifest.json`), json(out.manifest))
