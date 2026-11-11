@@ -30,6 +30,10 @@ export const CONFIG = {
   avatar: {
     width: 40, // ancho dibujado en pantalla
     height: 44, // alto dibujado
+    // Dentro de un interior el cuarto se dibuja a escala de mundo 2 (celda de 16 px → 32), así que el
+    // héroe también: su celda de 64 px × 2. Un 2× exacto mantiene nítido el pixel art.
+    interiorWidth: 128,
+    interiorHeight: 128,
     stepRate: 0.15, // velocidad del ciclo de caminar (mayor = piernas más rápidas)
     idleTicks: 44, // ticks por frame de la respiración idle (mayor = más lento)
   },

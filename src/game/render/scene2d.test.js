@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { CONFIG } from '../config.js'
 import {
   nearestPathDist, nearestRoadDist, visibleTileRange, eraLabel, drawAuthoredTiles, drawTransformed,
-  buildingDrawable, proceduralRoads, proceduralPonds, eraWash, drawDialog, drawFade,
+  buildingDrawable, proceduralRoads, proceduralPonds, eraWash, drawDialog, drawFade, avatarSize, drawAvatar,
 } from './scene2d.js'
 import { createDialog, bulletSource, paginate, DIALOG_FONT } from './dialog.js'
 
@@ -359,5 +359,35 @@ describe('drawFade', () => {
     expect(shown({ phase: 'out', t: 0.5 })).toEqual([])
     expect(shown({ phase: 'in', t: 0.5 })).toEqual([])
     expect(shown(null)).toEqual([])
+  })
+})
+
+// Inside an interior the room is drawn at world scale 2 (convert.js WORLD_TILE), so the avatar is too:
+// its 64px source cell at 128, an exact 2x that keeps the pixel art crisp. Outdoors it stays as tuned.
+describe('avatarSize', () => {
+  it('is the configured size outdoors', () => {
+    expect(avatarSize({ world: {} })).toEqual({ w: CONFIG.avatar.width, h: CONFIG.avatar.height })
+  })
+  it('is the 64px cell at world scale inside an interior', () => {
+    expect(avatarSize({ world: { interior: true } })).toEqual({ w: 128, h: 128 })
+  })
+})
+
+describe('drawAvatar', () => {
+  const player = { x: 300, y: 200, dir: 'down', moving: false, step: 0 }
+  const drawn = world => {
+    const calls = []
+    const paint = (ctx, name, x, y, w, h) => calls.push({ x, y, w, h })
+    drawAvatar({}, { player, world, clock: 0 }, { x: 0, y: 0 }, { draw: paint, drawFlipped: paint })
+    return calls
+  }
+  it('centres the world-scale avatar on the player inside an interior', () => {
+    const calls = drawn({ interior: true })
+    expect(calls.length).toBeGreaterThan(0)
+    expect(calls.every(c => c.x === 300 - 64 && c.y === 200 - 64 && c.w === 128 && c.h === 128)).toBe(true)
+  })
+  it('keeps the outdoor size outside', () => {
+    const [c] = drawn({})
+    expect(c).toEqual({ x: 300 - CONFIG.avatar.width / 2, y: 200 - CONFIG.avatar.height / 2, w: CONFIG.avatar.width, h: CONFIG.avatar.height })
   })
 })

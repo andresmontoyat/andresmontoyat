@@ -274,19 +274,28 @@ function drawBuildingLabel(ctx, s, bx, by) {
 // gentle ~0.9s two-frame loop while standing.
 const IDLE_TICKS = CONFIG.avatar.idleTicks
 
+// An interior is drawn at world scale 2 (convert.js WORLD_TILE): next to its 64x36 desk the outdoor
+// 40x44 avatar was a child. Inside, the 64px source cell is drawn at world scale too. Outdoors keeps
+// the size the exterior was tuned with. Collision does not change: the box stays the player's own.
+export function avatarSize(state) {
+  if (state.world && state.world.interior) return { w: CONFIG.avatar.interiorWidth, h: CONFIG.avatar.interiorHeight }
+  return { w: AVATAR_W, h: AVATAR_H }
+}
+
 // Carlos is drawn as a stack of modular sprites (bare base + jeans/boots/shirt/hair — see
 // AVATAR_LAYERS), each layer sharing the base's frame rects so they land pixel-aligned. Walking
 // cycles the 6-frame stride by floor(step); standing runs the 2-frame idle off the clock. There's
 // no dedicated left row, so 'left' reuses the right frames mirrored via drawFlipped.
-function drawAvatar(ctx, state, cam, sprites) {
+export function drawAvatar(ctx, state, cam, sprites) {
   const { player } = state
   const dir = player.dir === 'left' ? 'right' : player.dir
   const moving = player.moving
   const phase = moving ? Math.floor(player.step) : animIndex(state.clock || 0, IDLE_TICKS, 2)
-  const dx = player.x - AVATAR_W / 2 - cam.x
-  const dy = player.y - AVATAR_H / 2 - cam.y
+  const { w, h } = avatarSize(state)
+  const dx = player.x - w / 2 - cam.x
+  const dy = player.y - h / 2 - cam.y
   const paint = player.dir === 'left' ? sprites.drawFlipped : sprites.draw
-  AVATAR_LAYERS.forEach(layer => paint(ctx, avatarFrame(layer, dir, moving, phase), dx, dy, AVATAR_W, AVATAR_H))
+  AVATAR_LAYERS.forEach(layer => paint(ctx, avatarFrame(layer, dir, moving, phase), dx, dy, w, h))
 }
 
 // Ground-contact footprint (world w/h) per decor type — used both to size the sprite and to
