@@ -1,0 +1,1348 @@
+{
+  "tiles": {
+    "version": 1,
+    "tileSize": 16,
+    "cols": 10,
+    "rows": 13,
+    "frames": [
+      "am_Buildings_House_Decor_Carpets_0_30",
+      "am_Buildings_House_Decor_Carpets_0_31",
+      "am_Buildings_House_Decor_Carpets_0_32",
+      "am_Buildings_House_Decor_Carpets_12_32",
+      "am_Buildings_House_Decor_Carpets_1_30",
+      "am_Buildings_House_Decor_Carpets_1_31",
+      "am_Buildings_House_Decor_Carpets_1_32",
+      "am_Buildings_House_Decor_Carpets_2_30",
+      "am_Buildings_House_Decor_Carpets_2_31",
+      "am_Buildings_House_Decor_Carpets_2_32",
+      "am_Buildings_Houses_Interiors_Interior_Walls_10_3",
+      "am_Buildings_Houses_Interiors_Interior_Walls_10_4",
+      "am_Buildings_Houses_Interiors_Interior_Walls_10_5",
+      "am_Buildings_Houses_Interiors_Interior_Walls_11_3",
+      "am_Buildings_Houses_Interiors_Interior_Walls_11_4",
+      "am_Buildings_Houses_Interiors_Interior_Walls_11_5",
+      "am_Buildings_Houses_Interiors_Stone_Wall_Fillers_0_0",
+      "am_Buildings_Houses_Interiors_Stone_Wall_Fillers_0_1",
+      "am_Buildings_Houses_Interiors_Stone_Wall_Fillers_1_0",
+      "am_Buildings_Houses_Interiors_Stone_Wall_Fillers_1_1",
+      "am_Buildings_Houses_Interiors_Wood_Floor_Tiles_0_4",
+      "am_Buildings_Houses_Interiors_Wood_Floor_Tiles_0_5",
+      "am_Buildings_Houses_Interiors_Wood_Floor_Tiles_1_4",
+      "am_Buildings_Houses_Interiors_Wood_Floor_Tiles_1_5"
+    ],
+    "layers": [
+      {
+        "name": "suelo",
+        "cells": [
+          [
+            0,
+            0,
+            20
+          ],
+          [
+            2,
+            0,
+            20
+          ],
+          [
+            4,
+            0,
+            20
+          ],
+          [
+            6,
+            0,
+            20
+          ],
+          [
+            8,
+            0,
+            20
+          ],
+          [
+            0,
+            2,
+            20
+          ],
+          [
+            2,
+            2,
+            20
+          ],
+          [
+            4,
+            2,
+            20
+          ],
+          [
+            6,
+            2,
+            20
+          ],
+          [
+            8,
+            2,
+            20
+          ],
+          [
+            0,
+            4,
+            20
+          ],
+          [
+            2,
+            4,
+            20
+          ],
+          [
+            4,
+            4,
+            20
+          ],
+          [
+            6,
+            4,
+            20
+          ],
+          [
+            8,
+            4,
+            20
+          ],
+          [
+            0,
+            6,
+            20
+          ],
+          [
+            2,
+            6,
+            20
+          ],
+          [
+            4,
+            6,
+            20
+          ],
+          [
+            6,
+            6,
+            20
+          ],
+          [
+            8,
+            6,
+            20
+          ],
+          [
+            0,
+            8,
+            20
+          ],
+          [
+            2,
+            8,
+            20
+          ],
+          [
+            4,
+            8,
+            20
+          ],
+          [
+            6,
+            8,
+            20
+          ],
+          [
+            8,
+            8,
+            20
+          ],
+          [
+            1,
+            0,
+            22
+          ],
+          [
+            3,
+            0,
+            22
+          ],
+          [
+            5,
+            0,
+            22
+          ],
+          [
+            7,
+            0,
+            22
+          ],
+          [
+            9,
+            0,
+            22
+          ],
+          [
+            1,
+            2,
+            22
+          ],
+          [
+            3,
+            2,
+            22
+          ],
+          [
+            5,
+            2,
+            22
+          ],
+          [
+            7,
+            2,
+            22
+          ],
+          [
+            9,
+            2,
+            22
+          ],
+          [
+            1,
+            4,
+            22
+          ],
+          [
+            3,
+            4,
+            22
+          ],
+          [
+            5,
+            4,
+            22
+          ],
+          [
+            7,
+            4,
+            22
+          ],
+          [
+            9,
+            4,
+            22
+          ],
+          [
+            1,
+            6,
+            22
+          ],
+          [
+            3,
+            6,
+            22
+          ],
+          [
+            5,
+            6,
+            22
+          ],
+          [
+            7,
+            6,
+            22
+          ],
+          [
+            9,
+            6,
+            22
+          ],
+          [
+            1,
+            8,
+            22
+          ],
+          [
+            3,
+            8,
+            22
+          ],
+          [
+            5,
+            8,
+            22
+          ],
+          [
+            7,
+            8,
+            22
+          ],
+          [
+            9,
+            8,
+            22
+          ],
+          [
+            0,
+            1,
+            21
+          ],
+          [
+            2,
+            1,
+            21
+          ],
+          [
+            4,
+            1,
+            21
+          ],
+          [
+            6,
+            1,
+            21
+          ],
+          [
+            8,
+            1,
+            21
+          ],
+          [
+            0,
+            3,
+            21
+          ],
+          [
+            2,
+            3,
+            21
+          ],
+          [
+            4,
+            3,
+            21
+          ],
+          [
+            6,
+            3,
+            21
+          ],
+          [
+            8,
+            3,
+            21
+          ],
+          [
+            0,
+            5,
+            21
+          ],
+          [
+            2,
+            5,
+            21
+          ],
+          [
+            4,
+            5,
+            21
+          ],
+          [
+            6,
+            5,
+            21
+          ],
+          [
+            8,
+            5,
+            21
+          ],
+          [
+            0,
+            7,
+            21
+          ],
+          [
+            2,
+            7,
+            21
+          ],
+          [
+            4,
+            7,
+            21
+          ],
+          [
+            6,
+            7,
+            21
+          ],
+          [
+            8,
+            7,
+            21
+          ],
+          [
+            0,
+            9,
+            21
+          ],
+          [
+            2,
+            9,
+            21
+          ],
+          [
+            4,
+            9,
+            21
+          ],
+          [
+            6,
+            9,
+            21
+          ],
+          [
+            8,
+            9,
+            21
+          ],
+          [
+            1,
+            1,
+            23
+          ],
+          [
+            3,
+            1,
+            23
+          ],
+          [
+            5,
+            1,
+            23
+          ],
+          [
+            7,
+            1,
+            23
+          ],
+          [
+            9,
+            1,
+            23
+          ],
+          [
+            1,
+            3,
+            23
+          ],
+          [
+            3,
+            3,
+            23
+          ],
+          [
+            5,
+            3,
+            23
+          ],
+          [
+            7,
+            3,
+            23
+          ],
+          [
+            9,
+            3,
+            23
+          ],
+          [
+            1,
+            5,
+            23
+          ],
+          [
+            3,
+            5,
+            23
+          ],
+          [
+            5,
+            5,
+            23
+          ],
+          [
+            7,
+            5,
+            23
+          ],
+          [
+            9,
+            5,
+            23
+          ],
+          [
+            1,
+            7,
+            23
+          ],
+          [
+            3,
+            7,
+            23
+          ],
+          [
+            5,
+            7,
+            23
+          ],
+          [
+            7,
+            7,
+            23
+          ],
+          [
+            9,
+            7,
+            23
+          ],
+          [
+            1,
+            9,
+            23
+          ],
+          [
+            3,
+            9,
+            23
+          ],
+          [
+            5,
+            9,
+            23
+          ],
+          [
+            7,
+            9,
+            23
+          ],
+          [
+            9,
+            9,
+            23
+          ],
+          [
+            0,
+            10,
+            20
+          ],
+          [
+            2,
+            10,
+            20
+          ],
+          [
+            4,
+            10,
+            20
+          ],
+          [
+            6,
+            10,
+            20
+          ],
+          [
+            8,
+            10,
+            20
+          ],
+          [
+            0,
+            12,
+            20
+          ],
+          [
+            2,
+            12,
+            20
+          ],
+          [
+            4,
+            12,
+            20
+          ],
+          [
+            6,
+            12,
+            20
+          ],
+          [
+            8,
+            12,
+            20
+          ],
+          [
+            1,
+            10,
+            22
+          ],
+          [
+            3,
+            10,
+            22
+          ],
+          [
+            5,
+            10,
+            22
+          ],
+          [
+            7,
+            10,
+            22
+          ],
+          [
+            9,
+            10,
+            22
+          ],
+          [
+            1,
+            12,
+            22
+          ],
+          [
+            3,
+            12,
+            22
+          ],
+          [
+            5,
+            12,
+            22
+          ],
+          [
+            7,
+            12,
+            22
+          ],
+          [
+            9,
+            12,
+            22
+          ],
+          [
+            0,
+            11,
+            21
+          ],
+          [
+            2,
+            11,
+            21
+          ],
+          [
+            4,
+            11,
+            21
+          ],
+          [
+            6,
+            11,
+            21
+          ],
+          [
+            8,
+            11,
+            21
+          ],
+          [
+            1,
+            11,
+            23
+          ],
+          [
+            3,
+            11,
+            23
+          ],
+          [
+            5,
+            11,
+            23
+          ],
+          [
+            7,
+            11,
+            23
+          ],
+          [
+            9,
+            11,
+            23
+          ]
+        ]
+      },
+      {
+        "name": "alfombra",
+        "cells": [
+          [
+            3,
+            6,
+            0
+          ],
+          [
+            3,
+            7,
+            1
+          ],
+          [
+            3,
+            8,
+            2
+          ],
+          [
+            4,
+            6,
+            4
+          ],
+          [
+            5,
+            6,
+            4
+          ],
+          [
+            4,
+            7,
+            5
+          ],
+          [
+            5,
+            7,
+            5
+          ],
+          [
+            4,
+            8,
+            6
+          ],
+          [
+            5,
+            8,
+            6
+          ],
+          [
+            6,
+            6,
+            7
+          ],
+          [
+            6,
+            7,
+            8
+          ],
+          [
+            6,
+            8,
+            9
+          ],
+          [
+            5,
+            11,
+            3
+          ]
+        ]
+      },
+      {
+        "name": "walls",
+        "cells": [
+          [
+            0,
+            0,
+            16
+          ],
+          [
+            0,
+            2,
+            16
+          ],
+          [
+            0,
+            4,
+            16
+          ],
+          [
+            0,
+            6,
+            16
+          ],
+          [
+            0,
+            8,
+            16
+          ],
+          [
+            0,
+            10,
+            16
+          ],
+          [
+            0,
+            12,
+            16
+          ],
+          [
+            2,
+            12,
+            16
+          ],
+          [
+            4,
+            12,
+            16
+          ],
+          [
+            6,
+            12,
+            16
+          ],
+          [
+            8,
+            12,
+            16
+          ],
+          [
+            1,
+            0,
+            10
+          ],
+          [
+            3,
+            0,
+            10
+          ],
+          [
+            5,
+            0,
+            10
+          ],
+          [
+            7,
+            0,
+            10
+          ],
+          [
+            2,
+            0,
+            13
+          ],
+          [
+            4,
+            0,
+            13
+          ],
+          [
+            6,
+            0,
+            13
+          ],
+          [
+            8,
+            0,
+            13
+          ],
+          [
+            9,
+            0,
+            18
+          ],
+          [
+            9,
+            2,
+            18
+          ],
+          [
+            9,
+            4,
+            18
+          ],
+          [
+            9,
+            6,
+            18
+          ],
+          [
+            9,
+            8,
+            18
+          ],
+          [
+            9,
+            10,
+            18
+          ],
+          [
+            1,
+            12,
+            18
+          ],
+          [
+            3,
+            12,
+            18
+          ],
+          [
+            7,
+            12,
+            18
+          ],
+          [
+            9,
+            12,
+            18
+          ],
+          [
+            0,
+            1,
+            17
+          ],
+          [
+            0,
+            3,
+            17
+          ],
+          [
+            0,
+            5,
+            17
+          ],
+          [
+            0,
+            7,
+            17
+          ],
+          [
+            0,
+            9,
+            17
+          ],
+          [
+            0,
+            11,
+            17
+          ],
+          [
+            1,
+            1,
+            11
+          ],
+          [
+            3,
+            1,
+            11
+          ],
+          [
+            5,
+            1,
+            11
+          ],
+          [
+            7,
+            1,
+            11
+          ],
+          [
+            2,
+            1,
+            14
+          ],
+          [
+            4,
+            1,
+            14
+          ],
+          [
+            6,
+            1,
+            14
+          ],
+          [
+            8,
+            1,
+            14
+          ],
+          [
+            9,
+            1,
+            19
+          ],
+          [
+            9,
+            3,
+            19
+          ],
+          [
+            9,
+            5,
+            19
+          ],
+          [
+            9,
+            7,
+            19
+          ],
+          [
+            9,
+            9,
+            19
+          ],
+          [
+            9,
+            11,
+            19
+          ],
+          [
+            1,
+            2,
+            12
+          ],
+          [
+            3,
+            2,
+            12
+          ],
+          [
+            5,
+            2,
+            12
+          ],
+          [
+            7,
+            2,
+            12
+          ],
+          [
+            2,
+            2,
+            15
+          ],
+          [
+            4,
+            2,
+            15
+          ],
+          [
+            6,
+            2,
+            15
+          ],
+          [
+            8,
+            2,
+            15
+          ]
+        ]
+      }
+    ],
+    "anchors": {}
+  },
+  "placements": [
+    {
+      "frame": "am_Buildings_House_Decor_windows_11",
+      "x": 168,
+      "y": 80,
+      "uid": "U119",
+      "scale": 2
+    },
+    {
+      "frame": "am_Buildings_House_Decor_Standing_Lamps_2",
+      "x": 44,
+      "y": 124,
+      "uid": "U121",
+      "scale": 2,
+      "solid": {
+        "x": 39,
+        "y": 114,
+        "w": 8,
+        "h": 10
+      }
+    },
+    {
+      "frame": "am_Buildings_House_Decor_BookShelves_1",
+      "x": 96,
+      "y": 124,
+      "uid": "U123",
+      "scale": 2,
+      "solid": {
+        "x": 66,
+        "y": 104,
+        "w": 60,
+        "h": 20
+      }
+    },
+    {
+      "frame": "am_Buildings_House_Decor_Furniture_Other_4",
+      "x": 220,
+      "y": 124,
+      "uid": "U125",
+      "scale": 2,
+      "solid": {
+        "x": 206,
+        "y": 104,
+        "w": 28,
+        "h": 20
+      }
+    },
+    {
+      "frame": "am_Buildings_House_Decor_Clocks_1",
+      "x": 272,
+      "y": 124,
+      "uid": "U127",
+      "scale": 2,
+      "solid": {
+        "x": 258,
+        "y": 104,
+        "w": 28,
+        "h": 20
+      }
+    },
+    {
+      "frame": "am_Buildings_House_Decor_Metal_Chest_Anim_0_0",
+      "x": 48,
+      "y": 208,
+      "uid": "U129",
+      "scale": 2,
+      "solid": {
+        "x": 32,
+        "y": 184,
+        "w": 32,
+        "h": 24
+      }
+    },
+    {
+      "frame": "am_Buildings_House_Decor_Golden_Jeweled_Chest_Anim_0_2",
+      "x": 272,
+      "y": 208,
+      "uid": "U131",
+      "scale": 2,
+      "solid": {
+        "x": 256,
+        "y": 184,
+        "w": 32,
+        "h": 24
+      }
+    },
+    {
+      "frame": "am_Buildings_House_Decor_Tables_24",
+      "x": 160,
+      "y": 256,
+      "uid": "U133",
+      "scale": 2,
+      "solid": {
+        "x": 112,
+        "y": 210,
+        "w": 92,
+        "h": 36
+      }
+    },
+    {
+      "frame": "am_Buildings_House_Decor_Chairs_80",
+      "x": 100,
+      "y": 248,
+      "uid": "U135",
+      "scale": 2,
+      "solid": {
+        "x": 92,
+        "y": 238,
+        "w": 16,
+        "h": 10
+      }
+    },
+    {
+      "frame": "am_Buildings_House_Decor_Chairs_80",
+      "x": 220,
+      "y": 248,
+      "uid": "U137",
+      "scale": 2,
+      "solid": {
+        "x": 212,
+        "y": 238,
+        "w": 16,
+        "h": 10
+      }
+    },
+    {
+      "frame": "am_Buildings_House_Decor_Furnaces_1_0",
+      "x": 272,
+      "y": 304,
+      "uid": "U139",
+      "scale": 2,
+      "solid": {
+        "x": 258,
+        "y": 280,
+        "w": 28,
+        "h": 24
+      }
+    },
+    {
+      "frame": "am_Buildings_House_Decor_Tables_1",
+      "x": 68,
+      "y": 320,
+      "uid": "U141",
+      "scale": 2,
+      "solid": {
+        "x": 36,
+        "y": 274,
+        "w": 60,
+        "h": 36
+      }
+    },
+    {
+      "frame": "am_NPCs_Premade_Bartender_Katy_0",
+      "x": 116,
+      "y": 372,
+      "uid": "U143",
+      "scale": 2,
+      "solid": {
+        "x": 107,
+        "y": 360,
+        "w": 18,
+        "h": 12
+      }
+    },
+    {
+      "frame": "am_Buildings_House_Decor_House_Plants_79",
+      "x": 276,
+      "y": 372,
+      "uid": "U145",
+      "scale": 2,
+      "solid": {
+        "x": 271,
+        "y": 360,
+        "w": 12,
+        "h": 12
+      }
+    },
+    {
+      "frame": "am_Buildings_House_Decor_Doors_41",
+      "x": 176,
+      "y": 416,
+      "uid": "U147",
+      "scale": 2
+    }
+  ],
+  "clips": {},
+  "interactables": [
+    {
+      "uid": "U123",
+      "kind": "read",
+      "x": 96,
+      "y": 124,
+      "id": "8",
+      "name": "Biblioteca de guías (arquitectura como código)",
+      "w": 60,
+      "h": 60
+    },
+    {
+      "uid": "U125",
+      "kind": "read",
+      "x": 220,
+      "y": 124,
+      "id": "5",
+      "name": "Casillero de mensajes (RabbitMQ)",
+      "w": 28,
+      "h": 62
+    },
+    {
+      "uid": "U127",
+      "kind": "read",
+      "x": 272,
+      "y": 124,
+      "id": "6",
+      "name": "Reloj de pie (observabilidad)",
+      "w": 28,
+      "h": 60
+    },
+    {
+      "uid": "U129",
+      "kind": "read",
+      "x": 48,
+      "y": 208,
+      "id": "3",
+      "name": "Cofre de metal (seguridad)",
+      "w": 32,
+      "h": 32
+    },
+    {
+      "uid": "U131",
+      "kind": "read",
+      "x": 272,
+      "y": 208,
+      "id": "2",
+      "name": "Cofre enjoyado (credenciales verificables)",
+      "w": 32,
+      "h": 32
+    },
+    {
+      "uid": "U133",
+      "kind": "read",
+      "x": 160,
+      "y": 256,
+      "id": "1",
+      "name": "Mesa del equipo",
+      "w": 100,
+      "h": 66
+    },
+    {
+      "uid": "U139",
+      "kind": "read",
+      "x": 272,
+      "y": 304,
+      "id": "7",
+      "name": "Horno de builds (CI/CD)",
+      "w": 32,
+      "h": 64
+    },
+    {
+      "uid": "U141",
+      "kind": "read",
+      "x": 68,
+      "y": 320,
+      "id": "4",
+      "name": "Mesa de planos (estándar hexagonal + DDD)",
+      "w": 68,
+      "h": 66
+    },
+    {
+      "uid": "U143",
+      "kind": "npc",
+      "x": 116,
+      "y": 372,
+      "id": "host",
+      "name": "Anfitriona",
+      "w": 30,
+      "h": 44
+    },
+    {
+      "uid": "U147",
+      "kind": "exit",
+      "x": 176,
+      "y": 416,
+      "name": "Puerta de salida",
+      "w": 32,
+      "h": 46,
+      "exit": true
+    },
+    {
+      "uid": "U149",
+      "kind": "spawn",
+      "x": 176,
+      "y": 352,
+      "name": "Entrada (spawn)",
+      "spawn": true
+    }
+  ]
+}
