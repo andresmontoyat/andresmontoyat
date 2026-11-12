@@ -81,6 +81,18 @@ describe('text sources', () => {
   it('siteSource is one page with the card text', () => {
     expect(siteSource(site).pages('en')).toEqual([dialogLines(site, 'en').join('\n')])
   })
+  it('siteSource keeps a card line that fits as written', () => {
+    expect(siteSource(site).pages('en', 46)).toEqual([dialogLines(site, 'en').join('\n')])
+  })
+  it('siteSource wraps a card line wider than the box and pages the overflow', () => {
+    const wide = { ...site, tech: ['Java', 'Spring Boot', 'Kafka', 'PostgreSQL'] }
+    const pages = siteSource(wide).pages('en', 20)
+    const lines = pages.flatMap(p => p.split('\n'))
+    expect(lines.every(l => l.length <= 20)).toBe(true)
+    expect(lines.slice(0, 2)).toEqual(['Tech Lead  ·  TCS', '2013'])
+    expect(pages.every(p => p.split('\n').length <= 4)).toBe(true)
+    expect(lines.join(' ')).toContain('PostgreSQL')
+  })
   it('bulletSource paginates the 1-based bullet in that language', () => {
     const entry = { bullets: { en: ['one', 'two'], es: ['uno', 'dos'] } }
     expect(bulletSource(entry, 2).pages('es')).toEqual(['dos'])
