@@ -1,0 +1,228 @@
+{
+  "images": {
+    "am_Buildings_House_Decor_BookShelves": "/game/cute-fantasy/Buildings/House_Decor/BookShelves.png",
+    "am_Buildings_House_Decor_Carpets": "/game/cute-fantasy/Buildings/House_Decor/Carpets.png",
+    "am_Buildings_House_Decor_Chairs": "/game/cute-fantasy/Buildings/House_Decor/Chairs.png",
+    "am_Buildings_House_Decor_Doors": "/game/cute-fantasy/Buildings/House_Decor/Doors.png",
+    "am_Buildings_House_Decor_Furniture_Other": "/game/cute-fantasy/Buildings/House_Decor/Furniture_Other.png",
+    "am_Buildings_House_Decor_House_Plants": "/game/cute-fantasy/Buildings/House_Decor/House_Plants.png",
+    "am_Buildings_House_Decor_Standing_Lamps": "/game/cute-fantasy/Buildings/House_Decor/Standing_Lamps.png",
+    "am_Buildings_House_Decor_windows": "/game/cute-fantasy/Buildings/House_Decor/windows.png",
+    "am_Buildings_Houses_Interiors_Interior_Walls": "/game/cute-fantasy/Buildings/Houses_Interiors/Interior_Walls.png",
+    "am_Buildings_Houses_Interiors_Wood_Floor_Tiles": "/game/cute-fantasy/Buildings/Houses_Interiors/Wood_Floor_Tiles.png",
+    "am_Buildings_Houses_Interiors_Wood_Wall_Fillers": "/game/cute-fantasy/Buildings/Houses_Interiors/Wood_Wall_Fillers.png",
+    "am_NPCs_Premade_Farmer_Buba": "/game/cute-fantasy/NPCs%20(Premade)/Farmer_Buba.png"
+  },
+  "frames": {
+    "am_Buildings_House_Decor_BookShelves_8": {
+      "img": "am_Buildings_House_Decor_BookShelves",
+      "x": 1,
+      "y": 33,
+      "w": 14,
+      "h": 30
+    },
+    "am_Buildings_House_Decor_Carpets_12_22": {
+      "img": "am_Buildings_House_Decor_Carpets",
+      "x": 192,
+      "y": 352,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_House_Decor_Carpets_3_20": {
+      "img": "am_Buildings_House_Decor_Carpets",
+      "x": 48,
+      "y": 320,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_House_Decor_Carpets_3_21": {
+      "img": "am_Buildings_House_Decor_Carpets",
+      "x": 48,
+      "y": 336,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_House_Decor_Carpets_3_22": {
+      "img": "am_Buildings_House_Decor_Carpets",
+      "x": 48,
+      "y": 352,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_House_Decor_Carpets_4_20": {
+      "img": "am_Buildings_House_Decor_Carpets",
+      "x": 64,
+      "y": 320,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_House_Decor_Carpets_4_21": {
+      "img": "am_Buildings_House_Decor_Carpets",
+      "x": 64,
+      "y": 336,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_House_Decor_Carpets_4_22": {
+      "img": "am_Buildings_House_Decor_Carpets",
+      "x": 64,
+      "y": 352,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_House_Decor_Carpets_5_20": {
+      "img": "am_Buildings_House_Decor_Carpets",
+      "x": 80,
+      "y": 320,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_House_Decor_Carpets_5_21": {
+      "img": "am_Buildings_House_Decor_Carpets",
+      "x": 80,
+      "y": 336,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_House_Decor_Carpets_5_22": {
+      "img": "am_Buildings_House_Decor_Carpets",
+      "x": 80,
+      "y": 352,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_House_Decor_Chairs_56": {
+      "img": "am_Buildings_House_Decor_Chairs",
+      "x": 163,
+      "y": 147,
+      "w": 10,
+      "h": 13
+    },
+    "am_Buildings_House_Decor_Doors_1": {
+      "img": "am_Buildings_House_Decor_Doors",
+      "x": 32,
+      "y": 9,
+      "w": 16,
+      "h": 23
+    },
+    "am_Buildings_House_Decor_Furniture_Other_25": {
+      "img": "am_Buildings_House_Decor_Furniture_Other",
+      "x": 128,
+      "y": 283,
+      "w": 32,
+      "h": 21
+    },
+    "am_Buildings_House_Decor_Furniture_Other_26": {
+      "img": "am_Buildings_House_Decor_Furniture_Other",
+      "x": 0,
+      "y": 30,
+      "w": 32,
+      "h": 20
+    },
+    "am_Buildings_House_Decor_House_Plants_9": {
+      "img": "am_Buildings_House_Decor_House_Plants",
+      "x": 82,
+      "y": 3,
+      "w": 12,
+      "h": 29
+    },
+    "am_Buildings_House_Decor_Standing_Lamps_49": {
+      "img": "am_Buildings_House_Decor_Standing_Lamps",
+      "x": 147,
+      "y": 132,
+      "w": 11,
+      "h": 27
+    },
+    "am_Buildings_House_Decor_windows_12": {
+      "img": "am_Buildings_House_Decor_windows",
+      "x": 1,
+      "y": 103,
+      "w": 14,
+      "h": 21
+    },
+    "am_Buildings_Houses_Interiors_Interior_Walls_3_3": {
+      "img": "am_Buildings_Houses_Interiors_Interior_Walls",
+      "x": 48,
+      "y": 48,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_Houses_Interiors_Interior_Walls_3_4": {
+      "img": "am_Buildings_Houses_Interiors_Interior_Walls",
+      "x": 48,
+      "y": 64,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_Houses_Interiors_Interior_Walls_3_5": {
+      "img": "am_Buildings_Houses_Interiors_Interior_Walls",
+      "x": 48,
+      "y": 80,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_Houses_Interiors_Wood_Floor_Tiles_2_2": {
+      "img": "am_Buildings_Houses_Interiors_Wood_Floor_Tiles",
+      "x": 32,
+      "y": 32,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_Houses_Interiors_Wood_Floor_Tiles_2_3": {
+      "img": "am_Buildings_Houses_Interiors_Wood_Floor_Tiles",
+      "x": 32,
+      "y": 48,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_Houses_Interiors_Wood_Floor_Tiles_3_2": {
+      "img": "am_Buildings_Houses_Interiors_Wood_Floor_Tiles",
+      "x": 48,
+      "y": 32,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_Houses_Interiors_Wood_Floor_Tiles_3_3": {
+      "img": "am_Buildings_Houses_Interiors_Wood_Floor_Tiles",
+      "x": 48,
+      "y": 48,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_Houses_Interiors_Wood_Wall_Fillers_2_0": {
+      "img": "am_Buildings_Houses_Interiors_Wood_Wall_Fillers",
+      "x": 32,
+      "y": 0,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_Houses_Interiors_Wood_Wall_Fillers_2_1": {
+      "img": "am_Buildings_Houses_Interiors_Wood_Wall_Fillers",
+      "x": 32,
+      "y": 16,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_Houses_Interiors_Wood_Wall_Fillers_3_0": {
+      "img": "am_Buildings_Houses_Interiors_Wood_Wall_Fillers",
+      "x": 48,
+      "y": 0,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_Houses_Interiors_Wood_Wall_Fillers_3_1": {
+      "img": "am_Buildings_Houses_Interiors_Wood_Wall_Fillers",
+      "x": 48,
+      "y": 16,
+      "w": 16,
+      "h": 16
+    },
+    "am_NPCs_Premade_Farmer_Buba_0": {
+      "img": "am_NPCs_Premade_Farmer_Buba",
+      "x": 23,
+      "y": 19,
+      "w": 17,
+      "h": 22
+    }
+  }
+}
