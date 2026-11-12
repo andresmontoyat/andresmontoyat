@@ -7,6 +7,7 @@
 // post-mount theme flip (ISLAND-04) with build-time / pre-paint equivalents.
 import { getRelativeLocaleUrl } from 'astro:i18n'
 import translations from '../i18n/translations.js'
+import Analytics from '@vercel/analytics/astro'
 import '@fontsource/inter/400.css'
 import '@fontsource/inter/800.css'
 import '../index.css'
@@ -148,5 +149,6 @@ const ogImageUrl = new URL('/og-image.png', siteUrl).toString()
   </head>
   <body>
     <slot />
+    <Analytics />
   </body>
 </html>
