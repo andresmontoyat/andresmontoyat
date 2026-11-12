@@ -21,12 +21,12 @@ const social = [
     <div class="font-pixel text-[10px] mb-3">
       <a
         href="#hero"
-        class="inline-block text-text-primary hover:text-brand transition-colors duration-200 motion-safe:transition-transform motion-safe:hover:-translate-y-0.5"
+        class="inline-block text-text hover:text-brand transition-colors duration-200 motion-safe:transition-transform motion-safe:hover:-translate-y-0.5"
       >
         &lt;<span class="text-brand">/</span>camt&gt;
       </a>
     </div>
-    <p class="font-pixel text-[11px] leading-loose text-text-secondary mb-6">{footerCopy.tagline}</p>
+    <p class="font-pixel text-[11px] leading-loose text-muted mb-6">{footerCopy.tagline}</p>
     <div class="flex justify-center gap-4 mb-6">
       {social.map((s) => (
         <a
@@ -35,13 +35,13 @@ const social = [
           rel="noreferrer"
           title={s.name}
           aria-label={s.name}
-          class="inline-flex items-center justify-center w-11 h-11 rounded-full border border-ink-400 text-text-secondary text-sm font-mono uppercase transition-all duration-200 hover:text-brand hover:border-brand hover:shadow-brand motion-safe:hover:-translate-y-1 hover:scale-105"
+          class="inline-flex items-center justify-center w-11 h-11 rounded-full border border-ink-400 text-muted text-sm font-mono uppercase transition-all duration-200 hover:text-brand hover:border-brand hover:shadow-brand motion-safe:hover:-translate-y-1 hover:scale-105"
         >
           <span aria-hidden="true">{s.label}</span>
         </a>
       ))}
     </div>
-    <div class="text-text-muted text-xs">
+    <div class="text-muted text-xs">
       © {year} Carlos Andrés Montoya Tobón · {footerCopy.rights}
     </div>
   </div>

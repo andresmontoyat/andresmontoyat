@@ -39,7 +39,7 @@ const ICONS = {
 function PagerButton({ dpath, label, onClick, disabled }) {
   return (
     <div className="group relative flex items-center">
-      <span className="pointer-events-none absolute right-full mr-2 whitespace-nowrap rounded-md bg-ink-900/95 border border-ink-400 px-2 py-1 text-[10px] font-mono text-text-secondary opacity-0 translate-x-1 transition-all duration-150 group-hover:opacity-100 group-hover:translate-x-0">
+      <span className="pointer-events-none absolute right-full mr-2 whitespace-nowrap rounded-md bg-ink-900/95 border border-ink-400 px-2 py-1 text-[10px] font-mono text-muted opacity-0 translate-x-1 transition-all duration-150 group-hover:opacity-100 group-hover:translate-x-0">
         {label}
       </span>
       <button
@@ -47,7 +47,7 @@ function PagerButton({ dpath, label, onClick, disabled }) {
         onClick={onClick}
         disabled={disabled}
         aria-label={label}
-        className="flex h-9 w-9 items-center justify-center rounded-full text-text-secondary transition-all duration-150 hover:text-brand hover:bg-ink-500 hover:scale-110 active:scale-95 disabled:opacity-25 disabled:pointer-events-none"
+        className="flex h-9 w-9 items-center justify-center rounded-full text-muted transition-all duration-150 hover:text-brand hover:bg-ink-500 hover:scale-110 active:scale-95 disabled:opacity-25 disabled:pointer-events-none"
       >
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <path d={dpath} />
@@ -80,7 +80,7 @@ function ProgressDial({ progress, index, total, color }) {
       </svg>
       <span className="absolute font-mono text-[10px] font-bold" style={{ color, transition: 'color .3s' }}>
         {index + 1}
-        <span className="text-text-secondary">/{total}</span>
+        <span className="text-muted">/{total}</span>
       </span>
     </div>
   )

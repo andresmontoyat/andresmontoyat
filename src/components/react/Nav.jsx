@@ -37,7 +37,7 @@ export default function Nav({
         <button
           type="button"
           onClick={() => setMenuOpen(true)}
-          className="md:hidden inline-flex items-center justify-center w-11 h-11 text-text-primary"
+          className="md:hidden inline-flex items-center justify-center w-11 h-11 text-text"
           aria-label={t.nav.menuOpen}
           aria-expanded={menuOpen}
           aria-controls="mobile-menu"
@@ -67,7 +67,7 @@ function Logomark() {
   return (
     <a
       href="#hero"
-      className="font-pixel text-[10px] tracking-tight text-text-primary hover:text-brand transition-colors"
+      className="font-pixel text-[10px] tracking-tight text-text hover:text-brand transition-colors"
     >
       &lt;<span className="text-brand">/</span>camt&gt;
     </a>
@@ -85,7 +85,7 @@ function DesktopNav({ t, activeSection, hrefGame }) {
         const isActive = activeSection === item.id
         const cls = isActive
           ? 'text-brand font-normal border-b-2 border-brand pb-0.5 transition-colors duration-200'
-          : 'text-text-secondary font-normal hover:text-brand transition-colors duration-200'
+          : 'text-muted font-normal hover:text-brand transition-colors duration-200'
         return (
           <a key={item.id} href={`#${item.id}`} className={cls}>
             {t.nav[item.labelKey]}
@@ -112,7 +112,7 @@ function DesktopNav({ t, activeSection, hrefGame }) {
 function LangPill({ lang, t, hrefEn, hrefEs }) {
   const base = 'px-3 py-1.5 rounded-full transition-colors duration-150 font-mono text-xs'
   const active = 'bg-brand-gradient text-ink-900 font-extrabold'
-  const inactive = 'text-text-secondary font-normal'
+  const inactive = 'text-muted font-normal'
 
   const [enHref, setEnHref] = useState(hrefEn)
   const [esHref, setEsHref] = useState(hrefEs)
@@ -241,7 +241,7 @@ function MobileMenu({
       <button
         type="button"
         onClick={onClose}
-        className="absolute top-5 right-6 inline-flex items-center justify-center w-11 h-11 text-text-secondary hover:text-text-primary transition-colors"
+        className="absolute top-5 right-6 inline-flex items-center justify-center w-11 h-11 text-muted hover:text-text transition-colors"
         aria-label={t.nav.menuClose}
       >
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
@@ -258,7 +258,7 @@ function MobileMenu({
           const isActive = activeSection === item.id
           const cls = isActive
             ? 'text-2xl font-extrabold text-brand border-b-2 border-brand pb-0.5'
-            : 'text-2xl font-extrabold text-text-primary'
+            : 'text-2xl font-extrabold text-text'
           return (
             <a
               key={item.id}

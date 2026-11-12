@@ -174,9 +174,8 @@
 /* Aliases to runtime vars whose names differ from the utility key. `inline` makes the
    utility reference var(--x) directly, so the theme flip (data-theme) reaches them.
    Camel-case segments are intentional: they keep the existing class names (bg-chip-activeBg).
-   NOTE: text-text-primary/secondary/muted/inverse are deliberately NOT defined — they never
-   generated CSS under Tailwind 3 (duplicate `text` key in the old config), so those elements
-   inherit color; defining them would silently recolor them. */
+   text-text-primary/secondary/muted/inverse are deliberately NOT defined: markup uses the
+   canonical text-text / text-muted instead. */
 @theme inline {
   --color-bg:        var(--bg);
   --color-bg-2:      var(--bg-2);
