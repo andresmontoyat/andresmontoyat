@@ -1,0 +1,217 @@
+{
+  "images": {
+    "interior": "/game/interiors/f2x-2024.png"
+  },
+  "frames": {
+    "am_Buildings_House_Decor_House_Plants_155": {
+      "img": "interior",
+      "x": 0,
+      "y": 0,
+      "w": 13,
+      "h": 29
+    },
+    "am_NPCs_Premade_Chef_Chloe_0": {
+      "img": "interior",
+      "x": 13,
+      "y": 0,
+      "w": 13,
+      "h": 28
+    },
+    "am_Buildings_House_Decor_Standing_Lamps_46": {
+      "img": "interior",
+      "x": 26,
+      "y": 0,
+      "w": 11,
+      "h": 27
+    },
+    "am_Buildings_House_Decor_Doors_53": {
+      "img": "interior",
+      "x": 37,
+      "y": 0,
+      "w": 16,
+      "h": 23
+    },
+    "am_Buildings_House_Decor_windows_3": {
+      "img": "interior",
+      "x": 53,
+      "y": 0,
+      "w": 30,
+      "h": 21
+    },
+    "am_Buildings_House_Decor_Furniture_Other_24": {
+      "img": "interior",
+      "x": 83,
+      "y": 0,
+      "w": 24,
+      "h": 20
+    },
+    "am_Buildings_House_Decor_Carpets_12_12": {
+      "img": "interior",
+      "x": 107,
+      "y": 0,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_House_Decor_Carpets_6_10": {
+      "img": "interior",
+      "x": 123,
+      "y": 0,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_House_Decor_Carpets_6_11": {
+      "img": "interior",
+      "x": 139,
+      "y": 0,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_House_Decor_Carpets_6_12": {
+      "img": "interior",
+      "x": 155,
+      "y": 0,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_House_Decor_Carpets_7_10": {
+      "img": "interior",
+      "x": 171,
+      "y": 0,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_House_Decor_Carpets_7_11": {
+      "img": "interior",
+      "x": 187,
+      "y": 0,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_House_Decor_Carpets_7_12": {
+      "img": "interior",
+      "x": 203,
+      "y": 0,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_House_Decor_Carpets_8_10": {
+      "img": "interior",
+      "x": 219,
+      "y": 0,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_House_Decor_Carpets_8_11": {
+      "img": "interior",
+      "x": 235,
+      "y": 0,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_House_Decor_Carpets_8_12": {
+      "img": "interior",
+      "x": 251,
+      "y": 0,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_House_Decor_Golden_Chest_Anim_0_0": {
+      "img": "interior",
+      "x": 267,
+      "y": 0,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_House_Decor_Indoor_Decor_4_14": {
+      "img": "interior",
+      "x": 283,
+      "y": 0,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_House_Decor_Indoor_Decor_4_15": {
+      "img": "interior",
+      "x": 299,
+      "y": 0,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_Houses_Interiors_Interior_Walls_4_3": {
+      "img": "interior",
+      "x": 315,
+      "y": 0,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_Houses_Interiors_Interior_Walls_4_4": {
+      "img": "interior",
+      "x": 331,
+      "y": 0,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_Houses_Interiors_Interior_Walls_4_5": {
+      "img": "interior",
+      "x": 347,
+      "y": 0,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_Houses_Interiors_Stone_Wall_Fillers_0_0": {
+      "img": "interior",
+      "x": 363,
+      "y": 0,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_Houses_Interiors_Stone_Wall_Fillers_0_1": {
+      "img": "interior",
+      "x": 379,
+      "y": 0,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_Houses_Interiors_Stone_Wall_Fillers_1_0": {
+      "img": "interior",
+      "x": 395,
+      "y": 0,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_Houses_Interiors_Stone_Wall_Fillers_1_1": {
+      "img": "interior",
+      "x": 411,
+      "y": 0,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_Houses_Interiors_Wood_Floor_Tiles_6_4": {
+      "img": "interior",
+      "x": 427,
+      "y": 0,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_Houses_Interiors_Wood_Floor_Tiles_6_5": {
+      "img": "interior",
+      "x": 443,
+      "y": 0,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_Houses_Interiors_Wood_Floor_Tiles_7_4": {
+      "img": "interior",
+      "x": 459,
+      "y": 0,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_Houses_Interiors_Wood_Floor_Tiles_7_5": {
+      "img": "interior",
+      "x": 475,
+      "y": 0,
+      "w": 16,
+      "h": 16
+    }
+  }
+}
