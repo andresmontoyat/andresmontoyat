@@ -1,0 +1,257 @@
+{
+  "images": {
+    "am_Buildings_House_Decor_Carpets": "/game/cute-fantasy/Buildings/House_Decor/Carpets.png",
+    "am_Buildings_House_Decor_Chairs": "/game/cute-fantasy/Buildings/House_Decor/Chairs.png",
+    "am_Buildings_House_Decor_Clocks": "/game/cute-fantasy/Buildings/House_Decor/Clocks.png",
+    "am_Buildings_House_Decor_Doors": "/game/cute-fantasy/Buildings/House_Decor/Doors.png",
+    "am_Buildings_House_Decor_Fireplaces": "/game/cute-fantasy/Buildings/House_Decor/Fireplaces.png",
+    "am_Buildings_House_Decor_House_Plants": "/game/cute-fantasy/Buildings/House_Decor/House_Plants.png",
+    "am_Buildings_House_Decor_Standing_Lamps": "/game/cute-fantasy/Buildings/House_Decor/Standing_Lamps.png",
+    "am_Buildings_House_Decor_Tables": "/game/cute-fantasy/Buildings/House_Decor/Tables.png",
+    "am_Buildings_House_Decor_windows": "/game/cute-fantasy/Buildings/House_Decor/windows.png",
+    "am_Buildings_Houses_Interiors_Brick_Wall_Fillers": "/game/cute-fantasy/Buildings/Houses_Interiors/Brick_Wall_Fillers.png",
+    "am_Buildings_Houses_Interiors_Interior_Walls": "/game/cute-fantasy/Buildings/Houses_Interiors/Interior_Walls.png",
+    "am_Buildings_Houses_Interiors_Wood_Floor_Tiles": "/game/cute-fantasy/Buildings/Houses_Interiors/Wood_Floor_Tiles.png",
+    "am_NPCs_Premade_Bartender_Katy": "/game/cute-fantasy/NPCs%20(Premade)/Bartender_Katy.png"
+  },
+  "frames": {
+    "am_Buildings_House_Decor_Carpets_0_15": {
+      "img": "am_Buildings_House_Decor_Carpets",
+      "x": 0,
+      "y": 240,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_House_Decor_Carpets_0_16": {
+      "img": "am_Buildings_House_Decor_Carpets",
+      "x": 0,
+      "y": 256,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_House_Decor_Carpets_0_17": {
+      "img": "am_Buildings_House_Decor_Carpets",
+      "x": 0,
+      "y": 272,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_House_Decor_Carpets_1_15": {
+      "img": "am_Buildings_House_Decor_Carpets",
+      "x": 16,
+      "y": 240,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_House_Decor_Carpets_1_16": {
+      "img": "am_Buildings_House_Decor_Carpets",
+      "x": 16,
+      "y": 256,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_House_Decor_Carpets_1_17": {
+      "img": "am_Buildings_House_Decor_Carpets",
+      "x": 16,
+      "y": 272,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_House_Decor_Carpets_12_17": {
+      "img": "am_Buildings_House_Decor_Carpets",
+      "x": 192,
+      "y": 272,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_House_Decor_Carpets_2_15": {
+      "img": "am_Buildings_House_Decor_Carpets",
+      "x": 32,
+      "y": 240,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_House_Decor_Carpets_2_16": {
+      "img": "am_Buildings_House_Decor_Carpets",
+      "x": 32,
+      "y": 256,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_House_Decor_Carpets_2_17": {
+      "img": "am_Buildings_House_Decor_Carpets",
+      "x": 32,
+      "y": 272,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_House_Decor_Chairs_11": {
+      "img": "am_Buildings_House_Decor_Chairs",
+      "x": 179,
+      "y": 8,
+      "w": 12,
+      "h": 23
+    },
+    "am_Buildings_House_Decor_Chairs_8": {
+      "img": "am_Buildings_House_Decor_Chairs",
+      "x": 129,
+      "y": 8,
+      "w": 12,
+      "h": 23
+    },
+    "am_Buildings_House_Decor_Clocks_0": {
+      "img": "am_Buildings_House_Decor_Clocks",
+      "x": 1,
+      "y": 1,
+      "w": 14,
+      "h": 30
+    },
+    "am_Buildings_House_Decor_Doors_19": {
+      "img": "am_Buildings_House_Decor_Doors",
+      "x": 32,
+      "y": 105,
+      "w": 16,
+      "h": 23
+    },
+    "am_Buildings_House_Decor_Fireplaces_1": {
+      "img": "am_Buildings_House_Decor_Fireplaces",
+      "x": 64,
+      "y": 8,
+      "w": 16,
+      "h": 39
+    },
+    "am_Buildings_House_Decor_House_Plants_2": {
+      "img": "am_Buildings_House_Decor_House_Plants",
+      "x": 18,
+      "y": 3,
+      "w": 13,
+      "h": 29
+    },
+    "am_Buildings_House_Decor_Standing_Lamps_6": {
+      "img": "am_Buildings_House_Decor_Standing_Lamps",
+      "x": 99,
+      "y": 4,
+      "w": 11,
+      "h": 27
+    },
+    "am_Buildings_House_Decor_Tables_48": {
+      "img": "am_Buildings_House_Decor_Tables",
+      "x": 8,
+      "y": 536,
+      "w": 50,
+      "h": 33
+    },
+    "am_Buildings_House_Decor_windows_1": {
+      "img": "am_Buildings_House_Decor_windows",
+      "x": 17,
+      "y": 7,
+      "w": 14,
+      "h": 21
+    },
+    "am_Buildings_Houses_Interiors_Brick_Wall_Fillers_0_0": {
+      "img": "am_Buildings_Houses_Interiors_Brick_Wall_Fillers",
+      "x": 0,
+      "y": 0,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_Houses_Interiors_Brick_Wall_Fillers_0_1": {
+      "img": "am_Buildings_Houses_Interiors_Brick_Wall_Fillers",
+      "x": 0,
+      "y": 16,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_Houses_Interiors_Brick_Wall_Fillers_1_0": {
+      "img": "am_Buildings_Houses_Interiors_Brick_Wall_Fillers",
+      "x": 16,
+      "y": 0,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_Houses_Interiors_Brick_Wall_Fillers_1_1": {
+      "img": "am_Buildings_Houses_Interiors_Brick_Wall_Fillers",
+      "x": 16,
+      "y": 16,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_Houses_Interiors_Interior_Walls_12_3": {
+      "img": "am_Buildings_Houses_Interiors_Interior_Walls",
+      "x": 192,
+      "y": 48,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_Houses_Interiors_Interior_Walls_12_4": {
+      "img": "am_Buildings_Houses_Interiors_Interior_Walls",
+      "x": 192,
+      "y": 64,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_Houses_Interiors_Interior_Walls_12_5": {
+      "img": "am_Buildings_Houses_Interiors_Interior_Walls",
+      "x": 192,
+      "y": 80,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_Houses_Interiors_Interior_Walls_13_3": {
+      "img": "am_Buildings_Houses_Interiors_Interior_Walls",
+      "x": 208,
+      "y": 48,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_Houses_Interiors_Interior_Walls_13_4": {
+      "img": "am_Buildings_Houses_Interiors_Interior_Walls",
+      "x": 208,
+      "y": 64,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_Houses_Interiors_Interior_Walls_13_5": {
+      "img": "am_Buildings_Houses_Interiors_Interior_Walls",
+      "x": 208,
+      "y": 80,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_Houses_Interiors_Wood_Floor_Tiles_0_0": {
+      "img": "am_Buildings_Houses_Interiors_Wood_Floor_Tiles",
+      "x": 0,
+      "y": 0,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_Houses_Interiors_Wood_Floor_Tiles_0_1": {
+      "img": "am_Buildings_Houses_Interiors_Wood_Floor_Tiles",
+      "x": 0,
+      "y": 16,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_Houses_Interiors_Wood_Floor_Tiles_1_0": {
+      "img": "am_Buildings_Houses_Interiors_Wood_Floor_Tiles",
+      "x": 16,
+      "y": 0,
+      "w": 16,
+      "h": 16
+    },
+    "am_Buildings_Houses_Interiors_Wood_Floor_Tiles_1_1": {
+      "img": "am_Buildings_Houses_Interiors_Wood_Floor_Tiles",
+      "x": 16,
+      "y": 16,
+      "w": 16,
+      "h": 16
+    },
+    "am_NPCs_Premade_Bartender_Katy_0": {
+      "img": "am_NPCs_Premade_Bartender_Katy",
+      "x": 24,
+      "y": 19,
+      "w": 15,
+      "h": 22
+    }
+  }
+}
