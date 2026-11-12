@@ -75,18 +75,28 @@ function isTouchDevice() {
 // logicalHeight so the camera + HUD (scene2d.js's viewportOf) use logical px, not the
 // dpr-multiplied buffer. Resizing canvas.width/height resets ALL context state (transform,
 // imageSmoothingEnabled), so both must be reapplied every call — including on window resize.
-function sizeCanvasBuffer(canvas) {
+// The touch D-pad and A are laid over the bottom of the canvas on a phone: how many px of it they
+// cover is stamped as canvas.safeBottom, the same way, so the game keeps its dialog above them. On
+// desktop the controls are display:none (sm:hidden), measure 0x0, and the stamp is 0.
+export function sizeCanvasBuffer(canvas, controls) {
   const rect = canvas.getBoundingClientRect()
   const dpr = (typeof window !== 'undefined' && window.devicePixelRatio) || 1
   canvas.width = Math.max(1, Math.round(rect.width * dpr))
   canvas.height = Math.max(1, Math.round(rect.height * dpr))
   canvas.logicalWidth = rect.width
   canvas.logicalHeight = rect.height
+  canvas.safeBottom = coveredBottom(rect, controls)
   const ctx = canvas.getContext('2d')
   if (!ctx) return
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
   // Keep the upscaled 16px sprite art crisp/pixelated rather than blurred by bilinear filtering.
   ctx.imageSmoothingEnabled = false
+}
+
+function coveredBottom(canvasRect, controls) {
+  const r = controls && controls.getBoundingClientRect()
+  if (!r || !r.height) return 0
+  return Math.max(0, canvasRect.bottom - r.top)
 }
 
 function PadButton({ innerRef, label, glyph, className }) {
@@ -102,9 +112,9 @@ function PadButton({ innerRef, label, glyph, className }) {
   )
 }
 
-function TouchControls({ copy, upRef, downRef, leftRef, rightRef, actionRef }) {
+function TouchControls({ copy, rootRef, upRef, downRef, leftRef, rightRef, actionRef }) {
   return (
-    <div className="absolute bottom-4 inset-x-4 flex items-end justify-between sm:hidden">
+    <div ref={rootRef} className="absolute bottom-4 inset-x-4 flex items-end justify-between sm:hidden">
       <div className="relative w-40 h-28">
         <PadButton innerRef={upRef} label={copy.up} glyph="▲" className="absolute top-0 left-1/2 -translate-x-1/2" />
         <PadButton innerRef={leftRef} label={copy.left} glyph="◀" className="absolute bottom-0 left-0" />
@@ -132,6 +142,7 @@ export default function WorldRpg({ locale }) {
   const leftRef = useRef(null)
   const rightRef = useRef(null)
   const actionRef = useRef(null)
+  const controlsRef = useRef(null)
 
   useEffect(() => {
     if (!started) return undefined
@@ -152,8 +163,8 @@ export default function WorldRpg({ locale }) {
       if (cancelled || !canvasRef.current) return
       // Must run before game.start() sizes anything off the buffer (the camera's first frame
       // reads canvas.width/height) — see sizeCanvasBuffer's comment for the root-cause zoom bug.
-      sizeCanvasBuffer(canvasRef.current)
-      const onResize = () => { if (canvasRef.current) sizeCanvasBuffer(canvasRef.current) }
+      sizeCanvasBuffer(canvasRef.current, controlsRef.current)
+      const onResize = () => { if (canvasRef.current) sizeCanvasBuffer(canvasRef.current, controlsRef.current) }
       window.addEventListener('resize', onResize)
       detachResize = () => window.removeEventListener('resize', onResize)
       setUiLang(lang)
@@ -269,7 +280,7 @@ export default function WorldRpg({ locale }) {
         // heights, with min-h as a floor so very short viewports don't collapse the canvas.
         className="block w-full h-[56vh] max-h-[520px] min-h-[320px] outline-hidden [image-rendering:pixelated]"
       />
-      <TouchControls copy={copy} upRef={upRef} downRef={downRef} leftRef={leftRef} rightRef={rightRef} actionRef={actionRef} />
+      <TouchControls copy={copy} rootRef={controlsRef} upRef={upRef} downRef={downRef} leftRef={leftRef} rightRef={rightRef} actionRef={actionRef} />
       <button
         type="button"
         onClick={toggleMute}

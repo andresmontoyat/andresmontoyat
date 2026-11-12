@@ -8,6 +8,7 @@ import { CONFIG } from '../config.js'
 import { critterDrawables } from '../entities/critters.js'
 import { npcDrawables } from '../entities/npcs.js'
 import { shake2D } from '../engine/camera2d.js'
+import { PLAYER_BOX } from '../engine/topdown.js'
 import { phaseOf, nightTint } from './lighting.js'
 import { WATER_LAYER } from '../world/water.js'
 import { DIALOG_FONT, DIALOG_TEXT_X, colsFor } from './dialog.js'
@@ -74,10 +75,13 @@ export function activeSites(state) {
 // range — off by a factor of dpr. WorldRpg.jsx annotates canvas.logicalWidth/logicalHeight with
 // the CSS size before that transform; this falls back to the raw buffer when unset (unit tests,
 // or a canvas that was never dpr-sized) so existing callers stay unaffected.
+// safeBottom: how many px at the bottom of the canvas the touch controls cover (WorldRpg.jsx stamps
+// it; 0 on desktop, where they are hidden).
 export function viewportOf(ctx) {
   return {
     w: ctx.canvas.logicalWidth || ctx.canvas.width,
     h: ctx.canvas.logicalHeight || ctx.canvas.height,
+    safeBottom: ctx.canvas.safeBottom || 0,
   }
 }
 
@@ -274,19 +278,39 @@ function drawBuildingLabel(ctx, s, bx, by) {
 // gentle ~0.9s two-frame loop while standing.
 const IDLE_TICKS = CONFIG.avatar.idleTicks
 
+// An interior is drawn at world scale 2 (convert.js WORLD_TILE): next to its 64x36 desk the outdoor
+// 40x44 avatar was a child. Inside, the 64px source cell is drawn at world scale too. Outdoors keeps
+// the size the exterior was tuned with. Collision does not change: the box stays the player's own.
+export function avatarSize(state) {
+  if (state.world && state.world.interior) return { w: CONFIG.avatar.interiorWidth, h: CONFIG.avatar.interiorHeight }
+  return { w: AVATAR_W, h: AVATAR_H }
+}
+
+// Where the avatar's feet end in its 64px source cell: row 41, the bottom of the base body's sole.
+const AVATAR_SOLE = 41 / 64
+
+// Inside, the drawn feet sit on the bottom of the collision box, so the player stands against what
+// stops them. Centred, the 128px avatar's feet fell 6px below it. Outdoors keeps the tuned centring.
+function avatarTop(state, h) {
+  const { player } = state
+  if (state.world && state.world.interior) return player.y + PLAYER_BOX.w / 2 - h * AVATAR_SOLE
+  return player.y - h / 2
+}
+
 // Carlos is drawn as a stack of modular sprites (bare base + jeans/boots/shirt/hair — see
 // AVATAR_LAYERS), each layer sharing the base's frame rects so they land pixel-aligned. Walking
 // cycles the 6-frame stride by floor(step); standing runs the 2-frame idle off the clock. There's
 // no dedicated left row, so 'left' reuses the right frames mirrored via drawFlipped.
-function drawAvatar(ctx, state, cam, sprites) {
+export function drawAvatar(ctx, state, cam, sprites) {
   const { player } = state
   const dir = player.dir === 'left' ? 'right' : player.dir
   const moving = player.moving
   const phase = moving ? Math.floor(player.step) : animIndex(state.clock || 0, IDLE_TICKS, 2)
-  const dx = player.x - AVATAR_W / 2 - cam.x
-  const dy = player.y - AVATAR_H / 2 - cam.y
+  const { w, h } = avatarSize(state)
+  const dx = player.x - w / 2 - cam.x
+  const dy = avatarTop(state, h) - cam.y
   const paint = player.dir === 'left' ? sprites.drawFlipped : sprites.draw
-  AVATAR_LAYERS.forEach(layer => paint(ctx, avatarFrame(layer, dir, moving, phase), dx, dy, AVATAR_W, AVATAR_H))
+  AVATAR_LAYERS.forEach(layer => paint(ctx, avatarFrame(layer, dir, moving, phase), dx, dy, w, h))
 }
 
 // Ground-contact footprint (world w/h) per decor type — used both to size the sprite and to
@@ -450,17 +474,36 @@ function drawPlaceholderScene(ctx, state, cam) {
   ctx.fillRect(player.x - player.w / 2 - cam.x, player.y - player.h / 2 - cam.y, player.w, player.h)
 }
 
-export function drawDialog(ctx, state) {
+const DIALOG_H = 120
+const DIALOG_MARGIN = 20
+// Desktop keeps the box 30px off the bottom edge; on a phone it ends this far above the controls.
+const DESKTOP_BOTTOM = 30
+const CONTROLS_GAP = 8
+
+// dialogRect: where the dialog box goes. On a phone the D-pad and A cover the bottom `safeBottom` px
+// of the canvas, so the box ends above them. It sits in the half of the free area the player is not
+// in, so it never covers who is talking either: at the bottom while the player is in the upper half,
+// flipped to the top once they are in the lower one.
+export function dialogRect(w, h, safeBottom, playerScreenY) {
+  const box = { x: DIALOG_MARGIN, w: w - 2 * DIALOG_MARGIN, h: DIALOG_H }
+  const free = h - safeBottom
+  if (playerScreenY >= free / 2) return { ...box, y: DIALOG_MARGIN }
+  const bottom = safeBottom ? free - CONTROLS_GAP : h - DESKTOP_BOTTOM
+  return { ...box, y: bottom - DIALOG_H }
+}
+
+export function drawDialog(ctx, state, cam = { x: 0, y: 0 }) {
   const { dialog, lang } = state
   if (!dialog.isOpen()) return
-  const { w, h } = viewportOf(ctx)
+  const { w, h, safeBottom } = viewportOf(ctx)
+  const box = dialogRect(w, h, safeBottom, state.player ? state.player.y - cam.y : 0)
   ctx.font = DIALOG_FONT
   dialog.fit(colsFor(w, ctx.measureText('M').width))
   ctx.fillStyle = '#0d1730f2'
-  ctx.fillRect(20, h - 150, w - 40, 120)
+  ctx.fillRect(box.x, box.y, box.w, box.h)
   ctx.fillStyle = '#dfeaff'
-  dialog.visibleText(lang).split('\n').forEach((ln, i) => ctx.fillText(ln, DIALOG_TEXT_X, h - 120 + i * 22))
-  drawPageIndicator(ctx, dialog.page(lang), w, h)
+  dialog.visibleText(lang).split('\n').forEach((ln, i) => ctx.fillText(ln, DIALOG_TEXT_X, box.y + 30 + i * 22))
+  drawPageIndicator(ctx, dialog.page(lang), box)
 }
 
 // The door's fade (fade.js) over everything but the intro title. Dark and still waiting for the
@@ -482,11 +525,11 @@ export function drawFade(ctx, state) {
   ctx.restore()
 }
 
-function drawPageIndicator(ctx, { index, count }, w, h) {
+function drawPageIndicator(ctx, { index, count }, box) {
   if (count < 2) return
   ctx.save()
   ctx.textAlign = 'right'
-  ctx.fillText(`${index + 1}/${count}`, w - 36, h - 40)
+  ctx.fillText(`${index + 1}/${count}`, box.x + box.w - 16, box.y + box.h - 10)
   ctx.restore()
 }
 
@@ -631,7 +674,7 @@ export function render2d(ctx, state, cam) {
     if (outdoors) drawNightOverlay(ctx, state)
     if (outdoors) drawHud(ctx, state)
   }
-  drawDialog(ctx, state)
+  drawDialog(ctx, state, sceneCam)
   drawFade(ctx, state)
   if (introRunning) drawIntroTitle(ctx, state)
 }

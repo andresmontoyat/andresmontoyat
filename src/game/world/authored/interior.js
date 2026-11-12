@@ -1,3 +1,9 @@
+import { hits, PLAYER_BOX } from '../../engine/topdown.js'
+import { WATER_LAYER, waterBodies, waterSolids } from '../water.js'
+import { WALLS_LAYER, wallSolids } from '../walls.js'
+import { WORLD_TILE } from './convert.js'
+import { CONFIG } from '../../config.js'
+
 // The rules an interior map must meet (docs/adr/0004). An interior is a room the player walks into
 // from a house's door: one host who tells the card, one spawn where the player lands, one exit, and
 // one `read:<n>` object per bullet of the job — so every line of the job is something to walk up to,
@@ -60,7 +66,17 @@ function checkLanguages(id, entry) {
   if (en.length !== es.length) fail(id, `en ${en.length} bullets but es ${es.length} — both languages must say the same number of things`)
 }
 
-export function validateInterior(id, interactables, entry, exteriorDoorIds) {
+// A spawn the player's box cannot stand on drops them where they cannot move. The full walk of the
+// room (every host, read and exit reachable) is world/interiors.rooms.test.js; this is the cheap half.
+function checkSpawnClear(id, interactables, solids) {
+  const spawn = interactables.find(e => e.spawn)
+  if (hits(spawn.x, spawn.y, PLAYER_BOX.w / 2, solids)) {
+    fail(id, `the spawn at ${spawn.x},${spawn.y} puts the player inside a solid — move it onto open floor`)
+  }
+}
+
+// `solids`: what blocks in the room (interiorSolids). Left out, only the tags are checked.
+export function validateInterior(id, interactables, entry, exteriorDoorIds, solids = []) {
   checkExperience(id, entry, exteriorDoorIds)
   checkLanguages(id, entry)
   const tags = interactables.map(tagOf)
@@ -68,6 +84,22 @@ export function validateInterior(id, interactables, entry, exteriorDoorIds) {
   checkExactlyOne(id, tags.filter(t => t === HOST).length, HOST)
   checkHosts(id, tags)
   checkReads(id, tags, entry.bullets.en.length)
+  checkSpawnClear(id, interactables, solids)
+}
+
+// interiorSolids: everything that blocks in a converted room, in world px — the same three sources
+// buildInteriorWorld hands the game (placement hitboxes, painted water, painted walls), read from the
+// import's own artifacts because the runtime module needs the bundler to load.
+export function interiorSolids({ tiles, placements }) {
+  const cellsOf = name => {
+    const layer = (tiles.layers || []).find(l => l.name === name)
+    return layer ? layer.cells.map(([x, y]) => `${x},${y}`) : []
+  }
+  return [
+    ...(placements || []).filter(p => p.solid).map(p => p.solid),
+    ...waterSolids(waterBodies(cellsOf(WATER_LAYER), WORLD_TILE), WORLD_TILE, CONFIG.pond.shoreInset),
+    ...wallSolids(cellsOf(WALLS_LAYER), WORLD_TILE),
+  ]
 }
 
 // The manifest belongs to the shared atlas, not to the room: the runtime file is the rest.

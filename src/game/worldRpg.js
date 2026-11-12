@@ -4,9 +4,11 @@ import {
   placementSolids, adoptedInteriorIds, loadInterior, withInteriorAtlas, buildInteriorWorld,
 } from './world/interiors.js'
 import { waterCellsOf } from './world/water.js'
+import { wallCellsOf, wallSolids } from './world/walls.js'
+import { WORLD_TILE } from './world/authored/convert.js'
 import { biomeForYear } from './world/biomes.js'
 import { buildDecor } from './world/decor.js'
-import { stepMovement } from './engine/topdown.js'
+import { stepMovement, PLAYER_BOX } from './engine/topdown.js'
 import { followCamera2D } from './engine/camera2d.js'
 import { nearestSite, doorPoint } from './entities/site.js'
 import { createDialog, siteSource, bulletSource } from './render/dialog.js'
@@ -84,7 +86,11 @@ function updateRegionMusic(state) {
   state.music.setRegion(bi)
 }
 
-const INTERACT_RANGE = 40
+// How close the player's base point has to be to a host, read or exit's for the action to reach it.
+export const INTERACT_RANGE = 40
+// Re-exported beside INTERACT_RANGE: the rooms test (world/interiors.rooms.test.js) walks a room with
+// the same box and reach the game plays with.
+export { PLAYER_BOX }
 
 function placePlayer(player, { x, y }, dir) {
   Object.assign(player, { x, y, dir, moving: false, step: 0 })
@@ -154,7 +160,7 @@ export function update(state, input, dtChars) {
   advanceFade(state, dtChars)
   const frozen = state.dialog.isOpen() || !!state.entering || !!state.fade
   const solids = buildingSolids(activeSites(state), state.world.farmBuilding, state.world.farmWindmill)
-    .concat(decorSolids(state.decor || []), pondSolids(state.world), state.world.placementSolids)
+    .concat(decorSolids(state.decor || []), pondSolids(state.world), state.world.placementSolids, state.world.wallSolids || [])
   const r = stepMovement(state.player, { ...input, frozen }, solids, { w: state.world.worldW, h: state.world.worldH })
   state.player.x = r.x; state.player.y = r.y; state.player.dir = r.dir; state.player.moving = r.moving
   state.player.step = r.moving ? state.player.step + STEP_RATE : 0
@@ -190,6 +196,8 @@ export function createWorldRpg({
   // transforms, drawn as non-solid decor, bottom-anchored at (x,y).
   world.placements = placements
   world.placementSolids = placementSolids(placements)
+  // A tiles layer named 'walls' blocks every cell it paints, here as in any interior (docs/adr/0005).
+  world.wallSolids = wallSolids(wallCellsOf(authored), WORLD_TILE)
   // The clip table those placements play (src/data/clips.json), keyed by the clip id a placement
   // carries. Frame names, already baked into the atlas by the same import.
   world.clips = clips
@@ -201,7 +209,7 @@ export function createWorldRpg({
     world,
     decor: buildDecor(world, 1, { scatter }),
     authored,
-    player: { x: world.farm.x, y: world.farm.y + 70, w: 24, h: 28, dir: 'down', moving: false, step: 0 },
+    player: { x: world.farm.x, y: world.farm.y + 70, ...PLAYER_BOX, dir: 'down', moving: false, step: 0 },
     cam: { x: 0, y: 0 },
     dialog: createDialog(),
     revealed: false,

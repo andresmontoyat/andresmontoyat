@@ -1,7 +1,7 @@
 import React from 'react'
 import { describe, it, expect, vi } from 'vitest'
 import { render, screen, fireEvent } from '@testing-library/react'
-import WorldRpg from './WorldRpg'
+import WorldRpg, { sizeCanvasBuffer } from './WorldRpg'
 
 // The real game module (src/game/worldRpg.js) calls canvas.getContext('2d') during start(), and
 // src/test/setup.jsx globally stubs HTMLCanvasElement.prototype.getContext to return null — a
@@ -53,5 +53,26 @@ describe('WorldRpg island', () => {
     fireEvent.click(screen.getByRole('button', { name: /explore my career world/i }))
     await screen.findByTestId('world-rpg-canvas')
     expect(screen.getByRole('button', { name: /mute/i })).toBeInTheDocument()
+  })
+})
+
+// The D-pad and A are laid over the bottom of the canvas on a phone. The island measures how much of
+// the canvas they cover, so the game can keep its dialog clear of them (scene2d.js dialogRect).
+describe('sizeCanvasBuffer', () => {
+  const rectOf = r => ({ getBoundingClientRect: () => r })
+  const canvasAt = rect => ({ ...rectOf(rect), getContext: () => null })
+
+  it('stamps the strip the touch controls cover as safeBottom', () => {
+    const canvas = canvasAt({ top: 100, bottom: 572, width: 336, height: 472 })
+    sizeCanvasBuffer(canvas, rectOf({ top: 444, bottom: 556, width: 304, height: 112 }))
+    expect(canvas.safeBottom).toBe(128)
+  })
+
+  it('stamps 0 when the controls are hidden (desktop) or absent', () => {
+    const canvas = canvasAt({ top: 100, bottom: 620, width: 900, height: 520 })
+    sizeCanvasBuffer(canvas, rectOf({ top: 0, bottom: 0, width: 0, height: 0 }))
+    expect(canvas.safeBottom).toBe(0)
+    sizeCanvasBuffer(canvas, null)
+    expect(canvas.safeBottom).toBe(0)
   })
 })

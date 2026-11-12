@@ -1,3 +1,7 @@
+// The player's collision box. stepMovement and hits treat it as a square of half-width w / 2 centred
+// on the player's position; h is kept for the depth sort (the avatar's ground line).
+export const PLAYER_BOX = { w: 24, h: 28 }
+
 export function aabb(ax, ay, aw, ah, bx, by, bw, bh) {
   return ax < bx + bw && ax + aw > bx && ay < by + bh && ay + ah > by
 }

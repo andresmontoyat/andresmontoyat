@@ -1,4 +1,5 @@
 import { WATER_LAYER, waterBodies, undersizedBodies } from '../water.js'
+import { WALLS_LAYER } from '../walls.js'
 
 // Converts the world-editor's engine-neutral map export into the four artifacts the game
 // consumes: atlas manifest entries, a palette-encoded tile JSON, placements, and the clip table
@@ -121,6 +122,12 @@ export function anchorsFrom(layers, scale = 1, world = null) {
 // dialog offers "Exportar igual", so a lint-dirty file can reach here.
 const IDENTITY_KINDS = ['door', 'npc', 'animal', 'object', 'poi', 'read']
 
+// docs/adr/0006: a marker is an object with no sprite — a point the map tags and the game never draws.
+// It means a place, so it carries only the tags that name one; npc, door, animal, object and poi each
+// name a thing the player sees, and a thing needs a sprite.
+const isMarker = o => o.marker === true
+const MARKER_TAGS = ['spawn', 'exit', 'read']
+
 // A flag says how the world behaves around an object, not what the object IS, so it rides along with
 // whatever kind the object already has.
 const FLAG_TAGS = ['solid', 'spawn', 'exit']
@@ -133,7 +140,7 @@ const UNIQUE_KINDS = new Set(['door', 'poi'])
 // slices block, which a hand-written map or a partial fixture may not carry: a missing or malformed
 // entry means no footprint rather than a throw, because identity is useful on its own.
 function footprintOf(o, scale, slices) {
-  if (!slices) return null
+  if (!slices || isMarker(o)) return null
   let parsed
   try { parsed = splitRef(o.frame) } catch { return null }
   const slice = slices[parsed.path]
@@ -230,10 +237,11 @@ function toPlacement(o, scale, solidOf) {
 }
 
 // `solidOf(frame)` answers { box, frame: {w, h} } for a frame that blocks, or null.
+// A marker (docs/adr/0006) has no sprite, so it is never a placement: never drawn, sorted or solid.
 export function placementsFrom(layers, scale = 1, solidOf = null) {
   return layers
     .filter(l => classifyLayer(l).kind === 'objects')
-    .flatMap(l => (l.objects || []).map(o => toPlacement(o, scale, solidOf)))
+    .flatMap(l => (l.objects || []).filter(o => !isMarker(o)).map(o => toPlacement(o, scale, solidOf)))
 }
 
 // solidFor: a frame's hitbox (frame pixels, from its top-left) as the world-pixel box a placed copy
@@ -271,12 +279,13 @@ function solidLookup(map) {
 const TILE_LAYERS = m => m.layers.filter(l => classifyLayer(l).kind === 'tiles')
 
 // Every ref the map uses anywhere (tiles + objects), deduped, in a stable order.
-// Skips anchor layers — their marker frames are never drawn by the game.
+// Skips anchor layers — their marker frames are never drawn by the game — and sprite-less markers,
+// which have no frame to pack.
 function allRefs(map) {
   const refs = new Set()
   for (const l of map.layers) {
     if (classifyLayer(l).kind === 'anchor') continue
-    if (l.type === 'objects') for (const o of l.objects || []) refs.add(o.frame)
+    if (l.type === 'objects') for (const o of l.objects || []) { if (!isMarker(o)) refs.add(o.frame) }
     else for (const c of l.cells || []) refs.add(c.frame)
   }
   // A clip's frames are placed by whichever object plays it — the object only names frame 0, so
@@ -423,6 +432,46 @@ function validateWater(map) {
   if (thin) throw new Error(`layer "${WATER_LAYER}": the body at ${thin.cells[0]} holds no 2x2 square — widen it or erase it`)
 }
 
+// docs/adr/0005: the layer named `walls` blocks every cell it paints, so it has to be cells, and the
+// spawn may not stand in one — the player would appear inside a wall with no way to move. Feet are the
+// bottom-centre base point, read one pixel up as the editor does, so feet on the line between a wall
+// and the floor below belong to the wall.
+function validateWalls(map) {
+  const layer = map.layers.find(l => l.name === WALLS_LAYER)
+  if (!layer) return
+  if (layer.type !== 'tiles') throw new Error(`layer "${WALLS_LAYER}" must be a tiles layer: paint the walls as cells`)
+  const walled = new Set((layer.cells || []).map(c => `${c.x},${c.y}`))
+  for (const l of map.layers) {
+    for (const o of l.objects || []) {
+      if (!(o.tags || []).includes('spawn')) continue
+      const cell = `${Math.floor(o.x / map.tileSize)},${Math.floor((o.y - 1) / map.tileSize)}`
+      if (walled.has(cell)) throw new Error(`layer "${l.name}": the spawn at ${o.x},${o.y} stands in wall cell ${cell} — move it onto the floor`)
+    }
+  }
+}
+
+// A frameless object that does not say it is a marker is a broken export, not a marker: the editor
+// writes `marker: true` on every one it exports.
+function validateMarkers(map) {
+  for (const layer of map.layers) {
+    for (const o of layer.objects || []) {
+      if (o.frame) continue
+      if (!isMarker(o)) throw new Error(`layer "${layer.name}", object at ${o.x},${o.y}: has no frame and is not a marker — re-export the map from the world-editor`)
+      checkMarker(o, `layer "${layer.name}", marker at ${o.x},${o.y}`)
+    }
+  }
+}
+
+function checkMarker(o, where) {
+  if (o.clip) throw new Error(`${where}: plays clip "${o.clip}", but a marker has nothing to animate`)
+  for (const tag of (o.tags || []).filter(t => typeof t === 'string' && t)) {
+    const { kind, flag } = readTag(tag, where)
+    if (!MARKER_TAGS.includes(kind || flag)) {
+      throw new Error(`${where}: cannot carry "${tag}" — it names a thing the player sees, and a thing needs a sprite (a marker takes ${MARKER_TAGS.join(', ')})`)
+    }
+  }
+}
+
 // docs/adr/0004: a house's inside is its own map. `door` leads in, so it belongs to the exterior;
 // `read` and `exit` only mean something once the player is inside. The tag parser is the same one
 // interactablesFrom uses, so a malformed tag is reported once and in one voice.
@@ -463,6 +512,8 @@ export function validateMap(map, { dimsOf, exists, experienceIds = null, interio
   }
   map.layers.forEach(classifyLayer)
   validateWater(map)
+  validateWalls(map)
+  validateMarkers(map)
   anchorsFrom(map.layers, 1, map.world)
   validateTagPlacement(map, interior)
   const interactables = interactablesFrom(map.layers, 1)

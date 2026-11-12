@@ -1046,3 +1046,82 @@ describe('where read, exit and door may be used', () => {
     expect(() => convertMap(map(['read:1']), deps({ interior: true, experienceIds: ['tul-2022'] }))).not.toThrow()
   })
 })
+
+// docs/adr/0005: the walls layer is a contract too. It blocks whole cells, so it has to be cells, and
+// nothing may make the player appear inside one.
+describe('validateMap walls layer', () => {
+  const F = 'Cute_Fantasy/Tiles/Walls/W.png'
+  const S = 'Cute_Fantasy/Buildings/House.png'
+  const deps = { dimsOf: () => ({ w: 64, h: 64 }), exists: () => true, interior: true }
+  const wall = (x, y) => ({ x, y, frame: `${F}#0,0` })
+  const spawnAt = (x, y) => ({ frame: `${S}#0,0`, x, y, uid: 'U1', tags: ['spawn'] })
+  const map = (walls, objects = []) => ({
+    version: 2, tileSize: 16, world: { w: 64, h: 64 }, clips: [],
+    slices: { [F]: { type: 'sheet', fw: 16, fh: 16 }, [S]: { type: 'single', w: 16, h: 16 } },
+    layers: [walls, { name: 'Cosas', type: 'objects', objects }],
+  })
+  const ROW = { name: 'walls', type: 'tiles', cells: [wall(0, 0), wall(1, 0), wall(2, 0), wall(3, 0)] }
+
+  it('accepts a painted walls layer with the spawn on the floor', () => {
+    expect(() => validateMap(map(ROW, [spawnAt(24, 40)]), deps)).not.toThrow()
+  })
+
+  it('refuses a walls layer made of objects', () => {
+    expect(() => validateMap(map({ name: 'walls', type: 'objects', objects: [] }), deps))
+      .toThrow(/"walls" must be a tiles layer/)
+  })
+
+  it('refuses a spawn standing in a wall cell', () => {
+    expect(() => validateMap(map(ROW, [spawnAt(24, 10)]), deps)).toThrow(/spawn .*24,10.* wall cell 1,0/)
+  })
+
+  // Feet on the line between a wall and the floor below belong to the wall: read one pixel up.
+  it('reads the spawn\'s cell one pixel above its base point', () => {
+    expect(() => validateMap(map(ROW, [spawnAt(24, 16)]), deps)).toThrow(/wall cell 1,0/)
+    expect(() => validateMap(map(ROW, [spawnAt(24, 17)]), deps)).not.toThrow()
+  })
+})
+
+// docs/adr/0006: a marker is a point the map tags but never draws — an object with no frame.
+describe('marker objects', () => {
+  const S = 'Cute_Fantasy/Buildings/House.png'
+  const deps = extra => ({ dimsOf: () => ({ w: 64, h: 64 }), exists: () => true, interior: true, ...extra })
+  const marker = (tags, over = {}) => ({ x: 24, y: 40, uid: 'M1', marker: true, tags, ...over })
+  const map = objects => ({
+    version: 2, tileSize: 16, world: { w: 64, h: 64 }, clips: [],
+    slices: { [S]: { type: 'single', w: 16, h: 16 } },
+    layers: [{ name: 'Cosas', type: 'objects', objects: [{ frame: `${S}#0,0`, x: 8, y: 16, uid: 'U1' }, ...objects] }],
+  })
+
+  it('should make a spawn marker an interactable and no placement', () => {
+    const out = convertMap(map([marker(['spawn'], { name: 'entrada' })]), deps())
+    expect(out.interactables).toEqual([{ uid: 'M1', kind: 'spawn', spawn: true, name: 'entrada', x: 48, y: 80 }])
+    expect(out.placements).toEqual([{ frame: 'am_Buildings_House_0_0', x: 16, y: 32, uid: 'U1', scale: 2 }])
+  })
+
+  it('should leave markers out of the atlas manifest', () => {
+    const out = convertMap(map([marker(['exit']), marker(['read:1'], { uid: 'M2' })]), deps())
+    expect(Object.keys(out.manifest.frames)).toEqual(['am_Buildings_House_0_0'])
+  })
+
+  it.each([['spawn'], ['exit'], ['read:2']])('should accept %s on a marker', tag => {
+    expect(() => validateMap(map([marker([tag])]), deps())).not.toThrow()
+  })
+
+  it('should refuse a frameless object that is not a marker', () => {
+    expect(() => validateMap(map([{ x: 24, y: 40, uid: 'M1' }]), deps())).toThrow(/24,40.* no frame.* re-export/)
+  })
+
+  it.each([['npc:host'], ['door:tul-2022'], ['animal:cow'], ['object:x'], ['poi:x']])('should refuse %s on a marker', tag => {
+    expect(() => validateMap(map([marker([tag])]), deps())).toThrow(/marker .*24,40.* cannot carry/)
+  })
+
+  it('should refuse a marker that plays a clip', () => {
+    expect(() => validateMap(map([marker(['spawn'], { clip: 'flame' })]), deps())).toThrow(/marker .*24,40.* nothing to animate/)
+  })
+
+  it('should keep a map without markers byte-identical', () => {
+    expect(JSON.stringify(convertMap(map([]), deps()))).toBe(JSON.stringify(convertMap(map([]), deps())))
+    expect(placementsFrom(map([]).layers, 2)).toHaveLength(1)
+  })
+})

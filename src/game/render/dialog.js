@@ -39,16 +39,24 @@ function wrap(text, cols) {
   return lines
 }
 
-export function paginate(text, { cols = DEFAULT_COLS, rows = 4 } = {}) {
-  const lines = wrap(text, cols)
+function toPages(lines, rows) {
   const pages = []
   for (let i = 0; i < lines.length; i += rows) pages.push(lines.slice(i, i + rows).join('\n'))
   return pages.length ? pages : ['']
 }
 
+export function paginate(text, { cols = DEFAULT_COLS, rows = 4 } = {}) {
+  return toPages(wrap(text, cols), rows)
+}
+
+// A card line that fits keeps its spacing; only a line wider than the box is wrapped.
+function fitLines(lines, cols) {
+  return lines.flatMap(line => (!cols || line.length <= cols ? [line] : wrap(line, cols)))
+}
+
 // A source turns its text into pages for a language and a line width (cols, from the renderer).
-// The card is today's card and keeps its lines; a bullet wraps to whatever width the box has.
-export const siteSource = site => ({ pages: lang => [dialogLines(site, lang).join('\n')] })
+// The card keeps its lines unless one is wider than the box; a bullet wraps to the box's width.
+export const siteSource = site => ({ pages: (lang, cols) => toPages(fitLines(dialogLines(site, lang), cols), 4) })
 
 export const bulletSource = (entry, n) => ({ pages: (lang, cols) => paginate(entry.bullets[lang][n - 1], { cols }) })
 
