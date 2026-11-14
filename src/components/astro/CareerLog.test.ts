@@ -21,6 +21,21 @@ describe.each(['en', 'es'] as const)('CareerLog.astro (%s)', (locale) => {
     expect(await render(locale)).toContain('id="experience"')
   })
 
+  it('gives the list role filters, a tech filter, a year index and collapsible achievements', async () => {
+    const html = await render(locale)
+    expect(html.match(/data-f="(all|lead|dev)"/g)).toHaveLength(3)
+    expect(html).toContain('type="search"')
+    expect(html).toContain('class="cl-years"')
+    expect(html.match(/<details>/g)).toHaveLength(visible.length)
+    expect(html).toContain(`id="job-${locale}-`)
+  })
+
+  it('renders every stack entry as a button that filters by that technology', async () => {
+    const html = await render(locale)
+    const techs = visible.reduce((n, e) => n + e.tech.length, 0)
+    expect(html.match(/<button type="button" data-tech=/g)).toHaveLength(techs)
+  })
+
   it('renders every visible job in the list with its localized title, date and bullets', async () => {
     const html = await render(locale)
     expect(html.match(/class="cl-job"/g)).toHaveLength(visible.length)

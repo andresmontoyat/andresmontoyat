@@ -25,6 +25,8 @@ const env = {
 }
 const clientJobs = jobs.map((j) => ({ ...j, b: j.b.slice(0, 3) }))
 const firstChips = suggest({ kind: 'start' }, jobs)
+const allTech = [...new Set(jobs.flatMap((j) => j.tech))].sort((a, b) => a.localeCompare(b))
+const years = [...new Set(jobs.map((j) => Math.floor(j.from)))]
 ---
 <section
   id="experience"
@@ -99,15 +101,52 @@ const firstChips = suggest({ kind: 'start' }, jobs)
     </div>
 
     <div class="cl-list">
-      {jobs.map((j) => (
-        <article class="cl-job" data-id={j.id} style={`--c:${j.lead ? 'var(--c-devops)' : 'var(--accent-2)'}`}>
-          <header><h3>{j.co}</h3><span class="cl-when">{j.d}</span></header>
-          <div class="cl-role">{j.t}</div>
-          {j.m && <div class="cl-kpi">★ {j.m}</div>}
-          <ul>{j.b.map((x) => <li>{x}</li>)}</ul>
-          <div class="cl-stack">{j.tech.map((x) => <span>{x}</span>)}</div>
-        </article>
-      ))}
+      <div class="cl-ltools" role="group" aria-label={ui.listTools}>
+        <div class="cl-roles">
+          <button type="button" data-f="all" aria-pressed="true">{ui.all}</button>
+          <button type="button" data-f="lead" aria-pressed="false">{ui.leadOnly}</button>
+          <button type="button" data-f="dev" aria-pressed="false">{ui.devOnly}</button>
+        </div>
+        <label class="cl-tech">
+          <span class="sr-only">{ui.techFilter}</span>
+          <input type="search" list={`cl-techs-${locale}`} placeholder={ui.techPh} autocomplete="off" spellcheck="false" />
+        </label>
+        <datalist id={`cl-techs-${locale}`}>{allTech.map((x) => <option value={x} />)}</datalist>
+        <span class="cl-count" aria-live="polite"></span>
+        <button type="button" class="cl-reset" hidden>{ui.reset}</button>
+      </div>
+      <div class="cl-lbody">
+        <nav class="cl-years" aria-label={ui.years}>
+          {years.map((y) => {
+            const j = jobs.find((x) => Math.floor(x.from) === y)
+            return <a href={`#job-${locale}-${j.id}`} data-id={j.id}>{y}</a>
+          })}
+        </nav>
+        <div class="cl-cards">
+          {jobs.map((j) => (
+            <article
+              class="cl-job"
+              id={`job-${locale}-${j.id}`}
+              data-id={j.id}
+              data-lead={j.lead ? '1' : '0'}
+              data-tech={j.tech.map((x) => x.toLowerCase()).join('|')}
+              style={`--c:${j.lead ? 'var(--c-devops)' : 'var(--accent-2)'}`}
+            >
+              <header><h3>{j.co}</h3><span class="cl-when">{j.d}</span></header>
+              <div class="cl-role">{j.t}</div>
+              {j.m && <div class="cl-kpi">★ {j.m}</div>}
+              <details>
+                <summary>{ui.achievementsCount.replace('{n}', String(j.b.length))}</summary>
+                <ul>{j.b.map((x) => <li>{x}</li>)}</ul>
+              </details>
+              <div class="cl-stack">
+                {j.tech.map((x) => <button type="button" data-tech={x} aria-label={ui.useTech.replace('{tech}', x)}>{x}</button>)}
+              </div>
+            </article>
+          ))}
+          <p class="cl-empty" hidden>{ui.noResults}</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -183,6 +222,30 @@ const firstChips = suggest({ kind: 'start' }, jobs)
   .cl-list { display: none; gap: 12px }
   .cl.is-list .cl-list { display: grid }
   .cl.is-list .cl-grid { display: none }
+  .cl-ltools { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin-bottom: 14px }
+  .cl-roles { display: inline-flex; border: 1px solid var(--border); border-radius: 10px; overflow: hidden }
+  .cl-roles button { font: 12px var(--font-mono); min-height: 36px; padding: 6px 12px; border: 0; background: var(--bg-2); color: var(--muted); cursor: pointer }
+  .cl-roles button[aria-pressed="true"] { background: var(--accent); color: var(--on-c, var(--bg)) }
+  .cl-tech input { font: 13px var(--font-mono); min-height: 36px; width: 200px; max-width: 100%; padding: 6px 12px; border-radius: 10px; border: 1px solid var(--border); background: var(--bg-2); color: var(--text) }
+  .cl-count { font: 12px var(--font-mono); color: var(--muted) }
+  .cl-reset { font: 12px var(--font-mono); min-height: 32px; padding: 4px 10px; border-radius: 8px; border: 1px solid var(--border); background: transparent; color: var(--accent); cursor: pointer }
+  .cl-lbody { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 16px; align-items: start }
+  .cl-years { position: sticky; top: 90px; display: grid; gap: 2px; border-left: 2px solid var(--border) }
+  .cl-years a { font: 12px var(--font-mono); color: var(--muted); padding: 4px 0 4px 10px; margin-left: -2px; border-left: 2px solid transparent; text-decoration: none; min-height: 24px }
+  .cl-years a:hover { color: var(--text) }
+  .cl-years a.on { color: var(--accent); border-left-color: var(--accent); font-weight: 700 }
+  .cl-years a.off { opacity: .35 }
+  .cl-cards { display: grid; gap: 12px; min-width: 0 }
+  .cl-job[hidden] { display: none }
+  .cl-job { scroll-margin-top: 90px; transition: box-shadow .2s, transform .2s }
+  .cl-job:target, .cl-job.flash { box-shadow: 0 0 0 2px var(--c) }
+  .cl-job details summary { cursor: pointer; font: 12px var(--font-mono); color: var(--accent); min-height: 24px; list-style: none; display: inline-flex; align-items: center; gap: 6px }
+  .cl-job details summary::before { content: '▸'; transition: transform .2s }
+  .cl-job details[open] summary::before { transform: rotate(90deg) }
+  .cl-job details summary::-webkit-details-marker { display: none }
+  .cl-stack button { font: 11px var(--font-mono); min-height: 24px; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--border); background: transparent; color: var(--muted); cursor: pointer }
+  .cl-stack button:hover, .cl-stack button.hit { border-color: var(--accent); color: var(--accent) }
+  .cl-empty { color: var(--muted); font: 13px var(--font-mono); padding: 16px 0 }
   .cl-job { display: grid; gap: 6px; padding: 16px 18px; border: 1px solid var(--border); border-left: 4px solid var(--c); border-radius: 14px; background: var(--surface) }
   .cl-job header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 12px }
   .cl-job h3 { margin: 0; font: 800 18px/1.25 var(--font-sans); color: var(--text) }
@@ -191,7 +254,6 @@ const firstChips = suggest({ kind: 'start' }, jobs)
   .cl-kpi { font: 13px var(--font-mono); color: var(--text) }
   .cl-job ul { display: grid; gap: 4px; margin: 4px 0 0; padding-left: 18px; list-style: disc; color: var(--muted); font-size: 14px; line-height: 1.55 }
   .cl-stack { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px }
-  .cl-stack span { font: 11px var(--font-mono); padding: 2px 8px; border-radius: 999px; border: 1px solid var(--border); color: var(--muted) }
 
   .cl-toast { position: fixed; right: max(16px, env(safe-area-inset-right, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); z-index: 60;
     display: flex; gap: 10px; align-items: center; padding: 10px 14px; border-radius: 12px; background: var(--surface); color: var(--text);
@@ -201,16 +263,20 @@ const firstChips = suggest({ kind: 'start' }, jobs)
   @keyframes cl-toast { 0% { opacity: 0; transform: translateY(12px) } 10%, 85% { opacity: 1; transform: none } 100% { opacity: 0; transform: translateY(8px) } }
 
   @media (max-width: 880px) {
+    .cl-lbody { grid-template-columns: 1fr }
+    .cl-years { position: static; display: flex; flex-wrap: wrap; gap: 4px; border-left: 0 }
+    .cl-years a { border-left: 0; padding: 4px 8px; border-radius: 6px; background: var(--bg-2) }
     .cl-grid { grid-template-columns: 1fr }
     .cl-term { position: relative; top: 0 }
     .cl-out { height: 320px }
     .cl-peek { display: none }
   }
   @media (scripting: none) {
-    .cl-top, .cl-grid { display: none }
+    .cl-top, .cl-grid, .cl-ltools { display: none }
     .cl-list { display: grid }
   }
   @media (prefers-reduced-motion: reduce) {
+    .cl-job, .cl-job details summary::before { transition: none }
     .cl-toast { animation: none }
     .cl-peek { transition: none }
   }

@@ -1,98 +1,394 @@
 {
-  "label": { "en": "Experience", "es": "Experiencia" },
-  "h2": { "en": "git log --career", "es": "git log --career" },
+  "label": {
+    "en": "Experience",
+    "es": "Experiencia"
+  },
+  "h2": {
+    "en": "git log --career",
+    "es": "git log --career"
+  },
   "intro": {
     "en": "My career as a commit history: every job is a commit, overlapping jobs live on a side branch. Click one, type commands in the terminal or switch to List to read it straight through.",
     "es": "Mi carrera como historial de commits: cada trabajo es un commit, los trabajos en paralelo van en otra rama. Haz clic en uno, escribe comandos en la terminal o cambia a Lista para leerla de corrido."
   },
   "ui": {
-    "view": { "en": "View", "es": "Vista" },
-    "term": { "en": "Terminal", "es": "Terminal" },
-    "list": { "en": "List", "es": "Lista" },
-    "graph": { "en": "Commit history", "es": "Historial de commits" },
-    "terminal": { "en": "Terminal", "es": "Terminal" },
-    "input": { "en": "Terminal command", "es": "Comando de la terminal" },
-    "suggest": { "en": "Suggested commands", "es": "Comandos sugeridos" },
-    "placeholder": { "en": "type help", "es": "escribe help" },
-    "hint": { "en": "Tab completes · ↑ ↓ history · Ctrl+L clears · click anything underlined", "es": "Tab completa · ↑ ↓ historial · Ctrl+L limpia · haz clic en lo subrayado" },
-    "welcome": { "en": "Welcome. Type {help} or tap a commit.", "es": "Bienvenido. Escribe {help} o toca un commit." },
-    "helpTitle": { "en": "commands:", "es": "comandos:" },
-    "helpTip": { "en": "hint: there is a command with sudo…", "es": "pista: hay un comando con sudo…" },
+    "view": {
+      "en": "View",
+      "es": "Vista"
+    },
+    "term": {
+      "en": "Terminal",
+      "es": "Terminal"
+    },
+    "list": {
+      "en": "List",
+      "es": "Lista"
+    },
+    "graph": {
+      "en": "Commit history",
+      "es": "Historial de commits"
+    },
+    "terminal": {
+      "en": "Terminal",
+      "es": "Terminal"
+    },
+    "input": {
+      "en": "Terminal command",
+      "es": "Comando de la terminal"
+    },
+    "suggest": {
+      "en": "Suggested commands",
+      "es": "Comandos sugeridos"
+    },
+    "placeholder": {
+      "en": "type help",
+      "es": "escribe help"
+    },
+    "hint": {
+      "en": "Tab completes · ↑ ↓ history · Ctrl+L clears · click anything underlined",
+      "es": "Tab completa · ↑ ↓ historial · Ctrl+L limpia · haz clic en lo subrayado"
+    },
+    "welcome": {
+      "en": "Welcome. Type {help} or tap a commit.",
+      "es": "Bienvenido. Escribe {help} o toca un commit."
+    },
+    "helpTitle": {
+      "en": "commands:",
+      "es": "comandos:"
+    },
+    "helpTip": {
+      "en": "hint: there is a command with sudo…",
+      "es": "pista: hay un comando con sudo…"
+    },
     "help": {
       "en": [
-        ["git log", "", "condensed history"],
-        ["git show", "<company>", "details and wins"],
-        ["git log --lead", "", "leadership roles only"],
-        ["grep", "<tech>", "where I used it (e.g. grep kafka)"],
-        ["git checkout", "<year>", "where I was that year"],
-        ["git shortlog", "", "career summary"],
-        ["git diff", "<a>..<b>", "what changed between two jobs"],
-        ["git blame", "<tech>", "when I started using it"],
-        ["download cv", "", "download my CV (PDF)"]
+        [
+          "git log",
+          "",
+          "condensed history"
+        ],
+        [
+          "git show",
+          "<company>",
+          "details and wins"
+        ],
+        [
+          "git log --lead",
+          "",
+          "leadership roles only"
+        ],
+        [
+          "grep",
+          "<tech>",
+          "where I used it (e.g. grep kafka)"
+        ],
+        [
+          "git checkout",
+          "<year>",
+          "where I was that year"
+        ],
+        [
+          "git shortlog",
+          "",
+          "career summary"
+        ],
+        [
+          "git diff",
+          "<a>..<b>",
+          "what changed between two jobs"
+        ],
+        [
+          "git blame",
+          "<tech>",
+          "when I started using it"
+        ],
+        [
+          "download cv",
+          "",
+          "download my CV (PDF)"
+        ]
       ],
       "es": [
-        ["git log", "", "historial resumido"],
-        ["git show", "<empresa>", "detalle y logros"],
-        ["git log --lead", "", "solo roles de liderazgo"],
-        ["grep", "<tecnología>", "dónde la usé (ej. grep kafka)"],
-        ["git checkout", "<año>", "dónde estaba ese año"],
-        ["git shortlog", "", "resumen de la carrera"],
-        ["git diff", "<a>..<b>", "qué cambió entre dos trabajos"],
-        ["git blame", "<tecnología>", "cuándo empecé a usarla"],
-        ["download cv", "", "descarga mi CV (PDF)"]
+        [
+          "git log",
+          "",
+          "historial resumido"
+        ],
+        [
+          "git show",
+          "<empresa>",
+          "detalle y logros"
+        ],
+        [
+          "git log --lead",
+          "",
+          "solo roles de liderazgo"
+        ],
+        [
+          "grep",
+          "<tecnología>",
+          "dónde la usé (ej. grep kafka)"
+        ],
+        [
+          "git checkout",
+          "<año>",
+          "dónde estaba ese año"
+        ],
+        [
+          "git shortlog",
+          "",
+          "resumen de la carrera"
+        ],
+        [
+          "git diff",
+          "<a>..<b>",
+          "qué cambió entre dos trabajos"
+        ],
+        [
+          "git blame",
+          "<tecnología>",
+          "cuándo empecé a usarla"
+        ],
+        [
+          "download cv",
+          "",
+          "descarga mi CV (PDF)"
+        ]
       ]
     },
-    "notFound": { "en": "fatal: no such commit '{q}'. Try git log", "es": "fatal: no existe '{q}'. Prueba git log" },
-    "grepUsage": { "en": "usage: grep <tech>", "es": "uso: grep <tecnología>" },
-    "grepNone": { "en": "no matches for '{q}'", "es": "sin resultados para '{q}'" },
-    "grepSum": { "en": "{n} commits · {y} years between the first and the last", "es": "{n} commits · {y} años entre el primero y el último" },
-    "seeStack": { "en": "see in stack ↑", "es": "ver en el stack ↑" },
-    "checkoutUsage": { "en": "usage: git checkout <year>", "es": "uso: git checkout <año>" },
-    "checkoutNone": { "en": "no commits in {y}: I had not started yet", "es": "en {y} no hay commits: aún no empezaba" },
-    "shortlog": { "en": "{lead} leadership roles · {y} years · {n} technologies", "es": "{lead} roles de liderazgo · {y} años · {n} tecnologías" },
-    "firstCommit": { "en": "first commit: {co} ({y})", "es": "primer commit: {co} ({y})" },
-    "readme": {
-      "en": ["18+ years building Java backends and leading teams.", "Hexagonal architecture, events with Kafka/RabbitMQ, cloud on AWS/GCP/Azure.", "Try {a} or {b}."],
-      "es": ["18+ años construyendo backend en Java y liderando equipos.", "Arquitectura hexagonal, eventos con Kafka/RabbitMQ, nube en AWS/GCP/Azure.", "Prueba {a} o {b}."]
+    "notFound": {
+      "en": "fatal: no such commit '{q}'. Try git log",
+      "es": "fatal: no existe '{q}'. Prueba git log"
     },
-    "sudo": { "en": "[sudo] password for recruiter: ********", "es": "[sudo] contraseña para recruiter: ********" },
-    "granted": { "en": "✔ Permission granted.", "es": "✔ Permiso concedido." },
-    "writeMe": { "en": "Write to me: {c}", "es": "Escríbeme: {c}" },
-    "diffUsage": { "en": "usage: git diff <company>..<company>  (e.g. git diff tul..soldife)", "es": "uso: git diff <empresa>..<empresa>  (ej. git diff tul..soldife)" },
-    "role": { "en": "@@ role @@", "es": "@@ rol @@" },
-    "promoted": { "en": "⬆ stepped into leadership", "es": "⬆ paso a liderazgo" },
-    "noNew": { "en": "  (no new technologies)", "es": "  (sin tecnologías nuevas)" },
-    "kept": { "en": "  unchanged: {list}", "es": "  sin cambios: {list}" },
-    "diffSum": { "en": "{y} years apart · {n} new technologies", "es": "{y} años entre uno y otro · {n} tecnologías nuevas" },
-    "blameUsage": { "en": "usage: git blame <tech>  (e.g. git blame kafka)", "es": "uso: git blame <tecnología>  (ej. git blame kafka)" },
-    "blameNone": { "en": "nobody has touched '{q}' yet", "es": "nadie ha tocado '{q}' todavía" },
-    "blameFirst": { "en": "← first time", "es": "← primera vez" },
-    "blameUsed": { "en": "used in {n} {jobs}, the latest at {co}", "es": "usada en {n} {jobs}, la última en {co}" },
-    "job": { "en": "job", "es": "trabajo" },
-    "jobs": { "en": "jobs", "es": "trabajos" },
-    "cvDone": { "en": "✔ done.", "es": "✔ listo." },
-    "cvLink": { "en": "Download CV ({L}, PDF)", "es": "Descargar CV ({L}, PDF)" },
-    "empty": { "en": "(empty)", "es": "(vacío)" },
-    "unknown": { "en": "command not found: {c}.", "es": "comando no encontrado: {c}." },
-    "didYouMean": { "en": "Did you mean {s}?", "es": "¿Quisiste decir {s}?" },
-    "typeHelp": { "en": "Type {s}", "es": "Escribe {s}" },
-    "achievement": { "en": "ACHIEVEMENT", "es": "LOGRO" },
-    "badgeCount": { "en": "{n}/{m} achievements", "es": "{n}/{m} logros" },
+    "grepUsage": {
+      "en": "usage: grep <tech>",
+      "es": "uso: grep <tecnología>"
+    },
+    "grepNone": {
+      "en": "no matches for '{q}'",
+      "es": "sin resultados para '{q}'"
+    },
+    "grepSum": {
+      "en": "{n} commits · {y} years between the first and the last",
+      "es": "{n} commits · {y} años entre el primero y el último"
+    },
+    "seeStack": {
+      "en": "see in stack ↑",
+      "es": "ver en el stack ↑"
+    },
+    "checkoutUsage": {
+      "en": "usage: git checkout <year>",
+      "es": "uso: git checkout <año>"
+    },
+    "checkoutNone": {
+      "en": "no commits in {y}: I had not started yet",
+      "es": "en {y} no hay commits: aún no empezaba"
+    },
+    "shortlog": {
+      "en": "{lead} leadership roles · {y} years · {n} technologies",
+      "es": "{lead} roles de liderazgo · {y} años · {n} tecnologías"
+    },
+    "firstCommit": {
+      "en": "first commit: {co} ({y})",
+      "es": "primer commit: {co} ({y})"
+    },
+    "readme": {
+      "en": [
+        "18+ years building Java backends and leading teams.",
+        "Hexagonal architecture, events with Kafka/RabbitMQ, cloud on AWS/GCP/Azure.",
+        "Try {a} or {b}."
+      ],
+      "es": [
+        "18+ años construyendo backend en Java y liderando equipos.",
+        "Arquitectura hexagonal, eventos con Kafka/RabbitMQ, nube en AWS/GCP/Azure.",
+        "Prueba {a} o {b}."
+      ]
+    },
+    "sudo": {
+      "en": "[sudo] password for recruiter: ********",
+      "es": "[sudo] contraseña para recruiter: ********"
+    },
+    "granted": {
+      "en": "✔ Permission granted.",
+      "es": "✔ Permiso concedido."
+    },
+    "writeMe": {
+      "en": "Write to me: {c}",
+      "es": "Escríbeme: {c}"
+    },
+    "diffUsage": {
+      "en": "usage: git diff <company>..<company>  (e.g. git diff tul..soldife)",
+      "es": "uso: git diff <empresa>..<empresa>  (ej. git diff tul..soldife)"
+    },
+    "role": {
+      "en": "@@ role @@",
+      "es": "@@ rol @@"
+    },
+    "promoted": {
+      "en": "⬆ stepped into leadership",
+      "es": "⬆ paso a liderazgo"
+    },
+    "noNew": {
+      "en": "  (no new technologies)",
+      "es": "  (sin tecnologías nuevas)"
+    },
+    "kept": {
+      "en": "  unchanged: {list}",
+      "es": "  sin cambios: {list}"
+    },
+    "diffSum": {
+      "en": "{y} years apart · {n} new technologies",
+      "es": "{y} años entre uno y otro · {n} tecnologías nuevas"
+    },
+    "blameUsage": {
+      "en": "usage: git blame <tech>  (e.g. git blame kafka)",
+      "es": "uso: git blame <tecnología>  (ej. git blame kafka)"
+    },
+    "blameNone": {
+      "en": "nobody has touched '{q}' yet",
+      "es": "nadie ha tocado '{q}' todavía"
+    },
+    "blameFirst": {
+      "en": "← first time",
+      "es": "← primera vez"
+    },
+    "blameUsed": {
+      "en": "used in {n} {jobs}, the latest at {co}",
+      "es": "usada en {n} {jobs}, la última en {co}"
+    },
+    "job": {
+      "en": "job",
+      "es": "trabajo"
+    },
+    "jobs": {
+      "en": "jobs",
+      "es": "trabajos"
+    },
+    "cvDone": {
+      "en": "✔ done.",
+      "es": "✔ listo."
+    },
+    "cvLink": {
+      "en": "Download CV ({L}, PDF)",
+      "es": "Descargar CV ({L}, PDF)"
+    },
+    "empty": {
+      "en": "(empty)",
+      "es": "(vacío)"
+    },
+    "unknown": {
+      "en": "command not found: {c}.",
+      "es": "comando no encontrado: {c}."
+    },
+    "didYouMean": {
+      "en": "Did you mean {s}?",
+      "es": "¿Quisiste decir {s}?"
+    },
+    "typeHelp": {
+      "en": "Type {s}",
+      "es": "Escribe {s}"
+    },
+    "achievement": {
+      "en": "ACHIEVEMENT",
+      "es": "LOGRO"
+    },
+    "badgeCount": {
+      "en": "{n}/{m} achievements",
+      "es": "{n}/{m} logros"
+    },
     "badges": {
       "en": {
-        "curious": ["Curious", "you ran 5 commands"],
-        "archaeologist": ["Archaeologist", "you reached 2007"],
-        "recruiter": ["Recruiter mode", "you found the sudo"],
-        "diff": ["Code reviewer", "you compared two jobs"],
-        "blame": ["Detective", "you used git blame"]
+        "curious": [
+          "Curious",
+          "you ran 5 commands"
+        ],
+        "archaeologist": [
+          "Archaeologist",
+          "you reached 2007"
+        ],
+        "recruiter": [
+          "Recruiter mode",
+          "you found the sudo"
+        ],
+        "diff": [
+          "Code reviewer",
+          "you compared two jobs"
+        ],
+        "blame": [
+          "Detective",
+          "you used git blame"
+        ]
       },
       "es": {
-        "curious": ["Curioso", "usaste 5 comandos"],
-        "archaeologist": ["Arqueólogo", "llegaste a 2007"],
-        "recruiter": ["Recruiter mode", "encontraste el sudo"],
-        "diff": ["Code reviewer", "comparaste dos trabajos"],
-        "blame": ["Detective", "usaste git blame"]
+        "curious": [
+          "Curioso",
+          "usaste 5 comandos"
+        ],
+        "archaeologist": [
+          "Arqueólogo",
+          "llegaste a 2007"
+        ],
+        "recruiter": [
+          "Recruiter mode",
+          "encontraste el sudo"
+        ],
+        "diff": [
+          "Code reviewer",
+          "comparaste dos trabajos"
+        ],
+        "blame": [
+          "Detective",
+          "usaste git blame"
+        ]
       }
+    },
+    "listTools": {
+      "en": "Filter jobs",
+      "es": "Filtrar trabajos"
+    },
+    "all": {
+      "en": "All",
+      "es": "Todos"
+    },
+    "leadOnly": {
+      "en": "Leadership",
+      "es": "Liderazgo"
+    },
+    "devOnly": {
+      "en": "Engineering",
+      "es": "Desarrollo"
+    },
+    "techFilter": {
+      "en": "Filter by technology",
+      "es": "Filtrar por tecnología"
+    },
+    "techPh": {
+      "en": "e.g. Kafka",
+      "es": "ej. Kafka"
+    },
+    "results": {
+      "en": "{n} of {m} jobs",
+      "es": "{n} de {m} trabajos"
+    },
+    "reset": {
+      "en": "Clear filters",
+      "es": "Quitar filtros"
+    },
+    "noResults": {
+      "en": "No jobs match these filters.",
+      "es": "Ningún trabajo coincide con estos filtros."
+    },
+    "achievementsCount": {
+      "en": "Show achievements ({n})",
+      "es": "Ver logros ({n})"
+    },
+    "years": {
+      "en": "Jump to year",
+      "es": "Ir al año"
+    },
+    "useTech": {
+      "en": "Filter by {tech}",
+      "es": "Filtrar por {tech}"
     }
   }
 }
