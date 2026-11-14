@@ -27,7 +27,7 @@ const rest = data.projects.filter((p) => !p.featured)
     <h2 class="font-pixel text-lg sm:text-xl md:text-2xl tracking-normal text-text mb-4 leading-tight sm:leading-7 md:leading-8">
       {pick(data.h2, locale)}
     </h2>
-    <p class="text-muted max-w-[640px] mb-12 font-pixel text-[11px] leading-loose">{pick(data.intro, locale)}</p>
+    <p class="text-muted max-w-[640px] mb-12 text-base leading-relaxed">{pick(data.intro, locale)}</p>
     {featured.map((project) => {
       const title = pick(project.title, locale)
       const desc = pick(project.desc, locale)

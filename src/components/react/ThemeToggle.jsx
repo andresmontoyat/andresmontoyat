@@ -36,18 +36,16 @@ export default function ThemeToggle({ t }) {
     setTheme(readDocumentTheme())
   }, [])
 
-  useEffect(() => {
-    if (theme === null) return
-    document.documentElement.dataset.theme = theme
+  // Persist only on an explicit click: the theme the system picked is not a stored choice.
+  const toggleTheme = () => {
+    const next = theme === 'light' ? 'dark' : 'light'
+    document.documentElement.dataset.theme = next
+    setTheme(next)
     try {
-      window.localStorage.setItem(STORAGE_KEY, theme)
+      window.localStorage.setItem(STORAGE_KEY, next)
     } catch (e) {
       // localStorage blocked (private mode, etc) — ignore
     }
-  }, [theme])
-
-  const toggleTheme = () => {
-    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'))
   }
 
   const isDark = theme !== 'light'

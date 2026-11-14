@@ -54,4 +54,11 @@ describe('Contact.astro (Container API)', () => {
     expect(result).toContain(data.label.es)
     expect(result).toContain('Escríbeme')
   })
+
+  it('does not publish a phone number', async () => {
+    const result = await renderContact('en')
+    expect(result).not.toMatch(/tel:/)
+    expect(result).not.toContain('Phone')
+    expect(data.cards.map((c) => c.id)).not.toContain('phone')
+  })
 })

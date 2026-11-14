@@ -60,17 +60,29 @@ function HeroMetric({ metric, lang }) {
   )
 }
 
+const MAX_TECH_CHIPS = 6
+const CHIP_CLASS = 'font-mono text-[11px] py-1 px-2.5 bg-bg border border-border rounded-full text-muted'
+
+// Data order is relevance order: the first six stay, the rest collapse into a "+N" chip.
 function TechChips({ tech }) {
+  const shown = tech.slice(0, MAX_TECH_CHIPS)
+  const hidden = tech.slice(MAX_TECH_CHIPS)
   return (
     <div className="flex flex-wrap gap-1.5 mb-4">
-      {tech.map((t) => (
+      {shown.map((t) => (
         <span
           key={t}
-          className="font-mono text-[11px] py-1 px-2.5 bg-bg border border-border rounded-full text-muted hover:border-accent hover:text-accent transition-colors duration-150"
+          data-tech-chip
+          className={`${CHIP_CLASS} hover:border-accent hover:text-accent transition-colors duration-150`}
         >
           {t}
         </span>
       ))}
+      {hidden.length > 0 && (
+        <span data-tech-more title={hidden.join(', ')} className={`${CHIP_CLASS} border-dashed`}>
+          +{hidden.length}
+        </span>
+      )}
     </div>
   )
 }
@@ -110,7 +122,7 @@ function FeaturedCard({ entry, lang, isOpen, onToggle, expandLabel, collapseLabe
   const active = isActiveRole(entry.date)
 
   return (
-    <div className={`relative pb-9 group ${dimClass(dimmed)}`} data-variant="featured" data-dim={String(!!dimmed)}>
+    <div className={`relative pb-9 group ${dimClass(dimmed)}`} data-variant="featured" data-entry-id={entry.id} data-dim={String(!!dimmed)}>
       <span
         aria-hidden="true"
         className={`absolute left-[-32px] top-[8px] w-3 h-3 rounded-full ${active ? 'bg-accent' : 'bg-accent/80 group-hover:bg-accent'} shadow-[0_0_0_3px_var(--bg),0_0_12px_2px_var(--accent)] transition-colors duration-200`}
@@ -147,7 +159,7 @@ function CompactRow({ entry, lang, isOpen, onToggle, dimmed }) {
   const active = isActiveRole(entry.date)
 
   return (
-    <div className={`relative pb-5 group ${dimClass(dimmed)}`} data-variant="compact" data-dim={String(!!dimmed)}>
+    <div className={`relative pb-5 group ${dimClass(dimmed)}`} data-variant="compact" data-entry-id={entry.id} data-dim={String(!!dimmed)}>
       <span
         aria-hidden="true"
         className={`absolute left-[-27px] top-[9px] w-2 h-2 rounded-full ${active ? 'bg-accent' : 'bg-accent/60 group-hover:bg-accent group-hover:scale-125'} shadow-[0_0_0_3px_var(--bg)] transition-all duration-200`}
@@ -274,7 +286,7 @@ export default function Experience({ locale }) {
         <h2 className="font-pixel text-lg sm:text-xl md:text-2xl tracking-normal text-text mb-4 leading-tight sm:leading-7 md:leading-8">
           {pick(data.h2, lang)}
         </h2>
-        <p className="text-muted max-w-[640px] mb-8 font-pixel text-[11px] leading-loose">{pick(data.intro, lang)}</p>
+        <p className="text-muted max-w-[640px] mb-8 text-base leading-relaxed">{pick(data.intro, lang)}</p>
         {features.game && (
           <div className="mb-10">
             <CareerGame locale={locale} />

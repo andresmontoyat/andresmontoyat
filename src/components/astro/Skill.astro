@@ -28,7 +28,7 @@ const max = maxYears()
     <h2 class="font-pixel text-lg sm:text-xl md:text-2xl tracking-normal text-text mb-4 leading-tight sm:leading-7 md:leading-8">
       {pick(data.h2, locale)}
     </h2>
-    <p class="text-muted max-w-[640px] mb-12 font-pixel text-[11px] leading-loose">{pick(data.intro, locale)}</p>
+    <p class="text-muted max-w-[640px] mb-12 text-base leading-relaxed">{pick(data.intro, locale)}</p>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
       {data.categories.map((category) => (
         <div class="group/card bg-surface/40 border border-border rounded-[16px] p-6 transition-colors duration-200 hover:border-accent/40">
