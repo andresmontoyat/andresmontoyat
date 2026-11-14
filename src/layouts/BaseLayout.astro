@@ -110,42 +110,14 @@ const ogImageUrl = new URL('/og-image.png', siteUrl).toString()
       }
     </script>
 
-    <!-- Google Analytics — loaded AFTER the page load event so the ~50KB gtag.js
-         fetch stops competing with the LCP hero image on the throttled critical path.
-         dataLayer is primed synchronously so no events are lost before gtag arrives. -->
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-4TZJGR3MXR');
-      function loadGtag(){
-        var s = document.createElement('script');
-        s.async = true;
-        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-4TZJGR3MXR';
-        document.head.appendChild(s);
-      }
-      if (document.readyState === 'complete') loadGtag();
-      else window.addEventListener('load', loadGtag);
-    </script>
+    <!-- Google Analytics bootstrap lives in /js/ga-init.js (CSP script-src 'self'):
+         primes dataLayer synchronously, loads gtag.js after the load event so it
+         does not compete with the LCP hero image. -->
+    <script is:inline src="/js/ga-init.js"></script>
 
-    <script is:inline>
-      // ISLAND-04: blocking, runs before paint — flips theme pre-paint (kills FOUC).
-      // Mirrors src/i18n/ThemeContext.jsx's readInitialTheme() exactly:
-      // storage key 'cam-theme', default 'dark', try/catch for private-mode safety.
-      (function () {
-        var STORAGE_KEY = 'cam-theme'
-        var DEFAULT_THEME = 'dark'
-        var VALID_THEMES = ['dark', 'light']
-        var theme = DEFAULT_THEME
-        try {
-          var stored = localStorage.getItem(STORAGE_KEY)
-          if (stored && VALID_THEMES.indexOf(stored) !== -1) theme = stored
-        } catch (e) {
-          // localStorage blocked (private mode, etc) — fall through to default
-        }
-        document.documentElement.dataset.theme = theme
-      })()
-    </script>
+    <!-- ISLAND-04: blocking, runs before paint — flips theme pre-paint (kills FOUC).
+         Mirrors src/i18n/ThemeContext.jsx's readInitialTheme(); see /js/theme-init.js. -->
+    <script is:inline src="/js/theme-init.js"></script>
   </head>
   <body>
     <slot />
