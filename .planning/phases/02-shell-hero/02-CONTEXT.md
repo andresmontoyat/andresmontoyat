@@ -58,7 +58,7 @@ Out of scope: About / Skills / Experience / Contact / Footer sections (Phase 3).
 - Language switcher: synchronous localStorage init in LanguageContext to fix SEO-04 flash (already implemented via cam-lang key; verify sync read in `useState` initializer)
 - CV downloads: two side-by-side ghost buttons, hardcoded language labels ("Download CV (EN)" / "Descargar CV (ES)"), `download` attribute, links to `public/CV_Carlos_Montoya_EN.docx` and `public/CV_Carlos_Montoya_ES.docx`
 
-### Claude's Discretion
+### Implementer's Discretion
 
 - `<html lang>` attribute syncing on language change — pick a clean approach (likely `useEffect` in `LanguageProvider` setting `document.documentElement.lang`)
 - Per-language `<title>` and `<meta name="description">` tag updates — pick a clean approach (same `useEffect` pattern, no need for `react-helmet`)
@@ -131,7 +131,7 @@ Out of scope: About / Skills / Experience / Contact / Footer sections (Phase 3).
 
 ### Code-Level Risks
 
-- `src/index.js` uses `ReactDOM.render` (React 17 API) per CLAUDE.md tech stack note — Phase 1 upgraded to React 18, so verify this was migrated to `createRoot`. If not, scroll progress bar's portal child rendering still works either way, but note for cleanup.
+- `src/index.js` uses `ReactDOM.render` (React 17 API) per project instructions tech stack note — Phase 1 upgraded to React 18, so verify this was migrated to `createRoot`. If not, scroll progress bar's portal child rendering still works either way, but note for cleanup.
 - Existing `react-scroll` and `react-router-dom` deps unused — remove during Phase 2 cleanup as part of D-04.
 
 </code_context>

@@ -186,9 +186,9 @@ No ORPHANED requirements: REQUIREMENTS.md maps GAME-01 (Phase 17 secondary) and 
 | D-17-EXTRACT ConstellationErrorBoundary + detectCapabilities lifted (not re-authored) | ✓ | Slice 1 SUMMARY commits a8bf568 and 2519e96 confirm the lift; old GameMode.js inline class deleted |
 | D-17-SC5-TEST ≥ 3 capability-selection it() blocks | ✓ | GameMode.test.js:189-261 has 3 it() blocks (Test A, Test B, Test C) |
 | D-17-LIGHTHOUSE-FLOW uses lighthouse:mobile + lighthouse:check (NOT npx serve dist) | ✓ | package.json lighthouse:mobile spins its own `vite preview --port=4173`; UAT.md Test 1 step 1 explicitly notes "No external static-file-server step needed — the script handles preview itself" (avoids prior plan-revision's banned literal) |
-| D-17-VISUAL Claude's discretion (drift + glow pulse + halo brighten) | ✓ | Slice 3 implements all three; verified by tests (uHaloPulse uniform range [1.0, 1.15], uHighlightAlpha uniform range [0.4, 0.8], per-vertex phaseX/Y/periodX/Y attributes for drift) |
-| D-17-THEME Claude's discretion (getComputedStyle re-read on theme change) | ✓ | Option (a) implemented — Slice 2 useEffect on [theme, nodes, edges] re-reads CSS vars + re-uploads uniforms within one rAF; theme-reactivity test asserts getComputedStyle spy called |
-| D-17-BUNDLE Claude's discretion (HARD/WARN bands, WebGL TTI warn) | ✓ | check-bundle-gate.mjs implements HARD 38.82 / WARN-lower 14 / WebGL TTI WARN 60 kB bands |
+| D-17-VISUAL implementer's discretion (drift + glow pulse + halo brighten) | ✓ | Slice 3 implements all three; verified by tests (uHaloPulse uniform range [1.0, 1.15], uHighlightAlpha uniform range [0.4, 0.8], per-vertex phaseX/Y/periodX/Y attributes for drift) |
+| D-17-THEME implementer's discretion (getComputedStyle re-read on theme change) | ✓ | Option (a) implemented — Slice 2 useEffect on [theme, nodes, edges] re-reads CSS vars + re-uploads uniforms within one rAF; theme-reactivity test asserts getComputedStyle spy called |
+| D-17-BUNDLE implementer's discretion (HARD/WARN bands, WebGL TTI warn) | ✓ | check-bundle-gate.mjs implements HARD 38.82 / WARN-lower 14 / WebGL TTI WARN 60 kB bands |
 
 ## Manual UAT Items
 
@@ -231,4 +231,4 @@ Everything else in Phase 17 is solid: hook + boundary + renderer + bundle gate +
 ---
 
 _Verified: 2026-06-03T23:35:00-05:00_
-_Verifier: Claude (gsd-verifier)_
+_Verifier: gsd-verifier_

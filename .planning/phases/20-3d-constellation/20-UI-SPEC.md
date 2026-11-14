@@ -277,7 +277,7 @@ This section captures the visual contract the WebGL renderer ships, beyond color
 
 ## Onboarding Hint Pill (D-20-CONTEXT-HINT) — NEW component
 
-The first user-visible NEW UI surface in Phase 20. Specified in full because Claude's discretion was granted on styling.
+The first user-visible NEW UI surface in Phase 20. Specified in full because implementer's discretion was granted on styling.
 
 ### Placement
 

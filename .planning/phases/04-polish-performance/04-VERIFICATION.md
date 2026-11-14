@@ -179,4 +179,4 @@ The `human_needed` status reflects D-09 (Performance profile) and D-08 (responsi
 ---
 
 _Verified: 2026-05-05_
-_Verifier: Claude (gsd-verifier)_
+_Verifier: gsd-verifier_

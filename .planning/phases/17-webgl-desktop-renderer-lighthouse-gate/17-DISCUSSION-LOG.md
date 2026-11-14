@@ -10,7 +10,7 @@
 **Q:** Which gray areas should we discuss? (multi-select)
 **Options:** A. WebGL library choice (Recommended) / B. Desktop breakpoint + capability gate (Recommended) / C. Visual style — what does 'wow' look like / D. Lighthouse gate target & ErrorBoundary fallback policy
 **Selected:** A + B
-**Deferred to planner (Claude's Discretion):** C + D
+**Deferred to planner (Implementer's Discretion):** C + D
 
 ## Area A — WebGL library choice
 
@@ -73,6 +73,6 @@
 
 ## Outcome
 
-13 decisions locked across Areas A + B. 4 decisions (D-17-VISUAL, D-17-THEME, D-17-BUNDLE, D-17-LIGHTHOUSE-TARGET, D-17-ERRORBOUNDARY-INIT/RUNTIME) deferred to planner as Claude's Discretion with concrete recommendations.
+13 decisions locked across Areas A + B. 4 decisions (D-17-VISUAL, D-17-THEME, D-17-BUNDLE, D-17-LIGHTHOUSE-TARGET, D-17-ERRORBOUNDARY-INIT/RUNTIME) deferred to planner as Implementer's Discretion with concrete recommendations.
 
 CONTEXT.md written.

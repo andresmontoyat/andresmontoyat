@@ -58,10 +58,10 @@ Maps to REQs **GAME-01** (renderer contract + SVG/DOM path), **GAME-02** (first 
 - **D-15-KB-LABEL:** Per-node `aria-label` format = **`{skill name}, {category in active lang}, used in {count} jobs`**. Bilingual via the active `lang`. The visual encodes category-as-color and count-as-size; the aria-label decodes both for SR users. Example: EN "Java, languages, used in 11 jobs." / ES "Java, lenguajes, usado en 11 trabajos." Planner picks exact phrasing in `translations.js`.
 - **D-15-KB-ANNOUNCE:** Selection changes emit a polite `aria-live` announcement (e.g., "Java selected — 11 experiences. Press Esc to clear."), bilingual.
 
-### SEO / sr-only Fallback (NOT deeply discussed — Claude's discretion within these guardrails)
+### SEO / sr-only Fallback (NOT deeply discussed — implementer's discretion within these guardrails)
 - **D-15-SEO-DEFAULTS:** sr-only fallback ships per the spec defaults: full bilingual text of all 12 experiences in the DOM regardless of render path, ordered chronologically (most recent first to match the existing Experience.js order), inside a `section` with `aria-labelledby`. Active language is the one announced first (semantic `lang` attribute on the inner blocks). Use the `sr-only` Tailwind utility (existing in the codebase) — not `visibility:hidden`/`display:none` (would hide from SR). Planner confirms via research whether to render both languages always (max crawl + slight DOM weight) or active-lang only (cleaner). Default if no research signal: **active-lang only** (the language toggle re-renders both code paths anyway).
 
-### Claude's Discretion
+### Implementer's Discretion
 - Exact px values for node radius range, halo blur radius, edge stroke widths, pulse opacity timing curve.
 - SVG vs SVG-in-React-component-tree implementation choice (planner picks).
 - Whether the orchestrator uses React.lazy for the eventual WebGL adapter (Phase 17) or a simple conditional import — Phase 17's concern, but the contract must not preclude lazy loading.
@@ -151,7 +151,7 @@ Maps to REQs **GAME-01** (renderer contract + SVG/DOM path), **GAME-02** (first 
 <deferred>
 ## Deferred Ideas
 
-- **SEO/sr-only fallback bilingual policy** (both-langs vs active-lang only) — not discussed; defaulted to active-lang only with Claude's discretion. Planner may research and revisit if there's an SEO/ATS signal favoring both-langs.
+- **SEO/sr-only fallback bilingual policy** (both-langs vs active-lang only) — not discussed; defaulted to active-lang only with implementer's discretion. Planner may research and revisit if there's an SEO/ATS signal favoring both-langs.
 - **Filter UI** (multi-skill chips, year-timeline slider, category chips, reset) — **Phase 16**.
 - **Floating ExperienceCard + CV CTA** (clicking a skill node opens a bilingual dialog/popover with that skill's jobs + CV download link) — **Phase 16**. Phase 15's `Enter`-on-node behavior is "set selection + announce"; the visible UI is Phase 16.
 - **WebGL desktop renderer** + `three.js` / `react-three-fiber` library choice + desktop breakpoint + lazy-chunk loading — **Phase 17**. Phase 15's `GameMode` orchestrator must not preclude this.

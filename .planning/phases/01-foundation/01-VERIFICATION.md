@@ -194,4 +194,4 @@ The specific blocker for Truth #2 ("neon cyan/purple is gone") is that `text-neo
 ---
 
 _Verified: 2026-04-21_
-_Verifier: Claude (gsd-verifier)_
+_Verifier: gsd-verifier_

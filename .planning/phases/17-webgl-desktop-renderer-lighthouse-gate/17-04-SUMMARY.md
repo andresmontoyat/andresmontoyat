@@ -123,11 +123,11 @@ Each task was committed atomically (TDD RED → GREEN):
 
 ## Issues Encountered
 
-**Editing the wrong physical path (recovered mid-session).** Early in the session, my Edit/Write tool calls were being routed to absolute paths under `/Users/andres/Library/Mobile Documents/com~apple~CloudDocs/Development/repositories.nosync/codehunters/andresmontoyatco/src/...` — which is the **main repo path**, NOT the worktree path. The worktree path needs the additional `.claude/worktrees/agent-a088f3e5a2684a8e8/` prefix. The two paths happened to share the same root via the iCloud symlink at `/Users/andres/Development → /Users/andres/Library/Mobile Documents/com~apple~CloudDocs/Development`, but the worktree subdirectory itself is NOT a symlink and is a distinct directory.
+**Editing the wrong physical path (recovered mid-session).** Early in the session, my Edit/Write tool calls were being routed to absolute paths under `/Users/andres/Library/Mobile Documents/com~apple~CloudDocs/Development/repositories.nosync/codehunters/andresmontoyatco/src/...` — which is the **main repo path**, NOT the worktree path. The worktree path needs the additional `<assistant-config>/worktrees/agent-a088f3e5a2684a8e8/` prefix. The two paths happened to share the same root via the iCloud symlink at `/Users/andres/Development → /Users/andres/Library/Mobile Documents/com~apple~CloudDocs/Development`, but the worktree subdirectory itself is NOT a symlink and is a distinct directory.
 
 **Detected via** `stat -f "%z bytes, mtime %m"` on both candidate paths after `npm test` reported only 30 tests (the Slice 4 describe block was never registered). The main-repo file was 31736 bytes (with my Slice 4 changes); the worktree file was still 22639 bytes (untouched). 
 
-**Recovery:** Copied my Slice 4 test content to `/tmp/`, reverted the main repo via `git checkout`, then copied `/tmp/...slice4` into the correct worktree path. From that point onward all Edit/Write calls used the full worktree path with `.claude/worktrees/agent-a088f3e5a2684a8e8/` prefix and persisted correctly.
+**Recovery:** Copied my Slice 4 test content to `/tmp/`, reverted the main repo via `git checkout`, then copied `/tmp/...slice4` into the correct worktree path. From that point onward all Edit/Write calls used the full worktree path with `<assistant-config>/worktrees/agent-a088f3e5a2684a8e8/` prefix and persisted correctly.
 
 **Verification:** `git status --short` in the main repo showed clean working tree (no leaked changes); `git log` shows both commits (`a3a3a94`, `cf738f2`) on the worktree branch only. Main repo state untouched.
 

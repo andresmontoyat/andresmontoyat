@@ -45,7 +45,7 @@ Phase 14 builds the **pure data + state foundation** for the v3.8 game mode, ful
 - Component test: ViewMode toggle + persistence (localStorage + `?mode=`).
 - Vitest must coexist with Vite 6 / React 18 / Tailwind 3 setup (jsdom environment).
 
-### Claude's Discretion
+### Implementer's Discretion
 - Exact module/file naming under `src/game/` (follow existing co-located component conventions).
 - Internal shape details of derived node/edge objects beyond the fields named above.
 - Whether baked layout is a generated JSON committed to `src/data/` or computed by a build script — pick the simplest deterministic approach.

@@ -105,8 +105,6 @@ Output: First-visit recruiter on capable-desktop browser sees the constellation 
 </objective>
 
 <execution_context>
-@$HOME/.claude/get-shit-done/workflows/execute-plan.md
-@$HOME/.claude/get-shit-done/templates/summary.md
 </execution_context>
 
 <context>

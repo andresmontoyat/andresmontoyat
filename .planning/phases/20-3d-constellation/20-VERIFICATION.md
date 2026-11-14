@@ -226,4 +226,4 @@ Status `human_needed` is the correct verdict — automated checks all PASS, but 
 ---
 
 _Verified: 2026-06-10T18:55:00Z_
-_Verifier: Claude (gsd-verifier)_
+_Verifier: gsd-verifier_

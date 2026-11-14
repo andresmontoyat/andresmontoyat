@@ -67,5 +67,5 @@ None — all six warnings were fixed.
 ---
 
 _Fixed: 2026-05-16T16:47:30Z_
-_Fixer: Claude (gsd-code-fixer)_
+_Fixer: gsd-code-fixer_
 _Iteration: 1_

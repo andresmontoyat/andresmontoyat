@@ -61,7 +61,7 @@
 
 ---
 
-## Claude's Discretion
+## Implementer's Discretion
 
 Items where the user delegated decision-making to Claude:
 

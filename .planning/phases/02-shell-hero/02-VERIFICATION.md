@@ -190,4 +190,4 @@ The phase goal is achieved: Nav.js and Hero.js together constitute a bold, anima
 ---
 
 _Verified: 2026-05-05_
-_Verifier: Claude (gsd-verifier)_
+_Verifier: gsd-verifier_

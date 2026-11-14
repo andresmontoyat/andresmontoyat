@@ -482,7 +482,7 @@ Implementation: simple useState + rAF rolling average. ~20 LOC. Helps catch regr
 
 ## Open questions for planner
 
-None blocking. All Claude's Discretion zones (D-17-VISUAL, D-17-THEME, D-17-BUNDLE, D-17-LIGHTHOUSE-TARGET, D-17-ERRORBOUNDARY-INIT/RUNTIME) have concrete recommendations above — planner ships them as-is or refines inline.
+None blocking. All Implementer's Discretion zones (D-17-VISUAL, D-17-THEME, D-17-BUNDLE, D-17-LIGHTHOUSE-TARGET, D-17-ERRORBOUNDARY-INIT/RUNTIME) have concrete recommendations above — planner ships them as-is or refines inline.
 
 ---
 

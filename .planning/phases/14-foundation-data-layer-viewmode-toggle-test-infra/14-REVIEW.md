@@ -332,5 +332,5 @@ const angle = (2 * Math.PI * i) / catCount - Math.PI / 2
 ---
 
 _Reviewed: 2026-05-30T13:25:00Z_
-_Reviewer: Claude (gsd-code-reviewer)_
+_Reviewer: gsd-code-reviewer_
 _Depth: standard_

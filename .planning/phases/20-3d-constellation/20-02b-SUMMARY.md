@@ -49,7 +49,7 @@ key-files:
 
 key-decisions:
   - "D-20-CONTEXT-HINT LOCKED — bilingual pill ships in v3.10.0 (NOT deferred). Nested i18n key shape t.game.hint.drag per Alert A13."
-  - "D-20-PLANETS-TIER LOCKED — K=6 by count with deterministic tiebreak (id ascending); planet band desktop=24/40, mobile=14/22; always-on halo via existing filter mechanism in both renderers. K + bands are UAT-tunable per CONTEXT Claude's Discretion."
+  - "D-20-PLANETS-TIER LOCKED — K=6 by count with deterministic tiebreak (id ascending); planet band desktop=24/40, mobile=14/22; always-on halo via existing filter mechanism in both renderers. K + bands are UAT-tunable per CONTEXT Implementer's Discretion."
   - "Lifting cam-3d-hint-seen flag write to GameMode (NOT inside OnboardingHint mount-only) — Plan 20-02a onFirstDrag callback handles the flag; pill component reads at mount, writes on dismiss. Cross-session dismiss covers the case where the recruiter drags before the pill fades in."
   - "Hint pill render gated on effectiveCapability === 'webgl' (NOT raw capability) — Plan 20-02a's forceSvgFallback context-loss flip cleanly unmounts the pill alongside the WebGL canvas; no zombie pill over SVG."
   - "GAME-01 props-contract preservation enforced by mirrored SIZING bands in BOTH renderers. SvgConstellation.SIZING and WebGLConstellation.SIZING are intentionally duplicated (no shared module) per existing Phase 17 Pattern J — cross-renderer import would couple via test brittleness."
@@ -141,7 +141,7 @@ completed: 2026-06-10
 1. **OnboardingHint local component state, NOT lifted to useConstellation.** The `seen` flag is a frame-zero one-shot signal; lifting would add re-render cost to all useConstellation consumers. Local `useState(readSeenFlag)` lazy init is sufficient + the localStorage flag is the cross-session signal.
 2. **In-session pill stays visible after first drag.** Plan 20-02a's `onFirstDrag` writes `cam-3d-hint-seen` for the NEXT mount; the current-session pill closes via 5s auto-dismiss or click. Documented as acceptable v3.10.0 behavior; v3.10.1 enhancement candidate if UAT signals demand.
 3. **Hint pill render gated on `effectiveCapability === 'webgl'`**, not raw `capability`. Context-loss flip cleanly unmounts the pill alongside the WebGL canvas. SVG path retains Phase 15's own `hintPill`.
-4. **PLANETS_K=6 chosen** as the Destiny-2 Director inner-planets count reference. UAT-tunable to K=4..8 per CONTEXT Claude's Discretion if visual reads cluttered/sparse.
+4. **PLANETS_K=6 chosen** as the Destiny-2 Director inner-planets count reference. UAT-tunable to K=4..8 per CONTEXT Implementer's Discretion if visual reads cluttered/sparse.
 5. **Tiebreak by id ascending.** Stable sort across builds. Verified by determinism test + real-data sort-parity test (synthetic-fake tests rejected because resolveCanonical only resolves against the real SKILLS catalog).
 6. **Planet SIZING band mirrored across BOTH renderers** (`desktop_planet`/`mobile_planet`). Intentional duplication per existing Phase 17 Pattern J — cross-renderer import would couple via test brittleness. GAME-01 props-contract preserved.
 7. **Theme-reactive halo re-upload path also gates on `isPlanet`.** Found during code-walk before commit — without this fix, the planet halo would disappear on dark↔light theme toggle (regression that would have surfaced only in UAT). Fixed proactively.

@@ -56,7 +56,7 @@ Out of scope: Lighthouse 90+ enforcement (Phase 4). Test infrastructure (Phase 4
 - **D-17:** OG image = **new branded 1200x630 PNG** generated for this phase. Source: existing `public/images/me.webp` photo + dark ink-950 bg + brand-colored "Carlos Andrés Montoya · Senior Backend Engineer" headline. Save to `public/og-image.png`. Reference as `<meta property="og:image" content="/og-image.png" />`. Generation can be scripted (HTML → screenshot via Playwright/Puppeteer one-off) OR designed in Figma/Canva and exported. Researcher/planner picks tool.
 - **D-18:** GA SEO-02: confirm G-4TZJGR3MXR fires page-view events. The script is already in `index.html` (verified during scout). **No code change needed unless verification fails.** Verification = manual via GA DebugView OR `chrome://network` filter `collect?v=2&tid=G-4TZJGR3MXR`. This is a HUMAN-UAT item, not an executor task.
 
-### Claude's Discretion
+### Implementer's Discretion
 
 - Exact tech list per job entry (D-06) — researcher/planner enriches by reading bullet text and matching against existing CV/profile data.
 - Exact category-to-skills mapping (D-02) — derive from existing `t.skills.cards` content + experience tech list.
@@ -85,7 +85,7 @@ Out of scope: Lighthouse 90+ enforcement (Phase 4). Test infrastructure (Phase 4
 - `.planning/REQUIREMENTS.md` — full requirements list (Phase 3 reqs at lines 43–61)
 - `.planning/ROADMAP.md` — phase boundaries, success criteria
 - `.planning/STATE.md` — current progress, accumulated decisions
-- `CLAUDE.md` — project conventions (no semicolons, no PropTypes, motion-safe: prefix mandatory, in-place modify)
+- `project instructions` — project conventions (no semicolons, no PropTypes, motion-safe: prefix mandatory, in-place modify)
 
 ### Codebase Maps
 

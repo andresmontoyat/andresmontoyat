@@ -79,7 +79,7 @@
 
 - **Slice 5 — Experience** — Parked `Experience.js` reads `EXPERIENCE` array (`src/data/experience.js`) + `t.exp` subtree (label/h2/intro/expand/collapse). Heaviest remaining: vertical timeline with expand/collapse `useState`. Needs `experience.json` schema redesign (per-entry bilingual fields already in legacy module) + ARIA labels for expand/collapse.
 - **Slice 6 — Projects** — Parked `Projects.js` reads `t.projects` subtree. Smallest remaining: "Selected work" grid with live + GitHub CTAs.
-- **Slice 7 — Claude Code section** — Parked `Claude.js` reads `t.claude` subtree (biggest copy block: counters, values, services, dual CTAs). AI engineering sales pitch. Largest expected `claude.json`. VIS-05 backlog (claude-kanban + caveman cards back into featured-app grid) folds into this slice.
+- **Slice 7 — Claude Code section** — Parked `Claude.js` reads `t<assistant-config>` subtree (biggest copy block: counters, values, services, dual CTAs). AI engineering sales pitch. Largest expected `claude.json`. VIS-05 backlog (claude-kanban + caveman cards back into featured-app grid) folds into this slice.
 
 **v4.0 decisions logged (see also STATE.md for live list):**
 - **D-v4.0-PURGE** — Game mode + Mario-world + WebGL constellation + ViewMode lineage REMOVED from main. v3.8-v3.10 work historical only.

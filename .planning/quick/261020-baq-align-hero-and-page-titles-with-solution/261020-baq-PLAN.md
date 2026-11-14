@@ -51,15 +51,13 @@ Output: updated copy + tests, regenerated CV PDFs and og-image.png, one atomic c
 </objective>
 
 <execution_context>
-@$HOME/.claude/get-shit-done/workflows/execute-plan.md
 </execution_context>
 
 <context>
-@./CLAUDE.md
-@.claude/skills/verify/SKILL.md
+@<assistant-config>/skills/verify/SKILL.md
 
 Environment: every npm/npx/node call MUST be prefixed `PATH=/opt/homebrew/bin:$PATH` (node >= 22).
-Repo is Codehunters, but the user's rule still applies for this task: NO co-author trailer, NO AI attribution, never stage CLAUDE.md, .claude/, .mcp.json, AGENTS.md, never stage .planning/. Do NOT push.
+Repo is Codehunters, but the user's rule still applies for this task: NO co-author trailer, NO AI attribution, never stage project instructions, <assistant-config>/, .mcp.json, AGENTS.md, never stage .planning/. Do NOT push.
 
 Current locations (from grep):
 - src/i18n/translations.js: EN meta.title L31, meta.description L32, entry.hook L37, hero.h1a/h1b/h1c L43-45, hero.lead L46, stats.companies L55. ES meta L92-93, entry.hook L98, hero.h1a/b/c L104-106, hero.lead L107, stats.companies L116.
@@ -142,12 +140,12 @@ If any width clips, report it with numbers; do NOT change the locked copy — st
   <name>Task 3: One atomic commit (no push)</name>
   <files>(git only)</files>
   <action>
-Stage by explicit path only: src/i18n/translations.js, src/components/astro/Hero.astro, src/components/astro/Hero.test.ts, src/pages/en/_index.test.ts, src/pages/es/_index.test.ts, src/layouts/BaseLayout.astro, scripts/generate-cv.mjs, scripts/og-template.html, public/CarlosMontoya_CV_EN.pdf, public/CarlosMontoya_CV_ES.pdf, public/og-image.png (plus any other test file fixed in Task 1). Never `git add -A`/`.`; never stage .planning/, CLAUDE.md, .claude/, .mcp.json, AGENTS.md.
+Stage by explicit path only: src/i18n/translations.js, src/components/astro/Hero.astro, src/components/astro/Hero.test.ts, src/pages/en/_index.test.ts, src/pages/es/_index.test.ts, src/layouts/BaseLayout.astro, scripts/generate-cv.mjs, scripts/og-template.html, public/CarlosMontoya_CV_EN.pdf, public/CarlosMontoya_CV_ES.pdf, public/og-image.png (plus any other test file fixed in Task 1). Never `git add -A`/`.`; never stage .planning/, project instructions, <assistant-config>/, .mcp.json, AGENTS.md.
 Commit message: `feat(hero): lead with Solution Architect & Tech Lead` with a short body (titles aligned across hero/meta/JSON-LD/CV/OG; 15+ Companies stat replaced with 11+ Years leading). NO Co-Authored-By trailer, no AI mention. Do NOT push.
-Then check: `git log -1 --format=%B | grep -inE 'claude|anthropic|co-authored'` and `git show HEAD | grep -inE '^\+.*(claude|anthropic)'` both empty; `git show --stat HEAD` lists no .planning paths.
+Then check: `git log -1 --format=%B | grep -inE '<attribution-patterns>'` and `git show HEAD | grep -inE '^\+.*(<attribution-patterns>)'` both empty; `git show --stat HEAD` lists no .planning paths.
   </action>
   <verify>
-    <automated>! git log -1 --format=%B | grep -inE 'claude|anthropic|co-authored' && ! git show --stat --format= HEAD | grep -E '\.planning|CLAUDE\.md|\.claude/|\.mcp\.json|AGENTS\.md'</automated>
+    <automated>! git log -1 --format=%B | grep -inE '<attribution-patterns>' && ! git show --stat --format= HEAD | grep -E '\.planning|CLAUDE\.md|\<assistant-config>/|\.mcp\.json|AGENTS\.md'</automated>
   </verify>
   <done>Single commit on main containing exactly the source/test/asset changes; attribution checks empty; not pushed.</done>
 </task>

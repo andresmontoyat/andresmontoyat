@@ -37,13 +37,10 @@ Output: Updated claude.json (5 apps), updated Claude.test.js (5-count assertions
 </objective>
 
 <execution_context>
-@$HOME/.claude/get-shit-done/workflows/execute-plan.md
-@$HOME/.claude/get-shit-done/templates/summary.md
 </execution_context>
 
 <context>
 @.planning/STATE.md
-@./CLAUDE.md
 
 <interfaces>
 <!-- Existing app object shape (from src/data/claude.json apps[], lines 117-148). -->

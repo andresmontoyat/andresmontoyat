@@ -52,7 +52,7 @@
 - **D-16-PERSIST-CROSS-TOGGLE:** Language/theme toggle preserves in-memory state. Card re-renders in new language. No localStorage write.
 - **D-16-PERSIST-URL:** URL-encoded filter state NOT delivered in v3.8.
 
-### Claude's Discretion (Areas F, H, I)
+### Implementer's Discretion (Areas F, H, I)
 - **Empty-result UX (F):** Constellation dimmed to ~0.35 + inline message at card location ("No matches in this combination — try fewer filters" bilingual). Reset button highlighted. No auto-reset.
 - **Card animation entry/exit (H):** Fade-in 200ms desktop; slide-up 250ms mobile; cross-fade 150ms swap. Reduced-motion = instant. Easing curves at planner's discretion.
 - **Tech-chip flash:** Animate brief flash on constellation when chip clicked. Reduced-motion = instant dim update only.
@@ -82,10 +82,10 @@
 
 ---
 
-## Project Constraints (from CLAUDE.md + STATE.md)
+## Project Constraints (from project instructions + STATE.md)
 
 **HARD constraints — no recommendation may contradict:**
-- React 18.3.1 (per `package.json`; the `./CLAUDE.md` text "React 17.0.2" is outdated — `react-dom/client.createRoot` already in use by `src/index.js`).
+- React 18.3.1 (per `package.json`; the `./project instructions` text "React 17.0.2" is outdated — `react-dom/client.createRoot` already in use by `src/index.js`).
 - Tailwind CSS 3.4.19 (token-driven via CSS-vars; `darkMode: 'class'` + `[data-theme="light"]` override).
 - JSX-in-`.js` (esbuild loader). No `.jsx` files.
 - Vite 6.4.2 build. Vitest 2.1.9 + RTL 16.3.0 + jsdom 25 test infra (already wired).
@@ -99,7 +99,7 @@
 - WCAG 2.1 AA (contrast, keyboard nav, screen reader). 44×44px touch targets.
 - `prefers-reduced-motion` disables physics/particles globally; per-component honor via `motion-safe:` prefix.
 
-**Project skills auto-triggers (per `~/.claude/CLAUDE.md`):**
+**Project skills auto-triggers (per `<assistant-config>/project instructions`):**
 - `clean-code` (SOLID, refactor); `testing` (TDD, BDD, Vitest, RTL); `software-architect` (C4 model, STRIDE — light touch for a frontend phase).
 - No `hexagonal-java`/`hexagonal-kotlin`/`spring-boot` — frontend phase.
 
@@ -138,7 +138,7 @@
 
 | Library | Version | Recommendation |
 |---------|---------|----------------|
-| `@headlessui/react` | (listed by CLAUDE.md as a dep, but `package.json` does NOT include it as of 2026-06-02 build) | **Do not add.** Verified absent: `rg '@headlessui' package.json src/` returns nothing. UI-SPEC line 34 explicitly says "available but unused" — that line is stale guidance from earlier project context; `@headlessui/react` is NOT currently in `package.json`. Adding it now would inject ~14 kB gz (Dialog + Transition) for one dialog. |
+| `@headlessui/react` | (listed by project instructions as a dep, but `package.json` does NOT include it as of 2026-06-02 build) | **Do not add.** Verified absent: `rg '@headlessui' package.json src/` returns nothing. UI-SPEC line 34 explicitly says "available but unused" — that line is stale guidance from earlier project context; `@headlessui/react` is NOT currently in `package.json`. Adding it now would inject ~14 kB gz (Dialog + Transition) for one dialog. |
 
 ### Alternatives Considered
 

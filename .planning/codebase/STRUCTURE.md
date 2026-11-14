@@ -38,7 +38,7 @@ andresmontoyatco/          # Project root
 │   └── index.html         # Self-contained HTML/CSS/JS page
 ├── .planning/             # GSD planning documents
 │   └── codebase/          # Codebase analysis documents
-├── .claude/               # Claude Code local settings
+├── <assistant-config>/               # local assistant settings
 ├── craco.config.js        # CRACO config (Tailwind PostCSS + @ alias)
 ├── tailwind.config.js     # Tailwind design tokens and theme extensions
 ├── postcss.config.js      # PostCSS config
@@ -160,7 +160,7 @@ andresmontoyatco/          # Project root
 - Purpose: GSD planning and codebase analysis documents
 - Generated: No. Committed: Yes.
 
-**`.claude/`:**
+**`<assistant-config>/`:**
 - Purpose: Claude Code local project settings
 - Generated: No. Committed: Yes.
 

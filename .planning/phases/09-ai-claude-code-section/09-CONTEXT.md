@@ -23,7 +23,7 @@ Visitors who scroll past Projects encounter a sales-focused section positioning 
 
 **In scope:**
 - New `src/data/claude.js` data module (bilingual longform copy for VALUES, SERVICES, APPS arrays + COUNTERS array + STACK_CHIPS array)
-- New `t.claude.*` namespace in `src/i18n/translations.js` (~26 keys × 2 langs)
+- New `t<assistant-config>.*` namespace in `src/i18n/translations.js` (~26 keys × 2 langs)
 - New `t.nav.claudeCode` translation key (Nav label)
 - New `src/components/Claude.js` (default-exported lazy section with internal sub-components: PitchHero, ValueCard, ProofBlock, ServiceCard, FeaturedAppCard, StackStrip)
 - `src/components/Nav.js` — extend `SECTION_IDS` to include `'claude-code'` between `'projects'` and `'contact'`; add Nav link entries in DesktopNav and MobileMenu
@@ -43,7 +43,7 @@ Visitors who scroll past Projects encounter a sales-focused section positioning 
 
 - `src/data/projects.js` is the canonical bilingual data shape — Claude.js data module follows the same pattern: arrays of objects with `{en, es}` per text field.
 - `src/components/Projects.js` (109 lines) is the structural template — single file with internal sub-component (ProjectCard). Claude.js will mirror this but with 6 internal sub-components instead of 1 (since the section has more distinct visual blocks: pitch hero, value card, proof block, service card, featured app card, stack strip).
-- `src/i18n/translations.js` — `t.projects` block at EN line ~117 and ES line ~251 is the reference pattern. `t.claude` block inserts after each.
+- `src/i18n/translations.js` — `t.projects` block at EN line ~117 and ES line ~251 is the reference pattern. `t<assistant-config>` block inserts after each.
 - `src/components/Nav.js` line 7 `SECTION_IDS` array — append `'claude-code'` between `'projects'` and `'contact'`. The same Nav.js file has `DesktopNav` link arrays at line 67 (`href="#projects"`) and `MobileMenu` link arrays at line 175 — insert new entries in BOTH.
 - `src/App.js` lines 39–48 — current Suspense blocks for Experience / Projects / Contact / Footer. Insert new Claude block between Projects close (line 44) and Contact open (line 45).
 - `src/hooks/useInView.js` — reused for entrance animations. No new hook needed.
@@ -112,7 +112,7 @@ export const STACK_CHIPS = [
 ]
 ```
 
-`src/i18n/translations.js` `t.claude` namespace holds **short labels + section headings + value/service/counter titles** (`{en, es}` parallel).
+`src/i18n/translations.js` `t<assistant-config>` namespace holds **short labels + section headings + value/service/counter titles** (`{en, es}` parallel).
 
 **Rationale:** longform descriptions are stable-but-evolving (1-3 sentences each); centralizing in translations.js would bloat that file (it stays focused on UI strings). Counters and stack chips are language-agnostic structural data. Mixing both in `claude.js` preserves the single-file mental model for "what this section knows about itself" — same as `projects.js`.
 
@@ -178,7 +178,7 @@ claude: {
 }
 ```
 
-**Total NEW keys:** 27 (26 in t.claude + 1 in t.nav.claudeCode) × 2 langs = 54 new string entries.
+**Total NEW keys:** 27 (26 in t<assistant-config> + 1 in t.nav.claudeCode) × 2 langs = 54 new string entries.
 
 ### l — Copy strategy (V7 sketch as v1, refine during execution)
 
@@ -237,7 +237,7 @@ export default function Claude() {
           {VALUES.map((v, i) => (
             <ValueCard key={v.key}
               id={v.id}
-              title={t.claude.values[v.key]}
+              title={t<assistant-config>.values[v.key]}
               desc={v.desc[lang]}
             />
           ))}
@@ -246,7 +246,7 @@ export default function Claude() {
         <div className="services-grid mt-12">
           {SERVICES.map((s) => (
             <ServiceCard key={s.key}
-              title={t.claude.services[s.key]}
+              title={t<assistant-config>.services[s.key]}
               desc={s.desc[lang]}
             />
           ))}
@@ -275,7 +275,7 @@ export default function Claude() {
 **Phase 9 plan structure:** **1 plan** with 4 task groups (no internal verification gate).
 
 - Plan 09-01:
-  - Group A — Data + translations (2 tasks): create `src/data/claude.js`, extend `translations.js` with t.claude.* + t.nav.claudeCode
+  - Group A — Data + translations (2 tasks): create `src/data/claude.js`, extend `translations.js` with t<assistant-config>.* + t.nav.claudeCode
   - Group B — Component (2 tasks): create `src/components/Claude.js` with all sub-components + animations
   - Group C — Wire into App + Nav (2 tasks): App.js lazy import + Suspense block; Nav.js SECTION_IDS + DesktopNav + MobileMenu link entries
   - Group D — Build + bundle verify (1 task): `npm run build`, confirm Claude chunk emits separately, size within budget

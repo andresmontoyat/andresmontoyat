@@ -140,4 +140,4 @@ No blocking gaps found. All tech-debt items (DEBT-01/02/03) are fully verified b
 ---
 
 _Verified: 2026-05-05_
-_Verifier: Claude (gsd-verifier)_
+_Verifier: gsd-verifier_

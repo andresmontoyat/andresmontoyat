@@ -35,7 +35,7 @@ Stand up the Astro static route tree (`/en`, `/es`), a working `/` → locale re
 - **D-10:** `404.astro` is a single generic route (Astro's standard catch-all) — no per-locale duplication (`/en/404`, `/es/404`), since Astro doesn't route 404s by locale prefix automatically and there's no real benefit here.
 - **D-11:** Minimal design: current dark palette Tailwind tokens (`bg-ink-900`, `text-neon`, etc.), simple bilingual message (or locale-inferred from the broken URL's `/en`/`/es` prefix if present), link back to `/`. No new animation/personality work — this is a foundation-phase page almost nobody sees.
 
-### Claude's Discretion
+### Implementer's Discretion
 - Exact bilingual copy/wording for the 404 page message.
 - Exact middleware cookie-refresh implementation detail (e.g., whether it's a single `middleware.ts` function or split helpers) — implementation detail, not a user-facing decision.
 

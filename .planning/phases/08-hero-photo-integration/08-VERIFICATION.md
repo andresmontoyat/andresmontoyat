@@ -134,4 +134,4 @@ All 13 decisions honored. Decision-m note: the SUMMARY documents an in-flight fi
 ---
 
 *Verified: 2026-05-12*
-*Verifier: Claude (gsd-verifier)*
+*Verifier: gsd-verifier*

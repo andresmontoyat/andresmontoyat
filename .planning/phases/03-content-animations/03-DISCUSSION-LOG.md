@@ -176,7 +176,7 @@ Implicitly resolved by contact methods choice → GitHub + LinkedIn only in Foot
 
 ---
 
-## Claude's Discretion
+## Implementer's Discretion
 
 - Exact tech list per job entry (D-06)
 - Exact category-to-skills mapping (D-02)

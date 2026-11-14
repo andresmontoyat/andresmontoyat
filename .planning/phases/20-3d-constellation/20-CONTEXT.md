@@ -59,7 +59,7 @@ Convert the existing flat 2D-in-3D `OrthographicCamera` WebGL constellation into
 
 - **D-20-CONTEXT-KB-NOORBIT:** Phase 15 `D-15-KB-ACTIVATE` arrow-key node-focus walk stays UNCHANGED. NO keyboard rotation gate (no `Shift+Arrows` for orbit). Keyboard users see constellation from the fixed tilted initial angle and walk node focus along `sortIndex` order. `controls.enableKeys=false` in OrbitControls config (already in research). Rationale: (a) WCAG/motion-induced-disorder spirit — vestibular trigger risk even outside `prefers-reduced-motion`; (b) preserves locked Phase 15 contract; (c) avoids the "rotate-vs-walk" modal ambiguity.
 
-### Claude's Discretion
+### Implementer's Discretion
 
 - **CATEGORY_Z exact values** — proposed values are UAT-tunable; expect to adjust ±25 per band after first visual UAT.
 - **Tilted initial angle exact degrees** — `15°` and `10°` are starting points; can shift during Plan 20-02 dev-server iteration as long as polar-clamp constraints are honored and perspective is obvious.

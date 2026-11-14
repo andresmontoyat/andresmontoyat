@@ -271,5 +271,5 @@ const breakpoint = isDesktop ? 'desktop' : 'mobile'
 ---
 
 _Reviewed: 2026-06-01T22:40:00-05:00_
-_Reviewer: Claude (gsd-code-reviewer)_
+_Reviewer: gsd-code-reviewer_
 _Depth: standard_

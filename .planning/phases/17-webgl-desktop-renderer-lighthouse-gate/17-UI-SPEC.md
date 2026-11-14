@@ -135,7 +135,7 @@ The WebGL renderer reads every color from existing CSS vars and `SKILL_CATEGORY_
 | `uHaloSecondary` (the soft outer pass) | hardcoded `rgba(255,255,255,0.08)` for dark; `rgba(0,0,40,0.06)` for light | Mirrors Phase 15's two-pass `drop-shadow(0 0 16px rgba(255,255,255,0.08))`. Documented here as a data value because Phase 15 hardcoded it inline; no token exists. Planner MAY promote this to a `--color-constellation-halo-outer` token if it cleans up the shader. |
 | `uFocusRingColor` | `var(--color-brand)` | Dark `#3B82F6`, light `#2563EB`. **Not used inside WebGL** — focus rings live on the outer DOM wrapper per Phase 15 (see §"Focus indicator on WebGL"). Listed only for completeness. |
 
-### Theme Reactivity (Claude's Discretion: D-17-THEME)
+### Theme Reactivity (Implementer's Discretion: D-17-THEME)
 
 **Recommended approach (planner finalizes):** Single-source theme prop pass-through.
 
@@ -488,7 +488,7 @@ Inherits Phase 15 + Phase 16 layout verbatim. The renderer slot inside the `data
 | Lighthouse mobile HARD gate (95/100/100/100) | SC-4 (ROADMAP) + Phase 11-02 `npm run lighthouse:mobile` (already configured) |
 | Inheritance contract from Phase 15 | `.planning/phases/15-accessible-constellation-seo-fallback/15-UI-SPEC.md` |
 | Inheritance contract from Phase 16 | `.planning/phases/16-filters-floating-experiencecard/16-UI-SPEC.md` |
-| All 13 LOCKED decisions + 4 Claude's Discretion zones | `.planning/phases/17-webgl-desktop-renderer-lighthouse-gate/17-CONTEXT.md` |
+| All 13 LOCKED decisions + 4 Implementer's Discretion zones | `.planning/phases/17-webgl-desktop-renderer-lighthouse-gate/17-CONTEXT.md` |
 
 ---
 
