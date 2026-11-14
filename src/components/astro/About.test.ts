@@ -35,7 +35,7 @@ describe('About.astro (Container API coverage-parity spot-check — D-07)', () =
     expect(result).toContain('Who I am')
     expect(result).toMatch(/Java Solution Architect and Tech Lead/)
     expect(result).toMatch(/Spring ecosystem/)
-    expect(result).toMatch(/wife Viky/)
+    expect(result).toMatch(/time at home with my family/)
   })
 
   it('renders all 5 quick-fact rows with EN labels + values', async () => {
