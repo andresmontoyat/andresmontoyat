@@ -1,0 +1,327 @@
+{
+  "synergy": [
+    {
+      "techs": [
+        "Java",
+        "Kafka"
+      ],
+      "title": {
+        "en": "Event-driven systems",
+        "es": "Sistemas orientados a eventos"
+      },
+      "builds": [
+        {
+          "en": "Microservices that publish and consume events through an outbox",
+          "es": "Microservicios que publican y consumen eventos con outbox"
+        },
+        {
+          "en": "Idempotent processes that survive retries",
+          "es": "Procesos idempotentes que sobreviven a reintentos"
+        }
+      ]
+    },
+    {
+      "techs": [
+        "Spring Boot",
+        "Kafka"
+      ],
+      "title": {
+        "en": "Event-driven systems",
+        "es": "Sistemas orientados a eventos"
+      },
+      "builds": [
+        {
+          "en": "Spring services that react to events in real time",
+          "es": "Servicios Spring que reaccionan a eventos en tiempo real"
+        },
+        {
+          "en": "Decoupled integrations between teams",
+          "es": "Integraciones desacopladas entre equipos"
+        }
+      ]
+    },
+    {
+      "techs": [
+        "Spring Boot",
+        "RabbitMQ"
+      ],
+      "title": {
+        "en": "Reliable messaging",
+        "es": "Mensajería confiable"
+      },
+      "builds": [
+        {
+          "en": "Work queues with retries and DLQs",
+          "es": "Colas de trabajo con reintentos y DLQ"
+        },
+        {
+          "en": "Asynchronous integrations between services",
+          "es": "Integraciones asíncronas entre servicios"
+        }
+      ]
+    },
+    {
+      "techs": [
+        "Keycloak",
+        "KrakenD"
+      ],
+      "title": {
+        "en": "Security at the edge",
+        "es": "Seguridad en el borde"
+      },
+      "builds": [
+        {
+          "en": "API gateway that validates JWTs on the way in",
+          "es": "API gateway con JWT validado en la entrada"
+        },
+        {
+          "en": "Roles and claims propagated to every service",
+          "es": "Roles y claims propagados a cada servicio"
+        }
+      ]
+    },
+    {
+      "techs": [
+        "Spring Security",
+        "Keycloak"
+      ],
+      "title": {
+        "en": "Identity and access",
+        "es": "Identidad y acceso"
+      },
+      "builds": [
+        {
+          "en": "OAuth2/OIDC login with SSO",
+          "es": "Login OAuth2/OIDC con SSO"
+        },
+        {
+          "en": "Role-based authorization on every endpoint",
+          "es": "Autorización por roles en cada endpoint"
+        }
+      ]
+    },
+    {
+      "techs": [
+        "AWS",
+        "Terraform"
+      ],
+      "title": {
+        "en": "Infrastructure as code",
+        "es": "Infraestructura como código"
+      },
+      "builds": [
+        {
+          "en": "Reproducible AWS environments in minutes",
+          "es": "Entornos AWS reproducibles en minutos"
+        },
+        {
+          "en": "Infra changes reviewed like a PR",
+          "es": "Cambios de infra revisados como un PR"
+        }
+      ]
+    },
+    {
+      "techs": [
+        "Kubernetes",
+        "GitHub Actions"
+      ],
+      "title": {
+        "en": "GitOps",
+        "es": "GitOps"
+      },
+      "builds": [
+        {
+          "en": "Automatic deployments from a merge",
+          "es": "Despliegues automáticos desde un merge"
+        },
+        {
+          "en": "One-click rollbacks",
+          "es": "Rollbacks en un clic"
+        }
+      ]
+    },
+    {
+      "techs": [
+        "Kubernetes",
+        "Docker"
+      ],
+      "title": {
+        "en": "Container platform",
+        "es": "Plataforma de contenedores"
+      },
+      "builds": [
+        {
+          "en": "Packaged services that scale on their own",
+          "es": "Servicios empaquetados que escalan solos"
+        },
+        {
+          "en": "The same artifact from laptop to production",
+          "es": "Mismo artefacto de local a producción"
+        }
+      ]
+    },
+    {
+      "techs": [
+        "Java",
+        "PostgreSQL"
+      ],
+      "title": {
+        "en": "Domain on solid data",
+        "es": "Dominio con datos sólidos"
+      },
+      "builds": [
+        {
+          "en": "Domain models with safe migrations",
+          "es": "Modelos de dominio con migraciones seguras"
+        },
+        {
+          "en": "Efficient queries and clear transactions",
+          "es": "Consultas eficientes y transacciones claras"
+        }
+      ]
+    },
+    {
+      "techs": [
+        "Claude Code",
+        "Java"
+      ],
+      "title": {
+        "en": "Agentic development",
+        "es": "Desarrollo agéntico"
+      },
+      "builds": [
+        {
+          "en": "Hexagonal services generated from my own guidelines",
+          "es": "Servicios hexagonales generados con guías propias"
+        },
+        {
+          "en": "Faster delivery without losing quality",
+          "es": "Entregas más rápidas sin perder calidad"
+        }
+      ]
+    }
+  ],
+  "byCategory": [
+    {
+      "cats": [
+        "backend",
+        "cloud",
+        "devops"
+      ],
+      "title": {
+        "en": "End-to-end platform",
+        "es": "Plataforma de punta a punta"
+      },
+      "builds": [
+        {
+          "en": "From domain to deployment: design, code, infra and delivery",
+          "es": "Del dominio al despliegue: diseño, código, infra y entrega"
+        },
+        {
+          "en": "Teams that ship changes several times a day",
+          "es": "Equipos que publican cambios varias veces al día"
+        }
+      ]
+    },
+    {
+      "cats": [
+        "backend",
+        "cloud"
+      ],
+      "title": {
+        "en": "Cloud-native backend",
+        "es": "Backend cloud-native"
+      },
+      "builds": [
+        {
+          "en": "APIs and services that scale in the cloud",
+          "es": "APIs y servicios que escalan en la nube"
+        },
+        {
+          "en": "Resilient architectures on AWS, GCP or Azure",
+          "es": "Arquitecturas resilientes en AWS, GCP o Azure"
+        }
+      ]
+    },
+    {
+      "cats": [
+        "backend",
+        "devops"
+      ],
+      "title": {
+        "en": "Continuous delivery of services",
+        "es": "Entrega continua de servicios"
+      },
+      "builds": [
+        {
+          "en": "Pipelines that take every commit to production",
+          "es": "Pipelines que llevan cada commit a producción"
+        },
+        {
+          "en": "Quality measured on every build",
+          "es": "Calidad medida en cada build"
+        }
+      ]
+    },
+    {
+      "cats": [
+        "cloud",
+        "devops"
+      ],
+      "title": {
+        "en": "Platform and operations",
+        "es": "Plataforma y operación"
+      },
+      "builds": [
+        {
+          "en": "Automated, observable infrastructure",
+          "es": "Infraestructura automatizada y observable"
+        },
+        {
+          "en": "Safe, repeatable deployments",
+          "es": "Despliegues seguros y repetibles"
+        }
+      ]
+    },
+    {
+      "cats": [
+        "ai",
+        "backend"
+      ],
+      "title": {
+        "en": "Agentic development",
+        "es": "Desarrollo agéntico"
+      },
+      "builds": [
+        {
+          "en": "Agents that build to my architecture standards",
+          "es": "Agentes que construyen con mis estándares de arquitectura"
+        },
+        {
+          "en": "More speed, with reviews and tests in between",
+          "es": "Más velocidad con revisiones y tests de por medio"
+        }
+      ]
+    },
+    {
+      "cats": [
+        "ai",
+        "devops"
+      ],
+      "title": {
+        "en": "Intelligent automation",
+        "es": "Automatización inteligente"
+      },
+      "builds": [
+        {
+          "en": "Pipelines with assisted review",
+          "es": "Pipelines con revisión asistida"
+        },
+        {
+          "en": "Less repetitive work for the team",
+          "es": "Menos trabajo repetitivo en el equipo"
+        }
+      ]
+    }
+  ]
+}
