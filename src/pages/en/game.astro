@@ -74,7 +74,7 @@ const langInactive = 'text-muted font-normal'
     <!-- overflow-y-auto is a safety net, not the plan: the canvas height budget below (see
          WorldRpg.jsx's h-[56vh] max-h-[520px]) is sized so bezel + legend fit one viewport on
          common desktop heights without scrolling. This only kicks in on unusually short windows. -->
-    <main class="flex-1 flex flex-col items-center justify-center gap-4 px-4 py-4 sm:py-6 overflow-y-auto">
+    <main id="main" tabindex="-1" class="flex-1 flex flex-col items-center justify-center gap-4 px-4 py-4 sm:py-6 overflow-y-auto">
       <p class="text-sm text-muted max-w-md text-center">{copy.tagline}</p>
 
       <div class="relative w-full max-w-4xl rounded-2xl sm:rounded-[28px] border border-brand/25 bg-ink-950 p-2.5 sm:p-4 shadow-[0_0_60px_-15px_var(--color-brand-muted)]">

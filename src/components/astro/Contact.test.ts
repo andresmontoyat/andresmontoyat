@@ -25,11 +25,11 @@ describe('Contact.astro (Container API)', () => {
     expect(result).toContain(data.label.en)
   })
 
-  it('renders the primary email card with href + aria-label', async () => {
+  it('renders the primary email card with href and no overriding aria-label', async () => {
     const result = await renderContact('en')
     expect(result).toContain('data-role="primary"')
     expect(result).toContain(`href="${hero.href}"`)
-    expect(result).toContain(`aria-label="${data.cards.find((c) => c.primary).kLabel.en}: ${hero.value}"`)
+    expect(result).not.toContain(`aria-label="${data.cards.find((c) => c.primary).kLabel.en}: ${hero.value}"`)
   })
 
   it('renders every non-primary card as a rail item', async () => {

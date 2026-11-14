@@ -135,7 +135,7 @@ export default function SectionPager({ locale }) {
       ref={navRef}
       aria-label={t.nav.pagerGroup}
       aria-hidden={!visible}
-      className={`fixed right-4 sm:right-6 bottom-6 z-40 flex flex-col items-center gap-0.5 rounded-full border border-ink-400 bg-ink-900/70 p-1.5 backdrop-blur-md shadow-brand transition-all duration-300 ${
+      className={`fixed right-4 sm:right-6 bottom-6 z-40 hidden md:flex flex-col items-center gap-0.5 rounded-full border border-ink-400 bg-ink-900/70 p-1.5 backdrop-blur-md shadow-brand transition-all duration-300 ${
         visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
       }`}
     >

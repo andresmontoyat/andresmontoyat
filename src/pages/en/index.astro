@@ -61,7 +61,7 @@ const t = translations[locale].entry
       <div class="font-pixel text-[10px] uppercase tracking-[1px] text-accent flex items-center justify-center gap-3 mb-4">
         <span class="block w-8 h-0.5 bg-accent" /> {t.eyebrow} <span class="block w-8 h-0.5 bg-accent" />
       </div>
-      <h2 id="entry-splash-title" class="font-pixel text-lg sm:text-xl font-extrabold text-text mb-3 leading-tight sm:leading-7">
+      <h2 id="entry-splash-title" class="font-pixel text-lg sm:text-xl text-text mb-3 leading-tight sm:leading-7">
         {t.title}
       </h2>
       <p class="text-muted text-sm mb-8">{t.hook}</p>
@@ -69,7 +69,7 @@ const t = translations[locale].entry
         <a
           id="entry-splash-play"
           href={hrefGame}
-          class="font-pixel inline-flex items-center justify-center gap-2 rounded-xl bg-brand px-6 py-3 text-[11px] text-ink-950 font-bold tracking-wide shadow-brand hover:bg-brand-light focus:outline-hidden focus-visible:ring-2 focus-visible:ring-brand-light transition-colors"
+          class="font-pixel inline-flex items-center justify-center gap-2 rounded-xl bg-brand px-6 py-3 text-[11px] text-ink-950 tracking-wide shadow-brand hover:bg-brand-light focus:outline-hidden focus-visible:ring-2 focus-visible:ring-brand-light transition-colors"
         >
           ▶ {t.play}
         </a>
@@ -149,7 +149,7 @@ const t = translations[locale].entry
   )}
   <Nav client:load locale={locale} hrefEn={hrefEn} hrefEs={hrefEs} hrefGame={hrefGame} />
   <SectionPager client:visible locale={locale} />
-  <main>
+  <main id="main" tabindex="-1">
     <Hero locale={locale} />
     <About locale={locale} />
     <Skill locale={locale} />

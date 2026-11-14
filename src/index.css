@@ -498,6 +498,7 @@
 /* Retro pixel display font (Press Start 2P) — accent + titles only */
 @utility font-pixel {
   font-family: 'Press Start 2P', ui-monospace, 'SF Mono', 'Menlo', monospace;
+  font-weight: 400;
 }
 
 /* Phase 24 (D-01): Hero H1 char-reveal — CSS steps() + ch-unit typewriter.
@@ -538,6 +539,17 @@
     outline: 2px solid var(--color-brand-light);
     outline-offset: 2px;
   }
+}
+
+/* Global keyboard focus ring — theme-aware accent (emerald on dark, emerald-700 on light).
+   Unlayered so it also wins over utility `focus:outline-hidden`. */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+main:focus {
+  outline: none;
 }
 
 /* Phase 3: scroll-triggered entrance — used by useInView hook */

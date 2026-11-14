@@ -41,7 +41,7 @@ describe('Nav island (Phase 22 Plan 1)', () => {
     expect(screen.getAllByText('Contacto').length).toBeGreaterThan(0)
   })
 
-  it('renders LangPill anchors with locale-correct hrefs and aria-pressed on the active locale', () => {
+  it('renders LangPill anchors with locale-correct hrefs and aria-current on the active locale', () => {
     renderNav('en')
     const groups = screen.getAllByRole('group', { name: 'Language' })
     expect(groups.length).toBeGreaterThan(0)
@@ -50,8 +50,8 @@ describe('Nav island (Phase 22 Plan 1)', () => {
     const esAnchor = screen.getAllByRole('link', { name: 'Switch to Spanish' })[0]
     expect(group).toContainElement(enAnchor)
     expect(esAnchor.getAttribute('href')).toMatch(/^\/es\//)
-    expect(enAnchor.getAttribute('aria-pressed')).toBe('true')
-    expect(esAnchor.getAttribute('aria-pressed')).toBe('false')
+    expect(enAnchor.getAttribute('aria-current')).toBe('true')
+    expect(esAnchor.getAttribute('aria-current')).toBeNull()
   })
 
   it('applies the active-section highlight to the About link when useActiveSection returns "about"', () => {

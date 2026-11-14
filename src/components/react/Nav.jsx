@@ -67,7 +67,7 @@ function Logomark() {
   return (
     <a
       href="#hero"
-      className="font-pixel text-[10px] tracking-tight text-text hover:text-brand transition-colors"
+      className="inline-flex items-center min-h-[24px] font-pixel text-[10px] tracking-tight text-text hover:text-brand transition-colors"
     >
       &lt;<span className="text-brand">/</span>camt&gt;
     </a>
@@ -137,7 +137,7 @@ function LangPill({ lang, t, hrefEn, hrefEs }) {
   }
 
   // WR-09: group aria-label describes purpose (stable across state); per-link
-  // aria-label is action-oriented ("Switch to English") to pair with aria-pressed.
+  // aria-label is action-oriented ("Switch to English") to pair with aria-current.
   return (
     <div
       role="group"
@@ -148,7 +148,7 @@ function LangPill({ lang, t, hrefEn, hrefEs }) {
         onClick={() => persistLangCookie('en')}
         className={`${base} ${lang === 'en' ? active : inactive}`}
         aria-label={t.nav.langSwitchEn}
-        aria-pressed={lang === 'en'}
+        aria-current={lang === 'en' ? 'true' : undefined}
       >
         EN
       </a>
@@ -156,7 +156,7 @@ function LangPill({ lang, t, hrefEn, hrefEs }) {
         onClick={() => persistLangCookie('es')}
         className={`${base} ${lang === 'es' ? active : inactive}`}
         aria-label={t.nav.langSwitchEs}
-        aria-pressed={lang === 'es'}
+        aria-current={lang === 'es' ? 'true' : undefined}
       >
         ES
       </a>
