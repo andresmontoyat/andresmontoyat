@@ -81,3 +81,7 @@ export function readCombo(cards, combos, t) {
 
 // Hand keeps the last three distinct cards.
 export const addCard = (hand, card) => (hand.some((c) => c.name === card.name) ? hand : [...hand.slice(-2), card])
+
+// Whole-word match between a card name and a tech asked for elsewhere (the career log's grep).
+const words = (s) => ` ${s.toLowerCase().replace(/[^a-z0-9+#]+/g, ' ').trim()} `
+export const matchesTech = (label, q) => words(q).trim() !== '' && words(label).includes(words(q))
