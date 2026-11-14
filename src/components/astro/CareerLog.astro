@@ -1,0 +1,216 @@
+---
+// src/components/astro/CareerLog.astro
+// Experience as an interactive git log. Everything visible is server-rendered: the commit graph,
+// the terminal chrome with its first suggestions and the full List view (crawlable, and the only
+// view without scripting). src/scripts/career-log.js, an external module, wires the terminal.
+import experience from '../../data/experience.json'
+import contact from '../../data/contact.json'
+import copy from '../../data/career-log.json'
+import { buildJobs, graph, strings, suggest } from '../../scripts/career-log-logic.js'
+
+const { locale } = Astro.props
+
+function pick(field, lang) {
+  if (typeof field === 'string') return field
+  return field?.[lang] ?? field?.en ?? ''
+}
+
+const ui = strings(copy.ui, locale)
+const jobs = buildJobs(experience.entries, locale, new Date())
+const g = graph(jobs)
+const card = (id) => contact.cards.find((c) => c.id === id)?.href ?? ''
+const bare = (href) => href.replace(/^(mailto:|https?:\/\/(www\.)?)/, '')
+const env = {
+  contact: { email: bare(card('email')), linkedin: bare(card('linkedin')), github: bare(card('github')) },
+}
+const clientJobs = jobs.map((j) => ({ ...j, b: j.b.slice(0, 3) }))
+const firstChips = suggest({ kind: 'start' }, jobs)
+---
+<section
+  id="experience"
+  class="cl py-20"
+  data-lang={locale}
+  data-ui={JSON.stringify(ui)}
+  data-jobs={JSON.stringify(clientJobs)}
+  data-env={JSON.stringify(env)}
+>
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="font-pixel text-[10px] uppercase tracking-[1px] text-accent flex items-center gap-3 mb-4">
+      <span class="block w-10 h-0.5 bg-accent" /> {pick(copy.label, locale)}
+    </div>
+    <h2 class="font-pixel text-lg sm:text-xl md:text-2xl tracking-normal text-text mb-4 leading-tight sm:leading-7 md:leading-8">
+      {pick(copy.h2, locale)}
+    </h2>
+    <p class="text-muted max-w-[640px] mb-6 text-base leading-relaxed">{pick(copy.intro, locale)}</p>
+
+    <div class="cl-top">
+      <div class="cl-views" role="group" aria-label={ui.view}>
+        <button type="button" data-v="term" aria-pressed="true">{ui.term}</button>
+        <button type="button" data-v="list" aria-pressed="false">{ui.list}</button>
+      </div>
+      <span class="cl-badges"></span>
+    </div>
+
+    <div class="cl-grid">
+      <div class="cl-log" role="group" aria-label={ui.graph}>
+        <svg class="cl-graph" width="70" height={g.height} aria-hidden="true">
+          <line class="cl-main" x1={g.main.x} y1={g.main.y1} x2={g.main.x} y2={g.main.y2} />
+          {g.branches.map((d) => <path class="cl-branch" d={d} />)}
+          {g.dots.map((p) => <circle class={p.lead ? 'cl-dot lead' : 'cl-dot'} cx={p.cx} cy={p.cy} r={p.r} />)}
+        </svg>
+        {jobs.map((j, i) => (
+          <button type="button" class="cl-row" data-id={j.id}>
+            <span></span>
+            <span class="cl-meta">
+              <span class="cl-msg">{j.lead ? 'lead' : 'feat'}: {j.co}</span>
+              <span class="cl-sub">
+                <span class="cl-sha">{j.sha}</span><span>{j.d}</span>
+                {i === 0 && <span class="cl-ref">HEAD → main</span>}
+              </span>
+            </span>
+          </button>
+        ))}
+        <div class="cl-peek" aria-hidden="true"></div>
+      </div>
+
+      <div class="cl-term" role="region" aria-label={ui.terminal}>
+        <div class="cl-bar" aria-hidden="true"><i></i><i></i><i></i><span>carlos@career: ~/experience</span></div>
+        <div class="cl-out" aria-live="polite"></div>
+        <div class="cl-chips" role="group" aria-label={ui.suggest}>
+          {firstChips.map((c) => <button type="button">{c}</button>)}
+        </div>
+        <form class="cl-in">
+          <label for={`cl-cmd-${locale}`}><span aria-hidden="true">$</span><span class="sr-only">{ui.input}</span></label>
+          <span class="cl-field">
+            <span class="cl-ghost" aria-hidden="true"></span>
+            <input
+              id={`cl-cmd-${locale}`}
+              autocomplete="off"
+              spellcheck="false"
+              autocapitalize="off"
+              enterkeyhint="send"
+              placeholder={ui.placeholder}
+              aria-describedby={`cl-hint-${locale}`}
+            />
+          </span>
+        </form>
+        <div class="cl-hint" id={`cl-hint-${locale}`}>{ui.hint}</div>
+      </div>
+    </div>
+
+    <div class="cl-list">
+      {jobs.map((j) => (
+        <article class="cl-job" data-id={j.id} style={`--c:${j.lead ? 'var(--c-devops)' : 'var(--accent-2)'}`}>
+          <header><h3>{j.co}</h3><span class="cl-when">{j.d}</span></header>
+          <div class="cl-role">{j.t}</div>
+          {j.m && <div class="cl-kpi">★ {j.m}</div>}
+          <ul>{j.b.map((x) => <li>{x}</li>)}</ul>
+          <div class="cl-stack">{j.tech.map((x) => <span>{x}</span>)}</div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script src="../../scripts/career-log.js"></script>
+
+<style is:global>
+  .cl { --lead: var(--c-devops); --term: #070A16 }
+  [data-theme="light"] .cl { --term: #0D1330 }
+  .cl :focus-visible { outline: 2px solid var(--accent-2); outline-offset: 2px }
+  .cl-top { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 12px; margin: 0 0 14px }
+  .cl-views { display: inline-flex; border: 1px solid var(--border); border-radius: 10px; overflow: hidden }
+  .cl-views button { font: 12px var(--font-mono); min-height: 36px; padding: 6px 14px; border: 0; background: var(--bg-2); color: var(--muted); cursor: pointer }
+  .cl-views button[aria-pressed="true"] { background: var(--text); color: var(--bg) }
+  .cl-badges { font: 11px var(--font-mono); color: var(--muted) }
+
+  .cl-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 20px; align-items: start }
+  .cl-log { position: relative; border: 1px solid var(--border); border-radius: 16px; background: var(--bg-2); padding: 14px 10px 14px 0 }
+  .cl-graph { position: absolute; left: 6px; top: 14px; pointer-events: none; overflow: visible }
+  .cl-main, .cl-branch { fill: none; stroke-width: 3 }
+  .cl-main { stroke: var(--accent-2) }
+  .cl-branch { stroke: var(--lead) }
+  .cl-dot { fill: var(--bg-2); stroke: var(--accent); stroke-width: 3 }
+  .cl-dot.lead { stroke: var(--lead) }
+  .cl-row { display: grid; grid-template-columns: 72px minmax(0, 1fr); align-items: center; height: 52px; width: calc(100% - 6px); margin: 0 0 0 6px;
+    padding: 0 10px 0 0; border: 0; border-radius: 10px; background: transparent; color: inherit; font: inherit; text-align: left; cursor: pointer }
+  .cl-row:hover { background: color-mix(in srgb, var(--accent-2) 8%, transparent) }
+  .cl-row.on { background: color-mix(in srgb, var(--accent) 12%, transparent) }
+  .cl-meta { min-width: 0; display: grid }
+  .cl-msg { font: 700 14px/1.3 var(--font-mono); color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis }
+  .cl-sub { font: 11px/1.5 var(--font-mono); color: var(--muted); display: flex; gap: 8px; align-items: center; white-space: nowrap; overflow: hidden }
+  .cl-sha { color: var(--lead) }
+  .cl-ref { flex: none; display: inline-flex; align-items: center; height: 16px; padding: 0 5px; border-radius: 4px; font-size: 10px; color: var(--on-c); background: var(--accent) }
+  .cl-peek { position: absolute; left: calc(100% - 12px); top: 0; width: 260px; z-index: 5; pointer-events: none; border-radius: 12px; padding: 12px 14px;
+    background: var(--surface); border: 1px solid var(--border); box-shadow: 0 18px 40px -20px var(--accent-2); opacity: 0; transform: translateY(4px); transition: opacity .15s, transform .15s }
+  .cl-peek.on { opacity: 1; transform: none }
+  .cl-peek b { display: block; font: 800 14px var(--font-sans); color: var(--text) }
+  .cl-peek .r { font: 12px var(--font-mono); color: var(--lead) }
+  .cl-peek p { margin: 6px 0 0; font-size: 12px; color: var(--muted); line-height: 1.45 }
+  .cl-peek .t { margin-top: 6px; font: 10px var(--font-mono); color: var(--accent) }
+
+  .cl-term { position: sticky; top: 80px; overflow: hidden; border-radius: 16px; background: var(--term); color: #DCE3FF; border: 1px solid var(--border);
+    box-shadow: 0 30px 60px -36px var(--accent-2) }
+  .cl-bar { display: flex; gap: 6px; align-items: center; padding: 10px 14px; background: color-mix(in srgb, #fff 6%, transparent); font: 11px var(--font-mono); color: #9AA6D6 }
+  .cl-bar i { width: 10px; height: 10px; border-radius: 50%; background: #FF5F57 }
+  .cl-bar i:nth-child(2) { background: #FEBC2E }
+  .cl-bar i:nth-child(3) { background: #28C840 }
+  .cl-bar span { margin-left: 8px }
+  .cl-out { height: 420px; overflow: auto; padding: 14px 16px; font: 13px/1.6 var(--font-mono); white-space: pre-wrap; word-break: break-word; overscroll-behavior: contain }
+  .cl-out > div { min-height: 1.6em }
+  .cl-out .c { color: #7FE7C4 } .cl-out .y { color: #FFCB6B } .cl-out .m { color: #9AA6D6 }
+  .cl-out .g { color: #2EE59D } .cl-out .r { color: #FF8FA3 } .cl-out .b { color: #7CC8FF }
+  .cl-out [data-run] { cursor: pointer; text-decoration: underline dotted; text-underline-offset: 3px }
+  .cl-out [data-run]:hover { color: #fff; background: color-mix(in srgb, #7FE7C4 18%, transparent) }
+  .cl-out a { color: #7FE7C4; text-decoration: underline; text-underline-offset: 3px }
+  .cl-out :focus-visible, .cl-chips :focus-visible, .cl-in :focus-visible { outline-color: #7CC8FF }
+  .cl-chips { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 16px 12px; min-height: 40px }
+  .cl-chips button { font: 11px var(--font-mono); min-height: 28px; padding: 2px 9px; border-radius: 6px; border: 1px solid color-mix(in srgb, #fff 18%, transparent);
+    background: transparent; color: #B8C3EE; cursor: pointer }
+  .cl-chips button:hover { color: #fff; border-color: #7FE7C4 }
+  .cl-in { display: flex; gap: 8px; align-items: center; padding: 10px 16px; border-top: 1px solid color-mix(in srgb, #fff 10%, transparent); font: 13px var(--font-mono) }
+  .cl-in label { color: #2EE59D }
+  .cl-field { position: relative; flex: 1; min-width: 0 }
+  .cl-field input { width: 100%; min-height: 24px; background: transparent; border: 0; color: #fff; font: inherit; outline: none }
+  .cl-field input::placeholder { color: #8E9BC9 }
+  .cl-field input:focus-visible { outline: none }
+  .cl-in:focus-within { box-shadow: inset 0 2px 0 #7CC8FF }
+  .cl-ghost { position: absolute; inset: 0; display: flex; align-items: center; pointer-events: none; color: #5B6896; white-space: pre; overflow: hidden }
+  .cl-ghost b { visibility: hidden; font-weight: 400 }
+  .cl-hint { font: 11px var(--font-mono); color: #8E9BC9; padding: 0 16px 10px }
+
+  .cl-list { display: none; gap: 12px }
+  .cl.is-list .cl-list { display: grid }
+  .cl.is-list .cl-grid { display: none }
+  .cl-job { display: grid; gap: 6px; padding: 16px 18px; border: 1px solid var(--border); border-left: 4px solid var(--c); border-radius: 14px; background: var(--surface) }
+  .cl-job header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 12px }
+  .cl-job h3 { margin: 0; font: 800 18px/1.25 var(--font-sans); color: var(--text) }
+  .cl-when { font: 12px var(--font-mono); color: var(--muted) }
+  .cl-role { font-weight: 800; color: var(--c) }
+  .cl-kpi { font: 13px var(--font-mono); color: var(--text) }
+  .cl-job ul { display: grid; gap: 4px; margin: 4px 0 0; padding-left: 18px; list-style: disc; color: var(--muted); font-size: 14px; line-height: 1.55 }
+  .cl-stack { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px }
+  .cl-stack span { font: 11px var(--font-mono); padding: 2px 8px; border-radius: 999px; border: 1px solid var(--border); color: var(--muted) }
+
+  .cl-toast { position: fixed; right: max(16px, env(safe-area-inset-right, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); z-index: 60;
+    display: flex; gap: 10px; align-items: center; padding: 10px 14px; border-radius: 12px; background: var(--surface); color: var(--text);
+    border: 1px solid var(--lead, var(--c-devops)); box-shadow: 0 18px 40px -18px var(--c-devops); font: 13px var(--font-sans); animation: cl-toast 3.4s ease forwards }
+  .cl-toast b { display: block; margin-bottom: 2px; font: 9px var(--font-pixel, 'Press Start 2P', monospace); color: var(--c-devops) }
+  .cl-toast .d { color: var(--muted) }
+  @keyframes cl-toast { 0% { opacity: 0; transform: translateY(12px) } 10%, 85% { opacity: 1; transform: none } 100% { opacity: 0; transform: translateY(8px) } }
+
+  @media (max-width: 880px) {
+    .cl-grid { grid-template-columns: 1fr }
+    .cl-term { position: relative; top: 0 }
+    .cl-out { height: 320px }
+    .cl-peek { display: none }
+  }
+  @media (scripting: none) {
+    .cl-top, .cl-grid { display: none }
+    .cl-list { display: grid }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cl-toast { animation: none }
+    .cl-peek { transition: none }
+  }
+</style>

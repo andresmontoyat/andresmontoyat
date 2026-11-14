@@ -8,7 +8,7 @@ import SectionPager from '../../components/react/SectionPager.jsx'
 import Hero from '../../components/astro/Hero.astro'
 import About from '../../components/astro/About.astro'
 import Skill from '../../components/astro/Skill.astro'
-import Experience from '../../components/react/Experience.jsx'
+import CareerLog from '../../components/astro/CareerLog.astro'
 import Projects from '../../components/astro/Projects.astro'
 import Claude from '../../components/astro/Claude.astro'
 import Contact from '../../components/astro/Contact.astro'
@@ -155,7 +155,7 @@ const t = translations[locale].entry
     <Hero locale={locale} />
     <About locale={locale} />
     <Skill locale={locale} />
-    <Experience client:visible locale={locale} />
+    <CareerLog locale={locale} />
     <Projects locale={locale} />
     <Claude locale={locale} />
     <Contact locale={locale} />
