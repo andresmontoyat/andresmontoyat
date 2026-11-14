@@ -20,13 +20,6 @@
       "external": true
     },
     {
-      "id": "phone",
-      "icon": "☎",
-      "kLabel": { "en": "Phone", "es": "Teléfono" },
-      "value": "+57 324 442 2196",
-      "href": "tel:+573244422196"
-    },
-    {
       "id": "github",
       "icon": "gh",
       "kLabel": { "en": "GitHub", "es": "GitHub" },

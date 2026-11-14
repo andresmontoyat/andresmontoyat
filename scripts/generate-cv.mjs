@@ -41,7 +41,6 @@ const cleanHost = (u) => String(u).replace(/^https?:\/\//, '').replace(/\/$/, ''
 export function buildHtml(lang) {
   const s = STR[lang]
   const emailCard = card('email')
-  const phoneCard = card('phone')
   const gh = card('github')
   const li = card('linkedin')
   const loc = 'Medellín, Colombia'
@@ -121,7 +120,7 @@ export function buildHtml(lang) {
       <div class="head-text">
         <h1>Carlos Andrés Montoya Tobón</h1>
         <div class="subtitle">${s.title}</div>
-        <div class="contact">${esc(loc)} &nbsp;·&nbsp; ${link(emailCard.href, emailCard.value)} &nbsp;·&nbsp; ${link(phoneCard.href, phoneCard.value)} &nbsp;·&nbsp; ${link(gh.href, `github.com/${gh.value}`)} &nbsp;·&nbsp; ${link(li.href, `linkedin.com/in/${li.value}`)} &nbsp;·&nbsp; ${link('https://www.andresmontoyat.dev', 'andresmontoyat.dev')}</div>
+        <div class="contact">${esc(loc)} &nbsp;·&nbsp; ${link(emailCard.href, emailCard.value)} &nbsp;·&nbsp; ${link(gh.href, `github.com/${gh.value}`)} &nbsp;·&nbsp; ${link(li.href, `linkedin.com/in/${li.value}`)} &nbsp;·&nbsp; ${link('https://www.andresmontoyat.dev', 'andresmontoyat.dev')}</div>
       </div>
       <img class="photo" src="${photoUri}" alt="" />
     </div>
