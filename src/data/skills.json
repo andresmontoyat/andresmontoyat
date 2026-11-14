@@ -1,72 +1,417 @@
 {
-  "label": { "en": "Skills", "es": "Skills" },
-  "h2": { "en": "Technical stack", "es": "Stack técnico" },
+  "label": {
+    "en": "Skills",
+    "es": "Skills"
+  },
+  "h2": {
+    "en": "Technical stack",
+    "es": "Stack técnico"
+  },
   "intro": {
     "en": "Tools and technologies I use daily to design, build and operate distributed systems.",
     "es": "Herramientas y tecnologías que uso a diario para diseñar, construir y operar sistemas distribuidos."
   },
-  "yearsSuffix": { "en": "y", "es": "a" },
+  "yearsSuffix": {
+    "en": "y",
+    "es": "a"
+  },
   "categories": [
     {
       "id": "backend",
       "symbol": "◆",
-      "title": { "en": "Backend", "es": "Backend" },
+      "title": {
+        "en": "Backend",
+        "es": "Backend"
+      },
+      "short": {
+        "en": "Backend",
+        "es": "Backend"
+      },
       "chips": [
-        { "label": "Java", "years": 18, "core": true },
-        { "label": "Kotlin", "years": 8, "core": true },
-        { "label": "Spring Boot", "years": 15 },
-        { "label": "Spring Cloud", "years": 12 },
-        { "label": "Spring Security", "years": 12 },
-        { "label": "Hibernate", "years": 14 },
-        { "label": "Kafka", "years": 6 },
-        { "label": "RabbitMQ", "years": 10 },
-        { "label": "Cassandra", "years": 7 },
-        { "label": "REST / gRPC", "years": 12 },
-        { "label": "Keycloak", "years": 6 }
+        {
+          "label": "Java",
+          "years": 18,
+          "core": true,
+          "mono": "Jv",
+          "note": {
+            "en": "The base language of my whole career: monoliths, hexagonal microservices and payment platforms.",
+            "es": "Lenguaje base de toda mi carrera: monolitos, microservicios hexagonales y plataformas de pagos."
+          }
+        },
+        {
+          "label": "Kotlin",
+          "years": 8,
+          "core": true,
+          "mono": "Kt",
+          "note": {
+            "en": "New services with data classes, coroutines and the Gradle DSL.",
+            "es": "Servicios nuevos con data classes, coroutines y DSL de Gradle."
+          }
+        },
+        {
+          "label": "Spring Boot",
+          "years": 15,
+          "mono": "SB",
+          "note": {
+            "en": "The framework behind almost every service I run in production.",
+            "es": "El framework de casi todos mis servicios en producción."
+          }
+        },
+        {
+          "label": "Spring Cloud",
+          "years": 12,
+          "mono": "SC"
+        },
+        {
+          "label": "Spring Security",
+          "years": 12,
+          "mono": "SS"
+        },
+        {
+          "label": "Hibernate",
+          "years": 14,
+          "mono": "Hb"
+        },
+        {
+          "label": "Kafka",
+          "years": 6,
+          "mono": "Kf",
+          "note": {
+            "en": "Events and the outbox pattern in event-driven architectures.",
+            "es": "Eventos y outbox en arquitecturas orientadas a eventos."
+          }
+        },
+        {
+          "label": "RabbitMQ",
+          "years": 10,
+          "mono": "Rb"
+        },
+        {
+          "label": "Cassandra",
+          "years": 7,
+          "mono": "Cs"
+        },
+        {
+          "label": "REST / gRPC",
+          "years": 12,
+          "mono": "{}"
+        },
+        {
+          "label": "Keycloak",
+          "years": 6,
+          "mono": "KC",
+          "note": {
+            "en": "Identity: realms, roles and gateway-first auth.",
+            "es": "Identidad: realms, roles y gateway-first."
+          }
+        }
       ]
     },
     {
       "id": "cloud",
       "symbol": "●",
-      "title": { "en": "Cloud & Infrastructure", "es": "Nube e Infraestructura" },
+      "title": {
+        "en": "Cloud & Infrastructure",
+        "es": "Nube e Infraestructura"
+      },
+      "short": {
+        "en": "Cloud & Infra",
+        "es": "Nube e Infra"
+      },
       "chips": [
-        { "label": "AWS", "years": 10, "core": true },
-        { "label": "GCP", "years": 6 },
-        { "label": "Azure", "years": 4 },
-        { "label": "Kubernetes", "years": 6, "core": true },
-        { "label": "Docker", "years": 8 },
-        { "label": "GKE", "years": 4 },
-        { "label": "KrakenD", "years": 4 },
-        { "label": "Terraform", "years": 3 }
+        {
+          "label": "AWS",
+          "years": 10,
+          "core": true,
+          "mono": "AWS",
+          "note": {
+            "en": "Lambda, SQS, S3, ECS and Terraform for real platforms.",
+            "es": "Lambda, SQS, S3, ECS y Terraform para plataformas reales."
+          }
+        },
+        {
+          "label": "GCP",
+          "years": 6,
+          "mono": "GCP"
+        },
+        {
+          "label": "Azure",
+          "years": 4,
+          "mono": "Az"
+        },
+        {
+          "label": "Kubernetes",
+          "years": 6,
+          "core": true,
+          "mono": "K8s",
+          "note": {
+            "en": "Deployments, scaling and GitOps with ArgoCD.",
+            "es": "Despliegues, escalado y GitOps con ArgoCD."
+          }
+        },
+        {
+          "label": "Docker",
+          "years": 8,
+          "mono": "Dk"
+        },
+        {
+          "label": "GKE",
+          "years": 4,
+          "mono": "GKE"
+        },
+        {
+          "label": "KrakenD",
+          "years": 4,
+          "mono": "Kd",
+          "note": {
+            "en": "API gateway: JWT at the edge, rate limiting and traces.",
+            "es": "API gateway: JWT en el borde, rate-limit y trazas."
+          }
+        },
+        {
+          "label": "Terraform",
+          "years": 3,
+          "mono": "Tf"
+        }
       ]
     },
     {
       "id": "devops",
       "symbol": "▲",
-      "title": { "en": "DevOps & Tools", "es": "DevOps y Herramientas" },
+      "title": {
+        "en": "DevOps & Tools",
+        "es": "DevOps y Herramientas"
+      },
+      "short": {
+        "en": "DevOps",
+        "es": "DevOps"
+      },
       "chips": [
-        { "label": "Jenkins", "years": 10 },
-        { "label": "GitHub Actions", "years": 5 },
-        { "label": "SonarQube", "years": 8 },
-        { "label": "Nexus", "years": 8 },
-        { "label": "Gradle", "years": 8 },
-        { "label": "Maven", "years": 15, "core": true },
-        { "label": "PostgreSQL", "years": 10 },
-        { "label": "MySQL", "years": 14 },
-        { "label": "Oracle SQL", "years": 12 },
-        { "label": "Scrum Master", "years": 10 }
+        {
+          "label": "Jenkins",
+          "years": 10,
+          "mono": "Jk"
+        },
+        {
+          "label": "GitHub Actions",
+          "years": 5,
+          "mono": "GA",
+          "note": {
+            "en": "Reusable workflows and SemVer releases.",
+            "es": "Workflows reutilizables y releases SemVer."
+          }
+        },
+        {
+          "label": "SonarQube",
+          "years": 8,
+          "mono": "SQ"
+        },
+        {
+          "label": "Nexus",
+          "years": 8,
+          "mono": "Nx"
+        },
+        {
+          "label": "Gradle",
+          "years": 8,
+          "mono": "Gr"
+        },
+        {
+          "label": "Maven",
+          "years": 15,
+          "core": true,
+          "mono": "Mv",
+          "note": {
+            "en": "Multi-module builds for large projects.",
+            "es": "Builds multi-módulo de proyectos grandes."
+          }
+        },
+        {
+          "label": "PostgreSQL",
+          "years": 10,
+          "mono": "Pg"
+        },
+        {
+          "label": "MySQL",
+          "years": 14,
+          "mono": "My"
+        },
+        {
+          "label": "Oracle SQL",
+          "years": 12,
+          "mono": "Or"
+        },
+        {
+          "label": "Scrum Master",
+          "years": 10,
+          "mono": "SM",
+          "note": {
+            "en": "Certified; facilitating agile teams.",
+            "es": "Certificado; facilitación de equipos ágiles."
+          }
+        }
       ]
     },
     {
       "id": "ai",
       "symbol": "✦",
-      "title": { "en": "AI & Productivity", "es": "IA y Productividad" },
+      "title": {
+        "en": "AI & Productivity",
+        "es": "IA y Productividad"
+      },
+      "short": {
+        "en": "AI",
+        "es": "IA"
+      },
       "chips": [
-        { "label": "Claude Code", "years": 1, "core": true },
-        { "label": "GitHub Copilot", "years": 2 },
-        { "label": "JetBrains Junie", "years": 1 },
-        { "label": "Prompt Engineering", "years": 2 }
+        {
+          "label": "Claude Code",
+          "years": 1,
+          "core": true,
+          "mono": "CC",
+          "note": {
+            "en": "Agentic development guided by my own hexagonal standards.",
+            "es": "Desarrollo agéntico con guías hexagonales propias."
+          }
+        },
+        {
+          "label": "GitHub Copilot",
+          "years": 2,
+          "mono": "Cp"
+        },
+        {
+          "label": "JetBrains Junie",
+          "years": 1,
+          "mono": "Jn"
+        },
+        {
+          "label": "Prompt Engineering",
+          "years": 2,
+          "mono": ">_"
+        }
       ]
     }
-  ]
+  ],
+  "decks": {
+    "openAll": {
+      "en": "Open all decks",
+      "es": "Abrir todas las barajas"
+    },
+    "closeAll": {
+      "en": "Stack the decks",
+      "es": "Recoger las barajas"
+    },
+    "openHint": {
+      "en": "tap a card to add it to your hand",
+      "es": "toca una carta para llevarla a tu mano"
+    },
+    "prev": {
+      "en": "Previous card",
+      "es": "Carta anterior"
+    },
+    "next": {
+      "en": "Next card",
+      "es": "Carta siguiente"
+    },
+    "fan": {
+      "en": "Fan out the deck",
+      "es": "Abanico"
+    },
+    "shuffle": {
+      "en": "Shuffle",
+      "es": "Barajar"
+    },
+    "deckLabel": {
+      "en": "{name} deck, {n} cards. Arrows to step, Enter to flip, A to fan out, B to shuffle",
+      "es": "Mazo {name}, {n} cartas. Flechas para pasar, Enter para girar, A para abanico, B para barajar"
+    },
+    "year": {
+      "en": "year",
+      "es": "año"
+    },
+    "years": {
+      "en": "years",
+      "es": "años"
+    },
+    "career": {
+      "en": "{p}% of my career",
+      "es": "{p}% de mi carrera"
+    },
+    "defaultNote": {
+      "en": "Part of my toolbox for {n} {y}.",
+      "es": "Parte de mi caja de herramientas desde hace {n} {y}."
+    },
+    "hand": {
+      "en": "Your hand",
+      "es": "Tu mano"
+    },
+    "dropHere": {
+      "en": "drop a card here",
+      "es": "suelta aquí una carta"
+    },
+    "handEmpty": {
+      "en": "Drag cards here",
+      "es": "Arrastra cartas aquí"
+    },
+    "handSub": {
+      "en": "build a combo of up to 3",
+      "es": "arma un combo de hasta 3"
+    },
+    "combo": {
+      "en": "Combo",
+      "es": "Combo"
+    },
+    "direct": {
+      "en": "direct synergy",
+      "es": "sinergia directa"
+    },
+    "area": {
+      "en": "cross-area synergy",
+      "es": "sinergia entre áreas"
+    },
+    "none": {
+      "en": "no clear synergy",
+      "es": "sin sinergia clara"
+    },
+    "single": {
+      "en": "one card",
+      "es": "una carta"
+    },
+    "specialist": {
+      "en": "{cat} specialist",
+      "es": "Especialista en {cat}"
+    },
+    "free": {
+      "en": "Free combination",
+      "es": "Combinación libre"
+    },
+    "depth": {
+      "en": "Depth in {names}",
+      "es": "Profundidad en {names}"
+    },
+    "and": {
+      "en": "and",
+      "es": "y"
+    },
+    "potential": {
+      "en": "potential",
+      "es": "potencial"
+    },
+    "potentialOf": {
+      "en": "Potential {n} of 5",
+      "es": "Potencial {n} de 5"
+    },
+    "clear": {
+      "en": "Clear hand",
+      "es": "Vaciar mano"
+    },
+    "added": {
+      "en": "{name} added to your hand",
+      "es": "{name} en tu mano"
+    },
+    "foot": {
+      "en": "fling the top card · drop it in your hand to build a combo · tap to flip · ◠ fans out · ⇄ shuffles · ← → on the keyboard",
+      "es": "lanza la carta de arriba · suéltala en tu mano para armar un combo · toca para girarla · ◠ abre el abanico · ⇄ baraja · ← → en el teclado"
+    }
+  }
 }

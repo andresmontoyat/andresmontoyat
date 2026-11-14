@@ -281,6 +281,12 @@
     --muted:     #8892B8;
     --accent:    #00E5A8;
     --accent-2:  #00C2FF;
+    /* Skill deck category colours; --on-c is text drawn on top of them */
+    --c-backend: #00E5A8;
+    --c-cloud:   #00C2FF;
+    --c-devops:  #FFB547;
+    --c-ai:      #C792FF;
+    --on-c:      #0B1020;
     --grad-accent: linear-gradient(135deg, #00E5A8 0%, #00C2FF 100%);
     --radius:    14px;
     --shadow-accent: 0 20px 40px -20px rgba(0, 229, 168, 0.25);
@@ -379,6 +385,11 @@
     --muted:     #596288;
     --accent:    #047857;  /* emerald-700 — AA on light, matches --color-accent light */
     --accent-2:  #0369A1;  /* sky-700 — AA on light */
+    --c-backend: #047857;
+    --c-cloud:   #0369A1;
+    --c-devops:  #B45309;
+    --c-ai:      #7C3AED;
+    --on-c:      #FFFFFF;
     --grad-accent: linear-gradient(135deg, #047857 0%, #0369A1 100%);
     --shadow-accent: 0 20px 40px -20px rgba(4, 120, 87, 0.20);
     --bg-backdrop:

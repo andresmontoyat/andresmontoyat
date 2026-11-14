@@ -1,10 +1,13 @@
 ---
 // src/components/astro/Skill.astro
-// Zero-client-JS port of src/components/Skill.jsx (v5 STATIC-01).
-// MeterRow/Category React sub-components are inlined into the template's
-// .map() blocks — Astro components cannot be invoked as plain JS functions
-// the way React sub-components were (D-01).
+// Technical stack as playable card decks. Every card (name, years, tier, note) is server-rendered
+// as real HTML in its first pile pose, so the content is crawlable, readable without JS and the
+// interactive layer (src/scripts/skill-decks.js, an external module) adds no layout shift.
 import data from '../../data/skills.json'
+import combos from '../../data/skill-combos.json'
+import {
+  TIER_STARS, fmt, openHeight, sortChips, stackPose, tier,
+} from '../../scripts/skill-deck-logic.js'
 
 const { locale } = Astro.props
 
@@ -13,14 +16,22 @@ function pick(field, lang) {
   return field?.[lang] ?? field?.en ?? ''
 }
 
-function maxYears() {
-  return Math.max(...data.categories.flatMap((c) => c.chips).map((ch) => ch.years))
+const ui = Object.fromEntries(Object.entries(data.decks).map(([k, v]) => [k, pick(v, locale)]))
+const localCombos = {
+  synergy: combos.synergy.map((s) => ({ techs: s.techs, title: pick(s.title, locale), builds: s.builds.map((b) => pick(b, locale)) })),
+  byCategory: combos.byCategory.map((g) => ({ cats: g.cats, title: pick(g.title, locale), builds: g.builds.map((b) => pick(b, locale)) })),
 }
-
-const suffix = pick(data.yearsSuffix, locale)
-const max = maxYears()
+const max = Math.max(...data.categories.flatMap((c) => c.chips).map((ch) => ch.years))
+const yrs = (n) => (n === 1 ? ui.year : ui.years)
+const poseStyle = (i) => {
+  const p = stackPose(i)
+  return `--i:${i};--tx:${p.tx}px;--ty:${p.ty}px;--r:${p.r}deg;--fx:${p.fx}px;--fr:${p.fr}deg;z-index:${p.z};opacity:${p.hidden ? 0 : 1}`
+}
+const decks = data.categories.map((c) => ({
+  id: c.id, symbol: c.symbol, title: pick(c.title, locale), short: pick(c.short, locale), cards: sortChips(c.chips),
+}))
 ---
-<section id="skills" class="py-20">
+<section id="skills" class="sd py-20" data-ui={JSON.stringify(ui)} data-combos={JSON.stringify(localCombos)}>
   <div class="max-w-6xl mx-auto px-6">
     <div class="font-pixel text-[10px] uppercase tracking-[1px] text-accent flex items-center gap-3 mb-4">
       <span class="block w-10 h-0.5 bg-accent" /> {pick(data.label, locale)}
@@ -28,37 +39,217 @@ const max = maxYears()
     <h2 class="font-pixel text-lg sm:text-xl md:text-2xl tracking-normal text-text mb-4 leading-tight sm:leading-7 md:leading-8">
       {pick(data.h2, locale)}
     </h2>
-    <p class="text-muted max-w-[640px] mb-12 text-base leading-relaxed">{pick(data.intro, locale)}</p>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
-      {data.categories.map((category) => (
-        <div class="group/card bg-surface/40 border border-border rounded-[16px] p-6 transition-colors duration-200 hover:border-accent/40">
-          <h3 class="text-base font-extrabold mb-4 flex items-center gap-2 text-text">
-            <span class="text-accent transition-transform duration-200 group-hover/card:scale-125">{category.symbol}</span> {pick(category.title, locale)}
-          </h3>
-          <div class="flex flex-col gap-1">
-            {category.chips.map((chip) => {
-              const fill = Math.max(8, Math.round((chip.years / max) * 100))
-              return (
-                <div
-                  data-core={chip.core ? 'true' : 'false'}
-                  class="group -mx-2 rounded-lg px-2 py-1.5 transition-colors duration-200 hover:bg-accent/6"
-                >
-                  <div class="flex items-baseline justify-between mb-1.5 gap-3">
-                    <span class={`text-sm transition-colors duration-200 ${chip.core ? 'font-extrabold text-accent' : 'text-text/80 group-hover:text-text'}`}>{chip.label}</span>
-                    <span class="font-mono text-[11px] text-muted shrink-0 transition-colors duration-200 group-hover:text-accent">{chip.years}{suffix}</span>
-                  </div>
-                  <div class="h-2 rounded-full bg-white/[0.07] overflow-hidden">
-                    <div
-                      class={`h-full rounded-full transition-all duration-300 ${chip.core ? 'bg-linear-to-r from-accent to-secondary shadow-[0_0_8px_rgba(0,229,168,0.55)]' : 'bg-accent/55 group-hover:bg-accent group-hover:shadow-[0_0_8px_rgba(0,229,168,0.45)]'}`}
-                      style={`width: ${fill}%`}
-                    />
-                  </div>
-                </div>
-              )
-            })}
-          </div>
-        </div>
-      ))}
+    <p class="text-muted max-w-[640px] mb-6 text-base leading-relaxed">{pick(data.intro, locale)}</p>
+    <div class="sd-tools">
+      <button type="button" class="sd-openall" aria-pressed="false">{ui.openAll}</button>
+      <span class="sd-openhint" aria-live="polite"></span>
     </div>
   </div>
+  <div class="sd-table max-w-6xl mx-auto px-6">
+    {decks.map((d) => (
+      <div
+        class="sd-deck"
+        role="group"
+        tabindex="0"
+        data-cat={d.id}
+        data-name={d.short}
+        style={`--c:var(--c-${d.id})`}
+        aria-label={fmt(ui.deckLabel, { name: d.title, n: d.cards.length })}
+      >
+        <h3 class="sd-title"><span aria-hidden="true">{d.symbol}</span> {d.title}</h3>
+        <div class="sd-pile" style={`--h:${openHeight(d.cards.length)}px`}>
+          {d.cards.map((ch, i) => {
+            const t = tier(ch.years)
+            const pips = Math.round((ch.years / max) * 10)
+            return (
+              <div
+                class={`sd-slot t-${t}${i === 0 ? ' is-top' : ''}`}
+                style={poseStyle(i)}
+                data-name={ch.label}
+                data-years={ch.years}
+                data-core={ch.core ? 'true' : 'false'}
+                data-tier={t}
+              >
+                <button
+                  type="button"
+                  class="sd-card"
+                  tabindex="-1"
+                  aria-label={`${ch.label}, ${ch.years} ${yrs(ch.years)}, ${TIER_STARS[t].length}/4${ch.core ? ', core' : ''}`}
+                >
+                  <span class="sd-face sd-front">
+                    <span class="sd-row">
+                      <span class="sd-cat">{d.short}</span><span class="sd-nm">{ch.label}</span>
+                      {ch.core && <span class="sd-rar">CORE</span>}
+                    </span>
+                    <span class="sd-art">
+                      <span class="sd-glyph" aria-hidden="true">{ch.mono}</span>
+                      <span class="sd-tier" aria-hidden="true">{TIER_STARS[t]}</span>
+                    </span>
+                    <span class="sd-body">
+                      <span class="sd-name">{ch.label}</span>
+                      <span class="sd-stat"><span>EXP</span><b>{ch.years}<small> {yrs(ch.years)}</small></b></span>
+                      <span class="sd-pips" aria-hidden="true">
+                        {Array.from({ length: 10 }, (_, k) => <span class={k < pips ? 'on' : undefined} />)}
+                      </span>
+                    </span>
+                    <span class="sd-glare" />
+                    {ch.core && <span class="sd-holo" />}
+                  </span>
+                  <span class="sd-face sd-back">
+                    <span class="sd-backtext">
+                      <span class="sd-tag">{d.short}{ch.core ? ' · CORE' : ''}</span>
+                      <span class="sd-bname">{ch.label}</span>
+                      <span class="sd-note">{pick(ch.note, locale) || fmt(ui.defaultNote, { n: ch.years, y: yrs(ch.years) })}</span>
+                    </span>
+                    <span class="sd-stat"><span>{fmt(ui.career, { p: Math.round((ch.years / max) * 100) })}</span></span>
+                  </span>
+                </button>
+              </div>
+            )
+          })}
+        </div>
+        <div class="sd-bar">
+          <button type="button" data-a="prev" aria-label={ui.prev} title={`${ui.prev} (←)`}>←</button>
+          <span class="sd-count">1/{d.cards.length}</span>
+          <button type="button" data-a="next" aria-label={ui.next} title={`${ui.next} (→)`}>→</button>
+          <button type="button" data-a="fan" aria-pressed="false" aria-label={ui.fan} title={`${ui.fan} (A)`}>◠</button>
+          <button type="button" data-a="shuffle" aria-label={ui.shuffle} title={`${ui.shuffle} (B)`}>⇄</button>
+        </div>
+      </div>
+    ))}
+  </div>
+  <div class="sd-hand max-w-6xl mx-auto px-6" role="region" aria-label={ui.hand}>
+    <div class="sd-zone">
+      <div class="sd-spot">{ui.dropHere}</div><div class="sd-spot">2</div><div class="sd-spot">3</div>
+      <div class="sd-combo" aria-live="polite">
+        <span class="k">{ui.hand}</span><span class="v">{ui.handEmpty}</span><span class="m">{ui.handSub}</span>
+      </div>
+    </div>
+  </div>
+  <p class="sd-foot max-w-6xl mx-auto px-6">{ui.foot}</p>
 </section>
+
+<script src="../../scripts/skill-decks.js"></script>
+
+<style is:global>
+  .sd { --pixel: 'Press Start 2P', ui-monospace, monospace; --mono: ui-monospace, 'SF Mono', Menlo, monospace; overflow-x: clip }
+  .sd :focus-visible { outline: 2px solid var(--accent-2); outline-offset: 3px }
+  .sd-tools { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; margin-bottom: 6px }
+  .sd-tools button { font: 12px var(--mono); min-height: 38px; padding: 6px 14px; border-radius: 10px; border: 1px solid var(--border); background: var(--bg-2); color: var(--text); cursor: pointer }
+  .sd-tools button[aria-pressed="true"] { border-color: var(--accent); color: var(--accent) }
+  .sd-openhint { font: 12px var(--mono); color: var(--muted) }
+
+  .sd-table { margin-top: 8px; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 36px 20px }
+  .sd-deck { position: relative; display: grid; justify-items: center; align-content: start; outline: none; border-radius: 20px; padding-block: 6px 4px }
+  .sd-deck:focus-visible { box-shadow: 0 0 0 2px var(--c) }
+  .sd-title { margin: 0; font: 10px/1.4 var(--pixel); color: var(--c); text-transform: uppercase; display: flex; gap: 8px; align-items: center; text-align: center }
+  .sd-pile { position: relative; width: 200px; height: 290px; margin-top: 16px; touch-action: none; z-index: 1 }
+  .sd-deck.spread { z-index: 5 }
+  .sd-slot { position: absolute; inset: 0; perspective: 900px; width: 200px; height: 290px;
+    transform: translate(var(--tx, 0px), calc(var(--ty, 0px) + var(--lift, 0px))) rotate(var(--r, 0deg));
+    transition: transform .5s cubic-bezier(.2,.8,.2,1), opacity .3s; will-change: transform }
+  .sd-slot.is-top { cursor: grab }
+  .sd-slot.held { transition: none; cursor: grabbing; z-index: 200 !important }
+  .sd-slot.flying { transition: transform .38s cubic-bezier(.3,.6,.4,1), opacity .38s }
+  .sd-table:not(.open) .sd-deck:not(.spread) .sd-pile:hover .sd-slot:not(.is-top):not(.held) {
+    transform: translate(calc(var(--tx, 0px) + var(--fx, 0px)), var(--ty, 0px)) rotate(calc(var(--r, 0deg) + var(--fr, 0deg))) }
+  .sd-deck.spread .sd-slot, .sd-table.open .sd-slot { cursor: pointer }
+  .sd-deck.spread .sd-slot:hover { --lift: -18px }
+  .sd-table.open .sd-slot:hover { --lift: -6px }
+  .sd-nudge .sd-slot.is-top { animation: sd-nudge 1.6s ease-in-out 1s 2 }
+  @keyframes sd-nudge { 0%,100% { transform: translate(0,0) rotate(0) } 30% { transform: translate(26px,-6px) rotate(6deg) } 55% { transform: translate(-4px,0) rotate(-1deg) } }
+
+  .sd-bar { position: relative; z-index: 2; display: flex; align-items: center; gap: 6px; margin-top: 34px; font: 11px var(--mono); color: var(--muted) }
+  .sd-bar button { font: 13px var(--mono); min-height: 32px; min-width: 32px; padding: 4px 6px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-2); color: var(--text); cursor: pointer }
+  .sd-bar button:hover { border-color: var(--c) }
+  .sd-bar button[aria-pressed="true"] { border-color: var(--c); color: var(--c) }
+  .sd-count { min-width: 44px; text-align: center; font-variant-numeric: tabular-nums }
+
+  .sd-card { --rx: 0deg; --ry: 0deg; --mx: 50%; --my: 50%; --o: 0; all: unset; display: block; cursor: inherit;
+    position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transform: rotateX(var(--rx)) rotateY(var(--ry));
+    transition: transform .5s cubic-bezier(.2,.8,.2,1); border-radius: 18px; color: var(--text); font: 16px/1.6 var(--font-sans) }
+  .sd-card:focus-visible { outline: 2px solid var(--accent-2); outline-offset: 3px }
+  .sd-slot.flipped .sd-card { transform: rotateY(180deg) }
+  .sd-slot.lift .sd-card { transition: transform .08s linear }
+  .sd-face { position: absolute; inset: 0; border-radius: 18px; backface-visibility: hidden; overflow: hidden; border: 1px solid color-mix(in srgb, var(--c) 45%, var(--border));
+    background: linear-gradient(160deg, color-mix(in srgb, var(--c) 18%, var(--surface)), var(--surface) 55%); display: grid; grid-template-rows: auto 1fr auto; padding: 16px;
+    box-shadow: 0 18px 40px -22px var(--c), 0 2px 0 0 color-mix(in srgb, var(--c) 30%, transparent) inset; text-align: left }
+  .sd-back { transform: rotateY(180deg); background: var(--bg-2) }
+  .sd-row { display: flex; justify-content: space-between; align-items: center; gap: 8px; min-width: 0 }
+  .sd-cat { font: 9px/1.4 var(--pixel); color: var(--c); text-transform: uppercase }
+  .sd-rar { font: 8px/1 var(--pixel); color: var(--on-c); background: var(--c); border-radius: 4px; padding: 4px 5px; flex: none }
+  .sd-art { position: relative; display: grid; place-items: center; margin: 12px 0; border-radius: 12px; border: 1px solid var(--border);
+    background: repeating-linear-gradient(45deg, color-mix(in srgb, var(--c) 10%, transparent) 0 6px, transparent 6px 12px), var(--bg-2) }
+  .sd-glyph { font: 30px/1 var(--pixel); color: var(--c); text-shadow: 0 0 18px color-mix(in srgb, var(--c) 60%, transparent); letter-spacing: -1px }
+  .sd-tier { position: absolute; right: 8px; bottom: 6px; font: 9px/1 var(--mono); color: var(--c) }
+  .sd-body { display: block }
+  .sd-name { display: block; font-weight: 800; font-size: 19px; line-height: 1.2 }
+  .sd-stat { display: flex; align-items: baseline; justify-content: space-between; margin-top: 6px; font: 11px var(--mono); color: var(--muted) }
+  .sd-stat b { font: 800 22px/1 var(--font-sans); color: var(--text); font-variant-numeric: tabular-nums }
+  .sd-stat small { font: 11px var(--mono); color: var(--muted) }
+  .sd-pips { display: flex; gap: 3px; margin-top: 8px }
+  .sd-pips span { flex: 1; height: 5px; border-radius: 2px; background: var(--border) }
+  .sd-pips span.on { background: var(--c) }
+  .sd-glare { position: absolute; inset: 0; pointer-events: none; opacity: var(--o); mix-blend-mode: soft-light;
+    background: radial-gradient(circle at var(--mx) var(--my), rgba(255,255,255,.55), transparent 45%) }
+  .sd-holo { position: absolute; inset: 0; pointer-events: none; opacity: calc(var(--o) * .75); mix-blend-mode: color-dodge;
+    background: linear-gradient(115deg, transparent 20%, #ff6ec7 32%, #ffe66e 42%, #6effb4 52%, #6ec5ff 62%, #c46eff 72%, transparent 84%);
+    background-size: 250% 250%; background-position: var(--mx) var(--my); filter: saturate(1.2) }
+  .sd-backtext { display: block }
+  .sd-tag { display: block; font: 10px var(--mono); color: var(--c) }
+  .sd-bname { display: block; font-size: 16px; font-weight: 800; margin-top: 2px }
+  .sd-note { display: block; margin-top: 10px; font-size: 13px; color: var(--muted); line-height: 1.5 }
+  .sd-back .sd-stat { grid-row: 3 }
+
+  .sd-slot.t-legendary .sd-front { border: 2px solid transparent; background:
+    linear-gradient(160deg, color-mix(in srgb, var(--c) 18%, var(--surface)), var(--surface) 55%) padding-box,
+    conic-gradient(from var(--sd-spin, 0deg), var(--c), #ffe66e, #ff6ec7, #6ec5ff, var(--c)) border-box; animation: sd-spin 4s linear infinite }
+  @property --sd-spin { syntax: '<angle>'; inherits: false; initial-value: 0deg }
+  @keyframes sd-spin { to { --sd-spin: 360deg } }
+  .sd-slot.t-epic .sd-front { box-shadow: 0 0 0 2px color-mix(in srgb, var(--c) 55%, transparent), 0 18px 40px -18px var(--c) }
+  .sd-slot.t-rare .sd-art { border-color: color-mix(in srgb, var(--c) 50%, var(--border)) }
+  .sd-slot.held .sd-card { scale: 1.06 }
+  .sd-slot.held .sd-face { box-shadow: 0 34px 60px -24px var(--c) }
+
+  .sd-nm { display: none; font: 800 13px/1.2 var(--font-sans); color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0 }
+  .sd-table.open .sd-cat { display: none }
+  .sd-table.open .sd-nm { display: block }
+  .sd-table.open .sd-pile { height: var(--h, 290px); transition: height .5s cubic-bezier(.2,.8,.2,1) }
+  .sd-table.open .sd-bar button:not([data-a="shuffle"]), .sd-table.open .sd-count { visibility: hidden }
+
+  .sd-hand { margin-top: 34px }
+  .sd-zone { border: 2px dashed var(--border); border-radius: 18px; padding: 16px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(180px, 1.3fr); gap: 12px; align-items: stretch; transition: border-color .2s, background .2s }
+  .sd-zone.over { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 8%, transparent) }
+  .sd-spot { min-height: 74px; border-radius: 12px; border: 1px solid var(--border); background: var(--bg-2); display: grid; place-items: center; font: 11px var(--mono); color: var(--muted); padding: 8px; text-align: center }
+  .sd-spot.full { border-color: var(--c); color: var(--text); background: color-mix(in srgb, var(--c) 12%, var(--bg-2)); animation: sd-pop .35s cubic-bezier(.2,1.6,.4,1) }
+  .sd-spot.full b { display: block; font: 800 15px var(--font-sans) }
+  .sd-spot.full span { font: 10px var(--mono); color: var(--c) }
+  @keyframes sd-pop { from { transform: scale(.7); opacity: 0 } }
+  .sd-combo { border-radius: 12px; padding: 10px 14px; background: var(--surface); border: 1px solid var(--border); display: grid; align-content: center; gap: 4px }
+  .sd-combo .k { font: 11px var(--mono); letter-spacing: .08em; color: var(--accent); text-transform: uppercase }
+  .sd-combo .v { font: 800 17px/1.25 var(--font-sans); color: var(--text) }
+  .sd-combo .m { font: 11px var(--mono); color: var(--muted) }
+  .sd-pow { display: flex; align-items: center; gap: 4px }
+  .sd-pow i { width: 18px; height: 8px; border-radius: 2px; background: var(--border) }
+  .sd-pow i.on { background: linear-gradient(90deg, var(--accent), var(--accent-2)) }
+  .sd-pow em { font: 10px var(--mono); color: var(--muted); font-style: normal; margin-left: 6px }
+  .sd-can { margin: 4px 0 0; padding-left: 16px; font-size: 13px; color: var(--muted); line-height: 1.45; list-style: disc }
+  .sd-can li::marker { color: var(--accent) }
+  .sd-combo button { justify-self: start; margin-top: 4px; font: 11px var(--mono); min-height: 28px; padding: 2px 10px; border-radius: 8px; border: 1px solid var(--border); background: transparent; color: var(--muted); cursor: pointer }
+  .sd-foot { text-align: center; font: 12px var(--mono); color: var(--muted); margin-top: 10px }
+  @media (max-width: 720px) { .sd-zone { grid-template-columns: repeat(3, minmax(0, 1fr)) } .sd-combo { grid-column: 1 / -1 } }
+
+  /* Without scripting the decks lay out as open columns: every name readable, no dead controls. */
+  @media (scripting: none) {
+    .sd-tools, .sd-bar, .sd-hand, .sd-foot { display: none }
+    .sd-pile { height: var(--h) }
+    .sd-slot { transform: translateY(calc(var(--i) * 44px)); opacity: 1 !important }
+    .sd-cat { display: none }
+    .sd-nm { display: block }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .sd-card, .sd-slot { transition: none !important }
+    .sd-holo, .sd-glare { display: none }
+    .sd-slot.t-legendary .sd-front, .sd-spot.full, .sd-nudge .sd-slot.is-top { animation: none }
+  }
+</style>

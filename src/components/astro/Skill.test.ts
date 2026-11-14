@@ -11,6 +11,7 @@ import { experimental_AstroContainer as AstroContainer } from 'astro/container'
 import { describe, expect, it } from 'vitest'
 import Skill from './Skill.astro'
 import data from '../../data/skills.json'
+import combos from '../../data/skill-combos.json'
 
 async function renderSkill(locale = 'en') {
   const container = await AstroContainer.create()
@@ -93,5 +94,66 @@ describe('Skill.astro (Container API parity — D-01/D-06)', () => {
         expect(typeof chip.years).toBe('number')
       }
     }
+  })
+
+  it('renders every chip name in Spanish too', async () => {
+    const result = await renderSkill('es')
+    for (const chip of data.categories.flatMap((c) => c.chips)) expect(result).toContain(chip.label)
+  })
+
+  it('renders each deck as a labelled group with its card count', async () => {
+    const result = await renderSkill('en')
+    expect((result.match(/role="group"/g) || []).length).toBe(4)
+    expect(result).toContain('aria-label="Backend deck, 11 cards.')
+  })
+
+  it('puts CORE cards first in each deck, then by years', async () => {
+    const result = await renderSkill('en')
+    const deckNames = result.split('class="sd-deck"').slice(1)
+      .map((d) => [...d.matchAll(/class="sd-slot[^"]*"[^>]*data-name="([^"]+)"/g)].map((m) => m[1]))
+    expect(deckNames.map((d) => d[0])).toEqual(['Java', 'AWS', 'Maven', 'Claude Code'])
+    expect(deckNames[0].slice(0, 3)).toEqual(['Java', 'Kotlin', 'Spring Boot'])
+  })
+
+  it('renders rarity tiers by years', async () => {
+    const result = await renderSkill('en')
+    expect(result).toMatch(/sd-slot t-legendary[^"]*"[^>]*data-name="Java"/)
+    expect(result).toMatch(/sd-slot t-common[^"]*"[^>]*data-name="Terraform"/)
+    expect((result.match(/data-tier="legendary"/g) || []).length).toBe(3)
+  })
+
+  it('renders notes in the visitor language', async () => {
+    expect(await renderSkill('en')).toContain('Events and the outbox pattern')
+    expect(await renderSkill('es')).toContain('Eventos y outbox')
+  })
+
+  it('ships the localized combos for the deck script', async () => {
+    const en = await renderSkill('en')
+    const es = await renderSkill('es')
+    expect(en).toContain('Event-driven systems')
+    expect(es).toContain('Sistemas orientados a eventos')
+    expect(es).not.toContain('Event-driven systems')
+  })
+
+  it('renders the hand region with a polite live combo panel', async () => {
+    const result = await renderSkill('en')
+    expect(result).toMatch(/role="region"[^>]*aria-label="Your hand"/)
+    expect(result).toMatch(/class="sd-combo" aria-live="polite"/)
+  })
+
+  it('loads the deck script as an external module, never inline', async () => {
+    const result = await renderSkill('en')
+    expect(result).not.toMatch(/<script(?![^>]*\ssrc=)[^>]*>[^<]+<\/script>/)
+  })
+
+  it('skill-combos.json — bilingual titles and builds, pairs reference real chips', () => {
+    const names = data.categories.flatMap((c) => c.chips).map((ch) => ch.label)
+    const ids = data.categories.map((c) => c.id)
+    for (const s of combos.synergy) {
+      expect(s.techs.every((t) => names.includes(t))).toBe(true)
+      expect(s.title.en && s.title.es).toBeTruthy()
+      for (const b of s.builds) expect(b.en && b.es).toBeTruthy()
+    }
+    for (const g of combos.byCategory) expect(g.cats.every((c) => ids.includes(c))).toBe(true)
   })
 })
