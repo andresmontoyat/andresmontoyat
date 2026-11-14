@@ -1,0 +1,38 @@
+{
+  "label": { "en": "Player 2", "es": "Player 2" },
+  "h2": { "en": "When I am not in the IDE", "es": "Cuando no estoy en el IDE" },
+  "intro": {
+    "en": "Add me and let's play. These are my consoles and what I play most.",
+    "es": "Agrégame y jugamos. Estas son mis consolas y lo que más juego."
+  },
+  "main": {
+    "label": { "en": "Main game", "es": "Juego principal" },
+    "title": "Destiny 2",
+    "desc": {
+      "en": "Guardian since the first Destiny. Raids, Trials and far too many hours in the Tower.",
+      "es": "Guardián desde el primer Destiny. Raids, Trials y demasiadas horas en la Torre."
+    }
+  },
+  "consoles": [
+    {
+      "id": "switch",
+      "name": "Nintendo Switch",
+      "idLabel": { "en": "Friend code", "es": "Código de amigo" },
+      "handle": "SW-0000-0000-0000",
+      "games": [
+        "The Legend of Zelda: Tears of the Kingdom",
+        "Mario Kart 8 Deluxe",
+        "Super Smash Bros. Ultimate",
+        "Metroid Dread",
+        "Animal Crossing: New Horizons"
+      ]
+    },
+    {
+      "id": "psn",
+      "name": "PlayStation",
+      "idLabel": { "en": "PSN Online ID", "es": "PSN Online ID" },
+      "handle": "YourPSN_ID",
+      "games": ["Destiny 2", "God of War Ragnarök", "Elden Ring", "Ghost of Tsushima", "Gran Turismo 7"]
+    }
+  ]
+}

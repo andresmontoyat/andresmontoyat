@@ -85,3 +85,19 @@ describe('en/index.astro entry splash (Container API)', () => {
     expect(result.match(/cam-entry-choice/g)?.length).toBeGreaterThanOrEqual(2)
   })
 })
+
+describe('en/index.astro sites and Player 2', () => {
+  const gamer = features.gamer
+  afterEach(() => { features.gamer = gamer })
+
+  it('always renders My other sites', async () => {
+    expect(await renderIndex()).toContain('id="sites"')
+  })
+
+  it('renders Player 2 only when the gamer switch is on', async () => {
+    features.gamer = false
+    expect(await renderIndex()).not.toContain('id="player-2"')
+    features.gamer = true
+    expect(await renderIndex()).toContain('id="player-2"')
+  })
+})

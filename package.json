@@ -16,7 +16,7 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node scripts/csp-hashes.mjs --check-dist",
     "lighthouse:local": "npm run build && (npx astro preview --port=4173 &) && sleep 3 && npx lighthouse http://localhost:4173 --form-factor=desktop --throttling-method=simulate --output=json --output=html --output-path=./lighthouse-report --quiet --chrome-flags=\"--headless --no-sandbox --disable-gpu\" && pkill -f 'astro preview' || true",
     "lighthouse:mobile": "if [ -n \"$LIGHTHOUSE_TARGET_URL\" ]; then npx lighthouse \"$LIGHTHOUSE_TARGET_URL\" --form-factor=mobile --throttling-method=simulate --output=json --output=html --output-path=./lighthouse-report-mobile --quiet --chrome-flags=\"--headless --no-sandbox --disable-gpu\"; else npm run build && (npx astro preview --port=4173 &) && sleep 3 && npx lighthouse http://localhost:4173 --form-factor=mobile --throttling-method=simulate --output=json --output=html --output-path=./lighthouse-report-mobile --quiet --chrome-flags=\"--headless --no-sandbox --disable-gpu\" && pkill -f 'astro preview' || true; fi",
     "lighthouse:deployed": "if [ -z \"$LIGHTHOUSE_TARGET_URL\" ]; then echo 'ERROR: LIGHTHOUSE_TARGET_URL not set. Usage: LIGHTHOUSE_TARGET_URL=https://your-app.vercel.app npm run lighthouse:deployed' >&2; exit 1; fi && npx lighthouse \"$LIGHTHOUSE_TARGET_URL\" --form-factor=mobile --throttling-method=simulate --output=json --output=html --output-path=./lighthouse-report-mobile --quiet --chrome-flags=\"--headless --no-sandbox --disable-gpu\"",

@@ -13,6 +13,8 @@ import Projects from '../../components/astro/Projects.astro'
 import Claude from '../../components/astro/Claude.astro'
 import Contact from '../../components/astro/Contact.astro'
 import Footer from '../../components/astro/Footer.astro'
+import Sites from '../../components/astro/Sites.astro'
+import Player2 from '../../components/astro/Player2.astro'
 import { getRelativeLocaleUrl } from 'astro:i18n'
 import translations from '../../i18n/translations.js'
 import { features } from '../../config/features.js'
@@ -157,6 +159,8 @@ const t = translations[locale].entry
     <Projects locale={locale} />
     <Claude locale={locale} />
     <Contact locale={locale} />
+    <Sites locale={locale} />
+    {features.gamer && <Player2 locale={locale} />}
   </main>
   <Footer locale={locale} />
 </BaseLayout>
