@@ -7,4 +7,7 @@ export const features = {
   // The Career World game: the /game route, the entry splash, the nav link and the Experience
   // platformer. Off until the game is finished (docs/superpowers/specs/2026-10-20-career-rpg-roadmap-design.md).
   game: false,
+  // The Player 2 section (consoles, handles, favourite games). Off until the real handles are in
+  // src/data/gamer.json: today they are placeholders.
+  gamer: false,
 }

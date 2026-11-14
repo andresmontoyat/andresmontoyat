@@ -1,0 +1,35 @@
+---
+// src/components/astro/Sites.astro
+// The owner's other live sites, linked out. Zero client JS.
+import data from '../../data/sites.json'
+
+const { locale } = Astro.props
+const pick = (field, lang) => (typeof field === 'string' ? field : field?.[lang] ?? field?.en ?? '')
+const host = (url) => new URL(url).host
+---
+<section id="sites" class="py-20">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="font-pixel text-[10px] uppercase tracking-[1px] text-accent flex items-center gap-3 mb-4">
+      <span class="block w-10 h-0.5 bg-accent" /> {pick(data.label, locale)}
+    </div>
+    <h2 class="font-pixel text-lg sm:text-xl md:text-2xl tracking-normal text-text mb-4 leading-tight sm:leading-7 md:leading-8">
+      {pick(data.h2, locale)}
+    </h2>
+    <p class="text-muted max-w-[60ch] mb-10 text-base leading-relaxed">{pick(data.intro, locale)}</p>
+    <div class="grid gap-5 sm:grid-cols-2">
+      {data.sites.map((site) => (
+        <a
+          href={site.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group flex flex-col gap-2 rounded-2xl border border-border bg-surface p-6 transition-all duration-200 hover:border-accent motion-safe:hover:-translate-y-1"
+        >
+          <span class="font-mono text-xs text-accent-2 break-all">{host(site.url)}</span>
+          <h3 class="text-lg font-extrabold text-text">{pick(site.title, locale)}</h3>
+          <p class="text-base text-muted leading-relaxed">{pick(site.desc, locale)}</p>
+          <span class="mt-auto pt-2 font-mono text-xs text-accent">{pick(data.cta, locale)} <span aria-hidden="true">→</span></span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
