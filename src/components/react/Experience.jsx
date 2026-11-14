@@ -82,7 +82,7 @@ function ToggleButton({ isOpen, onToggle, expandLabel, collapseLabel }) {
       onClick={onToggle}
       aria-expanded={isOpen}
       aria-label={isOpen ? collapseLabel : expandLabel}
-      className="flex items-center gap-2 text-xs font-mono text-accent hover:text-text transition-colors duration-150"
+      className="flex items-center gap-2 min-h-[24px] text-xs font-mono text-accent hover:text-text transition-colors duration-150"
     >
       <ChevronIcon open={isOpen} />
       {isOpen ? collapseLabel : expandLabel}
@@ -157,7 +157,7 @@ function CompactRow({ entry, lang, isOpen, onToggle, dimmed }) {
           type="button"
           onClick={onToggle}
           aria-expanded={isOpen}
-          className="flex w-full items-center gap-3 text-left"
+          className="flex w-full items-center gap-3 min-h-[24px] text-left"
         >
           <span className="font-mono text-xs text-accent shrink-0">{pick(entry.date, lang)}</span>
           <span className="text-sm sm:text-base font-extrabold text-text leading-tight sm:leading-6">{pick(entry.title, lang)}</span>

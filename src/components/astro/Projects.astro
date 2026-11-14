@@ -59,12 +59,12 @@ const rest = data.projects.filter((p) => !p.featured)
                 {(project.liveUrl || project.githubUrl) && (
                   <div class="flex gap-3 mt-5">
                     {project.liveUrl && (
-                      <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" class="text-sm font-extrabold text-accent hover:underline">
+                      <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center min-h-[24px] text-sm font-extrabold text-accent hover:underline">
                         {ctaLive}
                       </a>
                     )}
                     {project.githubUrl && (
-                      <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" class="text-sm font-extrabold text-text hover:text-accent hover:underline">
+                      <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center min-h-[24px] text-sm font-extrabold text-text hover:text-accent hover:underline">
                         {ctaGithub}
                       </a>
                     )}
@@ -106,7 +106,7 @@ const rest = data.projects.filter((p) => !p.featured)
                         href={project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="text-sm font-extrabold text-accent hover:underline"
+                        class="inline-flex items-center min-h-[24px] text-sm font-extrabold text-accent hover:underline"
                       >
                         {ctaLive}
                       </a>
@@ -116,7 +116,7 @@ const rest = data.projects.filter((p) => !p.featured)
                         href={project.githubUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="text-sm font-extrabold text-text hover:text-accent hover:underline"
+                        class="inline-flex items-center min-h-[24px] text-sm font-extrabold text-text hover:text-accent hover:underline"
                       >
                         {ctaGithub}
                       </a>
