@@ -4,7 +4,7 @@
 **Mode:** default (single-question turns)
 **Areas presented:** visual style, initial landing, keyboard nav, sr-only SEO fallback
 **Areas discussed:** visual style, initial landing, keyboard nav
-**Areas deferred:** sr-only SEO fallback (Claude's discretion per spec defaults)
+**Areas deferred:** sr-only SEO fallback (implementer's discretion per spec defaults)
 
 ---
 
@@ -112,9 +112,9 @@
 
 ## Deferred ideas captured during discussion
 
-- sr-only SEO fallback shape (both-langs vs active-lang, ordering, sr-only vs visible-collapsed) — area was offered but user opted not to discuss. Claude's discretion per spec defaults: active-lang only, chronological order (most recent first), `sr-only` Tailwind utility.
+- sr-only SEO fallback shape (both-langs vs active-lang, ordering, sr-only vs visible-collapsed) — area was offered but user opted not to discuss. implementer's discretion per spec defaults: active-lang only, chronological order (most recent first), `sr-only` Tailwind utility.
 
-## Claude's discretion items
+## implementer's discretion items
 
 - Exact px values for node radius range / halo blur radius / edge stroke widths / pulse opacity timing curve.
 - ARIA `role` for the constellation container (`application` vs `grid` vs `list+custom`) — planner researches WAI-ARIA APG patterns and picks closest.

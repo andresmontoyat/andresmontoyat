@@ -69,8 +69,6 @@ Output: A capable-desktop recruiter on first paint sees a tilted, slowly rotatin
 </objective>
 
 <execution_context>
-@$HOME/.claude/get-shit-done/workflows/execute-plan.md
-@$HOME/.claude/get-shit-done/templates/summary.md
 </execution_context>
 
 <context>

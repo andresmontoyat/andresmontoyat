@@ -168,4 +168,4 @@ No blocking gaps. All 5 ROADMAP success criteria are verified in the codebase wi
 ---
 
 _Verified: 2026-05-30T13:35:00Z_
-_Verifier: Claude (gsd-verifier)_
+_Verifier: gsd-verifier_

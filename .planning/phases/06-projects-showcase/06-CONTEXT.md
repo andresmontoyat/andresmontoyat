@@ -81,7 +81,7 @@ Out of scope: Real project content (placeholder data only — user supplies late
 
 - **D-22:** Use shared `SectionLabel` component (Phase 3) — mono brand label "PROJECTS" (or `t.projects.label` for bilingual "PROJECTS"/"PROYECTOS"). H2 heading + intro paragraph (e.g. "Selected work I've shipped" / "Trabajo destacado que he entregado").
 
-### Claude's Discretion
+### Implementer's Discretion
 
 - Exact 4 placeholder project titles derived from EXPERIENCE bullets (researcher picks from experience.js)
 - Exact tech chip count per project (recommend 3-5 to keep cards visually balanced)
@@ -106,7 +106,7 @@ Out of scope: Real project content (placeholder data only — user supplies late
 - `.planning/PROJECT.md` — v3.5 milestone block + locked decisions
 - `.planning/REQUIREMENTS.md` — VIS-03 requirement
 - `.planning/ROADMAP.md` — Phase 6 entry
-- `CLAUDE.md` — project conventions
+- `project instructions` — project conventions
 
 ### Phase 3 Outputs (locked patterns to inherit)
 

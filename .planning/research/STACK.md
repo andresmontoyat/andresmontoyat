@@ -116,7 +116,7 @@ npm uninstall three
 - https://docs.astro.build/en/guides/styling/ — Tailwind v4 + `@tailwindcss/vite` now the documented "preferred" path; `@astrojs/tailwind` labeled legacy — HIGH confidence, official docs
 - https://vercel.com/docs/routing-middleware — framework-agnostic `middleware.ts`/`.js` at project root, works with static sites, standard `Request`/`Response`, Edge runtime by default — HIGH confidence, official Vercel docs (fetched 2026-07-19, `last_updated: 2026-07-01` per page metadata)
 - https://vercel.com/docs/functions/runtimes/node-js/node-js-versions — Node 20 deprecation Oct 1 2026 on Vercel, `engines.node` override behavior — HIGH confidence, official Vercel docs
-- Local repo inspection: `package.json` (existing `react@18.3.1`, `tailwindcss@3.4.19` — not `postcss7-compat` as project `CLAUDE.md` still states; confirmed stale per prior session memory), `vite.config.js`, `vercel.json` — direct file reads
+- Local repo inspection: `package.json` (existing `react@18.3.1`, `tailwindcss@3.4.19` — not `postcss7-compat` as project `project instructions` still states; confirmed stale per prior session memory), `vite.config.js`, `vercel.json` — direct file reads
 
 ---
 *Stack research for: React CSR (Vite) → Astro SSG with React islands migration, v5 milestone*

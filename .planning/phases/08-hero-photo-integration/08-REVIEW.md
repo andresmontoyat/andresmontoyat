@@ -244,5 +244,5 @@ mq.addEventListener('change', onChange)
 ---
 
 _Reviewed: 2026-05-15_
-_Reviewer: Claude (gsd-code-reviewer)_
+_Reviewer: gsd-code-reviewer_
 _Depth: standard_

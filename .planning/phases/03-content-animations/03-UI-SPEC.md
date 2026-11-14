@@ -195,7 +195,7 @@ t.exp.collapse → EN: "Collapse entry"   ES: "Contraer entrada"
 
 The `t.exp.more` and `t.exp.less` keys ("Show more experience" / "Ver más experiencia") become OBSOLETE — the new per-card expand/collapse replaces the global toggle. Remove from translations.js.
 
-### Derived strings (Claude's Discretion — D-04)
+### Derived strings (Implementer's Discretion — D-04)
 
 Skill year badges are hardcoded numeric values in the skills data, derived from experience dates:
 - Java: "18y" (Apr 2007 — earliest Java entry at Mercurio SAS)

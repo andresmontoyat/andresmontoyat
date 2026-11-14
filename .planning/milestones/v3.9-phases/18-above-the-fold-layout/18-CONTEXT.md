@@ -42,10 +42,10 @@ Maps to **POLISH-01**.
 ### Stacking order (Area D — auto-resolved)
 - **D-18-STACKING:** With D-18-BAR-POS = bottom fixed, filters no longer compete with constellation for vertical space. Single stacking order across all viewports (H1 → renderer slot fills rest; filter bar floats over bottom edge as fixed). No per-viewport branching. Mobile + desktop use identical DOM order.
 
-### Compatibility (Claude's Discretion — planner finalizes)
-- **D-18-Z-INDEX-MAP (Claude's discretion):** Stacking order top-to-bottom = base (constellation z-auto) < filter bar (z-30) < ExperienceCard (z-50) < Nav (existing z-40). Verify no clash with Nav's existing portal/sticky behavior. Planner picks final z-index values + may centralize them into Tailwind config tokens.
-- **D-18-BOTTOM-PADDING (Claude's discretion):** When filter bar is `fixed bottom-0`, the renderer slot extends behind it (no scroll, just visual overlap). The constellation's bottom 60-80px is occluded by the bar. Two paths: (a) add `pb-20` to the slot so the constellation visually fits above the bar; (b) accept the overlap — the constellation is decorative and overlapping with a semi-transparent bar is fine. Planner picks based on actual rendered output. Recommendation: (a) `pb-20` desktop / `pb-24` mobile (bars have different heights).
-- **D-18-FOCUS-MGMT (Claude's discretion):** With filter bar fixed, keyboard Tab order may surprise users — focus jumps from H1 to bar (visually at bottom) to renderer slot. Planner verifies that Tab order matches reading order; may add `tabindex` shifts or use CSS `order` to keep DOM order = visual order without affecting positioning.
+### Compatibility (Implementer's Discretion — planner finalizes)
+- **D-18-Z-INDEX-MAP (implementer's discretion):** Stacking order top-to-bottom = base (constellation z-auto) < filter bar (z-30) < ExperienceCard (z-50) < Nav (existing z-40). Verify no clash with Nav's existing portal/sticky behavior. Planner picks final z-index values + may centralize them into Tailwind config tokens.
+- **D-18-BOTTOM-PADDING (implementer's discretion):** When filter bar is `fixed bottom-0`, the renderer slot extends behind it (no scroll, just visual overlap). The constellation's bottom 60-80px is occluded by the bar. Two paths: (a) add `pb-20` to the slot so the constellation visually fits above the bar; (b) accept the overlap — the constellation is decorative and overlapping with a semi-transparent bar is fine. Planner picks based on actual rendered output. Recommendation: (a) `pb-20` desktop / `pb-24` mobile (bars have different heights).
+- **D-18-FOCUS-MGMT (implementer's discretion):** With filter bar fixed, keyboard Tab order may surprise users — focus jumps from H1 to bar (visually at bottom) to renderer slot. Planner verifies that Tab order matches reading order; may add `tabindex` shifts or use CSS `order` to keep DOM order = visual order without affecting positioning.
 
 </decisions>
 
@@ -138,4 +138,4 @@ Maps to **POLISH-01**.
 ---
 
 *Phase: 18-above-the-fold-layout*
-*Context gathered: 2026-06-08 via /gsd:discuss-phase 18 (default mode, 4 areas discussed across 7 single-question turns; 3 Claude's Discretion zones marked for planner — z-index map, bottom padding offset, focus management).*
+*Context gathered: 2026-06-08 via /gsd:discuss-phase 18 (default mode, 4 areas discussed across 7 single-question turns; 3 Implementer's Discretion zones marked for planner — z-index map, bottom padding offset, focus management).*

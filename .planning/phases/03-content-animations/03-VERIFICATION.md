@@ -162,4 +162,4 @@ Both items are isolated to visual polish and do not prevent the phase goal from 
 ---
 
 _Verified: 2026-05-05T23:30:00Z_
-_Verifier: Claude (gsd-verifier)_
+_Verifier: gsd-verifier_

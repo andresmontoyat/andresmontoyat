@@ -184,7 +184,7 @@ If you want a transparent hover border on purpose, define `--color-brand-50: rgb
 
 **File:** `src/components/Experience.js:93`
 **Issue:**
-`{job.bullets[lang].map((b, j) => <li key={j}>…</li>)}` — `j` is the array index. The CLAUDE.md notes that `react/no-array-index-key` is disabled in this codebase, so this is a tolerated style; calling it out so future refactors that allow reordering bullets (or filtering them) don't introduce a subtle reconciliation bug.
+`{job.bullets[lang].map((b, j) => <li key={j}>…</li>)}` — `j` is the array index. The project instructions notes that `react/no-array-index-key` is disabled in this codebase, so this is a tolerated style; calling it out so future refactors that allow reordering bullets (or filtering them) don't introduce a subtle reconciliation bug.
 **Fix:** If bullets are stable, leave as-is. If they ever change order, switch to a content-based key (`key={b.slice(0, 32)}` or a hash) — or accept array index and document why.
 
 ### IN-02: Light-mode `--color-text-muted` 4.74:1 on `--color-ink-700` is marginal AA
@@ -227,5 +227,5 @@ At render time, inject the resolved absolute path into the template, or pre-bund
 ---
 
 _Reviewed: 2026-05-15_
-_Reviewer: Claude (gsd-code-reviewer)_
+_Reviewer: gsd-code-reviewer_
 _Depth: standard_

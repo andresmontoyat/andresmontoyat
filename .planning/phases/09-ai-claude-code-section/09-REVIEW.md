@@ -49,7 +49,7 @@ info_skipped:
 Phase 9 ships the new `claude-code` section, lazy-loads it via `Suspense`, and
 wires it into the nav scroll-spy in both desktop and mobile menus. The bilingual
 data layer and translation tree are coherent (key counts match between
-`src/data/claude.js` and `t.claude.*`). The lazy-chunk strategy is sound and
+`src/data/claude.js` and `t<assistant-config>.*`). The lazy-chunk strategy is sound and
 mirrors the existing Projects/Experience pattern.
 
 Adversarial review surfaces seven warnings — most notably (1) the per-card
@@ -253,7 +253,7 @@ each chunk arrives.
 ### IN-03: PitchHero arrow `→` in CTA text is announced verbally by screen readers
 
 **File:** `src/components/Claude.js:88`, `src/i18n/translations.js:130, 298`
-**Issue:** `t.claude.ctaPrimary` ends with `→`. VoiceOver announces this as
+**Issue:** `t<assistant-config>.ctaPrimary` ends with `→`. VoiceOver announces this as
 "rightwards arrow"; NVDA varies. The arrow is decorative.
 **Fix:** Move the arrow out of the translation string and render it as
 `<span aria-hidden="true">→</span>` inside the anchor. Bonus: it stays
@@ -291,12 +291,12 @@ from a name on each section.
 ```jsx
 <section id="claude-code" aria-labelledby="claude-code-heading" ...>
   ...
-  <h2 id="claude-code-heading" ...>{t.claude.h2Part1} ...</h2>
+  <h2 id="claude-code-heading" ...>{t<assistant-config>.h2Part1} ...</h2>
 ```
 Apply uniformly across sections in a future pass.
 
 ---
 
 _Reviewed: 2026-05-15_
-_Reviewer: Claude (gsd-code-reviewer)_
+_Reviewer: gsd-code-reviewer_
 _Depth: standard_

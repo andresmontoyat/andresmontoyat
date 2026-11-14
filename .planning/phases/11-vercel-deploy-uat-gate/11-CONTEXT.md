@@ -63,7 +63,7 @@
 - **D-11 (og-url-typo):** `index.html:23` has `<meta property="og:url" content="https://andresmontoyatco.com/" />` — typo (missing dot: should be `andresmontoyat.co`). Phase 12 will canonical the URL; Phase 11 should at minimum fix the typo so OG card works on `*.vercel.app` if anyone shares it pre-domain. Decision: planner patches the typo as part of Phase 11.
 - **D-12 (og-url-pre-domain):** For Phase 11 (no custom domain yet), leave `og:url` as `https://andresmontoyat.co/` (the target canonical) even though the live URL is `*.vercel.app`. Share-debugger on the Vercel URL will flag mismatch — acceptable for Phase 11 (deploy validation), corrected when Phase 12 lands canonical domain. Alternative: dynamic `og:url` based on `window.location.origin` — rejected (OG meta is server-side, JS won't help share-bots).
 
-### Claude's Discretion
+### Implementer's Discretion
 
 - Vercel project name: planner picks a stable slug (e.g., `andresmontoyatco`, `carlos-montoya-portfolio`, or auto-generated). Doesn't affect URL once custom domain lands.
 - `vercel.json` filename casing + key ordering: Vercel-official conventions.

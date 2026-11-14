@@ -63,7 +63,7 @@ Maps to REQs **GAME-03** (filters + intersection) and **GAME-04** (ExperienceCar
 - **D-16-PERSIST-CROSS-TOGGLE:** Language toggle and theme toggle **preserve in-memory state** — filters and selected skill remain across re-renders. Card content re-renders in the new language. No localStorage write.
 - **D-16-PERSIST-URL:** URL-encoded filter state is **NOT delivered in v3.8** (spec non-goal). Future enhancement could add `?skills=java,k8s&year=2018-2026` deep-links.
 
-### Claude's Discretion (Areas F, H, I deferred to planner)
+### Implementer's Discretion (Areas F, H, I deferred to planner)
 - **Empty-result UX (F):** When filter combo yields zero matching skills/experiences, render the constellation with all nodes dimmed to ~0.35 + show an inline message at the card location ("No matches in this combination — try fewer filters" / bilingual). Reset button highlighted as the suggested next action. Do not auto-reset — give user control.
 - **Card animation entry/exit (H):** Fade-in 200ms on desktop (anchored popover); slide-up from bottom 250ms on mobile (bottom-sheet). Reduced-motion = instant render. Card swap = 150ms cross-fade. Planner picks exact easing curves.
 - **Tech-chip click-to-filter feedback (H, beyond D-16-CARD-CHIPS):** Animate a brief flash on the constellation when a tech chip is clicked, indicating the new filter applied. Reduced-motion = instant dim update only.

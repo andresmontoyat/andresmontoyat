@@ -101,7 +101,7 @@
 
 ---
 
-## Claude's Discretion
+## Implementer's Discretion
 
 - Exact bilingual copy/wording for the 404 page message
 - Exact middleware cookie-refresh implementation detail (single function vs split helpers)

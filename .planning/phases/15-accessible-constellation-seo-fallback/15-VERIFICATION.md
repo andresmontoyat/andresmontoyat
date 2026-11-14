@@ -225,4 +225,4 @@ The 7 human UAT items cover browser-rendering and screen-reader behavior that ca
 ---
 
 _Verified: 2026-06-01T23:10:00-05:00_
-_Verifier: Claude (gsd-verifier)_
+_Verifier: gsd-verifier_

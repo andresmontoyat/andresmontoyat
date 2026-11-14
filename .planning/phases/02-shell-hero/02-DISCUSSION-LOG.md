@@ -84,7 +84,7 @@
 
 ---
 
-## Claude's Discretion
+## Implementer's Discretion
 
 - `<html lang>` attribute syncing on language change
 - Per-language `<title>` and `<meta description>` updates

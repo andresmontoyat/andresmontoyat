@@ -143,7 +143,7 @@ All four selected.
 
 ---
 
-## Claude's Discretion
+## Implementer's Discretion
 
 - Which sections get React.lazy split
 - Exact font-display value if @fontsource doesn't already set swap

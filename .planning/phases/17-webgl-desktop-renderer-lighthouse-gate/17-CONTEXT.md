@@ -2,7 +2,7 @@
 
 **Gathered:** 2026-06-03
 **Status:** Ready for planning
-**Source:** Approved design spec (`docs/superpowers/specs/2026-05-29-game-mode-design.md` §"Architecture / Adaptive Render") + Phase 15 renderer contract + Phase 16 GameMode wiring + this session's discussion (Areas A + B across 9 single-question turns; Areas C + D deferred to planner as Claude's Discretion).
+**Source:** Approved design spec (`docs/superpowers/specs/2026-05-29-game-mode-design.md` §"Architecture / Adaptive Render") + Phase 15 renderer contract + Phase 16 GameMode wiring + this session's discussion (Areas A + B across 9 single-question turns; Areas C + D deferred to planner as Implementer's Discretion).
 
 <domain>
 ## Phase Boundary
@@ -18,7 +18,7 @@ Maps to REQs **GAME-01** (WebGL desktop path) and **GAME-07** (Lighthouse mobile
 - `src/game/GameMode.js` updates — select renderer via `useRendererCapability()`. When `'webgl'` → lazy-load via `React.lazy(() => import('./renderers/WebGLConstellation.js'))` wrapped in `<RendererErrorBoundary><Suspense fallback={<SvgConstellation .../>}>`. When `'svg'` → render `<SvgConstellation>` directly (no lazy). Both paths share state from `useConstellation` unchanged.
 - `src/game/renderers/WebGLConstellation.test.js` — Vitest + RTL. Capability-based-selection test (SC-5): mocks `useRendererCapability` returning each branch, asserts component tree picks correct renderer; smoke-test for shader compile via three.js test utilities OR jsdom-canvas stub (planner picks).
 - `src/game/useRendererCapability.test.js` — unit tests for all 5 gate inputs + the matchMedia reactivity + the query-param override.
-- Lighthouse mobile HARD gate re-verification — re-run existing `npm run lighthouse:mobile` (Phase 11-02) against the production `npm run build` + `npx serve dist` OR against deployed `*.vercel.app` (final target chosen by planner — see Claude's Discretion D-17-LIGHTHOUSE-TARGET below). Gate is HARD: Perf ≥95 / A11y 100 / BP 100 / SEO 100.
+- Lighthouse mobile HARD gate re-verification — re-run existing `npm run lighthouse:mobile` (Phase 11-02) against the production `npm run build` + `npx serve dist` OR against deployed `*.vercel.app` (final target chosen by planner — see Implementer's Discretion D-17-LIGHTHOUSE-TARGET below). Gate is HARD: Perf ≥95 / A11y 100 / BP 100 / SEO 100.
 
 **Does NOT deliver:**
 - Mobile WebGL path (D-v3.8-ADAPTIVE explicitly rules out). Mobile stays SVG/DOM.
@@ -47,24 +47,24 @@ Maps to REQs **GAME-01** (WebGL desktop path) and **GAME-07** (Lighthouse mobile
 - **D-17-SELECTION-MECH:** GameMode uses `useRendererCapability()` → if `'webgl'`: render `<RendererErrorBoundary><Suspense fallback={<SvgConstellation {...props}/>}><WebGLConstellation {...props}/></Suspense></RendererErrorBoundary>`. If `'svg'`: render `<SvgConstellation {...props}/>` directly with no lazy/Suspense wrapper. **Critical:** the WebGL chunk import lives inside the lazy branch so it's tree-shaken out of the SVG-only mobile bundle (SC-2 + SC-3 enforcement).
 - **D-17-RESIZE-SWAP:** Live-swap on resize across 1024px breakpoint via matchMedia listener. Renderer unmounts and remounts with the new branch. Selection state (`selectedSkillId`, `filterState`) preserved via the `useConstellation` hook owned by GameMode (state is above the renderer slot — unaffected by remount). Mirrors Phase 16 bottom-sheet ↔ popover live-swap pattern.
 
-### Fallback / Error Recovery (Claude's Discretion — planner finalizes)
-- **D-17-ERRORBOUNDARY-INIT (Claude's discretion):** Wrap WebGL renderer in `RendererErrorBoundary` class component (React 17 pattern). Catches errors from: (a) WebGL context creation failure post-feature-detect, (b) shader compile failure, (c) lazy-chunk fetch network error. On catch → render `<SvgConstellation {...props}/>` with the SAME props the boundary received from GameMode (props are shared via outer context). Boundary state is "fallen back" — does NOT re-attempt WebGL until page reload. Recommendation: log to `console.error` with prefix `[renderer-fallback]`; no telemetry endpoint (no analytics infra in repo).
-- **D-17-ERRORBOUNDARY-RUNTIME (Claude's discretion):** Runtime errors (e.g., context lost mid-session) caught by the same boundary. Same SVG fallback. Optional refinement: handle `webglcontextlost` event explicitly via canvas listener for graceful recovery without React re-render. Planner picks final.
+### Fallback / Error Recovery (Implementer's Discretion — planner finalizes)
+- **D-17-ERRORBOUNDARY-INIT (implementer's discretion):** Wrap WebGL renderer in `RendererErrorBoundary` class component (React 17 pattern). Catches errors from: (a) WebGL context creation failure post-feature-detect, (b) shader compile failure, (c) lazy-chunk fetch network error. On catch → render `<SvgConstellation {...props}/>` with the SAME props the boundary received from GameMode (props are shared via outer context). Boundary state is "fallen back" — does NOT re-attempt WebGL until page reload. Recommendation: log to `console.error` with prefix `[renderer-fallback]`; no telemetry endpoint (no analytics infra in repo).
+- **D-17-ERRORBOUNDARY-RUNTIME (implementer's discretion):** Runtime errors (e.g., context lost mid-session) caught by the same boundary. Same SVG fallback. Optional refinement: handle `webglcontextlost` event explicitly via canvas listener for graceful recovery without React re-render. Planner picks final.
 
-### Lighthouse Gate Target (Claude's Discretion — D-17-LIGHTHOUSE-TARGET)
-- **D-17-LIGHTHOUSE-TARGET (Claude's discretion):** SC-4 requires Lighthouse mobile audit passes Perf ≥95 / A11y 100 / BP 100 / SEO 100. Two viable targets:
+### Lighthouse Gate Target (Implementer's Discretion — D-17-LIGHTHOUSE-TARGET)
+- **D-17-LIGHTHOUSE-TARGET (implementer's discretion):** SC-4 requires Lighthouse mobile audit passes Perf ≥95 / A11y 100 / BP 100 / SEO 100. Two viable targets:
   1. **Local prod build** — `npm run build && npx serve dist` + `npm run lighthouse:mobile` (Phase 11-02 script already configured). Cheapest, deterministic, no deploy required. Recommended.
   2. **Deployed `*.vercel.app`** — re-runs Plan 11-05 (currently DEFERRED). Tests under real CDN. Surfaces Vercel-specific perf wins (HTTP/2, image opt) AND penalties (cold start). Couples v3.8 close to v3.7 deploy resumption.
 - Planner picks ONE target. Recommendation: **local prod build** for v3.8 close — keeps v3.8 self-contained; v3.7 deploy gate (Plan 11-05) remains a separate deferred concern.
 
-### Visual Style (Claude's Discretion — D-17-VISUAL — Area C not discussed)
-- **D-17-VISUAL (Claude's discretion):** The "wow" aesthetic — gentle ambient drift on idle (subtle x/y perturbation per node, ~0.2px amplitude, 4–6s period), glow pulse on selected node (radius scale 1.0→1.15 ease-in-out, 2s period), halo brighten on highlightedSkillIds (alpha 0.4→0.8). NO depth-parallax on mouse move (avoids motion-sickness risk; rejected by D-17-CAP-GATES reduced-motion path anyway). Edge weight-1 reveals on hover/select per Phase 15 D-15-VIS-EDGE — extend to WebGL via shader uniform on hovered edge index. Planner picks exact shader uniforms + animation timing curves.
+### Visual Style (Implementer's Discretion — D-17-VISUAL — Area C not discussed)
+- **D-17-VISUAL (implementer's discretion):** The "wow" aesthetic — gentle ambient drift on idle (subtle x/y perturbation per node, ~0.2px amplitude, 4–6s period), glow pulse on selected node (radius scale 1.0→1.15 ease-in-out, 2s period), halo brighten on highlightedSkillIds (alpha 0.4→0.8). NO depth-parallax on mouse move (avoids motion-sickness risk; rejected by D-17-CAP-GATES reduced-motion path anyway). Edge weight-1 reveals on hover/select per Phase 15 D-15-VIS-EDGE — extend to WebGL via shader uniform on hovered edge index. Planner picks exact shader uniforms + animation timing curves.
 
-### Theme reactivity (Claude's Discretion — D-17-THEME)
-- **D-17-THEME (Claude's discretion):** WebGL renderer must react to theme toggle (dark ↔ light). Two options: (a) re-read CSS vars via `getComputedStyle(document.documentElement).getPropertyValue('--color-…')` on theme-change event + update shader uniforms; (b) pass `theme` prop (already in Phase 15 contract) + recompute colors imperatively. Planner picks. Same CSS-var token palette as SVG (`--color-constellation-node-*`, `--color-constellation-edge*`).
+### Theme reactivity (Implementer's Discretion — D-17-THEME)
+- **D-17-THEME (implementer's discretion):** WebGL renderer must react to theme toggle (dark ↔ light). Two options: (a) re-read CSS vars via `getComputedStyle(document.documentElement).getPropertyValue('--color-…')` on theme-change event + update shader uniforms; (b) pass `theme` prop (already in Phase 15 contract) + recompute colors imperatively. Planner picks. Same CSS-var token palette as SVG (`--color-constellation-node-*`, `--color-constellation-edge*`).
 
-### Bundle Headroom (Claude's Discretion — D-17-BUNDLE)
-- **D-17-BUNDLE (Claude's discretion):** Mobile baseline = 8.82 kB gz (Phase 16 close-out). SC-3 budget = +30 kB gz over baseline = **38.82 kB gz mobile chunk ceiling**. Mobile chunk MUST NOT import three.js. Desktop WebGL lazy chunk has no hard budget — but planner records gzip size and flags if >60 kB gz (TTI concern on desktop). Planner adds programmatic gzip-size gate in CI build script mirroring Phase 16 D-16-BUNDLE-GATE pattern (HARD/WARN/PASS bands).
+### Bundle Headroom (Implementer's Discretion — D-17-BUNDLE)
+- **D-17-BUNDLE (implementer's discretion):** Mobile baseline = 8.82 kB gz (Phase 16 close-out). SC-3 budget = +30 kB gz over baseline = **38.82 kB gz mobile chunk ceiling**. Mobile chunk MUST NOT import three.js. Desktop WebGL lazy chunk has no hard budget — but planner records gzip size and flags if >60 kB gz (TTI concern on desktop). Planner adds programmatic gzip-size gate in CI build script mirroring Phase 16 D-16-BUNDLE-GATE pattern (HARD/WARN/PASS bands).
 
 </decisions>
 
@@ -180,4 +180,4 @@ Maps to REQs **GAME-01** (WebGL desktop path) and **GAME-07** (Lighthouse mobile
 ---
 
 *Phase: 17-webgl-desktop-renderer-lighthouse-gate*
-*Context gathered: 2026-06-03 via /gsd:discuss-phase 17 (default mode, 2 areas discussed across 9 single-question turns; 4 Claude's Discretion zones marked for planner).*
+*Context gathered: 2026-06-03 via /gsd:discuss-phase 17 (default mode, 2 areas discussed across 9 single-question turns; 4 Implementer's Discretion zones marked for planner).*

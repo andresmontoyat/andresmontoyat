@@ -81,7 +81,7 @@ Remaining gray areas were design/storytelling decisions that needed Carlos's vis
 - **Fog falloff via shader uniforms** — surfaced as PITFALLS MOD-04 mitigation alternative; deferred to v3.10.1.
 - **Manual real-device UAT v3.9 bundling** — flagged at v3.9 close; folded into Plan 20-03 UAT instead of separate phase.
 
-## Claude's Discretion Items (no user input requested)
+## Implementer's Discretion Items (no user input requested)
 
 - CATEGORY_Z exact values are UAT-tunable starting points
 - Tilted initial angle exact degrees (15° / 10°) — shiftable during Plan 20-02 dev-server iteration

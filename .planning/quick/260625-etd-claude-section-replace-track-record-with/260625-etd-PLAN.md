@@ -43,11 +43,9 @@ Output: Updated claude.json data, Claude.js render + new CapabilityCard componen
 </objective>
 
 <execution_context>
-@$HOME/.claude/get-shit-done/workflows/execute-plan.md
 </execution_context>
 
 <context>
-@./CLAUDE.md
 @src/data/claude.json
 @src/components/Claude.js
 @src/components/Claude.test.js

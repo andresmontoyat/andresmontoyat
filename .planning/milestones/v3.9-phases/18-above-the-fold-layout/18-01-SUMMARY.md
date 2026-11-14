@@ -141,7 +141,7 @@ UAT should perform spot-check at:
 
 **None — plan executed exactly as written.**
 
-All five locked D-18-* decisions applied verbatim. All three Claude's Discretion zones (D-18-Z-INDEX-MAP, D-18-BOTTOM-PADDING, D-18-FOCUS-MGMT) resolved as planned.
+All five locked D-18-* decisions applied verbatim. All three Implementer's Discretion zones (D-18-Z-INDEX-MAP, D-18-BOTTOM-PADDING, D-18-FOCUS-MGMT) resolved as planned.
 
 ## Deferred Issues (out-of-scope discoveries — pre-existing baseline)
 

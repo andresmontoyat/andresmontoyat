@@ -140,4 +140,4 @@ The one notable deviation from plan spec is the useInView hook location (`src/ho
 ---
 
 _Verified: 2026-05-05_
-_Verifier: Claude (gsd-verifier)_
+_Verifier: gsd-verifier_

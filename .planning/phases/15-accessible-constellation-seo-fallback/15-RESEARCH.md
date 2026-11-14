@@ -45,7 +45,7 @@
 
 **D-15-SEO-DEFAULTS:** sr-only fallback ships active-lang only (not both). Full bilingual text of all 12 experiences in DOM. `sr-only` Tailwind utility (not `display:none`/`visibility:hidden`).
 
-### Claude's Discretion
+### Implementer's Discretion
 
 - Exact px values for node radius range, halo blur radius, edge stroke widths, pulse opacity timing curve.
 - SVG vs SVG-in-React-component-tree implementation.
@@ -807,7 +807,7 @@ export default function ConstellationFallback({ experiences, lang }) {
 
 ---
 
-## Project Constraints (from CLAUDE.md)
+## Project Constraints (from project instructions)
 
 | Directive | Impact on Phase 15 |
 |-----------|-------------------|

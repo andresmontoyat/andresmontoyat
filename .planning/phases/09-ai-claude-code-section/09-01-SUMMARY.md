@@ -8,7 +8,7 @@ status: complete
 requirements_completed: [AI-01, AI-01-CICD]
 commits:
   - 803cb68 — feat(09-01): add src/data/claude.js — bilingual VALUES/SERVICES/APPS/COUNTERS/STACK_CHIPS
-  - fd7ee09 — feat(09-01): add t.claude.* namespace + t.nav.claudeCode to translations.js (EN+ES)
+  - fd7ee09 — feat(09-01): add t<assistant-config>.* namespace + t.nav.claudeCode to translations.js (EN+ES)
   - efa15e2 — feat(09-01): Claude.js component + 6 internal sub-components
   - 07b8366 — feat(09-01): Claude.js entrance animations via useInView + stagger 100ms
   - e80986f — feat(09-01): App.js lazy-load Claude component between Projects and Contact
@@ -29,7 +29,7 @@ dependency_graph:
   provides:
     - "#claude-code anchor + section as new scroll-spy target"
     - "src/data/claude.js — VALUES/SERVICES/APPS/COUNTERS/STACK_CHIPS named exports"
-    - "t.claude.* translation namespace (54 entries) + t.nav.claudeCode"
+    - "t<assistant-config>.* translation namespace (54 entries) + t.nav.claudeCode"
     - "Lazy Suspense boundary src/components/Claude.js (dist/assets/Claude-*.js)"
   affects:
     - src/i18n/translations.js (extended, no breaking changes)
@@ -50,7 +50,7 @@ key_files:
       role: lazy-loaded React section + 6 file-local sub-components
   modified:
     - path: src/i18n/translations.js
-      role: extended with t.claude.* (27 keys × 2 langs) + t.nav.claudeCode
+      role: extended with t<assistant-config>.* (27 keys × 2 langs) + t.nav.claudeCode
     - path: src/App.js
       role: React.lazy(Claude) + Suspense block between Projects and Contact
     - path: src/components/Nav.js
@@ -79,14 +79,14 @@ one_liner: "Ships the V7 sales-pitch AI / Claude Code section between Projects a
 
 A new lazy-loaded React section (`src/components/Claude.js`) positioned between Projects and Contact in the page flow. The section follows the locked V7 sales-pitch sketch: a tinted PitchHero with eyebrow label + gradient half-line headline + sub-lead + dual CTAs, followed by a 4-card numbered Values grid, a 7-counter ProofBlock anchored by "I built my own toolkit before selling it", a 5-card left-bordered Services grid, a 3-card FeaturedApps grid (ci-templates / GSD framework / spring-ai-qdrant-mcp) with tag badges and stack chips, and a 17-chip StackStrip credentials row.
 
-All user-facing copy is sourced from `t.claude.*` (54 new translation entries) and `*.desc[lang]` from the new `src/data/claude.js` data module. Nav scroll-spy was extended (`SECTION_IDS` + DesktopNav + MobileMenu) with a new "Claude Code" link.
+All user-facing copy is sourced from `t<assistant-config>.*` (54 new translation entries) and `*.desc[lang]` from the new `src/data/claude.js` data module. Nav scroll-spy was extended (`SECTION_IDS` + DesktopNav + MobileMenu) with a new "Claude Code" link.
 
 ## Task completion table
 
 | Task | Name | Commit | Files |
 | --- | --- | --- | --- |
 | A1 | Create `src/data/claude.js` bilingual data module | `803cb68` | `src/data/claude.js` |
-| A2 | Extend `src/i18n/translations.js` with `t.claude.*` + `t.nav.claudeCode` | `fd7ee09` | `src/i18n/translations.js` |
+| A2 | Extend `src/i18n/translations.js` with `t<assistant-config>.*` + `t.nav.claudeCode` | `fd7ee09` | `src/i18n/translations.js` |
 | B1 | Create `src/components/Claude.js` with 6 internal sub-components | `efa15e2` | `src/components/Claude.js` |
 | B2 | Wire `useInView` + `animate-on-scroll`/`is-visible` toggle | `07b8366` | `src/components/Claude.js` |
 | C1 | Add Claude lazy import + Suspense block to `src/App.js` | `e80986f` | `src/App.js` |

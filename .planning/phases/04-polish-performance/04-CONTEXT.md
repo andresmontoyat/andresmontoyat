@@ -52,7 +52,7 @@ Out of scope: New features (test infra deferred to post-v3.4 backlog per D-04 be
   - **W-01:** `src/components/Skill.js` ChipBadge — remove hardcoded `is-visible` class; gate on parent `inView` so chips actually stagger on scroll, not at mount. 1-line edit.
   - **I-01:** `src/components/Experience.js` — wrap section heading (SectionLabel + h2 + intro paragraph) in `animate-on-scroll` container so heading animates in like About/Skill/Contact. Section currently jumps in while timeline cards stagger.
 
-### Claude's Discretion
+### Implementer's Discretion
 
 - Which sections get `React.lazy` split (D-02 code splitting) — researcher recommends based on bundle visualizer output.
 - Exact `font-display` value if @fontsource doesn't already set `swap` — likely `font-display: swap` but verify default first.
@@ -81,7 +81,7 @@ Out of scope: New features (test infra deferred to post-v3.4 backlog per D-04 be
 - `.planning/REQUIREMENTS.md` — full requirements list (Phase 4 reqs at lines 62, 73-75); 10 unmapped REQ-IDs (VIS-01..04, ASEO-01..03, INTX-01..03) flagged by phase complete — defer to milestone audit
 - `.planning/ROADMAP.md` — milestone exit criteria
 - `.planning/STATE.md` — accumulated decisions
-- `CLAUDE.md` — coding conventions
+- `project instructions` — coding conventions
 
 ### Codebase Maps
 

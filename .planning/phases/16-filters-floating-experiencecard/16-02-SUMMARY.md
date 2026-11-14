@@ -129,7 +129,7 @@ None — plan executed exactly as written. One minor observation:
 
 - The acceptance criterion for Task 3 mentioned `grep -c "constellation-node-fill" src/index.css ≥ 2`. That specific var name does not exist in the current `src/index.css` (Phase 15 ships `--color-constellation-edge`/`-edge-heavy`/`-halo` instead). The intent — *Phase 15 constellation tokens still present* — is satisfied: `grep -c "constellation-edge" src/index.css` returns 4. Treating as a checker-doc typo, not a deviation requiring action.
 
-## CLAUDE.md compliance
+## project instructions compliance
 
 - Coding-style: 2-space indent, LF line endings, no semicolons, no comma-dangle enforcement, max 8-10 lines per function (each filter is 3-6 lines), max 3 parameters (composeFilters uses a settings object as 2nd arg).
 - Functions: `filter*` verbs, lowerCamelCase, named exports.

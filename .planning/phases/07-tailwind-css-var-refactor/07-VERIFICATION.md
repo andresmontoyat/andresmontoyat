@@ -166,4 +166,4 @@ Both missed surfaces (the two BLOCKER categories flagged during planning) are no
 ---
 
 *Verified: 2026-05-12*
-*Verifier: Claude (gsd-verifier)*
+*Verifier: gsd-verifier*
