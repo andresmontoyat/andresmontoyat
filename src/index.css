@@ -498,6 +498,7 @@
 /* Retro pixel display font (Press Start 2P) — accent + titles only */
 @utility font-pixel {
   font-family: 'Press Start 2P', ui-monospace, 'SF Mono', 'Menlo', monospace;
+  font-weight: 400;
 }
 
 /* Phase 24 (D-01): Hero H1 char-reveal — CSS steps() + ch-unit typewriter.

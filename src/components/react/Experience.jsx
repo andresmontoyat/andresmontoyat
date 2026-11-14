@@ -95,7 +95,7 @@ function Bullets({ entry, lang }) {
     <ul className="mt-5 text-base text-text/85 leading-relaxed space-y-2.5 border-t border-border pt-5">
       {pick(entry.bullets, lang).map((b, j) => (
         <li key={j} className="relative pl-6">
-          <span className="absolute left-0 top-[2px] text-accent font-bold">→</span>{b}
+          <span className="absolute left-0 top-[2px] text-accent font-extrabold">→</span>{b}
         </li>
       ))}
     </ul>
@@ -160,7 +160,7 @@ function CompactRow({ entry, lang, isOpen, onToggle, dimmed }) {
           className="flex w-full items-center gap-3 text-left"
         >
           <span className="font-mono text-xs text-accent shrink-0">{pick(entry.date, lang)}</span>
-          <span className="text-sm sm:text-base font-bold text-text leading-tight sm:leading-6">{pick(entry.title, lang)}</span>
+          <span className="text-sm sm:text-base font-extrabold text-text leading-tight sm:leading-6">{pick(entry.title, lang)}</span>
           <span className="hidden sm:inline font-mono text-xs text-muted">· {entry.company}</span>
           <span className="ml-auto shrink-0 text-accent">
             <ChevronIcon open={isOpen} />
@@ -190,7 +190,7 @@ function FilterChip({ chip, isOn, onToggle }) {
       aria-label={`Filter by ${chip}`}
       className={`font-mono text-[11px] rounded-full px-3 py-1.5 border transition-colors duration-150 ${
         isOn
-          ? 'bg-accent text-bg border-accent font-bold'
+          ? 'bg-accent text-bg border-accent font-extrabold'
           : 'bg-bg text-muted border-border hover:border-accent hover:text-accent'
       }`}
     >
@@ -271,7 +271,7 @@ export default function Experience({ locale }) {
         <div className="font-pixel text-[10px] uppercase tracking-[1px] text-accent flex items-center gap-3 mb-4">
           <span className="block w-10 h-0.5 bg-accent" /> {pick(data.label, lang)}
         </div>
-        <h2 className="font-pixel text-lg sm:text-xl md:text-2xl font-extrabold tracking-normal text-text mb-4 leading-tight sm:leading-7 md:leading-8">
+        <h2 className="font-pixel text-lg sm:text-xl md:text-2xl tracking-normal text-text mb-4 leading-tight sm:leading-7 md:leading-8">
           {pick(data.h2, lang)}
         </h2>
         <p className="text-muted max-w-[640px] mb-8 font-pixel text-[11px] leading-loose">{pick(data.intro, lang)}</p>

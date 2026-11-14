@@ -24,7 +24,7 @@ const rest = data.projects.filter((p) => !p.featured)
     <div class="font-pixel text-[10px] uppercase tracking-[1px] text-accent flex items-center gap-3 mb-4">
       <span class="block w-10 h-0.5 bg-accent" /> {pick(data.label, locale)}
     </div>
-    <h2 class="font-pixel text-lg sm:text-xl md:text-2xl font-extrabold tracking-normal text-text mb-4 leading-tight sm:leading-7 md:leading-8">
+    <h2 class="font-pixel text-lg sm:text-xl md:text-2xl tracking-normal text-text mb-4 leading-tight sm:leading-7 md:leading-8">
       {pick(data.h2, locale)}
     </h2>
     <p class="text-muted max-w-[640px] mb-12 font-pixel text-[11px] leading-loose">{pick(data.intro, locale)}</p>
@@ -59,12 +59,12 @@ const rest = data.projects.filter((p) => !p.featured)
                 {(project.liveUrl || project.githubUrl) && (
                   <div class="flex gap-3 mt-5">
                     {project.liveUrl && (
-                      <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" class="text-sm font-semibold text-accent hover:underline">
+                      <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" class="text-sm font-extrabold text-accent hover:underline">
                         {ctaLive}
                       </a>
                     )}
                     {project.githubUrl && (
-                      <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" class="text-sm font-semibold text-text hover:text-accent hover:underline">
+                      <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" class="text-sm font-extrabold text-text hover:text-accent hover:underline">
                         {ctaGithub}
                       </a>
                     )}
@@ -106,7 +106,7 @@ const rest = data.projects.filter((p) => !p.featured)
                         href={project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="text-sm font-semibold text-accent hover:underline"
+                        class="text-sm font-extrabold text-accent hover:underline"
                       >
                         {ctaLive}
                       </a>
@@ -116,7 +116,7 @@ const rest = data.projects.filter((p) => !p.featured)
                         href={project.githubUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="text-sm font-semibold text-text hover:text-accent hover:underline"
+                        class="text-sm font-extrabold text-text hover:text-accent hover:underline"
                       >
                         {ctaGithub}
                       </a>
