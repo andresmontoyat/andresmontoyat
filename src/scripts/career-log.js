@@ -169,7 +169,7 @@ function wireList(root, t) {
   const cards = [...root.querySelectorAll('.cl-job')]
   const roles = root.querySelectorAll('.cl-roles button'), input = root.querySelector('.cl-tech input')
   const count = root.querySelector('.cl-count'), reset = root.querySelector('.cl-reset'), empty = root.querySelector('.cl-empty')
-  const years = [...root.querySelectorAll('.cl-years a')]
+  const years = [...root.querySelectorAll('.cl-years a')], box = root.querySelector('.cl-cards')
   const f = { role: 'all', tech: '' }
   let lockUntil = 0
   const matches = (c) => (f.role === 'all' || (f.role === 'lead') === (c.dataset.lead === '1'))
@@ -183,27 +183,28 @@ function wireList(root, t) {
     years.forEach((a) => a.classList.toggle('off', root.querySelector(`.cl-job[data-id="${a.dataset.id}"]`)?.hidden))
     count.textContent = t.results.replace('{n}', n).replace('{m}', cards.length)
     empty.hidden = n > 0
+    box.scrollTop = 0
     reset.hidden = f.role === 'all' && !f.tech
     roles.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.f === f.role)))
   }
   roles.forEach((b) => b.addEventListener('click', () => { f.role = b.dataset.f; apply() }))
   input.addEventListener('input', () => { f.tech = input.value.trim().toLowerCase(); apply() })
   reset.addEventListener('click', () => { f.role = 'all'; f.tech = ''; input.value = ''; apply() })
-  root.querySelector('.cl-cards').addEventListener('click', (e) => {
+  box.addEventListener('click', (e) => {
     const b = e.target.closest('.cl-stack button'); if (!b) return
     input.value = b.dataset.tech; f.tech = b.dataset.tech.toLowerCase(); apply()
     document.dispatchEvent(new CustomEvent('skills:highlight', { detail: { tech: b.dataset.tech, hits: 0 } }))
   })
   years.forEach((a) => a.addEventListener('click', (e) => {
     const c = root.querySelector(`.cl-job[data-id="${a.dataset.id}"]`); if (!c || c.hidden) return
-    e.preventDefault(); c.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' })
+    e.preventDefault(); box.scrollTo({ top: c.offsetTop - 4, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' })
     years.forEach((y) => y.classList.toggle('on', y === a)); lockUntil = performance.now() + 1500
     c.classList.add('flash'); setTimeout(() => c.classList.remove('flash'), 1200)
   }))
   const spy = new IntersectionObserver((es) => es.forEach((e) => {
     if (!e.isIntersecting || performance.now() < lockUntil) return
     years.forEach((a) => a.classList.toggle('on', a.dataset.id === e.target.dataset.id))
-  }), { rootMargin: '-80px 0px -65% 0px' })
+  }), { root: box, rootMargin: '0px 0px -70% 0px' })
   cards.forEach((c) => spy.observe(c))
   apply()
 }
