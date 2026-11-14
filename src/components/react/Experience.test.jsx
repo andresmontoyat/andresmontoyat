@@ -138,3 +138,21 @@ describe('Experience island — expand/collapse', () => {
     expect(screen.queryByText(bullet0)).not.toBeInTheDocument()
   })
 })
+
+describe('Experience island — tech chip cap', () => {
+  it('shows at most 6 tech chips per entry, in data order, plus a +N chip for the rest', () => {
+    renderExp('en')
+    visible.forEach((entry) => {
+      const card = document.querySelector(`[data-variant][data-entry-id="${entry.id}"]`)
+      const chips = [...card.querySelectorAll('[data-tech-chip]')].map((c) => c.textContent)
+      expect(chips).toEqual(entry.tech.slice(0, 6))
+      const more = card.querySelector('[data-tech-more]')
+      if (entry.tech.length > 6) expect(more.textContent).toBe(`+${entry.tech.length - 6}`)
+      else expect(more).toBeNull()
+    })
+  })
+
+  it('keeps the full tech list in the data (the CV and the game read it)', () => {
+    expect(visible.some((e) => e.tech.length > 6)).toBe(true)
+  })
+})
