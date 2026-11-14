@@ -33,4 +33,3 @@ Owner approved all recommendations from the production audit. One commit per ite
 - Production build + `astro preview` + Playwright: no console errors, CSP enforcing injected → 0 violations, theme default light when emulating light scheme and dark when dark, no phone in HTML, hero/sections screenshots at 390 and 1440 in both themes, reviewed visually.
 - Lighthouse mobile /en/ and /es/: Perf ≥ 0.95, A11y = 1, SEO = 1 (BP 0.96 locally is the known analytics 404).
 - Node: Astro 7.4 needs ≥22.23.4 → use `PATH=~/.nvm/versions/node/v24.22.1/bin:$PATH`. Lockfile changes only via `npx npm@11`.
-- No AI attribution: both greps empty (`git log main..HEAD --format='%B' | grep -inE 'claude|anthropic|co-authored'`, `git diff main..HEAD | grep -inE '^\+.*(claude|anthropic)'`; existing Claude.astro file headers are fine).

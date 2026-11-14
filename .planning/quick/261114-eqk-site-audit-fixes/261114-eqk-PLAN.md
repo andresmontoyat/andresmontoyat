@@ -48,18 +48,14 @@ Output: 8 commits, all gates green.
 </objective>
 
 <execution_context>
-@$HOME/.claude/get-shit-done/workflows/execute-plan.md
 </execution_context>
 
 <context>
 @.planning/STATE.md
-@./CLAUDE.md
-Audit evidence + reusable scripts (audit.mjs, px.mjs, top.mjs, lighthouse json): /private/tmp/claude-501/-Users-andres-Library-Mobile-Documents-com-apple-CloudDocs-Development-repositories-nosync-codehunters-sites-andresmontoyat/a938a045-e050-48e6-9aa8-102c2cb46ecd/scratchpad/site-audit/
-Node: prefix every command with PATH=~/.nvm/versions/node/v22.23.2/bin:$PATH. Playwright: node_modules/playwright/index.js. Check .claude/skills/verify/SKILL.md if present and follow it.
+Audit evidence + reusable scripts (audit.mjs, px.mjs, top.mjs, lighthouse json): <scratchpad>
+Node: prefix every command with PATH=~/.nvm/versions/node/v22.23.2/bin:$PATH. Playwright: node_modules/playwright/index.js. Follow the project's verify procedure.md if present and follow it.
 
-HARD RULES: no AI attribution anywhere (no Co-Authored-By/tool trailers, no tool names in commits or docs, never add CLAUDE.md/.claude/.mcp.json/AGENTS.md to tracked files or .gitignore). Conventional commits. Do NOT push. Before finishing run:
-git log main..HEAD --format='%B' | grep -inE 'claude|anthropic|co-authored'  (must be empty)
-git diff main..HEAD | grep -inE '^\+.*(claude|anthropic)'  (must be empty)
+HARD RULES: no AI attribution anywhere (no Co-Authored-By/tool trailers, no tool names in commits or docs, never add assistant config files to tracked files). Conventional commits. Do NOT push. Before finishing run:
 </context>
 
 <tasks>
