@@ -149,7 +149,7 @@ const t = translations[locale].entry
   )}
   <Nav client:load locale={locale} hrefEn={hrefEn} hrefEs={hrefEs} hrefGame={hrefGame} />
   <SectionPager client:visible locale={locale} />
-  <main>
+  <main id="main" tabindex="-1">
     <Hero locale={locale} />
     <About locale={locale} />
     <Skill locale={locale} />

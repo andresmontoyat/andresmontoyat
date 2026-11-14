@@ -34,7 +34,6 @@ const reachOut = locale === 'es' ? 'Escríbeme' : 'Reach out'
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <a
         href={hero.href}
-        aria-label={`${heroLabel}: ${hero.value}`}
         {...linkAttrs(hero)}
         data-role="primary"
         class="group flex flex-col gap-6 md:self-start bg-surface border border-accent/40 rounded-2xl p-8 transition-all duration-300 hover:-translate-y-1 hover:border-accent shadow-[0_0_30px_rgba(0,229,168,0.10)] hover:shadow-[0_0_45px_rgba(0,229,168,0.20)]"
@@ -54,7 +53,6 @@ const reachOut = locale === 'es' ? 'Escríbeme' : 'Reach out'
           return (
             <a
               href={card.href}
-              aria-label={`${label}: ${card.value}`}
               {...linkAttrs(card)}
               data-role="rail"
               class="group flex items-center gap-4 bg-surface border border-border rounded-xl px-5 py-4 transition-all duration-200 hover:-translate-y-0.5 hover:border-accent"

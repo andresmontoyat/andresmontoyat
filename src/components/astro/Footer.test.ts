@@ -29,7 +29,7 @@ describe('Footer.astro (fresh Container API assertions — D-02/D-03)', () => {
     expect(result).toContain('aria-label="GitHub"')
     expect(result).toContain('href="https://www.linkedin.com/in/carlos-andres-montoya-tobon-8b508033/"')
     expect(result).toContain('aria-label="LinkedIn"')
-    expect(result).toContain('>gh<')
+    expect(result).toContain('>git<')
     expect(result).toContain('>in<')
   })
 
