@@ -209,6 +209,8 @@ const decks = data.categories.map((c) => ({
   .sd-slot.t-epic .sd-front { box-shadow: 0 0 0 2px color-mix(in srgb, var(--c) 55%, transparent), 0 18px 40px -18px var(--c) }
   .sd-slot.t-rare .sd-art { border-color: color-mix(in srgb, var(--c) 50%, var(--border)) }
   .sd-slot.held .sd-card { scale: 1.06 }
+  .sd-slot.sd-hit .sd-front { animation: sd-hit 1s ease-in-out 3; box-shadow: 0 0 0 3px var(--c), 0 0 32px 6px color-mix(in srgb, var(--c) 55%, transparent) }
+  @keyframes sd-hit { 50% { box-shadow: 0 0 0 3px var(--c), 0 0 8px 0 transparent } }
   .sd-slot.held .sd-face { box-shadow: 0 34px 60px -24px var(--c) }
 
   .sd-nm { display: none; font: 800 13px/1.2 var(--font-sans); color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0 }
@@ -250,6 +252,6 @@ const decks = data.categories.map((c) => ({
   @media (prefers-reduced-motion: reduce) {
     .sd-card, .sd-slot { transition: none !important }
     .sd-holo, .sd-glare { display: none }
-    .sd-slot.t-legendary .sd-front, .sd-spot.full, .sd-nudge .sd-slot.is-top { animation: none }
+    .sd-slot.t-legendary .sd-front, .sd-spot.full, .sd-nudge .sd-slot.is-top, .sd-slot.sd-hit .sd-front { animation: none }
   }
 </style>

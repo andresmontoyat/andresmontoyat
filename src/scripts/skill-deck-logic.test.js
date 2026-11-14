@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest'
 import combosData from '../data/skill-combos.json'
 import skills from '../data/skills.json'
 import {
-  addCard, fanPose, openHeight, openPose, readCombo, sortChips, stackPose, tier,
+  addCard, fanPose, matchesTech, openHeight, openPose, readCombo, sortChips, stackPose, tier,
 } from './skill-deck-logic.js'
 
 const localize = (lang) => ({
@@ -104,5 +104,20 @@ describe('poses', () => {
     expect(fanPose(0, 3, 300).tx).toBeLessThan(0)
     expect(openPose(2).ty).toBe(88)
     expect(openHeight(11)).toBe(290 + 10 * 44)
+  })
+})
+
+describe('matchesTech', () => {
+  it('should match a card by whole words, case insensitive', () => {
+    expect(matchesTech('Kafka', 'kafka')).toBe(true)
+    expect(matchesTech('REST / gRPC', 'grpc')).toBe(true)
+    expect(matchesTech('Oracle SQL', 'oracle sql')).toBe(true)
+    expect(matchesTech('Spring Boot', 'spring')).toBe(true)
+  })
+
+  it('should not match a different tech that merely shares letters', () => {
+    expect(matchesTech('JavaScript', 'java')).toBe(false)
+    expect(matchesTech('Java', 'javascript')).toBe(false)
+    expect(matchesTech('Kafka', '')).toBe(false)
   })
 })

@@ -2,7 +2,7 @@
 // this wires fling / flip / fan / shuffle / open-all and the hand. Strings and combos come from
 // data-attributes so each locale ships only its own copy.
 import {
-  TIER_STARS, addCard, fanHalfAngle, fanPose, fmt, openPose, readCombo, stackPose, tier,
+  TIER_STARS, addCard, fanHalfAngle, fanPose, fmt, matchesTech, openPose, readCombo, stackPose, tier,
 } from './skill-deck-logic.js'
 
 const root = document.getElementById('skills')
@@ -24,6 +24,10 @@ function init(section) {
   openBtn.addEventListener('click', () => toggleOpen(ctx, openBtn, hint, decks))
   document.addEventListener('click', (e) => decks.forEach((d) => d.closeFanOutside(e.target)))
   drawHand(ctx, comboEl, combos)
+  // The career log's grep / blame: surface the matching cards and report how many were found.
+  document.addEventListener('skills:highlight', (e) => {
+    e.detail.hits += decks.reduce((n, d) => n + d.highlight(e.detail.tech), 0)
+  })
 }
 
 function toggleOpen(ctx, btn, hint, decks) {
@@ -112,12 +116,26 @@ function deck(el, n, ctx) {
   }
   const toBottom = () => { s.order.push(s.order.shift()); s.at = (s.at + 1) % total; layout() }
   const toTop = () => { s.order.unshift(s.order.pop()); s.at = (s.at - 1 + total) % total; layout() }
-  const bring = (sl) => {
+  const raise = (sl) => {
     const i = s.order.indexOf(sl)
     s.order = [...s.order.slice(i), ...s.order.slice(0, i)]
     s.at = (s.at + i) % total
     setFan(false)
-    el.focus()
+  }
+  const bring = (sl) => { raise(sl); el.focus() }
+  const pulse = (sl) => {
+    sl.classList.remove('sd-hit')
+    void sl.offsetWidth
+    sl.classList.add('sd-hit')
+    setTimeout(() => sl.classList.remove('sd-hit'), 3200)
+  }
+  const highlight = (q) => {
+    const hits = slots.filter((sl) => matchesTech(sl.dataset.name, q))
+    if (!hits.length) return 0
+    unflip()
+    if (!ctx.isOpen()) raise(hits[0])
+    hits.forEach(pulse)
+    return hits.length
   }
   const shuffle = () => {
     if (!reduce) slots.forEach((sl, i) => pose(sl, { tx: (i % 2 ? 1 : -1) * 70, ty: 10, r: (i % 2 ? 1 : -1) * 10 }))
@@ -170,6 +188,7 @@ function deck(el, n, ctx) {
   return {
     relayout: () => { if (s.spread) setFan(false); unflip(); layout() },
     closeFanOutside: (target) => { if (s.spread && !el.contains(target)) setFan(false) },
+    highlight,
   }
 }
 
