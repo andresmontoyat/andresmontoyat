@@ -42,4 +42,14 @@ describe('ThemeToggle', () => {
     expect(document.documentElement.dataset.theme).toBe('light')
     expect(window.localStorage.getItem(STORAGE_KEY)).toBe('light')
   })
+
+  it('should not persist a system-derived theme until the user toggles', () => {
+    document.documentElement.dataset.theme = 'light'
+
+    render(<ThemeToggle t={t} />)
+
+    expect(window.localStorage.getItem(STORAGE_KEY)).toBeNull()
+    fireEvent.click(screen.getByRole('button', { name: t.nav.themeDark }))
+    expect(window.localStorage.getItem(STORAGE_KEY)).toBe('dark')
+  })
 })
