@@ -113,7 +113,7 @@ const ogImageUrl = new URL('/og-image.png', siteUrl).toString()
     <!-- Google Analytics bootstrap lives in /js/ga-init.js (CSP script-src 'self'):
          primes dataLayer synchronously, loads gtag.js after the load event so it
          does not compete with the LCP hero image. -->
-    <script is:inline src="/js/ga-init.js"></script>
+    <script is:inline defer src="/js/ga-init.js"></script>
 
     <!-- ISLAND-04: blocking, runs before paint — flips theme pre-paint (kills FOUC).
          Mirrors src/i18n/ThemeContext.jsx's readInitialTheme(); see /js/theme-init.js. -->
