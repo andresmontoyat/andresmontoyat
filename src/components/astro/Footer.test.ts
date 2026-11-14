@@ -23,14 +23,14 @@ describe('Footer.astro (fresh Container API assertions — D-02/D-03)', () => {
     expect(result).toContain('camt')
   })
 
-  it('renders both social links with href + aria-label + visible label text', async () => {
+  it('renders both social links with href + aria-label + an icon instead of abbreviated text', async () => {
     const result = await renderFooter('en')
     expect(result).toContain('href="https://github.com/andresmontoyat"')
     expect(result).toContain('aria-label="GitHub"')
     expect(result).toContain('href="https://www.linkedin.com/in/carlos-andres-montoya-tobon-8b508033/"')
     expect(result).toContain('aria-label="LinkedIn"')
-    expect(result).toContain('>git<')
-    expect(result).toContain('>in<')
+    expect(result).not.toContain('>git<')
+    expect(result.match(/<svg/g)?.length).toBeGreaterThanOrEqual(2)
   })
 
   it('renders EN tagline + rights copy', async () => {
