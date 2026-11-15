@@ -91,4 +91,19 @@ describe('Claude.astro (Container API parity — D-06)', () => {
     walk(data)
     expect(runs.filter((r) => r.length > MAX_RUN)).toEqual([])
   })
+
+  it('renders the delivery pipeline as a tablist with one panel per stage', async () => {
+    const result = await renderClaude('es')
+    expect(result).toContain('role="tablist"')
+    expect((result.match(/role="tab"/g) || []).length).toBe(data.pipeline.length)
+    expect((result.match(/role="tabpanel"/g) || []).length).toBe(data.pipeline.length)
+    expect(result).toContain('Verificar')
+    expect(result).toContain('VERIFICATION.md')
+  })
+
+  it('links to the guidelines site in a new tab', async () => {
+    const result = await renderClaude('en')
+    expect(result).toContain('href="https://hexagonal.andresmontoyat.dev/"')
+    expect(result).toContain('Read the guidelines my agents follow')
+  })
 })
