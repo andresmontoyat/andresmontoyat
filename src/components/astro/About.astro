@@ -5,6 +5,7 @@
 // wiring the numeric quick-fact (Experience) to the shared vanilla count-up
 // enhancer module, the same one Hero.astro uses (D-02).
 import data from '../../data/about.json'
+import Sites from './Sites.astro'
 
 const { locale } = Astro.props
 
@@ -66,6 +67,7 @@ const { facts } = data
         </ul>
       </aside>
     </div>
+    <Sites locale={locale} />
   </div>
 </section>
 
