@@ -53,7 +53,7 @@ function pick(field, lang) {
         <p class="cp-hint">{pick(data.pipelineHint, locale)}</p>
       </div>
     </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-16">
+    <div class="cp-rail grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-16" tabindex="0" aria-label={pick(data.valuesLabel, locale)}>
       {data.values.map((v) => (
         <div class="bg-surface border border-border rounded-xl p-5 hover:border-accent transition-colors">
           <div class="text-accent font-mono text-sm font-extrabold">{v.id}</div>
@@ -65,7 +65,7 @@ function pick(field, lang) {
     <p class="text-accent font-mono text-xs uppercase tracking-widest mt-14">
       {pick(data.offeringsLabel, locale)}
     </p>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
+    <div class="cp-rail grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6" tabindex="0" aria-label={pick(data.offeringsLabel, locale)}>
       {data.offerings.map((o) => (
         <div class="group bg-surface border border-border rounded-xl p-5 hover:border-accent transition-colors">
           <h3 class="text-text font-extrabold text-base flex items-center gap-2">
@@ -102,6 +102,11 @@ function pick(field, lang) {
   [data-pipeline].js .cp-file pre span { opacity: 0; transform: translateY(4px); animation: cp-in .3s forwards; animation-delay: calc(var(--d) * 90ms) }
   @keyframes cp-in { to { opacity: 1; transform: none } }
   @media (scripting: none) { .cp-tabs, .cp-hint { display: none } .cp-panel + .cp-panel { border-top: 1px solid var(--border); margin-top: 16px } }
+  @media (max-width: 639px) {
+    .cp-rail { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; margin-inline: -24px; padding: 2px 24px 10px; scroll-padding-inline: 24px; scrollbar-width: thin; overscroll-behavior-x: contain }
+    .cp-rail > * { flex: 0 0 82%; scroll-snap-align: start }
+    .cp-rail:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px }
+  }
   @media (max-width: 480px) { .cp-tabs button { font-size: 12px; padding: 6px 4px } }
   @media (prefers-reduced-motion: reduce) { .cp-bar, .cp-bar::after { transition: none } [data-pipeline].js .cp-file pre span { animation: none; opacity: 1; transform: none } }
 </style>

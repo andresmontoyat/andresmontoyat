@@ -227,5 +227,9 @@
         "✓ span payment.create exported"
       ]
     }
-  ]
+  ],
+  "valuesLabel": {
+    "en": "Why it works",
+    "es": "Por qué funciona"
+  }
 }
