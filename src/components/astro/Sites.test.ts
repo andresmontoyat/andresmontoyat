@@ -10,7 +10,7 @@ async function render(locale = 'en') {
 }
 
 describe('Sites.astro', () => {
-  it('renders the section with id="sites" and its EN heading', async () => {
+  it('renders the block with id="sites" and its EN heading', async () => {
     const html = await render('en')
     expect(html).toContain('id="sites"')
     expect(html).toContain('My other sites')
@@ -26,5 +26,15 @@ describe('Sites.astro', () => {
     const html = await render('es')
     expect(html).toContain('Mis otros sitios')
     expect(html).toContain('Mis Guidelines')
+  })
+})
+
+describe('Sites inside About', () => {
+  it('renders as part of the About section', async () => {
+    const { default: About } = await import('./About.astro')
+    const container = await AstroContainer.create()
+    const html = await container.renderToString(About, { props: { locale: 'es' } })
+    expect(html.indexOf('id="sites"')).toBeGreaterThan(html.indexOf('id="about"'))
+    expect(html).toContain('Mis otros sitios')
   })
 })
