@@ -1,6 +1,12 @@
 {
-  "label": { "en": "About", "es": "Sobre mí" },
-  "h2": { "en": "Who I am", "es": "Quién soy" },
+  "label": {
+    "en": "About",
+    "es": "Sobre mí"
+  },
+  "h2": {
+    "en": "Who I am",
+    "es": "Quién soy"
+  },
   "paragraphs": [
     {
       "en": "I'm a Java Solution Architect and Tech Lead based in Medellín, Colombia, with 18+ years in backend engineering: 11+ of them leading teams of up to 45 people, and nearly 7 as a solutions architect. I've designed and built Java platforms ranging from transportation management systems and telecom self-service portals to fintech payments, digital identity and blockchain-verified ticketing.",
@@ -15,32 +21,81 @@
       "es": "Cuando no estoy programando, disfruto aprendiendo sobre nuevas tecnologías con mis mejores amigos y pasando tiempo en casa con mi familia."
     }
   ],
-  "quick": { "en": "Quick facts", "es": "Datos rápidos" },
+  "quick": {
+    "en": "Quick facts",
+    "es": "Datos rápidos"
+  },
   "facts": [
     {
       "id": "location",
-      "kLabel": { "en": "Location", "es": "Ubicación" },
-      "value": { "en": "Medellín, CO", "es": "Medellín, CO" }
+      "kLabel": {
+        "en": "Location",
+        "es": "Ubicación"
+      },
+      "value": {
+        "en": "Medellín, CO",
+        "es": "Medellín, CO"
+      },
+      "icon": "⌖"
     },
     {
       "id": "role",
-      "kLabel": { "en": "Current role", "es": "Rol actual" },
-      "value": { "en": "Solution Architect @ Soldife", "es": "Arquitecto @ Soldife" }
+      "kLabel": {
+        "en": "Current role",
+        "es": "Rol actual"
+      },
+      "value": {
+        "en": "Solution Architect @ Soldife",
+        "es": "Arquitecto @ Soldife"
+      },
+      "icon": "◇"
     },
     {
       "id": "exp",
-      "kLabel": { "en": "Experience", "es": "Experiencia" },
-      "value": { "en": "18+ years", "es": "+18 años" }
+      "kLabel": {
+        "en": "Experience",
+        "es": "Experiencia"
+      },
+      "value": {
+        "en": "18+ years",
+        "es": "+18 años"
+      }
     },
     {
       "id": "lang",
-      "kLabel": { "en": "Languages", "es": "Idiomas" },
-      "value": { "en": "ES · EN", "es": "ES · EN" }
+      "kLabel": {
+        "en": "Languages",
+        "es": "Idiomas"
+      },
+      "value": {
+        "en": "ES · EN",
+        "es": "ES · EN"
+      },
+      "icon": "⇄"
     },
     {
       "id": "work",
-      "kLabel": { "en": "Work mode", "es": "Modalidad" },
-      "value": { "en": "Remote friendly", "es": "Remoto" }
+      "kLabel": {
+        "en": "Work mode",
+        "es": "Modalidad"
+      },
+      "value": {
+        "en": "Remote friendly",
+        "es": "Remoto"
+      },
+      "icon": "⌂"
     }
-  ]
+  ],
+  "status": {
+    "en": "Open to opportunities",
+    "es": "Abierto a oportunidades"
+  },
+  "expSub": {
+    "en": "in backend engineering",
+    "es": "en ingeniería backend"
+  },
+  "expDetail": {
+    "en": "11 leading · teams of up to 45",
+    "es": "11 liderando · equipos de hasta 45"
+  }
 }

@@ -116,4 +116,10 @@ describe('About.astro (Container API coverage-parity spot-check — D-07)', () =
     expect(result).toContain('Quick facts')
     expect(result).not.toContain('undefined')
   })
+
+  it('shows the availability badge linking to contact', async () => {
+    const result = await renderAbout('es')
+    expect(result).toContain('Abierto a oportunidades')
+    expect(result).toContain('href="#contact"')
+  })
 })

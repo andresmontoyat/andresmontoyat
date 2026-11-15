@@ -23,6 +23,8 @@ function statParts(value) {
 }
 
 const { facts } = data
+const exp = facts.find((f) => f.id === 'exp')
+const rest = facts.filter((f) => f.id !== 'exp')
 ---
 <section id="about" class="py-20">
   <div class="max-w-6xl mx-auto px-6">
@@ -38,32 +40,46 @@ const { facts } = data
           <p>{pick(p, locale)}</p>
         ))}
       </div>
-      <aside class="lg:col-span-2 bg-surface border border-border rounded-xl p-7 transition-colors duration-200 hover:border-accent/40">
-        <h3 class="text-base font-extrabold mb-4 flex items-center gap-2 text-text">
-          <span class="text-accent">◆</span> {pick(data.quick, locale)}
-        </h3>
-        <ul class="text-base">
-          {facts.map((f, i) => {
-            const value = pick(f.value, locale)
-            const parts = statParts(value)
-            return (
-              <li
-                class={`group relative -mx-2 flex items-center justify-between gap-4 rounded-lg px-2 py-2.5 transition-all duration-200 hover:bg-accent/[0.07] motion-safe:hover:translate-x-0.5 ${i === facts.length - 1 ? '' : 'border-b border-border hover:border-transparent'}`}
-              >
-                <span class="flex items-center gap-2.5 text-muted transition-colors duration-200 group-hover:text-text">
-                  <span aria-hidden="true" class="h-1.5 w-1.5 shrink-0 rounded-full bg-accent/40 transition-all duration-200 group-hover:scale-150 group-hover:bg-accent group-hover:shadow-[0_0_6px_var(--accent)]" />
-                  {pick(f.kLabel, locale)}
-                </span>
+      <aside class="lg:col-span-2 self-start lg:sticky lg:top-24 bg-surface border border-border rounded-xl p-6 transition-colors duration-200 hover:border-accent/40">
+        <div class="flex flex-wrap items-center justify-between gap-x-3 gap-y-2 mb-5">
+          <h3 class="text-base font-extrabold flex items-center gap-2 text-text whitespace-nowrap">
+            <span class="text-accent">◆</span> {pick(data.quick, locale)}
+          </h3>
+          <a href="#contact" class="inline-flex items-center gap-2 rounded-full border border-accent/40 bg-accent/10 px-3 py-1 text-xs font-bold text-accent whitespace-nowrap transition-colors hover:bg-accent/20">
+            <span class="relative flex h-2 w-2" aria-hidden="true">
+              <span class="absolute inline-flex h-full w-full rounded-full bg-accent opacity-60 motion-safe:animate-ping"></span>
+              <span class="relative inline-flex h-2 w-2 rounded-full bg-accent"></span>
+            </span>
+            {pick(data.status, locale)}
+          </a>
+        </div>
+        {exp && (() => {
+          const value = pick(exp.value, locale)
+          const parts = statParts(value)
+          return (
+            <div class="rounded-lg bg-accent/[0.07] border border-accent/20 px-4 py-4 mb-4">
+              <div class="text-[11px] uppercase tracking-widest text-muted">{pick(exp.kLabel, locale)}</div>
+              <div class="flex items-baseline gap-2 flex-wrap mt-1">
                 <span
-                  class="text-right font-extrabold text-text transition-colors duration-200 group-hover:text-accent"
+                  class="text-4xl font-extrabold text-accent leading-none tabular-nums"
                   data-count-up={parts ? parts.target : undefined}
                   data-count-up-template={parts ? parts.template : undefined}
-                >
-                  {value}
-                </span>
-              </li>
-            )
-          })}
+                >{value}</span>
+                <span class="text-sm text-muted">{pick(data.expSub, locale)}</span>
+              </div>
+              <div class="text-sm text-text mt-2">{pick(data.expDetail, locale)}</div>
+            </div>
+          )
+        })()}
+        <ul class="grid grid-cols-2 gap-2">
+          {rest.map((f) => (
+            <li class="group rounded-lg border border-border px-3 py-3 transition-all duration-200 hover:border-accent/50 hover:bg-accent/[0.05]">
+              <div class="flex items-center gap-1.5 text-[11px] uppercase tracking-widest text-muted">
+                <span class="text-accent text-sm leading-none" aria-hidden="true">{f.icon}</span>{pick(f.kLabel, locale)}
+              </div>
+              <div class="mt-1 text-sm font-extrabold text-text group-hover:text-accent transition-colors">{pick(f.value, locale)}</div>
+            </li>
+          ))}
         </ul>
       </aside>
     </div>
