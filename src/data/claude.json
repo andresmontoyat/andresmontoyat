@@ -3,7 +3,10 @@
     "en": "AI Engineering · For your team",
     "es": "AI Engineering · Para tu equipo"
   },
-  "h2Part1": { "en": "Software", "es": "Software" },
+  "h2Part1": {
+    "en": "Software",
+    "es": "Software"
+  },
   "h2Part2": {
     "en": "delivered with AI discipline",
     "es": "entregado con disciplina AI"
@@ -16,12 +19,21 @@
     "en": "Let's talk about your project →",
     "es": "Hablemos de tu proyecto →"
   },
-  "ctaSecondary": { "en": "See projects", "es": "Ver proyectos" },
-  "offeringsLabel": { "en": "What I offer", "es": "Lo que ofrezco" },
+  "ctaSecondary": {
+    "en": "See projects",
+    "es": "Ver proyectos"
+  },
+  "offeringsLabel": {
+    "en": "What I offer",
+    "es": "Lo que ofrezco"
+  },
   "offerings": [
     {
       "id": "agentic",
-      "title": { "en": "Agentic delivery", "es": "Entrega agéntica" },
+      "title": {
+        "en": "Agentic delivery",
+        "es": "Entrega agéntica"
+      },
       "desc": {
         "en": "Custom agents and discuss → plan → execute → verify pipelines wired into your codebase — production-ready features in a fraction of the time, tests and ADRs included.",
         "es": "Agentes propios y pipelines discutir → planear → ejecutar → verificar integrados en tu codebase — features production-ready en una fracción del tiempo, con tests y ADRs incluidos."
@@ -29,7 +41,10 @@
     },
     {
       "id": "rag-mcp",
-      "title": { "en": "RAG & MCP servers", "es": "RAG y servidores MCP" },
+      "title": {
+        "en": "RAG & MCP servers",
+        "es": "RAG y servidores MCP"
+      },
       "desc": {
         "en": "Spring AI + Qdrant retrieval and Model Context Protocol servers in Java/Kotlin that expose your internal systems and knowledge bases as first-class agent tools.",
         "es": "Retrieval con Spring AI + Qdrant y servidores Model Context Protocol en Java/Kotlin que exponen tus sistemas internos y bases de conocimiento como herramientas de agente de primera clase."
@@ -37,7 +52,10 @@
     },
     {
       "id": "evals",
-      "title": { "en": "LLM evals & guardrails", "es": "Evals y guardrails de LLM" },
+      "title": {
+        "en": "LLM evals & guardrails",
+        "es": "Evals y guardrails de LLM"
+      },
       "desc": {
         "en": "Eval harnesses, rubrics and output validation so AI features ship measured, not vibes.",
         "es": "Arneses de evaluación, rúbricas y validación de salidas para que las features de AI se midan, no se intuyan."
@@ -45,7 +63,10 @@
     },
     {
       "id": "greenfield",
-      "title": { "en": "Greenfield builds", "es": "Greenfield builds" },
+      "title": {
+        "en": "Greenfield builds",
+        "es": "Greenfield builds"
+      },
       "desc": {
         "en": "Spring Boot + hexagonal from scratch with CI/CD, observability and complete testing infra.",
         "es": "Spring Boot + hexagonal desde cero, con CI/CD, observability y testing infra completas."
@@ -53,7 +74,10 @@
     },
     {
       "id": "legacy",
-      "title": { "en": "Legacy refactor", "es": "Legacy refactor" },
+      "title": {
+        "en": "Legacy refactor",
+        "es": "Legacy refactor"
+      },
       "desc": {
         "en": "Strangler-fig refactor of legacy Spring/Java services toward hexagonal architecture, with full test coverage and zero downtime.",
         "es": "Refactor strangler-fig de servicios Spring/Java legacy hacia hexagonal architecture, con cobertura completa de tests y cero downtime."
@@ -61,7 +85,10 @@
     },
     {
       "id": "devops",
-      "title": { "en": "DevOps automation", "es": "DevOps automation" },
+      "title": {
+        "en": "DevOps automation",
+        "es": "DevOps automation"
+      },
       "desc": {
         "en": "Production-ready GitHub Actions templates + GitFlow + multi-cloud deploys (EC2, VPN-tunneled EC2, EKS) backed by the soldife/ci-templates toolkit.",
         "es": "Templates de GitHub Actions listos para producción + GitFlow + deploys multi-cloud (EC2, EC2 sobre VPN, EKS) respaldados por el toolkit soldife/ci-templates."
@@ -71,7 +98,10 @@
   "values": [
     {
       "id": "01",
-      "title": { "en": "Delivery 3–5× faster", "es": "Entrega 3–5× más rápida" },
+      "title": {
+        "en": "Delivery 3–5× faster",
+        "es": "Entrega 3–5× más rápida"
+      },
       "desc": {
         "en": "Agentic workflows (discuss → plan → execute → verify) ship in hours what takes days traditionally, while preserving atomic commits and real tests.",
         "es": "Workflows agénticos (discuss → plan → execute → verify) entregan en horas lo que toma días con desarrollo tradicional, manteniendo atomic commits y tests reales."
@@ -79,7 +109,10 @@
     },
     {
       "id": "02",
-      "title": { "en": "Architecture without shortcuts", "es": "Arquitectura sin atajos" },
+      "title": {
+        "en": "Architecture without shortcuts",
+        "es": "Arquitectura sin atajos"
+      },
       "desc": {
         "en": "Clean architecture, ports & adapters, ArchUnit gates and ADRs are non-negotiable — agentic speed never comes at the cost of structure.",
         "es": "Arquitectura limpia, ports & adapters, ArchUnit gates y ADRs no se negocian — la velocidad agéntica nunca sacrifica estructura."
@@ -106,6 +139,93 @@
         "en": "I leave your team the workflow, not a black box: the agents, skills and guidelines stay in your repo and your engineers keep using them after I'm gone.",
         "es": "Le dejo a tu equipo el workflow, no una caja negra: los agents, skills y guidelines quedan en tu repo y tus ingenieros los siguen usando cuando yo no esté."
       }
+    }
+  ],
+  "pipelineLabel": {
+    "en": "How a feature ships",
+    "es": "Cómo sale una feature"
+  },
+  "pipelineHint": {
+    "en": "Click a stage to see what it leaves in the repo.",
+    "es": "Pulsa una etapa para ver qué deja en el repo."
+  },
+  "guidesCta": {
+    "en": "Read the guidelines my agents follow",
+    "es": "Lee las guías que siguen mis agentes"
+  },
+  "pipeline": [
+    {
+      "id": "discuss",
+      "title": {
+        "en": "Discuss",
+        "es": "Discutir"
+      },
+      "desc": {
+        "en": "Gray areas surface before any code: scope, edge cases and constraints are agreed and written down.",
+        "es": "Las zonas grises salen antes del código: alcance, casos borde y restricciones quedan acordados y escritos."
+      },
+      "file": "CONTEXT.md",
+      "lines": [
+        "## Decisions",
+        "- Idempotency-Key on POST /payments",
+        "- Outbox, not direct Kafka publish",
+        "## Out of scope",
+        "- Refunds (next phase)"
+      ]
+    },
+    {
+      "id": "plan",
+      "title": {
+        "en": "Plan",
+        "es": "Planear"
+      },
+      "desc": {
+        "en": "Each task names the files, the layer it belongs to and how it will be verified.",
+        "es": "Cada tarea nombra los ficheros, la capa a la que pertenece y cómo se verifica."
+      },
+      "file": "PLAN.md",
+      "lines": [
+        "1. domain/ Payment aggregate + invariants",
+        "2. application/ CreatePaymentUseCase + ports",
+        "3. infrastructure/ JDBC + outbox adapter",
+        "verify: ArchUnit + Testcontainers green"
+      ]
+    },
+    {
+      "id": "execute",
+      "title": {
+        "en": "Execute",
+        "es": "Ejecutar"
+      },
+      "desc": {
+        "en": "Agents implement test-first, one atomic commit per task, inside the architecture rules.",
+        "es": "Los agentes implementan test-first, un commit atómico por tarea, dentro de las reglas de arquitectura."
+      },
+      "file": "git log",
+      "lines": [
+        "a41c2e0 test(payment): reject negative amounts",
+        "9be71d3 feat(payment): aggregate and invariants",
+        "3f0d8aa feat(payment): create payment use case",
+        "c27e915 feat(payment): outbox adapter"
+      ]
+    },
+    {
+      "id": "verify",
+      "title": {
+        "en": "Verify",
+        "es": "Verificar"
+      },
+      "desc": {
+        "en": "The goal is checked against the plan, not just the tests: build, coverage, architecture and traces.",
+        "es": "Se comprueba el objetivo contra el plan, no solo los tests: build, cobertura, arquitectura y trazas."
+      },
+      "file": "VERIFICATION.md",
+      "lines": [
+        "✓ ./gradlew build",
+        "✓ ArchUnit: domain has no framework deps",
+        "✓ coverage domain 98% · use cases 94%",
+        "✓ span payment.create exported"
+      ]
     }
   ]
 }
