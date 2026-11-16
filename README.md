@@ -1,71 +1,53 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/0e21e297-8e24-4ff5-bddc-98d6585bbaa5/deploy-status)](https://app.netlify.com/sites/compassionate-booth-cefe43/deploys)
-# Getting Started with Create React App
+<h1 align="center">Carlos Andrés Montoya</h1>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<p align="center">
+  <b>Java Solution Architect · Tech Lead · Backend Engineer</b><br>
+  Medellín, Colombia · ES / EN · Remote
+</p>
 
-## Available Scripts
+<p align="center">
+  <a href="https://www.andresmontoyat.dev"><img alt="Portfolio" src="https://img.shields.io/badge/portfolio-andresmontoyat.dev-00a37a?style=flat-square"></a>
+  <a href="https://www.linkedin.com/in/carlos-andres-montoya-tobon-8b508033"><img alt="LinkedIn" src="https://img.shields.io/badge/LinkedIn-connect-0a66c2?style=flat-square&logo=linkedin&logoColor=white"></a>
+  <a href="mailto:andresmontoyat@gmail.com"><img alt="Email" src="https://img.shields.io/badge/email-andresmontoyat%40gmail.com-555?style=flat-square&logo=gmail&logoColor=white"></a>
+</p>
 
-In the project directory, you can run:
+---
 
-### `npm start`
+I design and build backend platforms on the Java and Spring ecosystem. **18+ years** in backend engineering, **11+ leading teams** of up to 45 people and nearly **7 as a solutions architect**, across transportation management, telecom self-service, fintech payments, digital identity and blockchain-verified ticketing.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- 🧱 **Architecture** — hexagonal microservices, DDD, event-driven systems on Kafka and RabbitMQ, built for resilience and idempotency
+- 🔐 **Security & observability** — Keycloak, OAuth2/OIDC, OpenTelemetry tracing and structured logs from day one
+- ☁️ **Delivery** — AWS, GCP and Azure; Docker, Kubernetes, GitHub Actions and GitOps
+- 🤖 **AI engineering** — agentic delivery (discuss → plan → execute → verify), RAG and MCP servers in Java/Kotlin, LLM evals
+- 👥 **Leadership** — I set the architecture, grow the team technically and own delivery (certified Scrum Master)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## 🌐 Things I keep online
 
-### `npm test`
+| | |
+| --- | --- |
+| **[andresmontoyat.dev](https://www.andresmontoyat.dev)** | Portfolio: career as an interactive `git log`, playable skill decks and a small career RPG |
+| **[Guidelines](https://guidelines.andresmontoyat.dev/)** | The engineering standards I steer my agents with when building hexagonal microservices |
+| **[Architecture notes](https://hexagonal.andresmontoyat.dev/)** | How I approached Vitxo's architecture: event-driven hexagonal, shared SDKs and trust boundaries |
+| **[mypipelines](https://mypipelines.andresmontoyat.dev/)** | Reusable CI/CD pipelines: workflows, SemVer releases and security gates |
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🛠️ Stack
 
-### `npm run build`
+<p>
+  <img alt="Java" src="https://img.shields.io/badge/Java-21-ED8B00?style=flat-square&logo=openjdk&logoColor=white">
+  <img alt="Kotlin" src="https://img.shields.io/badge/Kotlin-2-7F52FF?style=flat-square&logo=kotlin&logoColor=white">
+  <img alt="Spring Boot" src="https://img.shields.io/badge/Spring_Boot-6DB33F?style=flat-square&logo=springboot&logoColor=white">
+  <img alt="Kafka" src="https://img.shields.io/badge/Kafka-231F20?style=flat-square&logo=apachekafka&logoColor=white">
+  <img alt="RabbitMQ" src="https://img.shields.io/badge/RabbitMQ-FF6600?style=flat-square&logo=rabbitmq&logoColor=white">
+  <img alt="PostgreSQL" src="https://img.shields.io/badge/PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white">
+  <img alt="Keycloak" src="https://img.shields.io/badge/Keycloak-4D4D4D?style=flat-square&logo=keycloak&logoColor=white">
+  <img alt="Kubernetes" src="https://img.shields.io/badge/Kubernetes-326CE5?style=flat-square&logo=kubernetes&logoColor=white">
+  <img alt="AWS" src="https://img.shields.io/badge/AWS-232F3E?style=flat-square&logo=amazonwebservices&logoColor=white">
+  <img alt="GitHub Actions" src="https://img.shields.io/badge/GitHub_Actions-2088FF?style=flat-square&logo=githubactions&logoColor=white">
+  <img alt="React" src="https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB">
+</p>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 📫 Let's talk
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Open to senior backend, architecture and technical leadership roles. The fastest way is [email](mailto:andresmontoyat@gmail.com) or [LinkedIn](https://www.linkedin.com/in/carlos-andres-montoya-tobon-8b508033).
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<sub>This repository is also the source of the portfolio — see <a href="docs/DEVELOPMENT.md">docs/DEVELOPMENT.md</a>.</sub>
