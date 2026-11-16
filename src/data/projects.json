@@ -80,7 +80,7 @@
         "es": "Mi criterio de ingeniería, codificado — los estándares de arquitectura, testing, seguridad y clean code a los que exijo cada proyecto, y los trade-offs detrás de ellos. Hexagonal + DDD para microservicios JVM, ejecutables por ingenieros y agentes de IA."
       },
       "tech": ["Hexagonal Architecture", "DDD", "Clean Code", "Testing", "Security"],
-      "liveUrl": "https://hexagonal.andresmontoyat.dev/",
+      "liveUrl": "https://guidelines.andresmontoyat.dev/",
       "githubUrl": null
     }
   ]

@@ -103,7 +103,7 @@ describe('Claude.astro (Container API parity — D-06)', () => {
 
   it('links to the guidelines site in a new tab', async () => {
     const result = await renderClaude('en')
-    expect(result).toContain('href="https://hexagonal.andresmontoyat.dev/"')
+    expect(result).toContain('href="https://guidelines.andresmontoyat.dev/"')
     expect(result).toContain('Read the guidelines my agents follow')
   })
 })
