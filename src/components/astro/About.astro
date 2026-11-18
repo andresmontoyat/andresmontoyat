@@ -40,7 +40,7 @@ const rest = facts.filter((f) => f.id !== 'exp')
           <p>{pick(p, locale)}</p>
         ))}
       </div>
-      <aside class="lg:col-span-2 self-start lg:sticky lg:top-24 bg-surface border border-border rounded-xl p-6 transition-colors duration-200 hover:border-accent/40">
+      <aside class="qf lg:col-span-2 self-start lg:sticky lg:top-24 bg-surface border border-border rounded-xl p-6 transition-colors duration-200 hover:border-accent/40">
         <div class="mb-5">
           <h3 class="text-base font-extrabold flex items-center gap-2 text-text whitespace-nowrap">
             <span class="text-accent">◆</span> {pick(data.quick, locale)}
@@ -50,7 +50,7 @@ const rest = facts.filter((f) => f.id !== 'exp')
           const value = pick(exp.value, locale)
           const parts = statParts(value)
           return (
-            <div class="rounded-lg bg-accent/[0.07] border border-accent/20 px-4 py-4 mb-4">
+            <div class="qf-hero qf-card relative overflow-hidden rounded-lg bg-accent/[0.07] border border-accent/20 px-4 py-4 mb-4" style="--i: 0">
               <div class="text-[11px] uppercase tracking-widest text-muted">{pick(exp.kLabel, locale)}</div>
               <div class="flex items-baseline gap-2 flex-wrap mt-1">
                 <span
@@ -65,10 +65,10 @@ const rest = facts.filter((f) => f.id !== 'exp')
           )
         })()}
         <ul class="grid grid-cols-2 gap-2">
-          {rest.map((f) => (
-            <li class="group rounded-lg border border-border px-3 py-3 transition-all duration-200 hover:border-accent/50 hover:bg-accent/[0.05]">
+          {rest.map((f, i) => (
+            <li style={`--i: ${i + 1}`} class="qf-card qf-tile relative overflow-hidden group rounded-lg border border-border px-3 py-3 transition-all duration-200 hover:border-accent/50 hover:bg-accent/[0.05]">
               <div class="flex items-center gap-1.5 text-[11px] uppercase tracking-widest text-muted">
-                <span class="text-accent text-sm leading-none" aria-hidden="true">{f.icon}</span>{pick(f.kLabel, locale)}
+                <span class="qf-icon inline-block text-accent text-sm leading-none" aria-hidden="true">{f.icon}</span>{pick(f.kLabel, locale)}
               </div>
               <div class="mt-1 text-sm font-extrabold text-text group-hover:text-accent transition-colors">{pick(f.value, locale)}</div>
             </li>
@@ -81,3 +81,28 @@ const rest = facts.filter((f) => f.id !== 'exp')
 </section>
 
 <script src="../../scripts/count-up.js"></script>
+
+<style>
+  .qf-card::after { content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(105deg, transparent 35%, color-mix(in srgb, var(--accent) 18%, transparent) 50%, transparent 65%);
+    transform: translateX(-120%) }
+  .qf-tile { transition: translate .25s cubic-bezier(.2,.7,.2,1), border-color .2s, background-color .2s, box-shadow .25s }
+  .qf-icon { transition: transform .35s cubic-bezier(.3,1.6,.5,1) }
+  .qf-hero [data-count-up] { transition: text-shadow .3s }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .qf-card:hover::after { transform: translateX(120%); transition: transform .7s ease }
+    .qf-tile:hover { translate: 0 -3px; box-shadow: 0 8px 22px -12px var(--accent) }
+    .qf-tile:hover .qf-icon { transform: scale(1.35) rotate(-12deg) }
+    .qf-hero:hover [data-count-up] { text-shadow: 0 0 18px color-mix(in srgb, var(--accent) 55%, transparent) }
+    .qf-hero::before { content: ''; position: absolute; inset: -40%; pointer-events: none; opacity: .5;
+      background: conic-gradient(from 0deg, transparent 0 80%, color-mix(in srgb, var(--accent) 22%, transparent) 90%, transparent);
+      animation: qf-spin 7s linear infinite }
+    .qf-hero > * { position: relative }
+    @supports (animation-timeline: view()) {
+      .qf-card { --scroll-tl: view(); animation: qf-in linear both; animation-timeline: var(--scroll-tl); animation-range: entry calc(var(--i) * 4%) entry calc(60% + var(--i) * 6%) }
+    }
+  }
+  @keyframes qf-spin { to { transform: rotate(1turn) } }
+  @keyframes qf-in { from { opacity: 0; transform: translateY(18px) scale(.97) } to { opacity: 1; transform: none } }
+</style>

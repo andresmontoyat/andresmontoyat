@@ -13,18 +13,34 @@ const host = (url) => new URL(url).host
   </h3>
   <p class="text-muted max-w-[60ch] mb-5 text-base leading-relaxed">{pick(data.intro, locale)}</p>
   <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-    {data.sites.map((site) => (
+    {data.sites.map((site, i) => (
       <a
         href={site.url}
         target="_blank"
         rel="noopener noreferrer"
-        class="group flex flex-col gap-1.5 rounded-xl border border-border bg-surface p-5 transition-all duration-200 hover:border-accent motion-safe:hover:-translate-y-1"
+        style={`--i: ${i}`}
+        class="site-card group relative overflow-hidden flex flex-col gap-1.5 rounded-xl border border-border bg-surface p-5 transition-all duration-200 hover:border-accent motion-safe:hover:-translate-y-1"
       >
         <span class="font-mono text-xs text-accent-2 break-all">{host(site.url)}</span>
         <span class="text-lg font-extrabold text-text">{pick(site.title, locale)}</span>
         <span class="text-base text-muted leading-relaxed">{pick(site.desc, locale)}</span>
-        <span class="mt-auto pt-2 font-mono text-xs text-accent">{pick(data.cta, locale)} <span aria-hidden="true">→</span></span>
+        <span class="mt-auto pt-2 font-mono text-xs text-accent">{pick(data.cta, locale)} <span class="site-arrow inline-block" aria-hidden="true">→</span></span>
       </a>
     ))}
   </div>
 </div>
+
+<style>
+  .site-card::before { content: ''; position: absolute; left: 0; top: 0; height: 3px; width: 100%; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform .35s cubic-bezier(.2,.7,.2,1) }
+  .site-card:hover::before, .site-card:focus-visible::before { transform: scaleX(1) }
+  .site-card { transition: transform .25s cubic-bezier(.2,.7,.2,1), border-color .2s, box-shadow .25s }
+  .site-card:hover { box-shadow: 0 14px 32px -18px var(--accent) }
+  .site-arrow { transition: transform .25s }
+  @media (prefers-reduced-motion: no-preference) {
+    .site-card:hover .site-arrow { transform: translateX(5px) }
+    @supports (animation-timeline: view()) {
+      .site-card { --scroll-tl: view(); animation: site-in linear both; animation-timeline: var(--scroll-tl); animation-range: entry calc(var(--i) * 8%) entry calc(55% + var(--i) * 10%) }
+    }
+  }
+  @keyframes site-in { from { opacity: 0; transform: translateY(24px) } to { opacity: 1; transform: none } }
+</style>
