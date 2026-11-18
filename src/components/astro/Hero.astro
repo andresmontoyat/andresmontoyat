@@ -15,6 +15,9 @@ const { locale } = Astro.props
 const t = translations[locale] ?? translations.en
 
 const midLine = t.hero.h1b
+const nameWords = t.hero.name.split(' ')
+const givenNames = nameWords.slice(0, 2).join(' ')
+const surnames = nameWords.slice(2).join(' ')
 const charCount = midLine.length
 
 function statParts(num) {
@@ -50,7 +53,7 @@ const ghAria = locale === 'es' ? 'Perfil de GitHub' : 'GitHub profile'
         </span>
 
         <h1 class="mb-6" aria-label={`${t.hero.name} — ${t.hero.h1a} ${t.hero.h1b} ${t.hero.h1c}`}>
-          <span class="block font-sans font-extrabold text-text text-4xl sm:text-5xl lg:text-6xl leading-[1.05] tracking-tight" aria-hidden="true">{t.hero.name}</span>
+          <span class="block font-sans font-extrabold text-text text-4xl sm:text-5xl lg:text-6xl leading-[1.05] tracking-tight" aria-hidden="true">{givenNames}<br />{surnames}</span>
           <span class="block font-pixel text-sm sm:text-lg lg:text-xl tracking-normal leading-relaxed mt-4 text-muted" aria-hidden="true">
             {t.hero.h1a}{' '}<span
               class="hero-reveal inline-block overflow-hidden whitespace-nowrap align-bottom bg-brand-gradient bg-clip-text text-transparent"

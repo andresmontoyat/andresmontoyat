@@ -27,12 +27,12 @@ const heroSource = readFileSync(new URL('./Hero.astro', import.meta.url), 'utf-8
 describe('Hero.astro copy (coverage-parity port)', () => {
   it('renders role-forward H1 via aria-label (EN)', async () => {
     const result = await renderHero('en')
-    expect(result).toContain('aria-label="Carlos Andrés Montoya — Java Solution Architect &amp; Tech Lead."')
+    expect(result).toContain('aria-label="Carlos Andrés Montoya Tobón — Java Solution Architect &amp; Tech Lead."')
   })
 
   it('renders role-forward H1 via aria-label (ES)', async () => {
     const result = await renderHero('es')
-    expect(result).toContain('aria-label="Carlos Andrés Montoya — Arquitecto de Soluciones Java y Tech Lead."')
+    expect(result).toContain('aria-label="Carlos Andrés Montoya Tobón — Arquitecto de Soluciones Java y Tech Lead."')
   })
 
   it('renders the punchy lead (EN)', async () => {
@@ -83,7 +83,7 @@ describe('Hero.astro photo layer (LCP element, D-08)', () => {
   it('renders the portrait with descriptive alt text, with no duplicate-DOM #hero-static element', async () => {
     const result = await renderHero('en')
     expect(result).toContain('src="/me-800.webp"')
-    expect(result).toContain('alt="Carlos Andrés Montoya at Los Glaciares National Park"')
+    expect(result).toContain('alt="Carlos Andrés Montoya Tobón at Los Glaciares National Park"')
     expect(result).toContain('Carlos Andrés Montoya')
     expect(result).not.toContain('hero-static')
   })
