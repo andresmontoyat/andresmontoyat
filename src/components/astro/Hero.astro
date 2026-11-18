@@ -15,9 +15,6 @@ const { locale } = Astro.props
 const t = translations[locale] ?? translations.en
 
 const midLine = t.hero.h1b
-const nameWords = t.hero.name.split(' ')
-const givenNames = nameWords.slice(0, 2).join(' ')
-const surnames = nameWords.slice(2).join(' ')
 const charCount = midLine.length
 
 function statParts(num) {
@@ -39,7 +36,7 @@ const ghAria = locale === 'es' ? 'Perfil de GitHub' : 'GitHub profile'
 
   <div class="relative z-10 max-w-6xl mx-auto px-6 w-full">
     <div class="grid lg:grid-cols-[minmax(0,1fr)_380px] gap-10 lg:gap-14 items-center">
-      <div class="min-w-0">
+      <div class="min-w-0 @container">
         <figure class="lg:hidden mb-6 w-24 h-24 rounded-full overflow-hidden border-2 border-brand/60 shadow-brand">
           <img src="/me-400.webp" width="96" height="96" alt="" class="w-full h-full object-cover" style="object-position: 45% 62%; transform: scale(1.4); transform-origin: 45% 62%;" />
         </figure>
@@ -53,7 +50,7 @@ const ghAria = locale === 'es' ? 'Perfil de GitHub' : 'GitHub profile'
         </span>
 
         <h1 class="mb-6" aria-label={`${t.hero.name} — ${t.hero.h1a} ${t.hero.h1b} ${t.hero.h1c}`}>
-          <span class="block font-sans font-extrabold text-text text-4xl sm:text-5xl lg:text-6xl leading-[1.05] tracking-tight" aria-hidden="true">{givenNames}<br />{surnames}</span>
+          <span class="hero-name block font-sans font-extrabold text-text leading-[1.05] tracking-tight whitespace-nowrap" aria-hidden="true">{t.hero.name}</span>
           <span class="block font-pixel text-sm sm:text-lg lg:text-xl tracking-normal leading-relaxed mt-4 text-muted" aria-hidden="true">
             {t.hero.h1a}{' '}<span
               class="hero-reveal inline-block overflow-hidden whitespace-nowrap align-bottom bg-brand-gradient bg-clip-text text-transparent"
@@ -166,6 +163,10 @@ const ghAria = locale === 'es' ? 'Perfil de GitHub' : 'GitHub profile'
 <script src="../../scripts/details-dismiss.js"></script>
 
 <style>
+  .hero-name { font-size: clamp(1.25rem, 5.8cqi, 2.75rem) }
+  @media (max-width: 639px) {
+    .hero-name { font-size: 2rem; white-space: normal; text-wrap: balance }
+  }
   .hero-bg {
     background:
       radial-gradient(60% 55% at 85% 35%, color-mix(in srgb, var(--color-brand) 16%, transparent), transparent 70%),
