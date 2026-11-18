@@ -27,28 +27,28 @@ describe('Claude.astro (Container API parity — D-06)', () => {
     expect(result).toMatch(/AI Engineering · For your team/)
     expect(result).toMatch(/Software/)
     expect(result).toMatch(/delivered with AI discipline/)
-    expect(result).toMatch(/Senior backend engineer/)
+    expect(result).toMatch(/build the engineering system around them/)
     expect(result).toContain('Let&#39;s talk about your project')
   })
 
   it('renders all 4 value cards with title + id (EN)', async () => {
     const result = await renderClaude('en')
     expect(data.values).toHaveLength(4)
-    expect(result).toContain('Delivery 3–5× faster')
-    expect(result).toContain('Architecture without shortcuts')
-    expect(result).toContain('Tests + observability built-in')
-    expect(result).toContain('Your team keeps the workflow')
+    expect(result).toContain('Standards agents can execute')
+    expect(result).toContain('Specialist reviewers on every diff')
+    expect(result).toContain('From spec to PR, traceable')
+    expect(result).toContain('Rules that don&#39;t drift')
   })
 
   it('renders all 6 offerings (EN)', async () => {
     const result = await renderClaude('en')
     expect(data.offerings).toHaveLength(6)
-    expect(result).toContain('Agentic delivery')
+    expect(result).toContain('Agentic delivery setup')
     expect(result).toContain('RAG &amp; MCP servers')
     expect(result).toContain('LLM evals &amp; guardrails')
-    expect(result).toContain('Greenfield builds')
-    expect(result).toContain('Legacy refactor')
-    expect(result).toContain('DevOps automation')
+    expect(result).toContain('Greenfield &amp; legacy modernization')
+    expect(result).toContain('Custom review agents')
+    expect(result).toContain('CI/CD that guards quality')
   })
 
   it('translates pitch + values + offerings when locale=es', async () => {
@@ -56,8 +56,8 @@ describe('Claude.astro (Container API parity — D-06)', () => {
     expect(result).toMatch(/AI Engineering · Para tu equipo/)
     expect(result).toMatch(/Software/)
     expect(result).toMatch(/Hablemos de tu proyecto/)
-    expect(result).toContain('Entrega 3–5× más rápida')
-    expect(result).toContain('Entrega agéntica')
+    expect(result).toContain('Estándares que los agentes ejecutan')
+    expect(result).toContain('Entrega agéntica en tu equipo')
   })
 
   it('claude.json schema sanity — values/offerings bilingual', () => {
