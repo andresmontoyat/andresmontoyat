@@ -142,8 +142,8 @@
     }
   ],
   "pipelineLabel": {
-    "en": "How a feature ships",
-    "es": "Cómo sale una feature"
+    "en": "My workflow: from idea to merged code",
+    "es": "Mi flujo: de la idea al código en producción"
   },
   "pipelineHint": {
     "en": "Click a stage to see what it leaves in the repo.",
