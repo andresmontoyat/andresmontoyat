@@ -146,8 +146,8 @@
     "es": "Mi flujo: de la idea al código en producción"
   },
   "pipelineHint": {
-    "en": "Click a stage to see what it leaves in the repo.",
-    "es": "Pulsa una etapa para ver qué deja en el repo."
+    "en": "Each step leaves a file in the repo that anyone on the team can read.",
+    "es": "Cada paso deja un archivo en el repo que cualquiera del equipo puede leer."
   },
   "guidesCta": {
     "en": "Read the guidelines my agents follow",
@@ -157,21 +157,34 @@
     {
       "id": "discuss",
       "title": {
-        "en": "Discuss",
-        "es": "Discutir"
+        "en": "Understand",
+        "es": "Entender"
       },
       "desc": {
-        "en": "Gray areas surface before any code: scope, edge cases and constraints are agreed and written down.",
-        "es": "Las zonas grises salen antes del código: alcance, casos borde y restricciones quedan acordados y escritos."
+        "en": "Before any code, the agent and I pin down what to build, the edge cases and what stays out.",
+        "es": "Antes de escribir código, el agente y yo acordamos qué se construye, los casos límite y qué queda fuera."
+      },
+      "gain": {
+        "en": "No surprises halfway through: decisions are written down.",
+        "es": "Sin sorpresas a mitad de camino: las decisiones quedan por escrito."
       },
       "file": "CONTEXT.md",
-      "lines": [
-        "## Decisions",
-        "- Idempotency-Key on POST /payments",
-        "- Outbox, not direct Kafka publish",
-        "## Out of scope",
-        "- Refunds (next phase)"
-      ]
+      "lines": {
+        "en": [
+          "## Decisions",
+          "- Payments can be retried safely",
+          "- Events go through an outbox",
+          "## Out of scope",
+          "- Refunds (next phase)"
+        ],
+        "es": [
+          "## Decisiones",
+          "- Los pagos se pueden reintentar sin duplicar",
+          "- Los eventos salen por un outbox",
+          "## Fuera de alcance",
+          "- Reembolsos (siguiente fase)"
+        ]
+      }
     },
     {
       "id": "plan",
@@ -180,34 +193,58 @@
         "es": "Planear"
       },
       "desc": {
-        "en": "Each task names the files, the layer it belongs to and how it will be verified.",
-        "es": "Cada tarea nombra los ficheros, la capa a la que pertenece y cómo se verifica."
+        "en": "The work is split into small tasks. Each one says which files it touches and how it will be checked.",
+        "es": "El trabajo se parte en tareas pequeñas. Cada una dice qué archivos toca y cómo se va a comprobar."
+      },
+      "gain": {
+        "en": "You can review the plan before a single line is written.",
+        "es": "Puedes revisar el plan antes de que se escriba una sola línea."
       },
       "file": "PLAN.md",
-      "lines": [
-        "1. domain/ Payment aggregate + invariants",
-        "2. application/ CreatePaymentUseCase + ports",
-        "3. infrastructure/ JDBC + outbox adapter",
-        "verify: ArchUnit + Testcontainers green"
-      ]
+      "lines": {
+        "en": [
+          "1. Payment rules (domain)",
+          "2. Create-payment use case",
+          "3. Database + outbox adapter",
+          "Check: architecture tests + real DB tests"
+        ],
+        "es": [
+          "1. Reglas del pago (dominio)",
+          "2. Caso de uso: crear pago",
+          "3. Adaptador de base de datos + outbox",
+          "Comprobar: tests de arquitectura + tests con BD real"
+        ]
+      }
     },
     {
       "id": "execute",
       "title": {
-        "en": "Execute",
-        "es": "Ejecutar"
+        "en": "Build",
+        "es": "Construir"
       },
       "desc": {
-        "en": "Agents implement test-first, one atomic commit per task, inside the architecture rules.",
-        "es": "Los agentes implementan test-first, un commit atómico por tarea, dentro de las reglas de arquitectura."
+        "en": "Agents write the tests first, then the code, one small commit per task, inside my architecture rules.",
+        "es": "Los agentes escriben primero los tests y luego el código, un commit pequeño por tarea, dentro de mis reglas de arquitectura."
+      },
+      "gain": {
+        "en": "Small, readable changes you can review or roll back one by one.",
+        "es": "Cambios pequeños y legibles que se revisan o revierten uno a uno."
       },
       "file": "git log",
-      "lines": [
-        "a41c2e0 test(payment): reject negative amounts",
-        "9be71d3 feat(payment): aggregate and invariants",
-        "3f0d8aa feat(payment): create payment use case",
-        "c27e915 feat(payment): outbox adapter"
-      ]
+      "lines": {
+        "en": [
+          "test(payment): reject negative amounts",
+          "feat(payment): payment rules",
+          "feat(payment): create payment use case",
+          "feat(payment): outbox adapter"
+        ],
+        "es": [
+          "test(payment): rechaza montos negativos",
+          "feat(payment): reglas del pago",
+          "feat(payment): caso de uso crear pago",
+          "feat(payment): adaptador outbox"
+        ]
+      }
     },
     {
       "id": "verify",
@@ -216,16 +253,28 @@
         "es": "Verificar"
       },
       "desc": {
-        "en": "The goal is checked against the plan, not just the tests: build, coverage, architecture and traces.",
-        "es": "Se comprueba el objetivo contra el plan, no solo los tests: build, cobertura, arquitectura y trazas."
+        "en": "Before calling it done, we check it does what was agreed, not just that tests pass.",
+        "es": "Antes de darlo por terminado, se comprueba que hace lo acordado, no solo que los tests pasen."
+      },
+      "gain": {
+        "en": "Proof that it works, ready for a human reviewer.",
+        "es": "Evidencia de que funciona, lista para la revisión humana."
       },
       "file": "VERIFICATION.md",
-      "lines": [
-        "✓ ./gradlew build",
-        "✓ ArchUnit: domain has no framework deps",
-        "✓ coverage domain 98% · use cases 94%",
-        "✓ span payment.create exported"
-      ]
+      "lines": {
+        "en": [
+          "✓ Build and all tests green",
+          "✓ Architecture rules respected",
+          "✓ Coverage: domain 98%",
+          "✓ Payment traced end to end"
+        ],
+        "es": [
+          "✓ Build y todos los tests en verde",
+          "✓ Reglas de arquitectura respetadas",
+          "✓ Cobertura: dominio 98%",
+          "✓ Pago trazado de punta a punta"
+        ]
+      }
     }
   ],
   "valuesLabel": {
@@ -281,5 +330,9 @@
         "es": "CI/CD reutilizable: releases SemVer, gates de seguridad y despliegues GitOps."
       }
     }
-  ]
+  ],
+  "gainLabel": {
+    "en": "What you get",
+    "es": "Qué ganas"
+  }
 }
