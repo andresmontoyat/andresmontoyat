@@ -30,7 +30,7 @@ const translations = {
     },
     meta: {
       title: 'Carlos Andrés Montoya Tobón · Java Solution Architect & Tech Lead',
-      description: 'Carlos Andrés Montoya Tobón — Java Solution Architect and Tech Lead with 18+ years in backend engineering, 11+ of them leading teams. Java, Kotlin, Spring, microservices and cloud.',
+      description: 'Carlos Andrés Montoya Tobón — Java Solution Architect and Tech Lead with 18+ years in backend engineering, 11+ of them leading teams. Java, Kotlin, Spring, microservices, cloud and AI engineering with agents.',
     },
     entry: {
       eyebrow: 'Carlos Montoya',
@@ -45,7 +45,7 @@ const translations = {
       h1b: 'Architect',
       h1c: '& Tech Lead.',
       name: 'Carlos Andrés Montoya Tobón',
-      lead: 'I design Java platforms on Spring — payments, digital identity, telecom, transportation — and lead the teams that ship them to production.',
+      lead: 'I design Java platforms on Spring — payments, digital identity, telecom, transportation — and lead the teams that ship them to production — now with AI agents working under my standards.',
       whoami: 'architect @ Soldife',
       photoAlt: 'Carlos Andrés Montoya Tobón at Los Glaciares National Park',
       cta1: 'Get in touch',
@@ -95,7 +95,7 @@ const translations = {
     },
     meta: {
       title: 'Carlos Andrés Montoya Tobón · Arquitecto de Soluciones Java y Tech Lead',
-      description: 'Carlos Andrés Montoya Tobón — Arquitecto de Soluciones Java y Tech Lead con +18 años en ingeniería backend, más de 11 liderando equipos. Java, Kotlin, Spring, microservicios y cloud.',
+      description: 'Carlos Andrés Montoya Tobón — Arquitecto de Soluciones Java y Tech Lead con +18 años en ingeniería backend, más de 11 liderando equipos. Java, Kotlin, Spring, microservicios, cloud e ingeniería con agentes de IA.',
     },
     entry: {
       eyebrow: 'Carlos Montoya',
@@ -110,7 +110,7 @@ const translations = {
       h1b: 'Soluciones',
       h1c: 'Java y Tech Lead.',
       name: 'Carlos Andrés Montoya Tobón',
-      lead: 'Diseño plataformas Java sobre Spring —pagos, identidad digital, telecom, transporte— y lidero los equipos que las llevan a producción.',
+      lead: 'Diseño plataformas Java sobre Spring —pagos, identidad digital, telecom, transporte— y lidero los equipos que las llevan a producción, hoy con agentes de IA trabajando bajo mis estándares.',
       whoami: 'arquitecto @ Soldife',
       photoAlt: 'Carlos Andrés Montoya Tobón en el Parque Nacional Los Glaciares',
       cta1: 'Contáctame',

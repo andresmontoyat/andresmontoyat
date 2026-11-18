@@ -53,7 +53,19 @@ function pick(field, lang) {
         <p class="cp-hint">{pick(data.pipelineHint, locale)}</p>
       </div>
     </div>
-    <div class="cp-rail grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-16" tabindex="0" aria-label={pick(data.valuesLabel, locale)}>
+    <div class="mt-14">
+      <p class="text-accent font-mono text-xs uppercase tracking-widest">{pick(data.proofLabel, locale)}</p>
+      <dl class="mt-5 grid grid-cols-2 lg:grid-cols-4 gap-px overflow-hidden rounded-xl border border-border bg-border">
+        {data.proof.map((x) => (
+          <div class="bg-surface px-5 py-5">
+            <dt class="sr-only">{pick(x.label, locale)}</dt>
+            <dd class="text-3xl sm:text-4xl font-extrabold leading-none text-accent tabular-nums" data-count-up={x.n} data-count-up-template="{n}">{x.n}</dd>
+            <dd class="mt-2 text-sm text-muted" aria-hidden="true">{pick(x.label, locale)}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+    <div class="cp-rail grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-10" tabindex="0" aria-label={pick(data.valuesLabel, locale)}>
       {data.values.map((v) => (
         <div class="bg-surface border border-border rounded-xl p-5 hover:border-accent transition-colors">
           <div class="text-accent font-mono text-sm font-extrabold">{v.id}</div>
@@ -75,10 +87,22 @@ function pick(field, lang) {
         </div>
       ))}
     </div>
+    <p class="text-accent font-mono text-xs uppercase tracking-widest mt-14">
+      {pick(data.builtLabel, locale)}
+    </p>
+    <div class="cp-rail grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6" tabindex="0" aria-label={pick(data.builtLabel, locale)}>
+      {data.built.map((b) => (
+        <a href={b.url} target="_blank" rel="noopener noreferrer" class="group flex flex-col bg-surface border border-border rounded-xl p-5 transition-all duration-200 hover:border-accent motion-safe:hover:-translate-y-1">
+          <span class="text-text font-extrabold text-base flex items-center justify-between gap-2">{pick(b.title, locale)}<span class="text-accent transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true">↗</span></span>
+          <span class="text-muted text-sm mt-2 leading-relaxed">{pick(b.desc, locale)}</span>
+        </a>
+      ))}
+    </div>
   </div>
 </section>
 
 <script src="../../scripts/claude-pipeline.js"></script>
+<script src="../../scripts/count-up.js"></script>
 
 <style>
   .cp-box { position: relative; border-radius: 16px; background: var(--surface); border: 1px solid var(--border); padding: 20px; min-width: 0 }

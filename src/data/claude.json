@@ -12,8 +12,8 @@
     "es": "entregado con disciplina AI"
   },
   "subLead": {
-    "en": "I don't just use AI assistants — I build the engineering system around them. After months of daily work with Claude Code, my architecture standards live as 40+ executable guidelines, skills and specialist review agents, so agents ship hexagonal Spring services with tests, ADRs and observability. The rules are enforced by hooks and evals, not by memory.",
-    "es": "No solo uso asistentes de IA: construyo el sistema de ingeniería a su alrededor. Tras meses de trabajo diario con Claude Code, mis estándares de arquitectura viven como más de 40 guías ejecutables, skills y agentes revisores especializados, para que los agentes entreguen servicios Spring hexagonales con tests, ADRs y observabilidad. Las reglas se hacen cumplir con hooks y evals, no de memoria."
+    "en": "I don't just use AI assistants — I build the engineering system around them. After months of daily work with Claude Code, my architecture standards live as 58 executable guidelines, skills and specialist review agents, so agents ship hexagonal Spring services with tests, ADRs and observability. The rules are enforced by hooks and evals, not by memory.",
+    "es": "No solo uso asistentes de IA: construyo el sistema de ingeniería a su alrededor. Tras meses de trabajo diario con Claude Code, mis estándares de arquitectura viven como 58 guías ejecutables, skills y agentes revisores especializados, para que los agentes entreguen servicios Spring hexagonales con tests, ADRs y observabilidad. Las reglas se hacen cumplir con hooks y evals, no de memoria."
   },
   "ctaPrimary": {
     "en": "Let's talk about your project →",
@@ -231,5 +231,89 @@
   "valuesLabel": {
     "en": "Why it works",
     "es": "Por qué funciona"
-  }
+  },
+  "proofLabel": {
+    "en": "The system, in numbers",
+    "es": "El sistema, en números"
+  },
+  "proof": [
+    {
+      "n": "58",
+      "label": {
+        "en": "executable guidelines",
+        "es": "guías ejecutables"
+      }
+    },
+    {
+      "n": "15",
+      "label": {
+        "en": "own agents",
+        "es": "agentes propios"
+      }
+    },
+    {
+      "n": "31",
+      "label": {
+        "en": "skills",
+        "es": "skills"
+      }
+    },
+    {
+      "n": "23",
+      "label": {
+        "en": "eval cases for agent config",
+        "es": "casos de eval para agentes"
+      }
+    }
+  ],
+  "builtLabel": {
+    "en": "Shipped this way",
+    "es": "Hecho así"
+  },
+  "built": [
+    {
+      "title": {
+        "en": "This portfolio",
+        "es": "Este portfolio"
+      },
+      "url": "https://github.com/andresmontoyat/andresmontoyat",
+      "desc": {
+        "en": "867 commits and 45 merged PRs: Astro islands, a career RPG and a map editor, 845 tests, strict CSP, Lighthouse mobile 95+.",
+        "es": "867 commits y 45 PRs mergeados: islas Astro, un RPG de carrera y un editor de mapas, 845 tests, CSP estricta, Lighthouse móvil 95+."
+      }
+    },
+    {
+      "title": {
+        "en": "Guidelines",
+        "es": "Guidelines"
+      },
+      "url": "https://guidelines.andresmontoyat.dev/",
+      "desc": {
+        "en": "The standards my agents follow, published: hexagonal, DDD, messaging, security, observability, mobile.",
+        "es": "Los estándares que siguen mis agentes, publicados: hexagonal, DDD, mensajería, seguridad, observabilidad, mobile."
+      }
+    },
+    {
+      "title": {
+        "en": "Vitxo architecture",
+        "es": "Arquitectura de Vitxo"
+      },
+      "url": "https://hexagonal.andresmontoyat.dev/",
+      "desc": {
+        "en": "A raffles platform with on-chain verifiability: event-driven hexagonal services, shared SDKs, trust boundaries.",
+        "es": "Plataforma de rifas con verificabilidad on-chain: servicios hexagonales event-driven, SDKs compartidos, fronteras de confianza."
+      }
+    },
+    {
+      "title": {
+        "en": "mypipelines",
+        "es": "mypipelines"
+      },
+      "url": "https://mypipelines.andresmontoyat.dev/",
+      "desc": {
+        "en": "Reusable CI/CD: SemVer releases, security gates and GitOps deploys.",
+        "es": "CI/CD reutilizable: releases SemVer, gates de seguridad y despliegues GitOps."
+      }
+    }
+  ]
 }

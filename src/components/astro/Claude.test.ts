@@ -86,7 +86,7 @@ describe('Claude.astro (Container API parity — D-06)', () => {
     const runs: string[] = []
     const walk = (v: unknown): void => {
       if (typeof v === 'string') runs.push(...v.split(/\s+/))
-      else if (v && typeof v === 'object') Object.values(v).forEach(walk)
+      else if (v && typeof v === 'object') Object.entries(v).forEach(([k, x]) => { if (k !== 'url') walk(x) })
     }
     walk(data)
     expect(runs.filter((r) => r.length > MAX_RUN)).toEqual([])
@@ -105,5 +105,13 @@ describe('Claude.astro (Container API parity — D-06)', () => {
     const result = await renderClaude('en')
     expect(result).toContain('href="https://guidelines.andresmontoyat.dev/"')
     expect(result).toContain('Read the guidelines my agents follow')
+  })
+
+  it('shows the system in numbers and the work shipped this way', async () => {
+    const result = await renderClaude('es')
+    expect(result).toContain('El sistema, en números')
+    expect((result.match(/data-count-up="/g) || []).length).toBe(data.proof.length)
+    expect(result).toContain('Hecho así')
+    for (const b of data.built) expect(result).toContain(`href="${b.url}"`)
   })
 })
