@@ -4,12 +4,12 @@
     "es": "AI Engineering · Para tu equipo"
   },
   "h2Part1": {
-    "en": "Software",
-    "es": "Software"
+    "en": "AI agents",
+    "es": "Agentes de IA"
   },
   "h2Part2": {
-    "en": "delivered with AI discipline",
-    "es": "entregado con disciplina AI"
+    "en": "with an architect's judgment",
+    "es": "con criterio de arquitecto"
   },
   "subLead": {
     "en": "I don't just use AI assistants — I build the engineering system around them. After months of daily work with Claude Code, my architecture standards live as 58 executable guidelines, skills and specialist review agents, so agents ship hexagonal Spring services with tests, ADRs and observability. The rules are enforced by hooks and evals, not by memory.",

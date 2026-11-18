@@ -25,8 +25,8 @@ describe('Claude.astro (Container API parity — D-06)', () => {
   it('renders pitch hero label/h2/subLead/CTA (EN)', async () => {
     const result = await renderClaude('en')
     expect(result).toMatch(/AI Engineering · For your team/)
-    expect(result).toMatch(/Software/)
-    expect(result).toMatch(/delivered with AI discipline/)
+    expect(result).toMatch(/AI agents/)
+    expect(result).toMatch(/with an architect&#39;s judgment/)
     expect(result).toMatch(/build the engineering system around them/)
     expect(result).toContain('Let&#39;s talk about your project')
   })
@@ -54,7 +54,7 @@ describe('Claude.astro (Container API parity — D-06)', () => {
   it('translates pitch + values + offerings when locale=es', async () => {
     const result = await renderClaude('es')
     expect(result).toMatch(/AI Engineering · Para tu equipo/)
-    expect(result).toMatch(/Software/)
+    expect(result).toMatch(/Agentes de IA/)
     expect(result).toMatch(/Hablemos de tu proyecto/)
     expect(result).toContain('Estándares que los agentes ejecutan')
     expect(result).toContain('Entrega agéntica en tu equipo')
