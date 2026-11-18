@@ -221,6 +221,7 @@ function wireMax(root, cmd) {
   }
   btn.addEventListener('click', () => set(!term.classList.contains('max')))
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && term.classList.contains('max')) set(false) })
+  document.addEventListener('pointerdown', (e) => { if (term.classList.contains('max') && !term.contains(e.target)) set(false) })
 }
 
 function wireViews(root) {
