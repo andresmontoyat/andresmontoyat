@@ -116,6 +116,23 @@ const ghAria = locale === 'es' ? 'Perfil de GitHub' : 'GitHub profile'
             </a>
           </div>
         </div>
+        <dl class="mt-10 grid grid-cols-3 sm:flex sm:divide-x sm:divide-ink-400 [&>div]:sm:px-8 [&>div:first-child]:sm:pl-0 motion-safe:opacity-0 motion-safe:animate-fade-in" style="animation-delay: 450ms; animation-fill-mode: forwards; animation-duration: 500ms;">
+          <div>
+            <dt class="sr-only">{t.stats.years}</dt>
+            <dd class="text-2xl sm:text-3xl font-extrabold leading-none bg-brand-gradient bg-clip-text text-transparent tabular-nums" data-count-up={yearsStat.target} data-count-up-template={yearsStat.template}>18+</dd>
+            <dd class="mt-1.5 text-[11px] font-mono text-muted uppercase tracking-widest" aria-hidden="true">{t.stats.years}</dd>
+          </div>
+          <div>
+            <dt class="sr-only">{t.stats.team}</dt>
+            <dd class="text-2xl sm:text-3xl font-extrabold leading-none bg-brand-gradient bg-clip-text text-transparent tabular-nums" data-count-up={teamStat.target} data-count-up-template={teamStat.template}>45+</dd>
+            <dd class="mt-1.5 text-[11px] font-mono text-muted uppercase tracking-widest" aria-hidden="true">{t.stats.team}</dd>
+          </div>
+          <div>
+            <dt class="sr-only">{t.stats.industries}</dt>
+            <dd class="text-2xl sm:text-3xl font-extrabold leading-none bg-brand-gradient bg-clip-text text-transparent tabular-nums" data-count-up={industriesStat.target} data-count-up-template={industriesStat.template}>8</dd>
+            <dd class="mt-1.5 text-[11px] font-mono text-muted uppercase tracking-widest" aria-hidden="true">{t.stats.industries}</dd>
+          </div>
+        </dl>
       </div>
 
       <figure class="hero-portrait hidden lg:block relative">
@@ -138,40 +155,6 @@ const ghAria = locale === 'es' ? 'Perfil de GitHub' : 'GitHub profile'
           <span class="text-brand">→ {t.hero.whoami}</span>
         </figcaption>
       </figure>
-    </div>
-
-    <div
-      class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-12 p-5 sm:p-6 bg-linear-to-b from-ink-500 to-ink-700 border border-ink-400 rounded-xl motion-safe:opacity-0 motion-safe:animate-fade-in backdrop-blur-xs shadow-brand"
-      style="animation-delay: 450ms; animation-fill-mode: forwards; animation-duration: 500ms;"
-    >
-      <div class="group text-center cursor-default motion-safe:transition-transform motion-safe:duration-200 motion-safe:hover:-translate-y-1">
-        <div
-          class="text-3xl font-extrabold leading-none bg-brand-gradient bg-clip-text text-transparent transition-transform duration-200 group-hover:scale-110 motion-safe:group-hover:drop-shadow-[0_0_10px_rgba(37,99,235,0.5)]"
-          data-count-up={yearsStat.target}
-          data-count-up-template={yearsStat.template}
-        >18+</div>
-        <div class="mt-1 text-xs font-mono font-normal text-muted uppercase tracking-widest transition-colors duration-200 group-hover:text-brand">{t.stats.years}</div>
-      </div>
-      <div class="group text-center cursor-default motion-safe:transition-transform motion-safe:duration-200 motion-safe:hover:-translate-y-1">
-        <div
-          class="text-3xl font-extrabold leading-none bg-brand-gradient bg-clip-text text-transparent transition-transform duration-200 group-hover:scale-110 motion-safe:group-hover:drop-shadow-[0_0_10px_rgba(37,99,235,0.5)]"
-          data-count-up={teamStat.target}
-          data-count-up-template={teamStat.template}
-        >45+</div>
-        <div class="mt-1 text-xs font-mono font-normal text-muted uppercase tracking-widest transition-colors duration-200 group-hover:text-brand">{t.stats.team}</div>
-      </div>
-      <div class="group text-center cursor-default motion-safe:transition-transform motion-safe:duration-200 motion-safe:hover:-translate-y-1">
-        <div class="text-xl sm:text-2xl font-extrabold leading-none bg-brand-gradient bg-clip-text text-transparent py-1">AWS · GCP · Azure</div>
-        <div class="mt-1 text-xs font-mono font-normal text-muted uppercase tracking-widest transition-colors duration-200 group-hover:text-brand">{t.stats.clouds}</div>
-      </div>
-      <div class="group text-center cursor-default motion-safe:transition-transform motion-safe:duration-200 motion-safe:hover:-translate-y-1">
-        <div
-          class="text-3xl font-extrabold leading-none bg-brand-gradient bg-clip-text text-transparent transition-transform duration-200 group-hover:scale-110 motion-safe:group-hover:drop-shadow-[0_0_10px_rgba(37,99,235,0.5)]"
-          data-count-up={industriesStat.target}
-          data-count-up-template={industriesStat.template}
-        >8</div>
-        <div class="mt-1 text-xs font-mono font-normal text-muted uppercase tracking-widest transition-colors duration-200 group-hover:text-brand">{t.stats.industries}</div>
-      </div>
     </div>
   </div>
 </section>

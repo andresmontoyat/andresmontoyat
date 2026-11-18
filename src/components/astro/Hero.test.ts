@@ -94,13 +94,13 @@ describe('Hero.astro count-up stats (D-02, new this phase)', () => {
     const result = await renderHero('en')
     expect(result.match(/data-count-up="/g)?.length).toBe(3)
     expect(result.match(/data-count-up-template="/g)?.length).toBe(3)
+    expect(result).not.toContain('AWS · GCP · Azure')
   })
 
   it('renders the settled stat values as zero-JS fallback text', async () => {
     const result = await renderHero('en')
     expect(result).toContain('>18+<')
     expect(result).toContain('>45+<')
-    expect(result).toContain('AWS · GCP · Azure')
     expect(result).toContain('>8<')
   })
 })

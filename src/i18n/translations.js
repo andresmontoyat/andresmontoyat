@@ -56,7 +56,6 @@ const translations = {
       years: 'Years in backend',
       team: 'People led',
       leading: 'Years leading',
-      clouds: 'Clouds in production',
       industries: 'Industries',
     },
     footer: {
@@ -121,7 +120,6 @@ const translations = {
       years: 'Años en backend',
       team: 'Personas lideradas',
       leading: 'Años liderando',
-      clouds: 'Nubes en producción',
       industries: 'Industrias',
     },
     footer: {
