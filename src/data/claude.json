@@ -232,40 +232,6 @@
     "en": "Why it works",
     "es": "Por qué funciona"
   },
-  "proofLabel": {
-    "en": "The system, in numbers",
-    "es": "El sistema, en números"
-  },
-  "proof": [
-    {
-      "n": "58",
-      "label": {
-        "en": "executable guidelines",
-        "es": "guías ejecutables"
-      }
-    },
-    {
-      "n": "15",
-      "label": {
-        "en": "own agents",
-        "es": "agentes propios"
-      }
-    },
-    {
-      "n": "31",
-      "label": {
-        "en": "skills",
-        "es": "skills"
-      }
-    },
-    {
-      "n": "23",
-      "label": {
-        "en": "eval cases for agent config",
-        "es": "casos de eval para agentes"
-      }
-    }
-  ],
   "builtLabel": {
     "en": "Shipped this way",
     "es": "Hecho así"

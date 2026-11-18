@@ -107,10 +107,8 @@ describe('Claude.astro (Container API parity — D-06)', () => {
     expect(result).toContain('Read the guidelines my agents follow')
   })
 
-  it('shows the system in numbers and the work shipped this way', async () => {
+  it('shows the work shipped this way', async () => {
     const result = await renderClaude('es')
-    expect(result).toContain('El sistema, en números')
-    expect((result.match(/data-count-up="/g) || []).length).toBe(data.proof.length)
     expect(result).toContain('Hecho así')
     for (const b of data.built) expect(result).toContain(`href="${b.url}"`)
   })
