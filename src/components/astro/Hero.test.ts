@@ -27,22 +27,22 @@ const heroSource = readFileSync(new URL('./Hero.astro', import.meta.url), 'utf-8
 describe('Hero.astro copy (coverage-parity port)', () => {
   it('renders role-forward H1 via aria-label (EN)', async () => {
     const result = await renderHero('en')
-    expect(result).toContain('aria-label="Java Solution Architect &amp; Tech Lead."')
+    expect(result).toContain('aria-label="Carlos Andrés Montoya — Java Solution Architect &amp; Tech Lead."')
   })
 
   it('renders role-forward H1 via aria-label (ES)', async () => {
     const result = await renderHero('es')
-    expect(result).toContain('aria-label="Arquitecto de Soluciones Java y Tech Lead."')
+    expect(result).toContain('aria-label="Carlos Andrés Montoya — Arquitecto de Soluciones Java y Tech Lead."')
   })
 
   it('renders the punchy lead (EN)', async () => {
     const result = await renderHero('en')
-    expect(result).toMatch(/clean hexagonal architecture, cloud-native/)
+    expect(result).toMatch(/payments, digital identity, telecom/)
   })
 
   it('renders the punchy lead (ES)', async () => {
     const result = await renderHero('es')
-    expect(result).toMatch(/arquitectura hexagonal limpia, cloud-native/)
+    expect(result).toMatch(/pagos, identidad digital, telecom/)
   })
 })
 
@@ -80,26 +80,27 @@ describe('Hero.astro CTAs (coverage-parity port)', () => {
 })
 
 describe('Hero.astro photo layer (LCP element, D-08)', () => {
-  it('renders a decorative background photo directly, with no duplicate-DOM #hero-static element', async () => {
+  it('renders the portrait with descriptive alt text, with no duplicate-DOM #hero-static element', async () => {
     const result = await renderHero('en')
     expect(result).toContain('src="/me-800.webp"')
-    expect(result).toContain('alt=""')
+    expect(result).toContain('alt="Carlos Andrés Montoya at Los Glaciares National Park"')
+    expect(result).toContain('Carlos Andrés Montoya')
     expect(result).not.toContain('hero-static')
   })
 })
 
 describe('Hero.astro count-up stats (D-02, new this phase)', () => {
-  it('all 4 stat spans carry data-count-up + data-count-up-template attributes', async () => {
+  it('all 3 numeric stat spans carry data-count-up + data-count-up-template attributes', async () => {
     const result = await renderHero('en')
-    expect(result.match(/data-count-up="/g)?.length).toBe(4)
-    expect(result.match(/data-count-up-template="/g)?.length).toBe(4)
+    expect(result.match(/data-count-up="/g)?.length).toBe(3)
+    expect(result.match(/data-count-up-template="/g)?.length).toBe(3)
   })
 
   it('renders the settled stat values as zero-JS fallback text', async () => {
     const result = await renderHero('en')
     expect(result).toContain('>18+<')
     expect(result).toContain('>45+<')
-    expect(result).toContain('>11+<')
+    expect(result).toContain('AWS · GCP · Azure')
     expect(result).toContain('>8<')
   })
 })

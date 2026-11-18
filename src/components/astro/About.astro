@@ -41,17 +41,10 @@ const rest = facts.filter((f) => f.id !== 'exp')
         ))}
       </div>
       <aside class="lg:col-span-2 self-start lg:sticky lg:top-24 bg-surface border border-border rounded-xl p-6 transition-colors duration-200 hover:border-accent/40">
-        <div class="flex flex-wrap items-center justify-between gap-x-3 gap-y-2 mb-5">
+        <div class="mb-5">
           <h3 class="text-base font-extrabold flex items-center gap-2 text-text whitespace-nowrap">
             <span class="text-accent">◆</span> {pick(data.quick, locale)}
           </h3>
-          <a href="#contact" class="inline-flex items-center gap-2 rounded-full border border-accent/40 bg-accent/10 px-3 py-1 text-xs font-bold text-accent whitespace-nowrap transition-colors hover:bg-accent/20">
-            <span class="relative flex h-2 w-2" aria-hidden="true">
-              <span class="absolute inline-flex h-full w-full rounded-full bg-accent opacity-60 motion-safe:animate-ping"></span>
-              <span class="relative inline-flex h-2 w-2 rounded-full bg-accent"></span>
-            </span>
-            {pick(data.status, locale)}
-          </a>
         </div>
         {exp && (() => {
           const value = pick(exp.value, locale)
