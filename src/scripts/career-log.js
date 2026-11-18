@@ -114,6 +114,7 @@ function init(root) {
   wirePeek(root, el, s.jobs)
   wireViews(root)
   wireList(root, t)
+  wireMax(root, el.cmd)
   print([[{ t: t.welcome.split('{help}')[0], c: 'm' }, { t: 'help', run: 'help' }, { t: t.welcome.split('{help}')[1], c: 'm' }]])
   boot(el, run, ghostUpdate, st)
 }
@@ -207,6 +208,19 @@ function wireList(root, t) {
   }), { root: box, rootMargin: '0px 0px -70% 0px' })
   cards.forEach((c) => spy.observe(c))
   apply()
+}
+
+function wireMax(root, cmd) {
+  const term = $(root, '.cl-term'), btn = $(root, '.cl-max')
+  const set = (on) => {
+    term.classList.toggle('max', on)
+    document.documentElement.style.overflow = on ? 'hidden' : ''
+    btn.setAttribute('aria-pressed', String(on))
+    btn.setAttribute('aria-label', on ? btn.dataset.restore : btn.dataset.max)
+    cmd.focus({ preventScroll: true })
+  }
+  btn.addEventListener('click', () => set(!term.classList.contains('max')))
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && term.classList.contains('max')) set(false) })
 }
 
 function wireViews(root) {

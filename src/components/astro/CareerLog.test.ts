@@ -101,3 +101,12 @@ describe('CareerLog.astro copy', () => {
     expect(await render('es')).toContain('Descargar CV ({L}, PDF)')
   })
 })
+
+describe('CareerLog terminal maximize', () => {
+  it('renders a labelled maximize toggle in the terminal bar', async () => {
+    const html = await render('es')
+    expect(html).toContain('class="cl-max"')
+    expect(html).toContain('aria-label="Maximizar terminal"')
+    expect(html).toContain('aria-pressed="false"')
+  })
+})
