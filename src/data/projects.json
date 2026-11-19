@@ -5,12 +5,16 @@
     "en": "A focused look at the systems I have shipped recently.",
     "es": "Una mirada enfocada a los sistemas que he entregado recientemente."
   },
-  "ctaLive": { "en": "View Live", "es": "Ver Live" },
+  "ctaLive": { "en": "View Live", "es": "Ver sitio" },
   "ctaGithub": { "en": "GitHub", "es": "GitHub" },
   "featuredLabel": { "en": "Featured", "es": "Destacado" },
+  "statusLive": { "en": "Live", "es": "En vivo" },
+  "statusClient": { "en": "Client", "es": "Cliente" },
+  "privateNote": { "en": "Private client code", "es": "Código privado de cliente" },
   "projects": [
     {
       "id": "mr-yoker",
+      "domain": { "en": "Ticketing · Blockchain", "es": "Ticketing · Blockchain" },
       "icon": "🎫",
       "featured": true,
       "title": { "en": "Mr. Yoker", "es": "Mr. Yoker" },
@@ -24,6 +28,7 @@
     },
     {
       "id": "llevape",
+      "domain": { "en": "Logistics", "es": "Logística" },
       "icon": "🏬",
       "title": { "en": "Llevape", "es": "Llevape" },
       "desc": {
@@ -36,6 +41,7 @@
     },
     {
       "id": "mutual-ser",
+      "domain": { "en": "Healthcare", "es": "Salud" },
       "icon": "🏥",
       "title": { "en": "Mutual SER — Microfrontends", "es": "Mutual SER — Microfrontends" },
       "desc": {
@@ -48,6 +54,7 @@
     },
     {
       "id": "hexadialer",
+      "domain": { "en": "Contact center", "es": "Contact center" },
       "icon": "📞",
       "title": { "en": "Hexadialer", "es": "Hexadialer" },
       "desc": {
@@ -60,6 +67,7 @@
     },
     {
       "id": "mypipelines",
+      "domain": { "en": "DevOps", "es": "DevOps" },
       "icon": "🚀",
       "title": { "en": "MyPipelines", "es": "MyPipelines" },
       "desc": {
@@ -72,6 +80,7 @@
     },
     {
       "id": "myguidelines",
+      "domain": { "en": "AI engineering", "es": "Ingeniería con IA" },
       "icon": "📐",
       "featured": true,
       "title": { "en": "MyGuidelines — Engineering Standards", "es": "MyGuidelines — Estándares de Ingeniería" },

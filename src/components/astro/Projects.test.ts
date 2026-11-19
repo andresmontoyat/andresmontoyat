@@ -82,6 +82,17 @@ describe('Projects.astro (Container API parity — D-06)', () => {
     expect(featuredBlock).toMatch(/Featured/i)
   })
 
+  it('shows each project domain and a live or client status', async () => {
+    const result = await renderProjects('en')
+    for (const p of data.projects) {
+      expect(result).toContain(p.domain.en)
+      expect(result).toMatch(new RegExp(`~/projects/<span[^>]*>${p.id}</span>`))
+    }
+    const live = data.projects.filter((p) => p.liveUrl).length
+    expect(result.match(/class="pj-dot"/g) || []).toHaveLength(live)
+    expect(result.match(/Private client code/g) || []).toHaveLength(data.projects.length - live)
+  })
+
   it('projects.json schema sanity — each project has required bilingual keys', () => {
     expect(Array.isArray(data.projects)).toBe(true)
     expect(data.projects.length).toBeGreaterThan(0)
