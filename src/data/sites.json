@@ -1,23 +1,49 @@
 {
-  "label": { "en": "More of me", "es": "Más de mí" },
-  "h2": { "en": "My other sites", "es": "Mis otros sitios" },
+  "label": {
+    "en": "More of me",
+    "es": "Más de mí"
+  },
+  "h2": {
+    "en": "My other sites",
+    "es": "Mis otros sitios"
+  },
   "intro": {
     "en": "Projects I keep online: guides and tools I use every day.",
     "es": "Proyectos que mantengo en línea: guías y herramientas que uso a diario."
   },
-  "cta": { "en": "Visit", "es": "Visitar" },
+  "cta": {
+    "en": "Visit",
+    "es": "Visitar"
+  },
   "sites": [
     {
-      "url": "https://hexagonal.andresmontoyat.dev/",
-      "title": { "en": "My Guidelines", "es": "Mis Guidelines" },
+      "url": "https://guidelines.andresmontoyat.dev/",
+      "title": {
+        "en": "My Guidelines",
+        "es": "Mis Guidelines"
+      },
       "desc": {
         "en": "The guidelines I steer my agent with when building hexagonal microservices. Open for you to use with yours.",
         "es": "Las guías con las que dirijo a mi agente al construir microservicios hexagonales. Abiertas para que las uses con el tuyo."
       }
     },
     {
+      "url": "https://hexagonal.andresmontoyat.dev/",
+      "title": {
+        "en": "Architecture Notes",
+        "es": "Notas de arquitectura"
+      },
+      "desc": {
+        "en": "How I approached Vitxo's architecture: an ecommerce raffles platform with on-chain verifiability, event-driven hexagonal, shared SDKs and trust boundaries.",
+        "es": "Cómo abordé la arquitectura de Vitxo: plataforma de rifas ecommerce con verificabilidad on-chain, hexagonal event-driven, SDKs compartidos y fronteras de confianza."
+      }
+    },
+    {
       "url": "https://mypipelines.andresmontoyat.dev/",
-      "title": { "en": "mypipelines", "es": "mypipelines" },
+      "title": {
+        "en": "mypipelines",
+        "es": "mypipelines"
+      },
       "desc": {
         "en": "Reusable CI/CD pipelines: workflows, SemVer releases and security gates.",
         "es": "Pipelines de CI/CD reutilizables: workflows, release SemVer y gates de seguridad."

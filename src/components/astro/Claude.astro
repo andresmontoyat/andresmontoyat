@@ -5,7 +5,7 @@
 import data from '../../data/claude.json'
 
 const { locale } = Astro.props
-const GUIDES_URL = 'https://hexagonal.andresmontoyat.dev/'
+const GUIDES_URL = 'https://guidelines.andresmontoyat.dev/'
 
 function pick(field, lang) {
   if (typeof field === 'string') return field
@@ -44,9 +44,10 @@ function pick(field, lang) {
         {data.pipeline.map((s, i) => (
           <div class="cp-panel" role="tabpanel" id={`cp-panel-${locale}-${s.id}`} aria-labelledby={`cp-tab-${locale}-${s.id}`} data-i={i}>
             <p class="cp-desc">{pick(s.desc, locale)}</p>
+            <p class="cp-gain"><strong>{pick(data.gainLabel, locale)}:</strong> {pick(s.gain, locale)}</p>
             <div class="cp-file">
               <div class="cp-head"><span class="cp-dots" aria-hidden="true"><i></i><i></i><i></i></span>{s.file}</div>
-              <pre>{s.lines.map((l) => <span>{l}</span>)}</pre>
+              <pre>{pick(s.lines, locale).map((l) => <span>{l}</span>)}</pre>
             </div>
           </div>
         ))}
@@ -75,6 +76,17 @@ function pick(field, lang) {
         </div>
       ))}
     </div>
+    <p class="text-accent font-mono text-xs uppercase tracking-widest mt-14">
+      {pick(data.builtLabel, locale)}
+    </p>
+    <div class="cp-rail grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6" tabindex="0" aria-label={pick(data.builtLabel, locale)}>
+      {data.built.map((b) => (
+        <a href={b.url} target="_blank" rel="noopener noreferrer" class="group flex flex-col bg-surface border border-border rounded-xl p-5 transition-all duration-200 hover:border-accent motion-safe:hover:-translate-y-1">
+          <span class="text-text font-extrabold text-base flex items-center justify-between gap-2">{pick(b.title, locale)}<span class="text-accent transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true">↗</span></span>
+          <span class="text-muted text-sm mt-2 leading-relaxed">{pick(b.desc, locale)}</span>
+        </a>
+      ))}
+    </div>
   </div>
 </section>
 
@@ -91,7 +103,8 @@ function pick(field, lang) {
   .cp-bar { position: absolute; left: 0; bottom: -2px; height: 2px; width: 25%; background: var(--accent); transform: translateX(calc(var(--i, 0) * 100%)); transition: transform .35s cubic-bezier(.2,.7,.2,1) }
   .cp-bar::after { content: ''; position: absolute; inset: 0; background: var(--accent); transform-origin: left; transform: scaleX(var(--p, 0)); opacity: .35 }
   .cp-panel { padding-top: 16px }
-  .cp-desc { color: var(--text); font-size: 15px; line-height: 1.6; min-height: 3.2em }
+  .cp-desc { color: var(--text); font-size: 15px; line-height: 1.6 }
+  .cp-gain { margin-top: 8px; font-size: 14px; line-height: 1.5; color: var(--muted) } .cp-gain strong { color: var(--accent); font-weight: 700 }
   .cp-file { margin-top: 14px; border-radius: 12px; overflow: hidden; background: var(--term, #0B1020); border: 1px solid var(--border) }
   .cp-head { display: flex; align-items: center; gap: 10px; padding: 8px 12px; font: 12px var(--font-mono); color: #9AA6C8; border-bottom: 1px solid rgba(255,255,255,.08) }
   .cp-dots { display: inline-flex; gap: 5px } .cp-dots i { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,.18) }

@@ -4,16 +4,16 @@
     "es": "AI Engineering · Para tu equipo"
   },
   "h2Part1": {
-    "en": "Software",
-    "es": "Software"
+    "en": "AI agents",
+    "es": "Agentes de IA"
   },
   "h2Part2": {
-    "en": "delivered with AI discipline",
-    "es": "entregado con disciplina AI"
+    "en": "with an architect's judgment",
+    "es": "con criterio de arquitecto"
   },
   "subLead": {
-    "en": "Senior backend engineer, full-stack (Java + React), DevOps and Java solution architect. I fit the architecture to the problem — hexagonal, microservices, event-driven or modular monolith — pairing Spring Boot and agentic workflows with Claude Code to ship production-ready software in a fraction of the time, without sacrificing testing, ADRs or observability.",
-    "es": "Senior backend, full-stack (Java + React), DevOps y arquitecto de soluciones Java. Adapto la arquitectura al problema —hexagonal, microservicios, event-driven o monolito modular— con Spring Boot y workflows agénticos con Claude Code para entregar software production-ready en una fracción del tiempo, sin sacrificar testing, ADRs ni observability."
+    "en": "I don't just use AI assistants — I build the engineering system around them. After months of daily work with Claude Code, my architecture standards live as 58 executable guidelines, skills and specialist review agents, so agents ship hexagonal Spring services with tests, ADRs and observability. The rules are enforced by hooks and evals, not by memory.",
+    "es": "No solo uso asistentes de IA: construyo el sistema de ingeniería a su alrededor. Tras meses de trabajo diario con Claude Code, mis estándares de arquitectura viven como 58 guías ejecutables, skills y agentes revisores especializados, para que los agentes entreguen servicios Spring hexagonales con tests, ADRs y observabilidad. Las reglas se hacen cumplir con hooks y evals, no de memoria."
   },
   "ctaPrimary": {
     "en": "Let's talk about your project →",
@@ -31,12 +31,23 @@
     {
       "id": "agentic",
       "title": {
-        "en": "Agentic delivery",
-        "es": "Entrega agéntica"
+        "en": "Agentic delivery setup",
+        "es": "Entrega agéntica en tu equipo"
       },
       "desc": {
-        "en": "Custom agents and discuss → plan → execute → verify pipelines wired into your codebase — production-ready features in a fraction of the time, tests and ADRs included.",
-        "es": "Agentes propios y pipelines discutir → planear → ejecutar → verificar integrados en tu codebase — features production-ready en una fracción del tiempo, con tests y ADRs incluidos."
+        "en": "Discuss → plan → execute → verify pipelines in your repo: guidelines, skills, review agents and hooks your engineers keep using after I leave.",
+        "es": "Pipelines discutir → planear → ejecutar → verificar en tu repo: guías, skills, agentes revisores y hooks que tu equipo sigue usando cuando yo me vaya."
+      }
+    },
+    {
+      "id": "reviewers",
+      "title": {
+        "en": "Custom review agents",
+        "es": "Agentes revisores a medida"
+      },
+      "desc": {
+        "en": "Architecture, security and API-contract reviewers tuned to your standards and wired into pull requests.",
+        "es": "Revisores de arquitectura, seguridad y contratos de API ajustados a tus estándares y conectados a los pull requests."
       }
     },
     {
@@ -47,7 +58,7 @@
       },
       "desc": {
         "en": "Spring AI + Qdrant retrieval and Model Context Protocol servers in Java/Kotlin that expose your internal systems and knowledge bases as first-class agent tools.",
-        "es": "Retrieval con Spring AI + Qdrant y servidores Model Context Protocol en Java/Kotlin que exponen tus sistemas internos y bases de conocimiento como herramientas de agente de primera clase."
+        "es": "Retrieval con Spring AI + Qdrant y servidores Model Context Protocol en Java/Kotlin que exponen tus sistemas internos y bases de conocimiento como herramientas de agente."
       }
     },
     {
@@ -57,41 +68,30 @@
         "es": "Evals y guardrails de LLM"
       },
       "desc": {
-        "en": "Eval harnesses, rubrics and output validation so AI features ship measured, not vibes.",
-        "es": "Arneses de evaluación, rúbricas y validación de salidas para que las features de AI se midan, no se intuyan."
+        "en": "Eval harnesses, rubrics and output validation for AI features — and for your agent configuration itself — so changes ship measured, not on vibes.",
+        "es": "Arneses de evaluación, rúbricas y validación de salidas para las features de IA, y para la propia configuración de tus agentes, para que los cambios se midan y no se intuyan."
       }
     },
     {
-      "id": "greenfield",
+      "id": "modernize",
       "title": {
-        "en": "Greenfield builds",
-        "es": "Greenfield builds"
+        "en": "Greenfield & legacy modernization",
+        "es": "Greenfield y modernización legacy"
       },
       "desc": {
-        "en": "Spring Boot + hexagonal from scratch with CI/CD, observability and complete testing infra.",
-        "es": "Spring Boot + hexagonal desde cero, con CI/CD, observability y testing infra completas."
-      }
-    },
-    {
-      "id": "legacy",
-      "title": {
-        "en": "Legacy refactor",
-        "es": "Legacy refactor"
-      },
-      "desc": {
-        "en": "Strangler-fig refactor of legacy Spring/Java services toward hexagonal architecture, with full test coverage and zero downtime.",
-        "es": "Refactor strangler-fig de servicios Spring/Java legacy hacia hexagonal architecture, con cobertura completa de tests y cero downtime."
+        "en": "New Spring Boot hexagonal services scaffolded to your conventions, or strangler-fig refactors of legacy Java with full test coverage and zero downtime.",
+        "es": "Servicios Spring Boot hexagonales nuevos con tus convenciones, o refactors strangler-fig de Java legacy con cobertura completa de tests y cero downtime."
       }
     },
     {
       "id": "devops",
       "title": {
-        "en": "DevOps automation",
-        "es": "DevOps automation"
+        "en": "CI/CD that guards quality",
+        "es": "CI/CD que cuida la calidad"
       },
       "desc": {
-        "en": "Production-ready GitHub Actions templates + GitFlow + multi-cloud deploys (EC2, VPN-tunneled EC2, EKS) backed by the soldife/ci-templates toolkit.",
-        "es": "Templates de GitHub Actions listos para producción + GitFlow + deploys multi-cloud (EC2, EC2 sobre VPN, EKS) respaldados por el toolkit soldife/ci-templates."
+        "en": "Reusable GitHub Actions with SemVer releases, security gates and GitOps deploys — the same pipelines I publish on mypipelines.",
+        "es": "GitHub Actions reutilizables con releases SemVer, gates de seguridad y despliegues GitOps: los mismos pipelines que publico en mypipelines."
       }
     }
   ],
@@ -99,55 +99,55 @@
     {
       "id": "01",
       "title": {
-        "en": "Delivery 3–5× faster",
-        "es": "Entrega 3–5× más rápida"
+        "en": "Standards agents can execute",
+        "es": "Estándares que los agentes ejecutan"
       },
       "desc": {
-        "en": "Agentic workflows (discuss → plan → execute → verify) ship in hours what takes days traditionally, while preserving atomic commits and real tests.",
-        "es": "Workflows agénticos (discuss → plan → execute → verify) entregan en horas lo que toma días con desarrollo tradicional, manteniendo atomic commits y tests reales."
+        "en": "Hexagonal, DDD, messaging, security and observability guides are the single source of truth. Skills read them, so every feature follows the same rules whoever — or whatever — writes it.",
+        "es": "Las guías de hexagonal, DDD, mensajería, seguridad y observabilidad son la única fuente de verdad. Las skills las leen, así cada feature sigue las mismas reglas la escriba quien la escriba."
       }
     },
     {
       "id": "02",
       "title": {
-        "en": "Architecture without shortcuts",
-        "es": "Arquitectura sin atajos"
+        "en": "Specialist reviewers on every diff",
+        "es": "Revisores especializados en cada diff"
       },
       "desc": {
-        "en": "Clean architecture, ports & adapters, ArchUnit gates and ADRs are non-negotiable — agentic speed never comes at the cost of structure.",
-        "es": "Arquitectura limpia, ports & adapters, ArchUnit gates y ADRs no se negocian — la velocidad agéntica nunca sacrifica estructura."
+        "en": "Dedicated agents check layer boundaries, STRIDE threats, outbox and saga correctness, API contract breaks and performance anti-patterns before a human reviews.",
+        "es": "Agentes dedicados revisan fronteras de capas, amenazas STRIDE, outbox y sagas, rupturas de contrato de API y anti-patrones de rendimiento antes de la revisión humana."
       }
     },
     {
       "id": "03",
       "title": {
-        "en": "Tests + observability built-in",
-        "es": "Tests + observability built-in"
+        "en": "From spec to PR, traceable",
+        "es": "Del spec al PR, con trazabilidad"
       },
       "desc": {
-        "en": "Tests (JUnit, Karate, Testcontainers), structured logging and OpenTelemetry tracing are wired from day one, not bolted on later.",
-        "es": "Tests (JUnit, Karate, Testcontainers), structured logging y tracing con OpenTelemetry quedan cableados desde el día uno, no parchados después."
+        "en": "Specs are the source of truth: each acceptance criterion maps to code, a test and an observable signal, and CI gates the gaps.",
+        "es": "El spec es la fuente de verdad: cada criterio de aceptación se mapea a código, a un test y a una señal observable, y CI bloquea los huecos."
       }
     },
     {
       "id": "04",
       "title": {
-        "en": "Your team keeps the workflow",
-        "es": "Tu equipo se lleva el workflow"
+        "en": "Rules that don't drift",
+        "es": "Reglas que no se olvidan"
       },
       "desc": {
-        "en": "I leave your team the workflow, not a black box: the agents, skills and guidelines stay in your repo and your engineers keep using them after I'm gone.",
-        "es": "Le dejo a tu equipo el workflow, no una caja negra: los agents, skills y guidelines quedan en tu repo y tus ingenieros los siguen usando cuando yo no esté."
+        "en": "A rule broken twice gets a hook or an eval. Agent configuration is versioned and tested like code, so quality doesn't depend on the prompt of the day.",
+        "es": "Una regla rota dos veces se convierte en un hook o un eval. La configuración de los agentes se versiona y se prueba como código, así la calidad no depende del prompt del día."
       }
     }
   ],
   "pipelineLabel": {
-    "en": "How a feature ships",
-    "es": "Cómo sale una feature"
+    "en": "My workflow: from idea to merged code",
+    "es": "Mi flujo: de la idea al código en producción"
   },
   "pipelineHint": {
-    "en": "Click a stage to see what it leaves in the repo.",
-    "es": "Pulsa una etapa para ver qué deja en el repo."
+    "en": "Each step leaves a file in the repo that anyone on the team can read.",
+    "es": "Cada paso deja un archivo en el repo que cualquiera del equipo puede leer."
   },
   "guidesCta": {
     "en": "Read the guidelines my agents follow",
@@ -157,21 +157,34 @@
     {
       "id": "discuss",
       "title": {
-        "en": "Discuss",
-        "es": "Discutir"
+        "en": "Understand",
+        "es": "Entender"
       },
       "desc": {
-        "en": "Gray areas surface before any code: scope, edge cases and constraints are agreed and written down.",
-        "es": "Las zonas grises salen antes del código: alcance, casos borde y restricciones quedan acordados y escritos."
+        "en": "Before any code, the agent and I pin down what to build, the edge cases and what stays out.",
+        "es": "Antes de escribir código, el agente y yo acordamos qué se construye, los casos límite y qué queda fuera."
+      },
+      "gain": {
+        "en": "No surprises halfway through: decisions are written down.",
+        "es": "Sin sorpresas a mitad de camino: las decisiones quedan por escrito."
       },
       "file": "CONTEXT.md",
-      "lines": [
-        "## Decisions",
-        "- Idempotency-Key on POST /payments",
-        "- Outbox, not direct Kafka publish",
-        "## Out of scope",
-        "- Refunds (next phase)"
-      ]
+      "lines": {
+        "en": [
+          "## Decisions",
+          "- Payments can be retried safely",
+          "- Events go through an outbox",
+          "## Out of scope",
+          "- Refunds (next phase)"
+        ],
+        "es": [
+          "## Decisiones",
+          "- Los pagos se pueden reintentar sin duplicar",
+          "- Los eventos salen por un outbox",
+          "## Fuera de alcance",
+          "- Reembolsos (siguiente fase)"
+        ]
+      }
     },
     {
       "id": "plan",
@@ -180,34 +193,58 @@
         "es": "Planear"
       },
       "desc": {
-        "en": "Each task names the files, the layer it belongs to and how it will be verified.",
-        "es": "Cada tarea nombra los ficheros, la capa a la que pertenece y cómo se verifica."
+        "en": "The work is split into small tasks. Each one says which files it touches and how it will be checked.",
+        "es": "El trabajo se parte en tareas pequeñas. Cada una dice qué archivos toca y cómo se va a comprobar."
+      },
+      "gain": {
+        "en": "You can review the plan before a single line is written.",
+        "es": "Puedes revisar el plan antes de que se escriba una sola línea."
       },
       "file": "PLAN.md",
-      "lines": [
-        "1. domain/ Payment aggregate + invariants",
-        "2. application/ CreatePaymentUseCase + ports",
-        "3. infrastructure/ JDBC + outbox adapter",
-        "verify: ArchUnit + Testcontainers green"
-      ]
+      "lines": {
+        "en": [
+          "1. Payment rules (domain)",
+          "2. Create-payment use case",
+          "3. Database + outbox adapter",
+          "Check: architecture tests + real DB tests"
+        ],
+        "es": [
+          "1. Reglas del pago (dominio)",
+          "2. Caso de uso: crear pago",
+          "3. Adaptador de base de datos + outbox",
+          "Comprobar: tests de arquitectura + tests con BD real"
+        ]
+      }
     },
     {
       "id": "execute",
       "title": {
-        "en": "Execute",
-        "es": "Ejecutar"
+        "en": "Build",
+        "es": "Construir"
       },
       "desc": {
-        "en": "Agents implement test-first, one atomic commit per task, inside the architecture rules.",
-        "es": "Los agentes implementan test-first, un commit atómico por tarea, dentro de las reglas de arquitectura."
+        "en": "Agents write the tests first, then the code, one small commit per task, inside my architecture rules.",
+        "es": "Los agentes escriben primero los tests y luego el código, un commit pequeño por tarea, dentro de mis reglas de arquitectura."
+      },
+      "gain": {
+        "en": "Small, readable changes you can review or roll back one by one.",
+        "es": "Cambios pequeños y legibles que se revisan o revierten uno a uno."
       },
       "file": "git log",
-      "lines": [
-        "a41c2e0 test(payment): reject negative amounts",
-        "9be71d3 feat(payment): aggregate and invariants",
-        "3f0d8aa feat(payment): create payment use case",
-        "c27e915 feat(payment): outbox adapter"
-      ]
+      "lines": {
+        "en": [
+          "test(payment): reject negative amounts",
+          "feat(payment): payment rules",
+          "feat(payment): create payment use case",
+          "feat(payment): outbox adapter"
+        ],
+        "es": [
+          "test(payment): rechaza montos negativos",
+          "feat(payment): reglas del pago",
+          "feat(payment): caso de uso crear pago",
+          "feat(payment): adaptador outbox"
+        ]
+      }
     },
     {
       "id": "verify",
@@ -216,20 +253,86 @@
         "es": "Verificar"
       },
       "desc": {
-        "en": "The goal is checked against the plan, not just the tests: build, coverage, architecture and traces.",
-        "es": "Se comprueba el objetivo contra el plan, no solo los tests: build, cobertura, arquitectura y trazas."
+        "en": "Before calling it done, we check it does what was agreed, not just that tests pass.",
+        "es": "Antes de darlo por terminado, se comprueba que hace lo acordado, no solo que los tests pasen."
+      },
+      "gain": {
+        "en": "Proof that it works, ready for a human reviewer.",
+        "es": "Evidencia de que funciona, lista para la revisión humana."
       },
       "file": "VERIFICATION.md",
-      "lines": [
-        "✓ ./gradlew build",
-        "✓ ArchUnit: domain has no framework deps",
-        "✓ coverage domain 98% · use cases 94%",
-        "✓ span payment.create exported"
-      ]
+      "lines": {
+        "en": [
+          "✓ Build and all tests green",
+          "✓ Architecture rules respected",
+          "✓ Coverage: domain 98%",
+          "✓ Payment traced end to end"
+        ],
+        "es": [
+          "✓ Build y todos los tests en verde",
+          "✓ Reglas de arquitectura respetadas",
+          "✓ Cobertura: dominio 98%",
+          "✓ Pago trazado de punta a punta"
+        ]
+      }
     }
   ],
   "valuesLabel": {
     "en": "Why it works",
     "es": "Por qué funciona"
+  },
+  "builtLabel": {
+    "en": "Shipped this way",
+    "es": "Hecho así"
+  },
+  "built": [
+    {
+      "title": {
+        "en": "This portfolio",
+        "es": "Este portfolio"
+      },
+      "url": "https://github.com/andresmontoyat/andresmontoyat",
+      "desc": {
+        "en": "867 commits and 45 merged PRs: Astro islands, a career RPG and a map editor, 845 tests, strict CSP, Lighthouse mobile 95+.",
+        "es": "867 commits y 45 PRs mergeados: islas Astro, un RPG de carrera y un editor de mapas, 845 tests, CSP estricta, Lighthouse móvil 95+."
+      }
+    },
+    {
+      "title": {
+        "en": "Guidelines",
+        "es": "Guidelines"
+      },
+      "url": "https://guidelines.andresmontoyat.dev/",
+      "desc": {
+        "en": "The standards my agents follow, published: hexagonal, DDD, messaging, security, observability, mobile.",
+        "es": "Los estándares que siguen mis agentes, publicados: hexagonal, DDD, mensajería, seguridad, observabilidad, mobile."
+      }
+    },
+    {
+      "title": {
+        "en": "Vitxo architecture",
+        "es": "Arquitectura de Vitxo"
+      },
+      "url": "https://hexagonal.andresmontoyat.dev/",
+      "desc": {
+        "en": "A raffles platform with on-chain verifiability: event-driven hexagonal services, shared SDKs, trust boundaries.",
+        "es": "Plataforma de rifas con verificabilidad on-chain: servicios hexagonales event-driven, SDKs compartidos, fronteras de confianza."
+      }
+    },
+    {
+      "title": {
+        "en": "mypipelines",
+        "es": "mypipelines"
+      },
+      "url": "https://mypipelines.andresmontoyat.dev/",
+      "desc": {
+        "en": "Reusable CI/CD: SemVer releases, security gates and GitOps deploys.",
+        "es": "CI/CD reutilizable: releases SemVer, gates de seguridad y despliegues GitOps."
+      }
+    }
+  ],
+  "gainLabel": {
+    "en": "What you get",
+    "es": "Qué ganas"
   }
 }

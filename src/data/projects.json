@@ -76,11 +76,11 @@
       "featured": true,
       "title": { "en": "MyGuidelines — Engineering Standards", "es": "MyGuidelines — Estándares de Ingeniería" },
       "desc": {
-        "en": "My engineering playbook, codified — the architecture, testing, security and clean-code standards I hold every project to, and the trade-offs behind them. Hexagonal + DDD for JVM microservices, written to be executable by engineers and AI coding agents.",
-        "es": "Mi criterio de ingeniería, codificado — los estándares de arquitectura, testing, seguridad y clean code a los que exijo cada proyecto, y los trade-offs detrás de ellos. Hexagonal + DDD para microservicios JVM, ejecutables por ingenieros y agentes de IA."
+        "en": "My engineering playbook, codified: 58 guides on architecture, testing, security, messaging and observability that 15 specialist agents and 31 skills execute. Hexagonal + DDD for JVM microservices and React Native, kept honest by hooks and 23 eval cases.",
+        "es": "Mi criterio de ingeniería, codificado: 58 guías de arquitectura, testing, seguridad, mensajería y observabilidad que ejecutan 15 agentes especializados y 31 skills. Hexagonal + DDD para microservicios JVM y React Native, sostenido con hooks y 23 casos de eval."
       },
-      "tech": ["Hexagonal Architecture", "DDD", "Clean Code", "Testing", "Security"],
-      "liveUrl": "https://hexagonal.andresmontoyat.dev/",
+      "tech": ["Hexagonal Architecture", "DDD", "AI Agents", "Evals", "Security"],
+      "liveUrl": "https://guidelines.andresmontoyat.dev/",
       "githubUrl": null
     }
   ]

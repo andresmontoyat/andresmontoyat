@@ -76,7 +76,11 @@ const years = [...new Set(jobs.map((j) => Math.floor(j.from)))]
       </div>
 
       <div class="cl-term" role="region" aria-label={ui.terminal}>
-        <div class="cl-bar" aria-hidden="true"><i></i><i></i><i></i><span>carlos@career: ~/experience</span></div>
+        <div class="cl-bar"><i aria-hidden="true"></i><i aria-hidden="true"></i><i aria-hidden="true"></i><span aria-hidden="true">carlos@career: ~/experience</span>
+          <button type="button" class="cl-max" aria-pressed="false" aria-label={ui.maximize} data-max={ui.maximize} data-restore={ui.restore}>
+            <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path class="o" d="M2 6V2h4M14 6V2h-4M2 10v4h4M14 10v4h-4" /><path class="c" d="M6 2v4H2M10 2v4h4M6 14v-4H2M10 14v-4h4" /></svg>
+          </button>
+        </div>
         <div class="cl-out" aria-live="polite"></div>
         <div class="cl-chips" role="group" aria-label={ui.suggest}>
           {firstChips.map((c) => <button type="button">{c}</button>)}
@@ -196,6 +200,15 @@ const years = [...new Set(jobs.map((j) => Math.floor(j.from)))]
   .cl-bar i:nth-child(2) { background: #FEBC2E }
   .cl-bar i:nth-child(3) { background: #28C840 }
   .cl-bar span { margin-left: 8px }
+  .cl-max { margin-left: auto; display: grid; place-items: center; width: 28px; height: 24px; border-radius: 6px; color: #9AA6D6; cursor: pointer; transition: color .2s, background .2s }
+  .cl-max:hover { color: #fff; background: color-mix(in srgb, #fff 10%, transparent) }
+  .cl-max:focus-visible { outline: 2px solid #7CC8FF; outline-offset: 1px }
+  .cl-max svg { fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round }
+  .cl-max .c, .cl-term.max .cl-max .o { display: none } .cl-term.max .cl-max .c { display: inline }
+  .cl-term.max { position: fixed; inset: max(16px, 4vh) max(16px, 6vw); z-index: 100; display: flex; flex-direction: column; box-shadow: 0 0 0 100vmax rgb(4 8 20 / .6), 0 40px 80px -30px var(--accent-2) }
+  .cl-term.max .cl-out { flex: 1; height: auto }
+  @media (prefers-reduced-motion: no-preference) { .cl-term.max { animation: cl-pop .22s cubic-bezier(.2,.7,.2,1) } }
+  @keyframes cl-pop { from { opacity: .4; transform: scale(.96) } }
   .cl-out { height: 420px; overflow: auto; padding: 14px 16px; font: 13px/1.6 var(--font-mono); white-space: pre-wrap; word-break: break-word; overscroll-behavior: contain }
   .cl-out > div { min-height: 1.6em }
   .cl-out .c { color: #7FE7C4 } .cl-out .y { color: #FFCB6B } .cl-out .m { color: #9AA6D6 }

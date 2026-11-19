@@ -25,6 +25,7 @@ describe('Sites.astro', () => {
   it('renders the Spanish copy', async () => {
     const html = await render('es')
     expect(html).toContain('Mis otros sitios')
+    expect(html).toContain('Notas de arquitectura')
     expect(html).toContain('Mis Guidelines')
   })
 })

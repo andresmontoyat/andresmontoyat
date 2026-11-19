@@ -25,39 +25,39 @@ describe('Claude.astro (Container API parity — D-06)', () => {
   it('renders pitch hero label/h2/subLead/CTA (EN)', async () => {
     const result = await renderClaude('en')
     expect(result).toMatch(/AI Engineering · For your team/)
-    expect(result).toMatch(/Software/)
-    expect(result).toMatch(/delivered with AI discipline/)
-    expect(result).toMatch(/Senior backend engineer/)
+    expect(result).toMatch(/AI agents/)
+    expect(result).toMatch(/with an architect&#39;s judgment/)
+    expect(result).toMatch(/build the engineering system around them/)
     expect(result).toContain('Let&#39;s talk about your project')
   })
 
   it('renders all 4 value cards with title + id (EN)', async () => {
     const result = await renderClaude('en')
     expect(data.values).toHaveLength(4)
-    expect(result).toContain('Delivery 3–5× faster')
-    expect(result).toContain('Architecture without shortcuts')
-    expect(result).toContain('Tests + observability built-in')
-    expect(result).toContain('Your team keeps the workflow')
+    expect(result).toContain('Standards agents can execute')
+    expect(result).toContain('Specialist reviewers on every diff')
+    expect(result).toContain('From spec to PR, traceable')
+    expect(result).toContain('Rules that don&#39;t drift')
   })
 
   it('renders all 6 offerings (EN)', async () => {
     const result = await renderClaude('en')
     expect(data.offerings).toHaveLength(6)
-    expect(result).toContain('Agentic delivery')
+    expect(result).toContain('Agentic delivery setup')
     expect(result).toContain('RAG &amp; MCP servers')
     expect(result).toContain('LLM evals &amp; guardrails')
-    expect(result).toContain('Greenfield builds')
-    expect(result).toContain('Legacy refactor')
-    expect(result).toContain('DevOps automation')
+    expect(result).toContain('Greenfield &amp; legacy modernization')
+    expect(result).toContain('Custom review agents')
+    expect(result).toContain('CI/CD that guards quality')
   })
 
   it('translates pitch + values + offerings when locale=es', async () => {
     const result = await renderClaude('es')
     expect(result).toMatch(/AI Engineering · Para tu equipo/)
-    expect(result).toMatch(/Software/)
+    expect(result).toMatch(/Agentes de IA/)
     expect(result).toMatch(/Hablemos de tu proyecto/)
-    expect(result).toContain('Entrega 3–5× más rápida')
-    expect(result).toContain('Entrega agéntica')
+    expect(result).toContain('Estándares que los agentes ejecutan')
+    expect(result).toContain('Entrega agéntica en tu equipo')
   })
 
   it('claude.json schema sanity — values/offerings bilingual', () => {
@@ -86,7 +86,7 @@ describe('Claude.astro (Container API parity — D-06)', () => {
     const runs: string[] = []
     const walk = (v: unknown): void => {
       if (typeof v === 'string') runs.push(...v.split(/\s+/))
-      else if (v && typeof v === 'object') Object.values(v).forEach(walk)
+      else if (v && typeof v === 'object') Object.entries(v).forEach(([k, x]) => { if (k !== 'url') walk(x) })
     }
     walk(data)
     expect(runs.filter((r) => r.length > MAX_RUN)).toEqual([])
@@ -103,7 +103,13 @@ describe('Claude.astro (Container API parity — D-06)', () => {
 
   it('links to the guidelines site in a new tab', async () => {
     const result = await renderClaude('en')
-    expect(result).toContain('href="https://hexagonal.andresmontoyat.dev/"')
+    expect(result).toContain('href="https://guidelines.andresmontoyat.dev/"')
     expect(result).toContain('Read the guidelines my agents follow')
+  })
+
+  it('shows the work shipped this way', async () => {
+    const result = await renderClaude('es')
+    expect(result).toContain('Hecho así')
+    for (const b of data.built) expect(result).toContain(`href="${b.url}"`)
   })
 })

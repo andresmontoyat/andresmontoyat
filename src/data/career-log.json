@@ -389,6 +389,14 @@
     "useTech": {
       "en": "Filter by {tech}",
       "es": "Filtrar por {tech}"
+    },
+    "maximize": {
+      "en": "Maximize terminal",
+      "es": "Maximizar terminal"
+    },
+    "restore": {
+      "en": "Restore terminal",
+      "es": "Restaurar terminal"
     }
   }
 }

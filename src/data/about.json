@@ -1,46 +1,97 @@
 {
-  "label": { "en": "About", "es": "Sobre mí" },
-  "h2": { "en": "Who I am", "es": "Quién soy" },
+  "label": {
+    "en": "About",
+    "es": "Sobre mí"
+  },
+  "h2": {
+    "en": "Who I am",
+    "es": "Quién soy"
+  },
   "paragraphs": [
     {
       "en": "I'm a Java Solution Architect and Tech Lead based in Medellín, Colombia, with 18+ years in backend engineering: 11+ of them leading teams of up to 45 people, and nearly 7 as a solutions architect. I've designed and built Java platforms ranging from transportation management systems and telecom self-service portals to fintech payments, digital identity and blockchain-verified ticketing.",
       "es": "Soy Arquitecto de Soluciones y Tech Lead Java radicado en Medellín, Colombia, con más de 18 años en ingeniería backend: más de 11 liderando equipos de hasta 45 personas y casi 7 como arquitecto de soluciones. He diseñado y construido plataformas Java que van desde sistemas de gestión de transporte y portales de autogestión para telecomunicaciones hasta pagos fintech, identidad digital y venta de tickets verificables sobre blockchain."
     },
     {
-      "en": "My specialty is backend architecture on the Spring ecosystem: hexagonal microservices and event-driven systems on Kafka and RabbitMQ, built for resilience and idempotency, secured with Keycloak and observable end to end, deployed on AWS, GCP and Azure. As a lead I set the architecture, grow the team technically and own delivery, backed by DevOps culture and agile practice (certified Scrum Master).",
-      "es": "Mi especialidad es la arquitectura backend sobre el ecosistema Spring: microservicios hexagonales y sistemas orientados a eventos sobre Kafka y RabbitMQ, diseñados para la resiliencia y la idempotencia, asegurados con Keycloak y observables de punta a punta, desplegados en AWS, GCP y Azure. Como líder defino la arquitectura, hago crecer técnicamente al equipo y respondo por la entrega, con cultura DevOps y prácticas ágiles (Scrum Master certificado)."
+      "en": "My specialty is backend architecture on the Spring ecosystem: hexagonal microservices and event-driven systems on Kafka and RabbitMQ, built for resilience and idempotency, secured with Keycloak and observable end to end, deployed on AWS, GCP and Azure. As a lead I set the architecture, grow the team technically and own delivery, backed by DevOps culture and agile practice (certified Scrum Master). Today I also build the AI engineering system around my teams: executable standards, specialist review agents and evals that let agents ship production code under the same rules as people.",
+      "es": "Mi especialidad es la arquitectura backend sobre el ecosistema Spring: microservicios hexagonales y sistemas orientados a eventos sobre Kafka y RabbitMQ, diseñados para la resiliencia y la idempotencia, asegurados con Keycloak y observables de punta a punta, desplegados en AWS, GCP y Azure. Como líder defino la arquitectura, hago crecer técnicamente al equipo y respondo por la entrega, con cultura DevOps y prácticas ágiles (Scrum Master certificado). Hoy además construyo el sistema de ingeniería con IA alrededor de mis equipos: estándares ejecutables, agentes revisores especializados y evals que permiten a los agentes entregar código de producción bajo las mismas reglas que las personas."
     },
     {
       "en": "When I'm not coding, I enjoy learning about new tech with my best friends and spending time at home with my family.",
       "es": "Cuando no estoy programando, disfruto aprendiendo sobre nuevas tecnologías con mis mejores amigos y pasando tiempo en casa con mi familia."
     }
   ],
-  "quick": { "en": "Quick facts", "es": "Datos rápidos" },
+  "quick": {
+    "en": "Quick facts",
+    "es": "Datos rápidos"
+  },
   "facts": [
     {
       "id": "location",
-      "kLabel": { "en": "Location", "es": "Ubicación" },
-      "value": { "en": "Medellín, CO", "es": "Medellín, CO" }
+      "kLabel": {
+        "en": "Location",
+        "es": "Ubicación"
+      },
+      "value": {
+        "en": "Medellín, CO",
+        "es": "Medellín, CO"
+      },
+      "icon": "⌖"
     },
     {
       "id": "role",
-      "kLabel": { "en": "Current role", "es": "Rol actual" },
-      "value": { "en": "Solution Architect @ Soldife", "es": "Arquitecto @ Soldife" }
+      "kLabel": {
+        "en": "Current role",
+        "es": "Rol actual"
+      },
+      "value": {
+        "en": "Solution Architect @ Soldife",
+        "es": "Arquitecto @ Soldife"
+      },
+      "icon": "◇"
     },
     {
       "id": "exp",
-      "kLabel": { "en": "Experience", "es": "Experiencia" },
-      "value": { "en": "18+ years", "es": "+18 años" }
+      "kLabel": {
+        "en": "Experience",
+        "es": "Experiencia"
+      },
+      "value": {
+        "en": "18+ years",
+        "es": "+18 años"
+      }
     },
     {
       "id": "lang",
-      "kLabel": { "en": "Languages", "es": "Idiomas" },
-      "value": { "en": "ES · EN", "es": "ES · EN" }
+      "kLabel": {
+        "en": "Languages",
+        "es": "Idiomas"
+      },
+      "value": {
+        "en": "ES · EN",
+        "es": "ES · EN"
+      },
+      "icon": "⇄"
     },
     {
       "id": "work",
-      "kLabel": { "en": "Work mode", "es": "Modalidad" },
-      "value": { "en": "Remote friendly", "es": "Remoto" }
+      "kLabel": {
+        "en": "Work mode",
+        "es": "Modalidad"
+      },
+      "value": {
+        "en": "Remote friendly",
+        "es": "Remoto"
+      },
+      "icon": "⌂"
     }
-  ]
+  ],
+  "expSub": {
+    "en": "in backend engineering",
+    "es": "en ingeniería backend"
+  },
+  "expDetail": {
+    "en": "11 leading · teams of up to 45",
+    "es": "11 liderando · equipos de hasta 45"
+  }
 }
