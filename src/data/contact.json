@@ -7,6 +7,7 @@
       "id": "email",
       "icon": "✉",
       "kLabel": { "en": "Email", "es": "Correo" },
+      "cta": { "en": "Reach out", "es": "Escríbeme" },
       "value": "andresmontoyat@gmail.com",
       "href": "mailto:andresmontoyat@gmail.com",
       "primary": true
@@ -15,6 +16,7 @@
       "id": "linkedin",
       "icon": "in",
       "kLabel": { "en": "LinkedIn", "es": "LinkedIn" },
+      "cta": { "en": "Let's connect", "es": "Conectemos" },
       "value": "carlos-andres-montoya-tobon",
       "href": "https://www.linkedin.com/in/carlos-andres-montoya-tobon-8b508033",
       "external": true
@@ -23,6 +25,7 @@
       "id": "github",
       "icon": "gh",
       "kLabel": { "en": "GitHub", "es": "GitHub" },
+      "cta": { "en": "See code", "es": "Ver código" },
       "value": "andresmontoyat",
       "href": "https://github.com/andresmontoyat",
       "external": true
