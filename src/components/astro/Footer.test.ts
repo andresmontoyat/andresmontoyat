@@ -33,16 +33,12 @@ describe('Footer.astro (fresh Container API assertions — D-02/D-03)', () => {
     expect(result.match(/<svg/g)?.length).toBeGreaterThanOrEqual(2)
   })
 
-  it('renders EN tagline + rights copy', async () => {
-    const result = await renderFooter('en')
-    expect(result).toContain("I write code. Let&#39;s build something amazing together.")
-    expect(result).toContain('All rights reserved')
-  })
-
-  it('renders ES tagline + rights copy', async () => {
+  it('renders name, location and email, with no section navigation of its own', async () => {
     const result = await renderFooter('es')
-    expect(result).toContain('Escribo código. Construyamos algo increíble juntos.')
-    expect(result).toContain('Todos los derechos reservados')
+    expect(result).toContain('Carlos Andrés Montoya Tobón · Bogotá')
+    expect(result).toContain('href="mailto:andresmontoyat@gmail.com"')
+    expect(result).not.toMatch(/href="#(about|projects|contact)"/)
+    expect(result.match(/href="#hero"/g)).toHaveLength(1)
   })
 
   it('renders the current year in the copyright line', async () => {
