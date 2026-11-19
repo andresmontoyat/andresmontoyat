@@ -40,12 +40,10 @@ const reachOut = locale === 'es' ? 'Escríbeme' : 'Reach out'
       >
         <span class="text-lg text-accent" aria-hidden="true">{hero.icon}</span>
         <div class="min-w-0 flex-1">
-          <div class="text-[11px] uppercase tracking-widest text-muted">{heroLabel}</div>
-          <div class="text-sm font-extrabold text-text break-all">{hero.value}</div>
+          <div class="text-[11px] uppercase tracking-widest text-muted">{heroLabel} · <span class="text-accent">{reachOut}</span></div>
+          <div class="text-sm font-extrabold text-text truncate" title={hero.value}>{hero.value}</div>
         </div>
-        <span aria-hidden="true" class="shrink-0 inline-flex items-center gap-2 text-accent text-xs font-mono transition-transform duration-200 group-hover:translate-x-1">
-          {reachOut} →
-        </span>
+        <span aria-hidden="true" class="shrink-0 text-accent text-xs font-mono transition-transform duration-200 group-hover:translate-x-1">→</span>
       </a>
       {rail.map((card) => {
         const label = pick(card.kLabel, locale)
