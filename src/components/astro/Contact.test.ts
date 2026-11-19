@@ -44,9 +44,11 @@ describe('Contact.astro (Container API)', () => {
     expect(result).toContain('rel="noopener noreferrer"')
   })
 
-  it('renders the EN reach-out CTA on the primary card', async () => {
+  it('renders a CTA on every contact card', async () => {
     const result = await renderContact('en')
     expect(result).toContain('Reach out')
+    expect(result).toContain('connect')
+    expect(result).toContain('See code')
   })
 
   it('renders Spanish copy when locale is es', async () => {
