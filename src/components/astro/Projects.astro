@@ -1,9 +1,8 @@
 ---
 // src/components/astro/Projects.astro
-// Zero-client-JS port of src/components/Projects.jsx (v5 STATIC-01).
-// FeaturedProjectCard / ProjectCard / TechTags sub-components inlined directly
-// into the featured.map() / rest.map() template blocks — Astro components
-// cannot be invoked as plain JS functions the way React sub-components were.
+// Zero-client-JS project grid. Featured projects span two columns; every card
+// shares one shape: a path bar with status, a body with domain and stack, and
+// a footer that either links out or says why there is no link.
 import data from '../../data/projects.json'
 
 const { locale } = Astro.props
@@ -14,10 +13,14 @@ function pick(field, lang) {
 }
 
 const ctaLive = pick(data.ctaLive, locale)
-const ctaGithub = pick(data.ctaGithub, locale)
 const featuredLabel = pick(data.featuredLabel, locale)
-const featured = data.projects.filter((p) => p.featured)
-const rest = data.projects.filter((p) => !p.featured)
+const statusLive = pick(data.statusLive, locale)
+const statusClient = pick(data.statusClient, locale)
+const privateNote = pick(data.privateNote, locale)
+const ordered = [
+  ...data.projects.filter((p) => p.featured),
+  ...data.projects.filter((p) => !p.featured),
+]
 ---
 <section id="projects" class="py-20">
   <div class="max-w-6xl mx-auto px-6">
@@ -28,106 +31,77 @@ const rest = data.projects.filter((p) => !p.featured)
       {pick(data.h2, locale)}
     </h2>
     <p class="text-muted max-w-[640px] mb-12 text-base leading-relaxed">{pick(data.intro, locale)}</p>
-    {featured.map((project) => {
-      const title = pick(project.title, locale)
-      const desc = pick(project.desc, locale)
-      return (
-        <div class="mb-6">
-          <article
-            data-featured="true"
-            class="group relative w-full overflow-hidden rounded-2xl border border-accent/50 bg-surface shadow-[0_0_45px_-14px_var(--accent)] transition-all duration-300 hover:border-accent hover:-translate-y-1"
-          >
-            <span aria-hidden="true" class="absolute left-0 top-0 h-full w-1 bg-linear-to-b from-accent to-secondary" />
-            <div class="grid md:grid-cols-[280px_1fr]">
-              <div class="relative flex aspect-video items-center justify-center overflow-hidden bg-bg md:aspect-auto">
-                <div class="absolute inset-0 bg-grad-accent opacity-[0.16] transition-opacity duration-300 group-hover:opacity-25" />
-                <span class="relative text-6xl transition-transform duration-300 group-hover:scale-110" aria-hidden="true">{project.icon || '◆'}</span>
-              </div>
-              <div class="p-8">
-                <span class="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[2px] text-accent mb-3">
-                  <span aria-hidden="true">★</span> {featuredLabel}
-                </span>
-                <h3 class="text-xl sm:text-2xl font-extrabold text-text leading-tight sm:leading-8">{title}</h3>
-                <p class="text-base text-muted mt-2 leading-relaxed">{desc}</p>
-                <div class="flex flex-wrap gap-2 mt-4">
-                  {project.tech.map((tag) => (
-                    <span class="font-mono text-xs px-2 py-1 rounded-md bg-bg text-muted border border-border transition-colors duration-150 group-hover:border-accent/40">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                {(project.liveUrl || project.githubUrl) && (
-                  <div class="flex gap-3 mt-5">
-                    {project.liveUrl && (
-                      <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center min-h-[24px] text-sm font-extrabold text-accent hover:underline">
-                        {ctaLive}
-                      </a>
-                    )}
-                    {project.githubUrl && (
-                      <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center min-h-[24px] text-sm font-extrabold text-text hover:text-accent hover:underline">
-                        {ctaGithub}
-                      </a>
-                    )}
-                  </div>
-                )}
-              </div>
-            </div>
-          </article>
-        </div>
-      )
-    })}
-    <div class="flex flex-wrap justify-center gap-6">
-      {rest.map((project) => {
-        const title = pick(project.title, locale)
-        const desc = pick(project.desc, locale)
+    <ul class="grid gap-5 md:grid-cols-2" role="list">
+      {ordered.map((project, i) => {
+        const featured = Boolean(project.featured)
         return (
-          <div class="w-full sm:w-[360px]">
-            <article data-featured="false" class="group bg-surface border border-border rounded-xl overflow-hidden transition-all duration-300 hover:border-accent hover:-translate-y-1">
-              <div class="relative aspect-video w-full overflow-hidden bg-bg">
-                <div class="absolute inset-0 bg-grad-accent opacity-[0.12] transition-opacity duration-300 group-hover:opacity-20" />
-                <div class="relative w-full h-full flex items-center justify-center">
-                  <span class="text-5xl" aria-hidden="true">{project.icon || '◆'}</span>
+          <li class="pj-item" style={`--i:${i % 2}`}>
+            <article
+              data-featured={featured ? 'true' : 'false'}
+              class:list={['pj group relative flex h-full flex-col overflow-hidden rounded-2xl border bg-surface', featured ? 'pj-featured border-accent/50' : 'border-border']}
+            >
+              <header class="flex items-center justify-between gap-3 border-b border-border bg-bg/60 px-5 py-2.5 font-mono text-[11px]">
+                <span class="truncate text-muted">~/projects/<span class="text-text">{project.id}</span></span>
+                {project.liveUrl ? (
+                  <span class="inline-flex shrink-0 items-center gap-1.5 text-accent"><span class="pj-dot" aria-hidden="true" />{statusLive}</span>
+                ) : (
+                  <span class="shrink-0 text-muted">{statusClient}</span>
+                )}
+              </header>
+              <div class:list={['flex flex-1 flex-col', featured ? 'p-6' : 'p-5']}>
+                <div class="mb-4 flex items-center gap-3">
+                  <span class:list={['pj-icon grid shrink-0 place-items-center rounded-xl border border-accent/30 bg-accent/10', featured ? 'size-12 text-2xl' : 'size-10 text-xl']} aria-hidden="true">{project.icon || '◆'}</span>
+                  <div class="min-w-0">
+                    {featured && (
+                      <span class="block font-mono text-[10px] uppercase tracking-[2px] text-accent"><span aria-hidden="true">★</span> {featuredLabel}</span>
+                    )}
+                    <span class="block text-[11px] uppercase tracking-widest text-accent-2">{pick(project.domain, locale)}</span>
+                  </div>
                 </div>
-              </div>
-              <div class="p-6">
-                <h3 class="text-base font-extrabold text-text">{title}</h3>
-                <p class="text-base text-muted mt-2">{desc}</p>
-                <div class="flex flex-wrap gap-2 mt-4">
+                <h3 class:list={['font-extrabold leading-tight text-text', featured ? 'text-xl sm:text-2xl' : 'text-lg']}>{pick(project.title, locale)}</h3>
+                <p class="mt-2 text-base leading-relaxed text-muted">{pick(project.desc, locale)}</p>
+                <div class="mt-auto flex flex-wrap gap-1.5 pt-5">
                   {project.tech.map((tag) => (
-                    <span class="font-mono text-xs px-2 py-1 rounded-md bg-bg text-muted border border-border">
-                      {tag}
-                    </span>
+                    <span class="rounded-md border border-border bg-bg px-2 py-0.5 font-mono text-[11px] text-muted transition-colors duration-150 group-hover:border-accent/40">{tag}</span>
                   ))}
                 </div>
-                {(project.liveUrl || project.githubUrl) && (
-                  <div class="flex gap-3 mt-5">
-                    {project.liveUrl && (
-                      <a
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="inline-flex items-center min-h-[24px] text-sm font-extrabold text-accent hover:underline"
-                      >
-                        {ctaLive}
-                      </a>
-                    )}
-                    {project.githubUrl && (
-                      <a
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="inline-flex items-center min-h-[24px] text-sm font-extrabold text-text hover:text-accent hover:underline"
-                      >
-                        {ctaGithub}
-                      </a>
-                    )}
-                  </div>
-                )}
               </div>
+              <footer class="flex min-h-[44px] items-center justify-between border-t border-border px-5 py-2.5 font-mono text-xs">
+                {project.liveUrl ? (
+                  <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" class="pj-link inline-flex min-h-[24px] items-center font-extrabold text-accent">{ctaLive}<span class="pj-arrow ml-2 inline-block" aria-hidden="true">↗</span></a>
+                ) : (
+                  <span class="text-muted">{privateNote}</span>
+                )}
+              </footer>
             </article>
-          </div>
+          </li>
         )
       })}
-    </div>
+    </ul>
   </div>
 </section>
+
+<style>
+  .pj { transition: transform .25s cubic-bezier(.2,.7,.2,1), border-color .2s, box-shadow .25s }
+  .pj::before { content: ''; position: absolute; left: 0; top: 0; z-index: 1; height: 3px; width: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-2)); transform: scaleX(0); transform-origin: left; transition: transform .35s cubic-bezier(.2,.7,.2,1) }
+  .pj-featured::before { transform: scaleX(1) }
+  .pj-featured { box-shadow: 0 0 45px -16px var(--accent) }
+  .pj:hover, .pj:focus-within { border-color: var(--accent); box-shadow: 0 16px 36px -20px var(--accent) }
+  .pj:hover::before, .pj:focus-within::before { transform: scaleX(1) }
+  .pj-link::after { content: ''; position: absolute; inset: 0 }
+  .pj-link:focus-visible { outline: none }
+  .pj:has(.pj-link:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px }
+  .pj-dot { width: 7px; height: 7px; border-radius: 9999px; background: var(--accent); box-shadow: 0 0 0 0 var(--accent) }
+  .pj-icon, .pj-arrow { transition: transform .3s cubic-bezier(.2,.7,.2,1) }
+  @media (prefers-reduced-motion: no-preference) {
+    .pj:hover, .pj:focus-within { translate: 0 -4px }
+    .pj:hover .pj-icon { transform: rotate(-6deg) scale(1.08) }
+    .pj:hover .pj-arrow { transform: translate(3px, -3px) }
+    .pj-dot { animation: pj-pulse 2s ease-out infinite }
+    @supports (animation-timeline: view()) {
+      .pj-item { --scroll-tl: view(); animation: pj-in linear both; animation-timeline: var(--scroll-tl); animation-range: entry calc(var(--i) * 8%) entry calc(55% + var(--i) * 10%) }
+    }
+  }
+  @keyframes pj-pulse { 70% { box-shadow: 0 0 0 6px transparent } 100% { box-shadow: 0 0 0 0 transparent } }
+  @keyframes pj-in { from { opacity: 0; transform: translateY(24px) } to { opacity: 1; transform: none } }
+</style>
