@@ -100,19 +100,11 @@ manifest.js  ──(npm run assets:pack)──▶  atlas.png + atlas.json  ─�
 
 ---
 
-## 🧰 Asset Placer — agregar sprites visualmente
+## 🧰 Colocar sprites en el mundo
 
-Editor visual para colocar cualquier asset del pack en el mundo, sin escribir coords a mano.
-
-1. **Abre** `http://localhost:4321/game/placer.html` (con el preview corriendo).
-2. **Busca** el asset en la paleta izquierda (235 frames del atlas) y haz click para seleccionarlo.
-3. **Click en el mapa** para colocarlo · **arrastra** para mover · **Supr** para borrar.
-4. **Export JSON** → copia la lista `[{ frame, x, y }]`.
-5. **Pega** esa lista en `src/data/placements.json`.
-6. `npm run build` → recarga el juego → los assets aparecen donde los pusiste.
-
-- El mapa se genera con `npm run world:dump` (→ `public/game/world-snapshot.json`); re-córrelo si mueves sitios/estanques.
-- Los placements se dibujan como decoración no-sólida (se puede caminar sobre ellos), bottom-anchored en (x,y).
+Se hace en el World Editor (repo `world-editor`): el mapa `src/game/world/authored/career.map.json`
+es la única fuente. El antiguo Asset Placer (`public/game/placer.html`) se retiró porque se publicaba
+en producción junto con el inventario del pack de pago.
 
 ## Flujo recomendado para "arreglar lo visual"
 
