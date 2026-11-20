@@ -1,71 +1,125 @@
 ---
 // src/pages/404.astro
-// Custom bilingual 404 page (DEPLOY-02). Single generic route, no locale-prefixed
-// variants (D-10) — Astro always builds exactly one dist/404.html, served by the
-// host regardless of which broken URL triggered it.
+// Custom bilingual 404 page. Astro builds exactly one dist/404.html for every
+// broken URL, so the locale cannot be decided at build time: both copies are
+// rendered, English shows by default, and /js/not-found.js switches to Spanish
+// for /es paths and prints the missing path into the terminal.
 //
-// Standalone <html> doc, deliberately NOT wrapped in <BaseLayout> (decision
-// recorded in 21-04-SUMMARY.md): BaseLayout derives <html lang>, canonical, and
-// hreflang from Astro.currentLocale, which this route never sets (it lives
-// outside src/pages/en|es) — and its canonical/OG machinery assumes real page
-// content, which an error page does not have. D-11 calls for a minimal,
-// no-personality page, so a small self-contained doc (matching RESEARCH.md's
-// documented 404.astro convention) reuses only the real dark-palette tokens,
-// not head machinery built for a different purpose.
-
-const pathname = Astro.url.pathname
-const isEs = pathname.startsWith('/es')
-const isEn = pathname.startsWith('/en')
-const locale = isEs ? 'es' : 'en'
-const homeHref = isEs ? '/es' : isEn ? '/en' : '/'
+// Standalone <html> doc, deliberately NOT wrapped in <BaseLayout>: its
+// canonical/hreflang/OG machinery assumes real page content. It still loads
+// the site stylesheet, fonts and the pre-paint theme script.
+import '@fontsource/inter/400.css'
+import '@fontsource/inter/800.css'
+import '../index.css'
 
 const copy = {
   en: {
     eyebrow: '404 · Not Found',
     heading: 'Page not found',
     body: "The page you're looking for doesn't exist or has moved. Let's get you back on track.",
+    error: 'No such file or directory',
+    hint: 'Try one of these:',
     cta: 'Back to home',
+    home: '/en',
+    links: [
+      ['about/', '/en/#about'],
+      ['projects/', '/en/#projects'],
+      ['experience/', '/en/#experience'],
+      ['contact/', '/en/#contact'],
+    ],
   },
   es: {
     eyebrow: '404 · No encontrado',
     heading: 'Página no encontrada',
     body: 'La página que buscas no existe o fue movida. Volvamos al inicio.',
+    error: 'No existe el archivo o el directorio',
+    hint: 'Prueba con alguno de estos:',
     cta: 'Volver al inicio',
+    home: '/es',
+    links: [
+      ['sobre-mi/', '/es/#about'],
+      ['proyectos/', '/es/#projects'],
+      ['experiencia/', '/es/#experience'],
+      ['contacto/', '/es/#contact'],
+    ],
   },
 }
-
-const t = copy[locale]
 ---
-<html lang={locale}>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#0B1020" />
-    <title>{t.eyebrow} — Carlos Andrés Montoya Tobón</title>
-    <meta name="description" content={t.body} />
+    <title>404 — Carlos Andrés Montoya Tobón</title>
+    <meta name="description" content={copy.en.body} />
     <meta name="robots" content="noindex" />
+    <link rel="icon" href="/favicon.ico" />
+    <script is:inline src="/js/theme-init.js"></script>
+    <script is:inline src="/js/not-found.js"></script>
   </head>
-  <body class="bg-ink-900">
-    <main id="main" tabindex="-1" class="min-h-screen flex items-center justify-center px-6 py-8 md:py-12">
-      <div class="max-w-lg mx-auto text-center">
-        <p class="font-mono uppercase tracking-wide text-xs font-extrabold text-muted mb-2">
-          {t.eyebrow}
-        </p>
-        <p
-          class="text-6xl font-extrabold leading-none bg-brand-gradient bg-clip-text text-transparent mb-4"
-          aria-hidden="true"
-        >
-          404
-        </p>
-        <h1 class="text-2xl font-extrabold text-text mb-4">{t.heading}</h1>
-        <p class="text-base text-muted mb-6">{t.body}</p>
-        <a
-          href={homeHref}
-          class="inline-flex items-center justify-center min-h-[44px] px-6 py-3 rounded-full border border-ink-400 text-muted transition-colors duration-200 hover:text-brand hover:border-brand focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-ink-900"
-        >
-          {t.cta}
-        </a>
-      </div>
+  <body class="nf-body">
+    <main id="main" tabindex="-1" class="min-h-screen flex items-center justify-center px-4 py-10">
+      {Object.entries(copy).map(([lang, t]) => (
+        <div class="nf w-full max-w-xl" data-l={lang} lang={lang}>
+          <p class="font-mono text-xs uppercase tracking-[2px] text-accent mb-4 text-center">{t.eyebrow}</p>
+          <p class="nf-num font-pixel text-center text-6xl sm:text-8xl leading-none mb-6" aria-hidden="true">404</p>
+          <h1 class="text-2xl sm:text-3xl font-extrabold text-text text-center mb-3">{t.heading}</h1>
+          <p class="text-base text-muted text-center mb-8 leading-relaxed">{t.body}</p>
+
+          <div class="nf-term rounded-xl border border-border bg-surface overflow-hidden text-left font-mono text-[13px] leading-relaxed">
+            <div class="flex items-center gap-2 border-b border-border bg-bg/60 px-4 py-2.5" aria-hidden="true">
+              <span class="nf-dot bg-[#ff5f56]" /><span class="nf-dot bg-[#ffbd2e]" /><span class="nf-dot bg-[#27c93f]" />
+              <span class="ml-2 text-[11px] text-muted">bash — 404</span>
+            </div>
+            <div class="px-4 py-4 space-y-1">
+              <p><span class="text-accent">~ $</span> <span class="text-text">cd <span class="nf-path break-all">/missing-page</span></span></p>
+              <p class="nf-err">bash: cd: <span class="nf-path break-all">/missing-page</span>: {t.error}</p>
+              <p class="pt-2"><span class="text-accent">~ $</span> <span class="text-text">ls</span></p>
+              <p class="text-muted"># {t.hint}</p>
+              <ul class="flex flex-wrap gap-x-5 gap-y-1" role="list">
+                {t.links.map(([label, href]) => (
+                  <li><a href={href} class="inline-flex min-h-[24px] items-center text-accent-2 hover:text-accent hover:underline">{label}</a></li>
+                ))}
+              </ul>
+              <p class="pt-2"><span class="text-accent">~ $</span> <span class="nf-cursor" aria-hidden="true" /></p>
+            </div>
+          </div>
+
+          <div class="mt-8 text-center">
+            <a
+              href={t.home}
+              class="nf-cta inline-flex items-center justify-center gap-2 min-h-[44px] px-6 py-3 rounded-full font-extrabold text-sm"
+            >
+              <span aria-hidden="true">←</span> {t.cta}
+            </a>
+          </div>
+        </div>
+      ))}
     </main>
   </body>
 </html>
+
+<style>
+  .nf-body { background: var(--bg-backdrop, var(--bg)); background-color: var(--bg); color: var(--text); min-height: 100vh }
+  html[lang='en'] .nf[data-l='es'], html[lang='es'] .nf[data-l='en'] { display: none }
+  .nf-num { font-weight: 400; background: var(--grad-accent); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 0 24px color-mix(in srgb, var(--accent) 35%, transparent)) }
+  .nf-term { box-shadow: var(--shadow-accent) }
+  .nf-dot { display: inline-block; width: 10px; height: 10px; border-radius: 9999px }
+  .nf-err { color: #ff6b6b }
+  :root[data-theme='light'] .nf-err { color: #c0362c }
+  .nf-cursor { display: inline-block; width: 8px; height: 1.1em; vertical-align: text-bottom; background: var(--accent) }
+  .nf-cta { background: var(--grad-accent); color: var(--on-c, #0B1020); transition: transform .2s, box-shadow .2s }
+  .nf-cta:hover { box-shadow: 0 10px 28px -10px var(--accent) }
+  @media (prefers-reduced-motion: no-preference) {
+    .nf-cursor { animation: nf-blink 1.1s steps(1) infinite }
+    .nf-cta:hover { transform: translateY(-2px) }
+    .nf-num { animation: nf-glitch 4s steps(1) infinite }
+  }
+  @keyframes nf-blink { 50% { opacity: 0 } }
+  @keyframes nf-glitch {
+    0%, 92%, 100% { transform: none }
+    93% { transform: translate(-3px, 1px) skewX(-6deg) }
+    95% { transform: translate(3px, -1px) skewX(6deg) }
+    97% { transform: translate(-1px, 0) }
+  }
+</style>

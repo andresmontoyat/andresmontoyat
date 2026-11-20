@@ -58,11 +58,7 @@ const translations = {
       team: 'People led',
       leading: 'Years leading',
       industries: 'Industries',
-    },
-    footer: {
-      rights: 'All rights reserved',
-      tagline: 'I write code. Let\'s build something amazing together.',
-    },
+    }
   },
   es: {
     nav: {
@@ -123,11 +119,7 @@ const translations = {
       team: 'Personas lideradas',
       leading: 'Años liderando',
       industries: 'Industrias',
-    },
-    footer: {
-      rights: 'Todos los derechos reservados',
-      tagline: 'Escribo código. Construyamos algo increíble juntos.',
-    },
+    }
   },
 }
 

@@ -43,4 +43,16 @@ describe('404 page (Container API proof-of-life — TEST-01 harness)', () => {
     expect(result).toMatch(/href="\/(en|es)?"/)
     expect(result).toContain('404')
   })
+
+  it('renders both locales, each with its home link and terminal suggestions', async () => {
+    const container = await AstroContainer.create()
+    const result = await container.renderToString(NotFoundPage)
+    expect(result).toContain('data-l="en"')
+    expect(result).toContain('data-l="es"')
+    expect(result).toContain('Page not found')
+    expect(result).toContain('Página no encontrada')
+    expect(result).toContain('href="/es/#projects"')
+    expect(result).toContain('href="/en/#contact"')
+    expect(result).toContain('/js/not-found.js')
+  })
 })
