@@ -209,7 +209,8 @@ const years = [...new Set(jobs.map((j) => Math.floor(j.from)))]
   .cl-term.max .cl-out { flex: 1; height: auto }
   @media (prefers-reduced-motion: no-preference) { .cl-term.max { animation: cl-pop .22s cubic-bezier(.2,.7,.2,1) } }
   @keyframes cl-pop { from { opacity: .4; transform: scale(.96) } }
-  .cl-out { height: 420px; overflow: auto; padding: 14px 16px; font: 13px/1.6 var(--font-mono); white-space: pre-wrap; word-break: break-word; overscroll-behavior: contain }
+  .cl-out { height: 300px; overflow: auto; padding: 14px 16px; font: 13px/1.6 var(--font-mono); white-space: pre-wrap; word-break: break-word; overscroll-behavior: contain }
+  @media (min-width: 768px) { .cl-out { height: 420px } }
   .cl-out > div { min-height: 1.6em }
   .cl-out .c { color: #7FE7C4 } .cl-out .y { color: #FFCB6B } .cl-out .m { color: #9AA6D6 }
   .cl-out .g { color: #2EE59D } .cl-out .r { color: #FF8FA3 } .cl-out .b { color: #7CC8FF }
