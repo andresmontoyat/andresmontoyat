@@ -38,3 +38,20 @@ describe('Player2.astro', () => {
     expect(html).toContain('Código de amigo')
   })
 })
+
+describe('Player2.astro Konami lock', () => {
+  it('renders the locked pad with the code, six keys and the unlock script', async () => {
+    const html = await render('en')
+    expect(html).toContain('data-p2-lock')
+    expect(html).toContain('Press start to unlock my IDs')
+    expect(html.match(/data-p2-key="/g)).toHaveLength(6)
+    expect(html).toContain('src="/js/player2.js"')
+  })
+
+  it('keeps the prize in the markup so it shows without JS', async () => {
+    const html = await render('es')
+    expect(html).toMatch(/data-p2-prize(?!\s+hidden)/)
+    expect(html).toContain('Pulsa start para desbloquear mis IDs')
+    expect(html).toContain('Player 2 desbloqueado')
+  })
+})
