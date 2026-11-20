@@ -38,7 +38,7 @@
   "lock": {
     "cta": { "en": "Press start to unlock my IDs", "es": "Pulsa start para desbloquear mis IDs" },
     "won": { "en": "Player 2 unlocked", "es": "Player 2 desbloqueado" },
-    "reset": { "en": "Reset", "es": "Reiniciar" },
+    "hide": { "en": "Hide", "es": "Ocultar" },
     "close": { "en": "Close", "es": "Cerrar" }
   }
 }

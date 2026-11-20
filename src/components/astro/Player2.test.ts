@@ -47,6 +47,7 @@ describe('Player2.astro Konami lock', () => {
     expect(html.match(/data-p2-key="/g)).toHaveLength(6)
     expect(html).toMatch(/<dialog[^>]*data-p2-pad/)
     expect(html).not.toContain('Enter the code')
+    expect(html).toContain('data-p2-hide')
     expect(html).toContain('src="/js/player2.js"')
   })
 

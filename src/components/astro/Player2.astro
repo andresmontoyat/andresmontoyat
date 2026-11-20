@@ -8,6 +8,8 @@ const { locale } = Astro.props
 const pick = (field, lang) => (typeof field === 'string' ? field : field?.[lang] ?? field?.en ?? '')
 const KEYS = ['↑', '↓', '←', '→', 'B', 'A']
 const CODE = ['↑', '↑', '↓', '↓', '←', '→', '←', '→', 'B', 'A']
+// Progress dots are a dev-only aid: production gives no hint while typing the code.
+const showHint = import.meta.env.DEV
 const dot = { switch: 'bg-[#E60012]', psn: 'bg-[#0070D1]' }
 ---
 <section id="player-2" class="py-14 md:py-20">
@@ -23,15 +25,16 @@ const dot = { switch: 'bg-[#E60012]', psn: 'bg-[#0070D1]' }
       </form>
       <div class="flex flex-col items-center gap-5 px-5 pb-6">
         <p class="font-pixel text-[10px] uppercase text-accent">{pick(data.label, locale)}</p>
-        <p class="flex gap-1.5" aria-hidden="true" data-p2-code>
-          {CODE.map(() => <span class="h-2 w-2 rounded-full bg-border" />)}
-        </p>
+        {showHint && (
+          <p class="flex gap-1.5" aria-hidden="true" data-p2-code>
+            {CODE.map(() => <span class="h-2 w-2 rounded-full bg-border" />)}
+          </p>
+        )}
         <div class="flex flex-wrap justify-center gap-1.5">
           {KEYS.map((k) => (
             <button type="button" data-p2-key={k} class="h-11 w-11 rounded-lg border border-border bg-bg font-pixel text-xs text-text hover:border-accent">{k}</button>
           ))}
         </div>
-        <button type="button" data-p2-reset class="font-mono text-xs text-muted underline underline-offset-4">{pick(data.lock.reset, locale)}</button>
       </div>
     </dialog>
 
@@ -44,7 +47,10 @@ const dot = { switch: 'bg-[#E60012]', psn: 'bg-[#0070D1]' }
     </h2>
     <p class="text-muted max-w-[60ch] mb-10 text-base leading-relaxed">{pick(data.intro, locale)}</p>
 
-    <p data-p2-won hidden class="mb-5 font-pixel text-[10px] uppercase text-accent">▶ {pick(data.lock.won, locale)}</p>
+    <div data-p2-won hidden class="mb-5 flex flex-wrap items-center justify-between gap-3">
+      <p class="font-pixel text-[10px] uppercase text-accent">▶ {pick(data.lock.won, locale)}</p>
+      <button type="button" data-p2-hide class="min-h-[36px] rounded-full border border-border px-4 font-mono text-xs text-muted hover:text-text">{pick(data.lock.hide, locale)}</button>
+    </div>
     <div class="mb-5 rounded-2xl border border-accent/50 bg-surface p-6 sm:p-8 shadow-[0_0_45px_-18px_var(--accent-2)]">
       <span class="font-pixel text-[10px] uppercase text-accent">{pick(data.main.label, locale)}</span>
       <h3 class="mt-2 text-2xl sm:text-3xl font-extrabold text-text">{data.main.title}</h3>

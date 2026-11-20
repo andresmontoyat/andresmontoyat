@@ -1,5 +1,5 @@
 // Player 2 lock: the consoles and IDs stay hidden until the Konami code is entered,
-// typed or tapped inside a popup that gives no hint. Unlocking is remembered for the session.
+// typed or tapped inside a popup that gives no hint (dev builds show progress dots). Unlocking is remembered for the session.
 (function () {
   var CODE = ['↑', '↑', '↓', '↓', '←', '→', '←', '→', 'B', 'A'];
   var KEYMAP = { ArrowUp: '↑', ArrowDown: '↓', ArrowLeft: '←', ArrowRight: '→', b: 'B', B: 'B', a: 'A', A: 'A' };
@@ -10,7 +10,7 @@
     if (!root) return;
     var q = function (s) { return root.querySelector(s); };
     var lock = q('[data-p2-lock]'), pad = q('[data-p2-pad]'), prize = q('[data-p2-prize]');
-    var marks = q('[data-p2-code]').children, won = q('[data-p2-won]');
+    var won = q('[data-p2-won]'), hint = q('[data-p2-code]');
     var pos = 0;
 
     function unlock() {
@@ -18,8 +18,13 @@
       root.scrollIntoView({ block: 'start' });
       try { sessionStorage.setItem(STORE, '1'); } catch (e) { /* storage blocked: unlock lasts this view */ }
     }
+    function lockUp() {
+      lock.hidden = false; prize.hidden = true; won.hidden = true;
+      try { sessionStorage.removeItem(STORE); } catch (e) { /* nothing stored to clear */ }
+    }
     function paint() {
-      for (var i = 0; i < marks.length; i++) marks[i].classList.toggle('on', i < pos);
+      if (!hint) return;
+      for (var i = 0; i < hint.children.length; i++) hint.children[i].classList.toggle('on', i < pos);
     }
     function press(k) {
       if (!pad.open) return;
@@ -28,11 +33,12 @@
       if (pos === CODE.length) unlock();
     }
 
-    try { if (sessionStorage.getItem(STORE)) return; } catch (e) { /* fall through to locked */ }
-    lock.hidden = false; prize.hidden = true;
+    var isOpen = false;
+    try { isOpen = !!sessionStorage.getItem(STORE); } catch (e) { /* fall through to locked */ }
+    if (isOpen) { lock.hidden = true; won.hidden = false; } else lockUp();
     q('[data-p2-start]').addEventListener('click', function () { pos = 0; paint(); pad.showModal(); pad.querySelector('[data-p2-key]').focus(); });
     pad.addEventListener('click', function (e) { if (e.target === pad) pad.close(); });
-    q('[data-p2-reset]').addEventListener('click', function () { pos = 0; paint(); });
+    q('[data-p2-hide]').addEventListener('click', function () { lockUp(); q('[data-p2-start]').focus(); });
     pad.addEventListener('click', function (e) {
       var b = e.target.closest('[data-p2-key]');
       if (b) press(b.getAttribute('data-p2-key'));
