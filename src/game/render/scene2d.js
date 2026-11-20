@@ -619,7 +619,9 @@ function drawHud(ctx, state) {
   const total = world.sites.length
   const seen = world.sites.filter(s => s.seen).length
   const unlocked = state.revealed ? `  +${world.hiddenSites.length}\u{1F513}` : ''
-  drawHudChip(ctx, `sites ${seen}/${total}${unlocked}`, viewportOf(ctx).w - 10, 'right')
+  // 56px from the right edge clears the mute button WorldRpg.jsx overlays in that corner.
+  const label = lang === 'es' ? 'sitios' : 'sites'
+  drawHudChip(ctx, `${label} ${seen}/${total}${unlocked}`, viewportOf(ctx).w - 56, 'right')
 }
 
 // World-space Y offset (above the normal follow-cam) the intro's camera descends from — a
@@ -643,10 +645,11 @@ function drawIntroTitle(ctx, state) {
   ctx.textAlign = 'center'
   ctx.fillStyle = '#eafff6'
   ctx.font = 'bold 40px monospace'
-  ctx.fillText('World RPG', cx, cy - 10)
+  const es = state.lang === 'es'
+  ctx.fillText(es ? 'Mundo de Carrera' : 'Career World', cx, cy - 10)
   ctx.font = '16px monospace'
   ctx.fillStyle = '#9fd8c4'
-  ctx.fillText('Carlos Montoya · Backend Engineer', cx, cy + 26)
+  ctx.fillText(es ? 'Carlos Montoya · Arquitecto backend' : 'Carlos Montoya · Backend Architect', cx, cy + 26)
   ctx.restore()
 }
 

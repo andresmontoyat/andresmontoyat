@@ -78,7 +78,7 @@ const langInactive = 'text-muted font-normal'
       <div class="hidden sm:flex flex-wrap items-center justify-center gap-2 max-w-2xl">
         {legend.map((k) => (
           <span class={`inline-flex items-center gap-1.5 rounded-md border border-ink-500 px-2.5 py-1 font-mono text-[10px] ${k.hint ? 'text-ink-400' : 'text-muted'}`}>
-            <span class="font-pixel text-[9px] text-brand/80">{k.keys}</span>
+            <span class="font-mono text-[11px] tracking-[1px] text-brand/80">{k.keys}</span>
             {k.label}
           </span>
         ))}
