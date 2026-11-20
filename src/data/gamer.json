@@ -37,8 +37,8 @@
   ],
   "lock": {
     "cta": { "en": "Press start to unlock my IDs", "es": "Pulsa start para desbloquear mis IDs" },
-    "hint": { "en": "Enter the code with your keyboard or the pad.", "es": "Introduce el código con el teclado o el mando." },
     "won": { "en": "Player 2 unlocked", "es": "Player 2 desbloqueado" },
-    "reset": { "en": "Reset", "es": "Reiniciar" }
+    "hide": { "en": "Hide", "es": "Ocultar" },
+    "close": { "en": "Close", "es": "Cerrar" }
   }
 }

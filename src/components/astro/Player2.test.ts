@@ -40,11 +40,14 @@ describe('Player2.astro', () => {
 })
 
 describe('Player2.astro Konami lock', () => {
-  it('renders the locked pad with the code, six keys and the unlock script', async () => {
+  it('renders the start button, a hint-free popup pad with six keys and the unlock script', async () => {
     const html = await render('en')
     expect(html).toContain('data-p2-lock')
     expect(html).toContain('Press start to unlock my IDs')
     expect(html.match(/data-p2-key="/g)).toHaveLength(6)
+    expect(html).toMatch(/<dialog[^>]*data-p2-pad/)
+    expect(html).not.toContain('Enter the code')
+    expect(html).toContain('data-p2-hide')
     expect(html).toContain('src="/js/player2.js"')
   })
 
