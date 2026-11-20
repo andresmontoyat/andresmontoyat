@@ -236,7 +236,7 @@ function MobileMenu({
       role="dialog"
       aria-modal="true"
       aria-hidden={!open}
-      className={`fixed inset-0 z-100 bg-ink-950/95 transition-opacity duration-200 md:hidden ${open ? 'opacity-100' : 'opacity-0 pointer-events-none invisible'}`}
+      className={`fixed inset-0 z-100 bg-ink-950/95 backdrop-blur-md transition-opacity duration-200 md:hidden ${open ? 'opacity-100' : 'opacity-0 pointer-events-none invisible'}`}
     >
       <button
         type="button"
