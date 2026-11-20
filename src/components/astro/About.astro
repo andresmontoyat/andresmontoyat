@@ -26,7 +26,7 @@ const { facts } = data
 const exp = facts.find((f) => f.id === 'exp')
 const rest = facts.filter((f) => f.id !== 'exp')
 ---
-<section id="about" class="py-20">
+<section id="about" class="py-14 md:py-20">
   <div class="max-w-6xl mx-auto px-6">
     <div class="font-pixel text-[10px] uppercase tracking-[1px] text-accent flex items-center gap-3 mb-4">
       <span class="block w-10 h-0.5 bg-accent" /> {pick(data.label, locale)}

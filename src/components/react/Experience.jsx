@@ -278,7 +278,7 @@ export default function Experience({ locale }) {
     : visibleEntries.filter((e) => !isDimmed(e)).length
 
   return (
-    <section id="experience" className="py-20">
+    <section id="experience" className="py-14 md:py-20">
       <div className="max-w-6xl mx-auto px-6">
         <div className="font-pixel text-[10px] uppercase tracking-[1px] text-accent flex items-center gap-3 mb-4">
           <span className="block w-10 h-0.5 bg-accent" /> {pick(data.label, lang)}
