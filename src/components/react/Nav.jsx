@@ -14,7 +14,8 @@ const NAV_ITEMS = [
   { id: 'claude-code', labelKey: 'ai' },
   { id: 'contact',     labelKey: 'contact' },
 ]
-const SECTION_IDS = NAV_ITEMS.map((item) => item.id)
+// 'hero' has no nav item: spying it clears the highlight when scrolling back to the top.
+const SECTION_IDS = ['hero', ...NAV_ITEMS.map((item) => item.id)]
 
 export default function Nav({
   locale, hrefEn, hrefEs, hrefGame,

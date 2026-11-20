@@ -31,7 +31,7 @@ const decks = data.categories.map((c) => ({
   id: c.id, symbol: c.symbol, title: pick(c.title, locale), short: pick(c.short, locale), cards: sortChips(c.chips),
 }))
 ---
-<section id="skills" class="sd py-20" data-ui={JSON.stringify(ui)} data-combos={JSON.stringify(localCombos)}>
+<section id="skills" class="sd py-14 md:py-20" data-ui={JSON.stringify(ui)} data-combos={JSON.stringify(localCombos)}>
   <div class="max-w-6xl mx-auto px-6">
     <div class="font-pixel text-[10px] uppercase tracking-[1px] text-accent flex items-center gap-3 mb-4">
       <span class="block w-10 h-0.5 bg-accent" /> {pick(data.label, locale)}
