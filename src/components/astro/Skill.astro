@@ -126,7 +126,9 @@ const decks = data.categories.map((c) => ({
       </div>
     </div>
   </div>
-  <p class="sd-foot max-w-6xl mx-auto px-6">{ui.foot}</p>
+  <p class="sd-foot max-w-6xl mx-auto px-6">
+    <span class="sd-foot-desk">{ui.foot}</span><span class="sd-foot-touch">{ui.footTouch}</span>
+  </p>
 </section>
 
 <script src="../../scripts/skill-decks.js"></script>
@@ -147,7 +149,10 @@ const decks = data.categories.map((c) => ({
   .sd-deck.spread { z-index: 5 }
   .sd-slot { position: absolute; inset: 0; perspective: 900px; width: 200px; height: 290px;
     transform: translate(var(--tx, 0px), calc(var(--ty, 0px) + var(--lift, 0px))) rotate(var(--r, 0deg));
-    transition: transform .5s cubic-bezier(.2,.8,.2,1), opacity .3s; will-change: transform }
+    transition: transform .5s cubic-bezier(.2,.8,.2,1), opacity .3s, visibility 0s }
+  /* Cards buried under the pile: faded out, then dropped from paint (visibility waits for the fade). */
+  .sd-slot.gone { visibility: hidden; transition: transform .5s cubic-bezier(.2,.8,.2,1), opacity .3s, visibility 0s .3s }
+  .sd-slot.held, .sd-slot.flying { will-change: transform }
   .sd-slot.is-top { cursor: grab }
   .sd-slot.held { transition: none; cursor: grabbing; z-index: 200 !important }
   .sd-slot.flying { transition: transform .38s cubic-bezier(.3,.6,.4,1), opacity .38s }
@@ -190,6 +195,8 @@ const decks = data.categories.map((c) => ({
   .sd-pips { display: flex; gap: 3px; margin-top: 8px }
   .sd-pips span { flex: 1; height: 5px; border-radius: 2px; background: var(--border) }
   .sd-pips span.on { background: var(--c) }
+  .sd-glare, .sd-holo { display: none }
+  .sd-slot.lift .sd-glare, .sd-slot.lift .sd-holo { display: block }
   .sd-glare { position: absolute; inset: 0; pointer-events: none; opacity: var(--o); mix-blend-mode: soft-light;
     background: radial-gradient(circle at var(--mx) var(--my), rgba(255,255,255,.55), transparent 45%) }
   .sd-holo { position: absolute; inset: 0; pointer-events: none; opacity: calc(var(--o) * .75); mix-blend-mode: color-dodge;
@@ -201,11 +208,17 @@ const decks = data.categories.map((c) => ({
   .sd-note { display: block; margin-top: 10px; font-size: 13px; color: var(--muted); line-height: 1.5 }
   .sd-back .sd-stat { grid-row: 3 }
 
-  .sd-slot.t-legendary .sd-front { border: 2px solid transparent; background:
-    linear-gradient(160deg, color-mix(in srgb, var(--c) 18%, var(--surface)), var(--surface) 55%) padding-box,
-    conic-gradient(from var(--sd-spin, 0deg), var(--c), #ffe66e, #ff6ec7, #6ec5ff, var(--c)) border-box; animation: sd-spin 4s linear infinite }
-  @property --sd-spin { syntax: '<angle>'; inherits: false; initial-value: 0deg }
-  @keyframes sd-spin { to { --sd-spin: 360deg } }
+  /* Legendary ring: an oversized conic square spins behind a 2px-inset card face. Spinning it with
+     transform keeps the animation on the compositor; animating the gradient angle repainted the card
+     every frame. */
+  .sd-slot.t-legendary .sd-front { border: 0; padding: 18px; background: none; isolation: isolate }
+  .sd-slot.t-legendary .sd-front::before, .sd-slot.t-legendary .sd-front::after { content: ''; position: absolute; z-index: -1 }
+  .sd-slot.t-legendary .sd-front::before { left: 50%; top: 50%; width: 400px; height: 400px; margin: -200px 0 0 -200px;
+    background: conic-gradient(var(--c), #ffe66e, #ff6ec7, #6ec5ff, var(--c)); animation: sd-ring 4s linear infinite }
+  .sd-slot.t-legendary .sd-front::after { inset: 2px; border-radius: 16px;
+    background: linear-gradient(160deg, color-mix(in srgb, var(--c) 18%, var(--surface)), var(--surface) 55%) }
+  .sd-away .sd-front::before, .sd-slot.gone .sd-front::before, .sd-slot.flipped .sd-front::before { animation-play-state: paused }
+  @keyframes sd-ring { to { transform: rotate(360deg) } }
   .sd-slot.t-epic .sd-front { box-shadow: 0 0 0 2px color-mix(in srgb, var(--c) 55%, transparent), 0 18px 40px -18px var(--c) }
   .sd-slot.t-rare .sd-art { border-color: color-mix(in srgb, var(--c) 50%, var(--border)) }
   .sd-slot.held .sd-card { scale: 1.06 }
@@ -239,7 +252,10 @@ const decks = data.categories.map((c) => ({
   .sd-can li::marker { color: var(--accent) }
   .sd-combo button { justify-self: start; margin-top: 4px; font: 11px var(--mono); min-height: 28px; padding: 2px 10px; border-radius: 8px; border: 1px solid var(--border); background: transparent; color: var(--muted); cursor: pointer }
   .sd-foot { text-align: center; font: 12px var(--mono); color: var(--muted); margin-top: 10px }
-  @media (max-width: 720px) { .sd-zone { grid-template-columns: repeat(3, minmax(0, 1fr)) } .sd-combo { grid-column: 1 / -1 } }
+  .sd-foot-touch { display: none }
+  /* Dragging a card into the hand is fiddly on a phone: the hand goes away and a tap flips instead.
+     Keep this breakpoint in sync with SMALL in skill-decks.js. */
+  @media (max-width: 720px) { .sd-hand, .sd-foot-desk { display: none } .sd-foot-touch { display: inline } }
 
   /* Without scripting the decks lay out as open columns: every name readable, no dead controls. */
   @media (scripting: none) {
@@ -252,6 +268,6 @@ const decks = data.categories.map((c) => ({
   @media (prefers-reduced-motion: reduce) {
     .sd-card, .sd-slot { transition: none !important }
     .sd-holo, .sd-glare { display: none }
-    .sd-slot.t-legendary .sd-front, .sd-spot.full, .sd-nudge .sd-slot.is-top, .sd-slot.sd-hit .sd-front { animation: none }
+    .sd-slot.t-legendary .sd-front::before, .sd-spot.full, .sd-nudge .sd-slot.is-top, .sd-slot.sd-hit .sd-front { animation: none }
   }
 </style>

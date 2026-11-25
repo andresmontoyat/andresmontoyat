@@ -7,7 +7,15 @@ import {
 
 const root = document.getElementById('skills')
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches
+// Below this width the hand is hidden (Skill.astro): a tap flips the card instead of adding it.
+const small = matchMedia('(max-width: 720px)')
 
+
+// The legendary border spins forever; off screen it would keep repainting for nobody.
+function pauseOffscreen(section) {
+  if (!('IntersectionObserver' in window)) return
+  new IntersectionObserver(([en]) => section.classList.toggle('sd-away', !en.isIntersecting)).observe(section)
+}
 
 function init(section) {
   const t = JSON.parse(section.dataset.ui)
@@ -24,6 +32,7 @@ function init(section) {
   openBtn.addEventListener('click', () => toggleOpen(ctx, openBtn, hint, decks))
   document.addEventListener('click', (e) => decks.forEach((d) => d.closeFanOutside(e.target)))
   drawHand(ctx, comboEl, combos)
+  pauseOffscreen(section)
   // The career log's grep / blame: surface the matching cards and report how many were found.
   document.addEventListener('skills:highlight', (e) => {
     e.detail.hits += decks.reduce((n, d) => n + d.highlight(e.detail.tech), 0)
@@ -35,7 +44,8 @@ function toggleOpen(ctx, btn, hint, decks) {
   ctx.table.classList.toggle('open', on)
   btn.setAttribute('aria-pressed', String(on))
   btn.textContent = on ? ctx.t.closeAll : ctx.t.openAll
-  hint.textContent = on ? ctx.t.openHint : ''
+  const openHint = small.matches ? ctx.t.openHintTouch : ctx.t.openHint
+  hint.textContent = on ? openHint : ''
   decks.forEach((d) => d.relayout())
 }
 
@@ -45,17 +55,32 @@ const pose = (sl, p) => {
   sl.style.setProperty('--r', `${p.r}deg`)
   sl.style.zIndex = String(p.z ?? sl.style.zIndex)
   sl.style.opacity = p.hidden ? '0' : '1'
+  sl.classList.toggle('gone', !!p.hidden)
+}
+
+// Coalesces pointer events to one write per frame: pointermove can fire 2-4x per frame on touch.
+const perFrame = (fn) => {
+  let id = 0
+  let last = null
+  const run = (e) => {
+    last = e
+    if (!id) id = requestAnimationFrame(() => { id = 0; fn(last) })
+  }
+  run.cancel = () => { cancelAnimationFrame(id); id = 0 }
+  return run
 }
 
 const cardOf = (sl, el) => ({
   name: sl.dataset.name, years: Number(sl.dataset.years), cat: el.dataset.cat, catName: el.dataset.name,
 })
 
+// Mouse only: on touch the finger hides the effect and the tilt would fight the drag.
 function tilt(sl) {
   const card = sl.firstElementChild
-  sl.addEventListener('pointermove', (e) => {
-    if (reduce || sl.classList.contains('held') || sl.classList.contains('flipped')) return
-    const r = sl.getBoundingClientRect()
+  let r = null
+  sl.addEventListener('pointerenter', (e) => { r = e.pointerType === 'mouse' ? sl.getBoundingClientRect() : null })
+  sl.addEventListener('pointermove', perFrame((e) => {
+    if (!r || reduce || sl.classList.contains('held') || sl.classList.contains('flipped')) return
     const px = (e.clientX - r.left) / r.width
     const py = (e.clientY - r.top) / r.height
     sl.classList.add('lift')
@@ -64,8 +89,9 @@ function tilt(sl) {
     card.style.setProperty('--mx', `${px * 100}%`)
     card.style.setProperty('--my', `${py * 100}%`)
     card.style.setProperty('--o', '1')
-  })
+  }))
   sl.addEventListener('pointerleave', () => {
+    r = null
     sl.classList.remove('lift')
     card.style.setProperty('--rx', '0deg')
     card.style.setProperty('--ry', '0deg')
@@ -165,7 +191,8 @@ function deck(el, n, ctx) {
   pile.addEventListener('click', (e) => {
     const sl = e.target.closest('.sd-slot')
     if (!sl) return
-    if (ctx.isOpen()) ctx.add(cardOf(sl, el))
+    if (ctx.isOpen() && small.matches) sl.classList.toggle('flipped')
+    else if (ctx.isOpen()) ctx.add(cardOf(sl, el))
     else if (s.spread) bring(sl)
     else if (!ctx.state.moved && sl === s.order[0]) flipTop()
   })
@@ -192,10 +219,7 @@ function deck(el, n, ctx) {
   }
 }
 
-const overZone = (zone, x, y) => {
-  const r = zone.getBoundingClientRect()
-  return x >= r.left && x <= r.right && y >= r.top && y <= r.bottom
-}
+const inside = (r, x, y) => r.width > 0 && x >= r.left && x <= r.right && y >= r.top && y <= r.bottom
 
 function drag(e, { el, s, ctx, layout, fling }) {
   if (s.spread || ctx.isOpen()) return
@@ -204,24 +228,29 @@ function drag(e, { el, s, ctx, layout, fling }) {
   el.classList.remove('sd-nudge')
   const g = { sx: e.clientX, sy: e.clientY, dx: 0, dy: 0, lx: e.clientX, ly: e.clientY, vx: 0, vy: 0, lt: performance.now() }
   ctx.state.moved = false
+  const zr = ctx.zone.getBoundingClientRect()
   top.setPointerCapture(e.pointerId)
   top.classList.add('held')
+  const paint = perFrame(() => {
+    pose(top, { tx: g.dx, ty: g.dy, r: g.dx / 10 + g.vx * 8 })
+    ctx.zone.classList.toggle('over', inside(zr, g.lx, g.ly))
+  })
   const move = (ev) => {
     const now = performance.now()
     const dt = Math.max(1, now - g.lt)
     Object.assign(g, { vx: (ev.clientX - g.lx) / dt, vy: (ev.clientY - g.ly) / dt, lx: ev.clientX, ly: ev.clientY, lt: now })
     Object.assign(g, { dx: ev.clientX - g.sx, dy: ev.clientY - g.sy })
     if (Math.hypot(g.dx, g.dy) > 6) ctx.state.moved = true
-    pose(top, { tx: g.dx, ty: g.dy, r: g.dx / 10 + g.vx * 8 })
-    ctx.zone.classList.toggle('over', overZone(ctx.zone, ev.clientX, ev.clientY))
+    paint()
   }
   const up = () => {
     top.removeEventListener('pointermove', move)
     top.removeEventListener('pointerup', up)
     top.removeEventListener('pointercancel', up)
+    paint.cancel()
     top.classList.remove('held')
     ctx.zone.classList.remove('over')
-    if (ctx.state.moved && overZone(ctx.zone, g.lx, g.ly)) { ctx.add(cardOf(top, el)); layout() }
+    if (ctx.state.moved && inside(zr, g.lx, g.ly)) { ctx.add(cardOf(top, el)); layout() }
     else if (Math.hypot(g.dx, g.dy) > 80 || Math.hypot(g.vx, g.vy) > 0.6) fling(top, g.dx || g.vx, g.dy || g.vy)
     else layout()
     setTimeout(() => { ctx.state.moved = false }, 0)
