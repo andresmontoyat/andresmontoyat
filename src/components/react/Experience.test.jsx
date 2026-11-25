@@ -30,7 +30,7 @@ describe('Experience island — timeline', () => {
     renderExp('en')
     const cards = document.querySelectorAll('[data-variant]')
     expect(cards.length).toBe(visible.length)
-    expect(cards.length).toBe(11)
+    expect(cards.length).toBe(12)
   })
 
   it('keeps the accessible timeline as the default (a known company renders)', () => {
@@ -67,7 +67,7 @@ describe('Experience island — timeline', () => {
 
   it('shows the Active badge on a present role', () => {
     renderExp('en')
-    // soldife-2026 date is "… — Present" → featured active card
+    // intermedia-2026 date is "… — Present" → featured active card
     expect(screen.getByText('Active')).toBeInTheDocument()
   })
 })

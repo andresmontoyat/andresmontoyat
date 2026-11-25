@@ -44,16 +44,16 @@ describe('buildJobs', () => {
   it('should keep visible entries only, newest first', () => {
     const visible = experience.entries.filter((e) => e.visible !== false)
     expect(jobs).toHaveLength(visible.length)
-    expect(jobs[0].co).toBe('Soldife')
+    expect(jobs[0].co).toBe('Intermedia')
     expect(jobs.at(-1).id).toBe('castor')
     expect(jobs.some((j) => j.co === 'CODERIO')).toBe(false)
   })
 
   it('should localize title, date, metric and bullets', () => {
-    expect(jobs[0].d).toBe('May 2026 — Presente')
-    expect(jobsFor('en')[0].d).toBe('May 2026 — Present')
-    expect(jobs[0].m).toBe('8 personas a cargo · 3 frontend, 3 backend, 2 QA')
-    expect(jobsFor('en')[0].b[0]).toMatch(/^Lead an 8-person team/)
+    expect(jobs[0].d).toBe('Ago 2026 — Presente')
+    expect(jobsFor('en')[0].d).toBe('Aug 2026 — Present')
+    expect(jobs[1].m).toBe('8 personas a cargo · 3 frontend, 3 backend, 2 QA')
+    expect(jobsFor('en')[1].b[0]).toMatch(/^Lead an 8-person team/)
   })
 
   it('should flag leadership roles', () => {
@@ -109,7 +109,7 @@ describe('queries', () => {
     const b = blame(jobs, 'rabbitmq')
     expect(b.first.id).toBe('software')
     expect(b.tech).toBe('RabbitMQ')
-    expect(b.hits.at(-1).id).toBe('soldife')
+    expect(b.hits.at(-1).id).toBe('intermedia')
   })
 })
 
@@ -142,7 +142,7 @@ describe('dispatch', () => {
     const res = run('git log')
     expect(res.typed).toBe(true)
     expect(res.lines).toHaveLength(jobs.length)
-    expect(res.lines[0][0].run).toBe('git show soldife')
+    expect(res.lines[0][0].run).toBe('git show intermedia')
   })
 
   it('should keep only leadership roles with --lead', () => {
@@ -158,7 +158,7 @@ describe('dispatch', () => {
   })
 
   it('should mark HEAD on the newest commit', () => {
-    expect(flat(run('git show soldife'))).toContain('(HEAD → main)')
+    expect(flat(run('git show intermedia'))).toContain('(HEAD → main)')
   })
 
   it('should fail politely on an unknown company', () => {

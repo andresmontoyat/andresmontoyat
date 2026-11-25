@@ -46,7 +46,7 @@ describe('About.astro (Container API coverage-parity spot-check — D-07)', () =
     expect(result).toContain('Languages')
     expect(result).toContain('Work mode')
     expect(result).toContain('Medellín, CO')
-    expect(result).toContain('Solution Architect @ Soldife')
+    expect(result).toContain('Senior Backend Engineer @ Intermedia')
     // Container API renderToString() never runs client JS, so the Experience
     // value renders as the settled static string regardless of count-up
     // wiring (D-03 re-adds count-up; this assertion is unaffected by it).

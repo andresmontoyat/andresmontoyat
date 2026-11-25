@@ -27,6 +27,38 @@
   },
   "entries": [
     {
+      "id": "intermedia-2026",
+      "visible": true,
+      "featured": true,
+      "date": { "en": "Aug 2026 — Present", "es": "Ago 2026 — Presente" },
+      "title": { "en": "Senior Backend Engineer", "es": "Ingeniero Backend Senior" },
+      "company": "Intermedia",
+      "location": { "en": "Remote", "es": "Remoto" },
+      "bullets": {
+        "en": [
+          "Build, with the team, the backend of a regulated electronic payment funds institution in Mexico: a Java microservices ecosystem where every module answers to a business functional spec, including a general ledger, an in-house workflow engine with business modules such as balances, and e-signatures, customer files and contracts.",
+          "SPEI deposits: transfer intake and validation, the operation folio, evidence stored in PostgreSQL before validation and the hand-off to the workflow engine over RabbitMQ. Refunds run with no database of their own: Valkey with TTL controls idempotency and in-flight operations.",
+          "Catalogs as a service plus a shared SDK: notification templates with variables declared by migration, dual authorization with no self-approval, a restricted template engine with error diagnostics and an OpenAPI contract for the portal frontend.",
+          "Redesigned notifications end to end: whoever originates a notice builds it, and the service validates, delivers, retries, audits and alerts. Migrated the contract to v3 with expand/contract and side-by-side versions, leaving the architecture open to SMS and push without exposing them in the contract.",
+          "Identity and security by design: Keycloak realms and machine-to-machine clients with custom extensions, authorization bound to the token's client and realm, one service account per consumer, scope-based authorization, encryption at rest, sensitive-data purging and hashed API keys for external systems.",
+          "Hexagonal architecture with boundaries verified by ArchUnit and transactions through a port, never in the use case; transactional outbox with FOR UPDATE SKIP LOCKED and retries that tell transient errors from permanent ones; every significant decision in an ADR, and old APIs retired consumer by consumer with no hard cutover.",
+          "Spec-Driven Development: every acceptance criterion in the external functional spec has a row in the traceability matrix with its code, test and observable signal, and a verdict (covered, covered but inert, open with owner and evidence, pending QA); each spec revision's delta becomes tasks.",
+          "End-to-end environment on docker-compose that brings up the whole platform with a core-banking simulator and runs the full suite; TDD, Testcontainers with real databases and queues, and independent review before every merge."
+        ],
+        "es": [
+          "Construyo con el equipo el backend de una institución de fondos de pago electrónico regulada en México: un ecosistema de microservicios Java donde cada módulo responde a un documento funcional del negocio, con libro mayor, un motor de flujos de trabajo propio con módulos como el de saldos, y firmas electrónicas, expediente y contratos de clientes.",
+          "Abonos SPEI: recepción y validación de transferencias, el folio de operación, la evidencia guardada en PostgreSQL antes de validar y la integración con el motor de flujos por RabbitMQ. Las devoluciones van sin base de datos propia: Valkey con TTL controla la idempotencia y las operaciones en curso.",
+          "Catálogos como servicio y SDK compartido: plantillas de notificación con variables declaradas por migración, doble autorización sin autoaprobación, motor de plantillas restringido con diagnósticos de error y contrato OpenAPI para el front del portal.",
+          "Rediseñé las notificaciones de punta a punta: quien origina el aviso lo arma, y el servicio valida, entrega, reintenta, audita y alerta. Migré el contrato a v3 con expand/contract y convivencia de versiones, con la arquitectura abierta a SMS y push sin exponerlo en el contrato.",
+          "Identidad y seguridad desde el diseño: realms y clientes m2m en Keycloak con extensiones propias, autorización atada al cliente y al realm del token, una cuenta de servicio por consumidor, autorización por scopes, cifrado en reposo, purga de datos sensibles y API key con hash para sistemas externos.",
+          "Arquitectura hexagonal con fronteras que verifica ArchUnit y transacciones por puerto, nunca en el caso de uso; outbox transaccional con FOR UPDATE SKIP LOCKED y reintentos que distinguen errores transitorios de definitivos; cada decisión significativa en un ADR, y las APIs viejas se retiran consumidor por consumidor, sin corte abrupto.",
+          "Spec-Driven Development: cada criterio de aceptación del funcional externo tiene su fila en la matriz de trazabilidad, con su código, su prueba y su señal observable, y un veredicto (cubierto, cubierto pero inerte, abierto con dueño y evidencia, pendiente de QA); el delta entre versiones del funcional se convierte en tareas.",
+          "Entorno e2e con docker-compose que levanta la plataforma completa con un simulador del core bancario y corre la suite de punta a punta; TDD, Testcontainers con bases y colas reales y revisión independiente antes de cada merge."
+        ]
+      },
+      "tech": ["Java", "PostgreSQL", "RabbitMQ", "Valkey", "Keycloak", "SPEI", "Microservices", "Hexagonal Architecture", "ArchUnit", "Transactional Outbox", "OpenAPI", "Testcontainers", "Docker Compose"]
+    },
+    {
       "id": "soldife-2026",
       "visible": true,
       "featured": true,
@@ -37,7 +69,7 @@
           "es": "personas a cargo · 3 frontend, 3 backend, 2 QA"
         }
       },
-      "date": { "en": "May 2026 — Present", "es": "May 2026 — Presente" },
+      "date": { "en": "May 2026 — Aug 2026", "es": "May 2026 — Ago 2026" },
       "title": { "en": "Solution Architect & Tech Lead", "es": "Arquitecto de Soluciones & Tech Lead" },
       "company": "Soldife",
       "location": { "en": "Remote", "es": "Remoto" },
