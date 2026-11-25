@@ -412,6 +412,14 @@
     "foot": {
       "en": "fling the top card · drop it in your hand to build a combo · tap to flip · ◠ fans out · ⇄ shuffles · ← → on the keyboard",
       "es": "lanza la carta de arriba · suéltala en tu mano para armar un combo · toca para girarla · ◠ abre el abanico · ⇄ baraja · ← → en el teclado"
+    },
+    "footTouch": {
+      "en": "swipe the top card · tap to flip · ◠ fans out · ⇄ shuffles",
+      "es": "desliza la carta de arriba · toca para girarla · ◠ abre el abanico · ⇄ baraja"
+    },
+    "openHintTouch": {
+      "en": "tap a card to flip it",
+      "es": "toca una carta para girarla"
     }
   }
 }

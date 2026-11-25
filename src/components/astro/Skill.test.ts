@@ -8,6 +8,7 @@
 // established in Phase 21) — renderToString() output is plain HTML text,
 // no DOM APIs needed.
 import { experimental_AstroContainer as AstroContainer } from 'astro/container'
+import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
 import Skill from './Skill.astro'
 import data from '../../data/skills.json'
@@ -155,5 +156,13 @@ describe('Skill.astro (Container API parity — D-01/D-06)', () => {
       for (const b of s.builds) expect(b.en && b.es).toBeTruthy()
     }
     for (const g of combos.byCategory) expect(g.cats.every((c) => ids.includes(c))).toBe(true)
+  })
+
+  it('ships a touch-only footer without the hand, and hides the hand on small screens', async () => {
+    const result = await renderSkill('es')
+    expect(result).toContain('sd-foot-touch')
+    expect(result).toContain(data.decks.footTouch.es)
+    const source = readFileSync(new URL('./Skill.astro', import.meta.url), 'utf8')
+    expect(source).toMatch(/@media \(max-width: 720px\) \{ \.sd-hand, \.sd-foot-desk \{ display: none \}/)
   })
 })
