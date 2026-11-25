@@ -33,7 +33,7 @@
     "map:import": "node scripts/import-map.mjs",
     "map:compose": "node scripts/compose-map.mjs",
     "hero:process": "node scripts/process-hero-photo.js",
-    "cv:gen": "node scripts/generate-cv.mjs"
+    "cv:gen": "node scripts/generate-cv.mjs && node scripts/generate-cv-docx.mjs"
   },
   "devDependencies": {
     "@playwright/test": "^1.60.0",

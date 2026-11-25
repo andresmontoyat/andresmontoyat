@@ -11,13 +11,14 @@ const about = read('about.json')
 const contact = read('contact.json')
 const projects = read('projects.json')
 
-const pick = (f, lang) => (typeof f === 'string' ? f : f?.[lang] ?? f?.en ?? '')
-const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-const card = (id) => contact.cards.find((c) => c.id === id)
+export const pick = (f, lang) => (typeof f === 'string' ? f : f?.[lang] ?? f?.en ?? '')
+export const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+export const card = (id) => contact.cards.find((c) => c.id === id)
+export { exp, skills, about, projects }
 
 const photoUri = `data:image/webp;base64,${readFileSync(join(root, 'public/me-400.webp')).toString('base64')}`
 
-const STR = {
+export const STR = {
   en: {
     title: 'Java Solution Architect & Tech Lead',
     stack: 'Core stack',
@@ -36,7 +37,7 @@ const STR = {
   },
 }
 
-const cleanHost = (u) => String(u).replace(/^https?:\/\//, '').replace(/\/$/, '')
+export const cleanHost = (u) => String(u).replace(/^https?:\/\//, '').replace(/\/$/, '')
 
 export function buildHtml(lang) {
   const s = STR[lang]
