@@ -7,7 +7,7 @@ import {
 
 const root = document.getElementById('skills')
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches
-// Below this width the hand is hidden (Skill.astro): a tap flips the card instead of adding it.
+// Below this width the hand and the open-all button are hidden (Skill.astro): the decks stay stacked.
 const small = matchMedia('(max-width: 720px)')
 
 
@@ -30,6 +30,8 @@ function init(section) {
   ctx.add = (card) => { state.hand = addCard(state.hand, card); drawHand(ctx, comboEl, combos) }
   const decks = [...table.querySelectorAll('.sd-deck')].map((el, n) => deck(el, n, ctx))
   openBtn.addEventListener('click', () => toggleOpen(ctx, openBtn, hint, decks))
+  // Opened on a wide window, then narrowed: the button that would close them is gone, so close them.
+  small.addEventListener('change', () => { if (small.matches && ctx.isOpen()) toggleOpen(ctx, openBtn, hint, decks) })
   document.addEventListener('click', (e) => decks.forEach((d) => d.closeFanOutside(e.target)))
   drawHand(ctx, comboEl, combos)
   pauseOffscreen(section)
@@ -44,8 +46,7 @@ function toggleOpen(ctx, btn, hint, decks) {
   ctx.table.classList.toggle('open', on)
   btn.setAttribute('aria-pressed', String(on))
   btn.textContent = on ? ctx.t.closeAll : ctx.t.openAll
-  const openHint = small.matches ? ctx.t.openHintTouch : ctx.t.openHint
-  hint.textContent = on ? openHint : ''
+  hint.textContent = on ? ctx.t.openHint : ''
   decks.forEach((d) => d.relayout())
 }
 
@@ -191,8 +192,7 @@ function deck(el, n, ctx) {
   pile.addEventListener('click', (e) => {
     const sl = e.target.closest('.sd-slot')
     if (!sl) return
-    if (ctx.isOpen() && small.matches) sl.classList.toggle('flipped')
-    else if (ctx.isOpen()) ctx.add(cardOf(sl, el))
+    if (ctx.isOpen()) ctx.add(cardOf(sl, el))
     else if (s.spread) bring(sl)
     else if (!ctx.state.moved && sl === s.order[0]) flipTop()
   })

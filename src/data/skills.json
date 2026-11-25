@@ -416,10 +416,6 @@
     "footTouch": {
       "en": "swipe the top card · tap to flip · ◠ fans out · ⇄ shuffles",
       "es": "desliza la carta de arriba · toca para girarla · ◠ abre el abanico · ⇄ baraja"
-    },
-    "openHintTouch": {
-      "en": "tap a card to flip it",
-      "es": "toca una carta para girarla"
     }
   }
 }
