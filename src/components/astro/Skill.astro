@@ -253,9 +253,9 @@ const decks = data.categories.map((c) => ({
   .sd-combo button { justify-self: start; margin-top: 4px; font: 11px var(--mono); min-height: 28px; padding: 2px 10px; border-radius: 8px; border: 1px solid var(--border); background: transparent; color: var(--muted); cursor: pointer }
   .sd-foot { text-align: center; font: 12px var(--mono); color: var(--muted); margin-top: 10px }
   .sd-foot-touch { display: none }
-  /* Dragging a card into the hand is fiddly on a phone: the hand goes away and a tap flips instead.
-     Keep this breakpoint in sync with SMALL in skill-decks.js. */
-  @media (max-width: 720px) { .sd-hand, .sd-foot-desk { display: none } .sd-foot-touch { display: inline } }
+  /* On a phone dragging into the hand is fiddly and thirty open cards make a very long scroll: both go,
+     the decks stay stacked. Keep this breakpoint in sync with `small` in skill-decks.js. */
+  @media (max-width: 720px) { .sd-tools, .sd-hand, .sd-foot-desk { display: none } .sd-foot-touch { display: inline } }
 
   /* Without scripting the decks lay out as open columns: every name readable, no dead controls. */
   @media (scripting: none) {
