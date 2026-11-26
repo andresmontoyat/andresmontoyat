@@ -123,3 +123,9 @@ adopted; the house it belongs to then lets the player walk in instead of showing
   `npm run map:import` then `npm run assets:pack`. They write `src/data/interiors/<id>.json`,
   `<id>.atlas.json`, `interiors/<id>.manifest.json` and `public/game/interiors/<id>.png`; commit all
   of them. Removing the map file and re-running both closes the house and deletes its files.
+
+## Tag vocabulary for the editor
+
+`career.vocab.json` lists the tag kinds and values this game understands (door ids, interior `read`
+bounds), so the editor can suggest and lint them. Run `npm run map:vocab` after editing
+`src/data/experience.json`, then reload the file in the editor. A test fails if it is stale.

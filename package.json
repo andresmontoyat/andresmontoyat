@@ -32,6 +32,7 @@
     "map:migrate": "node scripts/migrate-map-v2.mjs",
     "map:import": "node scripts/import-map.mjs",
     "map:compose": "node scripts/compose-map.mjs",
+    "map:vocab": "node scripts/export-vocab.mjs",
     "hero:process": "node scripts/process-hero-photo.js",
     "cv:gen": "node scripts/generate-cv.mjs && node scripts/generate-cv-docx.mjs"
   },

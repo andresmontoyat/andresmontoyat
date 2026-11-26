@@ -1,0 +1,87 @@
+{
+  "vocabVersion": 1,
+  "consumer": "career-world",
+  "overworld": {
+    "door": {
+      "values": [
+        "blerify-2023",
+        "ceiba-2009",
+        "f2x-2024",
+        "integral-2016",
+        "intermedia-2026",
+        "klever-2020",
+        "mercurio-2007",
+        "path-2010",
+        "software-estrategico-2015",
+        "soldife-2026",
+        "tcs-2013",
+        "tul-2022"
+      ]
+    },
+    "npc": {
+      "free": true
+    },
+    "animal": {
+      "free": true
+    },
+    "object": {
+      "free": true
+    },
+    "poi": {
+      "free": true
+    },
+    "solid": {},
+    "spawn": {}
+  },
+  "interior": {
+    "npc": {
+      "values": [
+        "host"
+      ]
+    },
+    "read": {
+      "numeric": true
+    },
+    "solid": {},
+    "spawn": {},
+    "exit": {}
+  },
+  "interiors": {
+    "blerify-2023": {
+      "reads": 4
+    },
+    "ceiba-2009": {
+      "reads": 3
+    },
+    "f2x-2024": {
+      "reads": 3
+    },
+    "integral-2016": {
+      "reads": 5
+    },
+    "intermedia-2026": {
+      "reads": 8
+    },
+    "klever-2020": {
+      "reads": 4
+    },
+    "mercurio-2007": {
+      "reads": 4
+    },
+    "path-2010": {
+      "reads": 3
+    },
+    "software-estrategico-2015": {
+      "reads": 3
+    },
+    "soldife-2026": {
+      "reads": 8
+    },
+    "tcs-2013": {
+      "reads": 4
+    },
+    "tul-2022": {
+      "reads": 4
+    }
+  }
+}
