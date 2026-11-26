@@ -25,6 +25,17 @@ beforeEach(() => {
 })
 
 describe('Nav island (Phase 22 Plan 1)', () => {
+  it.each([['en', 'Blog'], ['es', 'Blog']])('links the external blog in %s', (locale, label) => {
+    renderNav(locale)
+    const links = screen.getAllByText(label).map((el) => el.closest('a'))
+    expect(links.length).toBeGreaterThan(0)
+    links.forEach((a) => {
+      expect(a.getAttribute('href')).toBe('https://blog.andresmontoyat.dev/')
+      expect(a.getAttribute('target')).toBe('_blank')
+      expect(a.getAttribute('rel')).toBe('noopener noreferrer')
+    })
+  })
+
   it('renders the primary nav links (EN)', () => {
     renderNav('en')
     expect(screen.getAllByText('About').length).toBeGreaterThan(0)

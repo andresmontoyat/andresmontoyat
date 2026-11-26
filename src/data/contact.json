@@ -29,6 +29,15 @@
       "value": "andresmontoyat",
       "href": "https://github.com/andresmontoyat",
       "external": true
+    },
+    {
+      "id": "blog",
+      "icon": "✎",
+      "kLabel": { "en": "Blog", "es": "Blog" },
+      "cta": { "en": "Read my notes", "es": "Lee mis notas" },
+      "value": "blog.andresmontoyat.dev",
+      "href": "https://blog.andresmontoyat.dev/",
+      "external": true
     }
   ]
 }

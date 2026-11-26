@@ -49,6 +49,8 @@ describe('Contact.astro (Container API)', () => {
     expect(result).toContain('Reach out')
     expect(result).toContain('connect')
     expect(result).toContain('See code')
+    expect(result).toContain('href="https://blog.andresmontoyat.dev/"')
+    expect(result).toContain('Read my notes')
   })
 
   it('renders Spanish copy when locale is es', async () => {

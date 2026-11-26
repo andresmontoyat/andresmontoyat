@@ -15,6 +15,7 @@ const NAV_ITEMS = [
   { id: 'contact',     labelKey: 'contact' },
 ]
 // 'hero' has no nav item: spying it clears the highlight when scrolling back to the top.
+const BLOG_URL = 'https://blog.andresmontoyat.dev/'
 const SECTION_IDS = ['hero', ...NAV_ITEMS.map((item) => item.id)]
 
 export default function Nav({
@@ -93,6 +94,9 @@ function DesktopNav({ t, activeSection, hrefGame }) {
           </a>
         )
       })}
+      <a href={BLOG_URL} target="_blank" rel="noopener noreferrer" className="text-muted font-normal hover:text-brand transition-colors duration-200">
+        {t.nav.blog}
+      </a>
       {hrefGame && (
         <a
           href={hrefGame}
@@ -271,6 +275,15 @@ function MobileMenu({
             </a>
           )
         })}
+        <a
+          href={BLOG_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={onClose}
+          className="text-2xl font-extrabold text-text"
+        >
+          {t.nav.blog}
+        </a>
         {hrefGame && (
           <a
             href={hrefGame}

@@ -33,6 +33,12 @@ describe('Footer.astro (fresh Container API assertions — D-02/D-03)', () => {
     expect(result.match(/<svg/g)?.length).toBeGreaterThanOrEqual(2)
   })
 
+  it('links the blog with an accessible label', async () => {
+    const result = await renderFooter('es')
+    expect(result).toContain('href="https://blog.andresmontoyat.dev/"')
+    expect(result).toContain('aria-label="Blog"')
+  })
+
   it('renders name, location and email, with no section navigation of its own', async () => {
     const result = await renderFooter('es')
     expect(result).toContain('Carlos Andrés Montoya Tobón · Bogotá')
